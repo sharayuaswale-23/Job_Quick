@@ -77,7 +77,7 @@ const Header = () => {
               onClick={() => toggleDropdown("aiBuilder")}
               className="flex items-center gap-1 hover:text-gray-900"
             >
-              AI Tool <FaChevronDown />
+              AI Tools <FaChevronDown />
             </div>
             {activeDropdown === "aiBuilder" && (
               <ul className="absolute left-0 mt-2 bg-white shadow-lg rounded-lg w-48 text-gray-700">
