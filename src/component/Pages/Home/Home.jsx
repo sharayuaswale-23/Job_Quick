@@ -4,7 +4,7 @@ import Categories from "./Categories/Categories";
 import Rules from "./Rules/Rules";
 import TestimonialMarque from "../../Animation/TestimonialMarque/TestimonialMarque";
 import Header from "../../common/header/Header";
-import Footer from "../../common/footer/Footer";
+import Footer from "../../common/Footer/Footer";
 
 
 const Home = ()=> {
