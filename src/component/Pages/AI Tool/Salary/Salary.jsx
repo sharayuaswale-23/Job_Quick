@@ -1,7 +1,7 @@
 
 import React, { useState } from "react";
 import Header from "../../../common/header/Header";
-import Footer from "../../../common/footer/Footer";
+import Footer from "../../../common/Footer/Footer";
 // import { FaRegMoneyBillAlt } from "react-icons/fa"; // Adding an icon for the salary section
 
 const Salary = () => {
