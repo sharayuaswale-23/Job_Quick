@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Header from "../../../common/header/Header";
-import Footer from "../../../common/footer/Footer";
+import Footer from "../../../common/Footer/Footer";
 
 function ATS_Score() {
   const [resumeText, setResumeText] = useState("");

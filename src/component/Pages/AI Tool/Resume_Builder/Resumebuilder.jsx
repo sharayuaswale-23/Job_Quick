@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { jsPDF } from "jspdf";
 import Header from "../../../common/header/Header";
-import Footer from "../../../common/footer/Footer";
+import Footer from "../../../common/Footer/Footer";
 
 const ResumeBuilder = () => {
   const [personalInfo, setPersonalInfo] = useState({
