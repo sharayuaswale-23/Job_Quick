@@ -3,6 +3,7 @@ import { FaSearch, FaHeart } from "react-icons/fa";
 import Header from "../../common/header/Header";
 import Footer from "../../common/Footer/Footer";
 import SearchBox from "./SearchBox/SearchBox";
+import { Link } from "react-router-dom";
 
 const Category = () => {
   return (
@@ -71,10 +72,12 @@ const Category = () => {
     {/* Job Listings */}
     <div className="md:col-span-3 space-y-6">
       {[...Array(15)].map((_, i) => (
+        <Link to="/jobdetail">
         <div
           key={i}
           className="bg-white p-6 m-4 rounded-lg shadow-md flex flex-col md:flex-row items-start md:items-center justify-between hover:shadow-lg transition"
         >
+        
           <div className="flex items-center space-x-4 mb-4 md:mb-0">
             <img
               src="https://demoapus1.com/freeio/wp-content/uploads/2022/10/employer2.jpg"
@@ -94,7 +97,9 @@ const Category = () => {
           <button className="p-2 bg-gray-200 rounded-full hover:bg-gray-300 transition">
             <FaHeart className="text-red-500" />
           </button>
+          
         </div>
+        </Link>
       ))}
     </div>
   </div>

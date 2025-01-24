@@ -95,7 +95,7 @@ const Header = () => {
           <li className="cursor-pointer hover:text-gray-900">
           <Link to="/salary">Salary</Link></li>
           <li className="cursor-pointer hover:text-gray-900">
-          <Link to="/">Career</Link></li>
+          <Link to="/profile">Career</Link></li>
           <li className="cursor-pointer hover:text-gray-900">
           <Link to="/contact">Contact Us</Link>
           </li>
@@ -104,10 +104,10 @@ const Header = () => {
    
         <div className="hidden md:flex items-center gap-4">
           <button className="px-4 py-2 border border-gray-800 text-gray-800 rounded-lg hover:bg-gray-100">
-            Sign in
+            <Link to="/signup">Sign in</Link>
           </button>
           <button className="px-4 py-2 text-white bg-gray-800 rounded-lg hover:bg-gray-700">
-            Log in
+            <Link to="/login">Log in</Link>
           </button>
         </div>
       </div>

@@ -33,12 +33,14 @@ const ResumeBuilder = () => {
 
   const [currentSkill, setCurrentSkill] = useState("");
 
+  const [currentStep, setCurrentStep] = useState(1); // Track current step
+
   const generatePDF = () => {
     if (!personalInfo.fullName) {
       alert("Please enter your full name before generating the resume.");
       return;
     }
-    
+
     const doc = new jsPDF();
     const pageWidth = doc.internal.pageSize.getWidth();
     const pageHeight = doc.internal.pageSize.getHeight();
@@ -212,202 +214,281 @@ const ResumeBuilder = () => {
     }
   };
 
+  const nextStep = () => setCurrentStep((prevStep) => Math.min(prevStep + 1, 4));
+  const prevStep = () => setCurrentStep((prevStep) => Math.max(prevStep - 1, 1));
+
   return (
     <>
-    <Header />
-    <div className="max-w-4xl mt-20 md:mt:24 mx-auto p-6 bg-white shadow-xl rounded-lg">
-      <h1 className="text-4xl font-semibold text-center mb-8 text-gray-800">Resume Builder</h1>
+    <Header/>
+      
+      <div className="bg-gray-100 min-h-screen">
+        <div className="max-w-5xl mx-auto py-10 px-6">
+          <h1 className="text-4xl font-extrabold text-center text-gray-800 mb-8">Resume Builder</h1>
 
-      <div className="space-y-6">
-        <div className="bg-white p-6 shadow-md rounded-lg">
-          <h2 className="text-2xl font-bold mb-4">Personal Information</h2>
-          <input
-            type="text"
-            placeholder="Full Name"
-            value={personalInfo.fullName}
-            onChange={(e) => setPersonalInfo({ ...personalInfo, fullName: e.target.value })}
-            className="w-full p-3 border-2 border-gray-300 rounded-md mb-2"
-          />
-          <input
-            type="email"
-            placeholder="Email"
-            value={personalInfo.email}
-            onChange={(e) => setPersonalInfo({ ...personalInfo, email: e.target.value })}
-            className="w-full p-3 border-2 border-gray-300 rounded-md mb-2"
-          />
-          <input
-            type="text"
-            placeholder="Phone"
-            value={personalInfo.phone}
-            onChange={(e) => setPersonalInfo({ ...personalInfo, phone: e.target.value })}
-            className="w-full p-3 border-2 border-gray-300 rounded-md mb-2"
-          />
-          <input
-            type="text"
-            placeholder="Location"
-            value={personalInfo.location}
-            onChange={(e) => setPersonalInfo({ ...personalInfo, location: e.target.value })}
-            className="w-full p-3 border-2 border-gray-300 rounded-md mb-4"
-          />
-          <textarea
-            placeholder="Professional Summary"
-            value={personalInfo.summary}
-            onChange={(e) => setPersonalInfo({ ...personalInfo, summary: e.target.value })}
-            className="w-full p-3 border-2 border-gray-300 rounded-md"
-          />
-        </div>
-
-        {/* Education Section */}
-        <div className="bg-white p-6 shadow-md rounded-lg">
-          <h2 className="text-2xl font-bold mb-4">Education</h2>
-          <input
-            type="text"
-            placeholder="School"
-            value={currentEducation.school}
-            onChange={(e) => setCurrentEducation({ ...currentEducation, school: e.target.value })}
-            className="w-full p-3 border-2 border-gray-300 rounded-md mb-2"
-          />
-          <input
-            type="text"
-            placeholder="Degree"
-            value={currentEducation.degree}
-            onChange={(e) => setCurrentEducation({ ...currentEducation, degree: e.target.value })}
-            className="w-full p-3 border-2 border-gray-300 rounded-md mb-2"
-          />
-          <input
-            type="text"
-            placeholder="Major"
-            value={currentEducation.major}
-            onChange={(e) => setCurrentEducation({ ...currentEducation, major: e.target.value })}
-            className="w-full p-3 border-2 border-gray-300 rounded-md mb-2"
-          />
-          <input
-            type="text"
-            placeholder="Graduation Year"
-            value={currentEducation.graduationYear}
-            onChange={(e) => setCurrentEducation({ ...currentEducation, graduationYear: e.target.value })}
-            className="w-full p-3 border-2 border-gray-300 rounded-md mb-4"
-          />
-          <button
-            onClick={addEducation}
-            className="bg-blue-500 text-white p-3 rounded-md w-full"
-          >
-            Add Education
-          </button>
-
-          {/* Display Added Education */}
-          {education.length > 0 && (
-            <div className="mt-4">
-              <h3 className="font-bold">Added Education:</h3>
-              {education.map((edu, index) => (
-                <div key={index} className="bg-gray-100 p-4 rounded-md mb-2">
-                  {edu.school} - {edu.degree} in {edu.major} ({edu.graduationYear})
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-
-        {/* Work Experience Section */}
-        <div className="bg-white p-6 shadow-md rounded-lg">
-          <h2 className="text-2xl font-bold mb-4">Work Experience</h2>
-          <input
-            type="text"
-            placeholder="Company"
-            value={currentWork.company}
-            onChange={(e) => setCurrentWork({ ...currentWork, company: e.target.value })}
-            className="w-full p-3 border-2 border-gray-300 rounded-md mb-2"
-          />
-          <input
-            type="text"
-            placeholder="Position"
-            value={currentWork.position}
-            onChange={(e) => setCurrentWork({ ...currentWork, position: e.target.value })}
-            className="w-full p-3 border-2 border-gray-300 rounded-md mb-2"
-          />
-          <label className="block mt-2">Start Date</label>
-          <input
-            type="date"
-            value={currentWork.startDate}
-            onChange={(e) => setCurrentWork({ ...currentWork, startDate: e.target.value })}
-            className="w-full p-3 border-2 border-gray-300 rounded-md mb-2"
-          />
-          <label className="block mt-2">End Date</label>
-          <input
-            type="date"
-            value={currentWork.endDate}
-            onChange={(e) => setCurrentWork({ ...currentWork, endDate: e.target.value })}
-            className="w-full p-3 border-2 border-gray-300 rounded-md mb-2"
-          />
-          <textarea
-            placeholder="Description"
-            value={currentWork.description}
-            onChange={(e) => setCurrentWork({ ...currentWork, description: e.target.value })}
-            className="w-full p-3 border-2 border-gray-300 rounded-md mb-4"
-          ></textarea>
-          <button
-            onClick={addWorkExperience}
-            className="bg-blue-500 text-white p-3 rounded-md w-full"
-          >
-            Add Work Experience
-          </button>
-
-          {/* Display Added Work Experiences */}
-          {workExperience.length > 0 && (
-            <div className="mt-4">
-              <h3 className="font-bold">Added Work Experiences:</h3>
-              {workExperience.map((work, index) => (
-                <div key={index} className="bg-gray-100 p-4 rounded-md mb-2">
-                  {work.company} - {work.position} ({work.startDate} - {work.endDate})
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-
-        {/* Skills Section */}
-        <div className="bg-white p-6 shadow-md rounded-lg">
-          <h2 className="text-2xl font-bold mb-4">Skills</h2>
-          <input
-            type="text"
-            placeholder="Enter a skill"
-            value={currentSkill}
-            onChange={(e) => setCurrentSkill(e.target.value)}
-            className="w-full p-3 border-2 border-gray-300 rounded-md mb-4"
-          />
-          <button
-            onClick={addSkill}
-            className="bg-blue-500 text-white p-3 rounded-md w-full"
-          >
-            Add Skill
-          </button>
-
-          {/* Display Added Skills */}
-          {skills.length > 0 && (
-            <div className="mt-4">
-              <h3 className="font-bold">Added Skills:</h3>
-              <div className="flex flex-wrap">
-                {skills.map((skill, index) => (
-                  <div key={index} className="bg-gray-100 p-2 rounded-md mr-2 mb-2">
-                    {skill}
-                  </div>
-                ))}
+          {/* Step Progress Bar */}
+          <div className="flex justify-between mb-8">
+            {[1, 2, 3, 4].map((step) => (
+              <div
+                key={step}
+                className={`flex-1 text-center py-2 rounded-md text-sm font-semibold ${
+                  currentStep === step ? "bg-blue-500 text-white" : "bg-gray-300 text-gray-600"
+                }`}
+              >
+                Step {step}
               </div>
-            </div>
-          )}
-        </div>
+            ))}
+          </div>
 
-        <button
-          onClick={generatePDF}
-          className="bg-green-500 text-white p-4 rounded-lg w-full"
-        >
-          Generate PDF
-        </button>
+          <div className="bg-white shadow-lg rounded-lg p-8">
+            {/* Step Content */}
+            {currentStep === 1 && (
+              <div>
+                <h2 className="text-2xl font-semibold mb-4">Personal Information</h2>
+                <div className="grid grid-cols-1 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">Full Name</label>
+                    <input
+                      type="text"
+                      placeholder="Enter your full name"
+                      value={personalInfo.fullName}
+                      onChange={(e) => setPersonalInfo({ ...personalInfo, fullName: e.target.value })}
+                      className="w-full mt-1 p-3 border rounded-md"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">Email</label>
+                    <input
+                      type="email"
+                      placeholder="Enter your email"
+                      value={personalInfo.email}
+                      onChange={(e) => setPersonalInfo({ ...personalInfo, email: e.target.value })}
+                      className="w-full mt-1 p-3 border rounded-md"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">Phone</label>
+                    <input
+                      type="text"
+                      placeholder="Enter your phone number"
+                      value={personalInfo.phone}
+                      onChange={(e) => setPersonalInfo({ ...personalInfo, phone: e.target.value })}
+                      className="w-full mt-1 p-3 border rounded-md"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">Location</label>
+                    <input
+                      type="text"
+                      placeholder="Enter your location"
+                      value={personalInfo.location}
+                      onChange={(e) => setPersonalInfo({ ...personalInfo, location: e.target.value })}
+                      className="w-full mt-1 p-3 border rounded-md"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">Professional Summary</label>
+                    <textarea
+                      placeholder="Write a brief summary about yourself"
+                      value={personalInfo.summary}
+                      onChange={(e) => setPersonalInfo({ ...personalInfo, summary: e.target.value })}
+                      className="w-full mt-1 p-3 border rounded-md"
+                      rows="4"
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {currentStep === 2 && (
+              <div>
+                <h2 className="text-2xl font-semibold mb-4">Education</h2>
+                <div className="grid grid-cols-1 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">School</label>
+                    <input
+                       type="text"
+                        placeholder="School Name"
+                        value={currentEducation.school}
+                  onChange={(e) => setCurrentEducation({ ...currentEducation, school: e.target.value })}
+                      className="w-full mt-1 p-3 border rounded-md"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">Degree</label>
+                    <input
+                      type="text"
+                      placeholder="Degree"
+                      value={currentEducation.degree}
+                      onChange={(e) => setCurrentEducation({ ...currentEducation, degree: e.target.value })}
+                      className="w-full mt-1 p-3 border rounded-md"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">Major</label>
+                    <input
+                      type="text"
+                  placeholder="Major"
+                  value={currentEducation.major}
+                  onChange={(e) => setCurrentEducation({ ...currentEducation, major: e.target.value })}
+                      className="w-full mt-1 p-3 border rounded-md"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">Year</label>
+                    <input
+                     type="text"
+                  placeholder="Graduation Year"
+                  value={currentEducation.graduationYear}
+                  onChange={(e) => setCurrentEducation({ ...currentEducation, graduationYear: e.target.value })}
+                      className="w-full mt-1 p-3 border rounded-md"
+                    />
+                  </div>
+                  <div>
+                  <button
+                  type="button"
+                  onClick={addEducation}
+                  className="bg-blue-500 text-white px-6 py-2 rounded-md"
+                >
+                  Add Education
+                </button>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {currentStep === 3 && (
+              <div>
+                <h2 className="text-2xl font-semibold mb-4">Work Experience</h2>
+                <div className="grid grid-cols-1 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">Company Name</label>
+                    <input
+                      type="text"
+                  placeholder="Company"
+                  value={currentWork.company}
+                  onChange={(e) => setCurrentWork({ ...currentWork, company: e.target.value })}
+                      className="w-full mt-1 p-3 border rounded-md"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">Position</label>
+                    <input
+                      type="text"
+                  placeholder="Position"
+                  value={currentWork.position}
+                  onChange={(e) => setCurrentWork({ ...currentWork, position: e.target.value })}
+                  className="w-full p-3 border-2 border-gray-300 rounded-md mb-2"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">Start Date</label>
+                    <input
+                      type="date"
+                  placeholder="Start Date"
+                  value={currentWork.startDate}
+                  onChange={(e) => setCurrentWork({ ...currentWork, startDate: e.target.value })}
+                  className="w-full p-3 border-2 border-gray-300 rounded-md mb-2"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">End Date</label>
+                    <input
+                      type="date"
+                  placeholder="End Date"
+                  value={currentWork.endDate}
+                  onChange={(e) => setCurrentWork({ ...currentWork, endDate: e.target.value })}
+                      className="w-full mt-1 p-3 border rounded-md"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">Job Decription</label>
+                    <textarea
+                      placeholder="Job Description"
+                  value={currentWork.description}
+                  onChange={(e) => setCurrentWork({ ...currentWork, description: e.target.value })}
+                      className="w-full mt-1 p-3 border rounded-md"
+                      rows="4"
+                    ></textarea>
+                  </div>
+                  <div>
+                  <button
+                  type="button"
+                  onClick={addWorkExperience}
+                  className="bg-blue-500 text-white px-6 py-2 rounded-md"
+                >
+                  Add Work Experience
+                </button>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {currentStep === 4 && (
+              <div>
+                <h2 className="text-2xl font-semibold mb-4">Skills</h2>
+                <div className="grid grid-cols-1 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">Skills</label>
+                    <input
+                      type="text"
+                  placeholder="Skill"
+                  value={currentSkill}
+                  onChange={(e) => setCurrentSkill(e.target.value)}
+                      className="w-full mt-1 p-3 border rounded-md"
+                    />
+                  </div>
+                  <div>
+                  <button
+                  type="button"
+                  onClick={addSkill}
+                  className="bg-blue-500 text-white px-6 py-2 rounded-md"
+                >
+                  Add Skill
+                </button>
+                  </div>
+                 
+                </div>
+              </div>
+            )}
+
+            {/* Other steps: Education, Work Experience, Skills */}
+            {/* Add similar layouts for steps 2, 3, and 4 */}
+
+            {/* Navigation Buttons */}
+            <div className="flex justify-between mt-8">
+              {currentStep > 1 && (
+                <button
+                  onClick={prevStep}
+                  className="bg-gray-500 text-white px-6 py-2 rounded-md hover:bg-gray-600"
+                >
+                  Previous
+                </button>
+              )}
+              {currentStep < 4 ? (
+                <button
+                  onClick={nextStep}
+                  className="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600"
+                >
+                  Next
+                </button>
+              ) : (
+                <button
+                  onClick={generatePDF}
+                  className="bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-600"
+                >
+                  Generate PDF
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-    <Footer />
+      <Footer/>
     </>
   );
 };
 
 export default ResumeBuilder;
+
+
+
