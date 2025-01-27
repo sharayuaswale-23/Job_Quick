@@ -5,7 +5,13 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {animation: {
+    extend:{
+      colors:{
+        cloudinary:{
+          500: '#F9EBE9',
+        },
+      },
+      animation: {
         fadeIn: "fadeIn 1s ease-in-out",
         zoomIn: "zoomIn 0.8s ease-in-out",
         zoomOut: "zoomOut 0.8s ease-in-out",

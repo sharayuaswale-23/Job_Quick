@@ -5,7 +5,7 @@ import TextMarque from "../../../Animation/TextMarque/TextMarque";
 const MainHome = () => {
   return (
     <>
-      <div className="flex flex-col md:flex-row min-h-screen w-full bg-gradient-to-br bg-gray-100 text-black pt-16">
+      <div className="flex flex-col md:flex-row min-h-screen w-full bg-gradient-to-br bg-gray-100 text-black mt-16">
      
         <div className="flex flex-col justify-center items-start text-left w-full md:w-1/2 p-8 space-y-6">
           <h1 className="text-4xl md:text-6xl font-extrabold leading-tight animate-fadeInUp">

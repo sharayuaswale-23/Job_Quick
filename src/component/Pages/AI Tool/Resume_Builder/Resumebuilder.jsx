@@ -226,7 +226,7 @@ const ResumeBuilder = () => {
           <h1 className="text-4xl font-extrabold text-center text-gray-800 mb-8">Resume Builder</h1>
 
           {/* Step Progress Bar */}
-          <div className="flex justify-between mb-8">
+          <div className="flex justify-around mb-8">
             {[1, 2, 3, 4].map((step) => (
               <div
                 key={step}
@@ -304,10 +304,10 @@ const ResumeBuilder = () => {
                 <h2 className="text-2xl font-semibold mb-4">Education</h2>
                 <div className="grid grid-cols-1 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">School</label>
+                    <label className="block text-sm font-medium text-gray-700">College</label>
                     <input
                        type="text"
-                        placeholder="School Name"
+                        placeholder="College Name"
                         value={currentEducation.school}
                   onChange={(e) => setCurrentEducation({ ...currentEducation, school: e.target.value })}
                       className="w-full mt-1 p-3 border rounded-md"

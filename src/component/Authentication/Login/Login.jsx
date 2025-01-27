@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../../../App";
+import {AuthContext} from "../../../App";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -26,24 +26,26 @@ const Login = () => {
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Network response was not ok");
+          return response.json().then((data) => {
+            throw new Error(data.message || "Login failed");
+          });
         }
         return response.json();
       })
       .then((data) => {
+        localStorage.setItem("authToken", data.token); // Store token in localStorage
         setIsAuthorized(true); // Update authorization status
         setSuccess("Login successful!");
         setError(null);
         navigate("/"); // Redirect to home page
       })
       .catch((error) => {
-        setError("Login failed. Please try again.");
+        setError(error.message);
         setSuccess(null);
       });
   };
 
   return (
-   
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-gray-500 to-gray-600">
       <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
         <div className="text-center">
@@ -59,11 +61,14 @@ const Login = () => {
 
         <form className="space-y-4" onSubmit={handleLogin}>
           <h2 className="text-lg font-semibold text-gray-700">Login to your account</h2>
+          {error && <p className="text-red-500 text-sm">{error}</p>}
+          {success && <p className="text-green-500 text-sm">{success}</p>}
           <div className="space-y-2">
             <label htmlFor="email" className="block text-sm font-medium text-gray-600">
               E-mail Address
             </label>
-            <input onChange={(e) => setEmail(e.target.value)}
+            <input
+              onChange={(e) => setEmail(e.target.value)}
               type="email"
               id="email"
               placeholder="Enter your email"
@@ -75,7 +80,8 @@ const Login = () => {
             <label htmlFor="password" className="block text-sm font-medium text-gray-600">
               Password
             </label>
-            <input onChange={(e) => setPassword(e.target.value)}
+            <input
+              onChange={(e) => setPassword(e.target.value)}
               type="password"
               id="password"
               placeholder="Enter your password"
@@ -95,7 +101,7 @@ const Login = () => {
 
         <div className="text-center mt-4">
           <p className="text-sm text-gray-600">
-            New to Job Queck? <Link to="/signup" className="text-blue-500 underline">Sign Up</Link>
+            New to Job Quick? <Link to="/signup" className="text-blue-500 underline">Sign Up</Link>
           </p>
         </div>
       </div>

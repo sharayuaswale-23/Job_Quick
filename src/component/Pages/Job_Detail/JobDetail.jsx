@@ -14,7 +14,7 @@ const JobDetail = () => {
     <div className="font-sans">
   
       {/* Main Content */}
-      <main className="pt-20 pb-6 max-w-7xl mx-auto px-10">
+      <main className="mt-24 pb-6 max-w-7xl mx-auto px-10">
         {/* Job Header */}
         <section className="bg-pink-50 p-8 rounded-md mb-8">
           <h1 className="text-2xl font-bold">Front-end Developer</h1>
