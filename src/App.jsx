@@ -17,13 +17,13 @@ export const AuthContext = createContext();
 
 const RequireAuth = ({ children }) => {
   const { isAuthorized } = useContext(AuthContext);
+  const currentPath = window.location.pathname;
 
-  // Redirect unauthorized users to the login page
-  if (!isAuthorized) {
-    return <Navigate to="/signup" />;
+  if (!isAuthorized && currentPath !== "/") {
+    return<Navigate to="/" />;
   }
-
   return children;
+  
 };
 
 const App = () => {
@@ -32,20 +32,17 @@ const App = () => {
     () => localStorage.getItem("isAuthorized") === "true"
   );
 
-  // Update localStorage whenever isAuthorized changes
-  useEffect(() => {
+  useEffect(()=>{
     localStorage.setItem("isAuthorized", isAuthorized);
-  }, [isAuthorized]);
-
+  },[isAuthorized]);
+ 
   return (
     <AuthContext.Provider value={{ isAuthorized, setIsAuthorized }}>
       <Routes>
         <Route
           path="/"
           element={
-            <RequireAuth>
               <Home />
-            </RequireAuth>
           }
         />
         <Route path="/login" element={<Login />} />
@@ -116,9 +113,8 @@ const App = () => {
          <Route
           path="/Dashboard"
           element={
-            <RequireAuth>
+
               <Dashboard />
-            </RequireAuth>
           }
         />
       </Routes>

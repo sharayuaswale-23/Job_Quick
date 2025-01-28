@@ -26,11 +26,12 @@ const Header = () => {
     setIsAiDropdownOpen(!isAiDropdownOpen);
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("authToken");
-    setIsAuthenticated(false);
-    navigate("/");
-  };
+    const handleLogout = () => {
+      localStorage.removeItem("authToken");
+      setIsAuthenticated(false);
+      setIsAuthorized(false); // Ensure global logout
+      navigate("/");
+    };
 
   return (
     <nav className="bg-pink-50 fixed top-0 left-0 w-full z-50 shadow-lg">
@@ -118,9 +119,6 @@ const Header = () => {
             <Link to="/salary">Salary</Link>
           </li>
           <li className="cursor-pointer">
-            <Link to="/profile">Career</Link>
-          </li>
-          <li className="cursor-pointer">
             <Link to="/contact">Contact Us</Link>
           </li>
         </ul>
@@ -129,7 +127,7 @@ const Header = () => {
         <div className="relative hidden md:flex items-center gap-4">
           {!isAuthenticated ? (
             <>
-              <button className="px-4 py-2 border border-white text-black rounded-lg ">
+              <button className="px-4 py-2 border border-white text-black rounded-lg hover:bg-gray-100">
                 <Link to="/dashboard">For Employer</Link>
               </button>
               <button className="px-4 py-2 text-black bg-white rounded-lg hover:bg-gray-100">
@@ -196,25 +194,24 @@ const Header = () => {
             <li className="cursor-pointer">
               <Link to="/salary">Salary</Link>
             </li>
-            {/* <li className="cursor-pointer">
-              <Link to="/profile">Career</Link>
-            </li> */}
             <li className="cursor-pointer">
               <Link to="/contact">Contact Us</Link>
             </li>
             {!isAuthenticated ? (
             <>
-              <button className="px-4 py-2 border border-white text-black rounded-lg ">
+              <div className="flex flex-col items-center gap-4">
+              <button className="px-4 py-2 border border-white text-black rounded-lg hover:bg-gray-100">
                 <Link to="/Dashboard">For Employer</Link>
               </button>
               <button className="px-4 py-2 text-black bg-white rounded-lg hover:bg-gray-100">
                 <Link to="/login">Log in</Link>
               </button>
+              </div>
             </>
           ) : (
             <>
             <button className="px-4 py-2 text-black bg-white rounded-lg hover:bg-gray-100">
-                For Employer
+            <Link to="/Dashboard">For Employer</Link>
               </button>
             </>
           )}

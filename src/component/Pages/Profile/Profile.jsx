@@ -216,115 +216,14 @@
 
 // export default Profile;
 
-// import React from "react";
-// import { motion } from "framer-motion";
 
-// const Profile = () => {
-//   return (
-//     <div className="min-h-screen bg-gradient-to-b from-blue-400 to-indigo-100 flex flex-col">
-//       {/* Navbar */}
-//       <nav className="fixed top-0 w-full bg-white shadow-md z-50">
-//         <div className="container mx-auto px-4 py-3 flex justify-between items-center">
-//           <h1 className="text-lg font-bold text-indigo-600">Profile Dashboard</h1>
-//           <button className="px-4 py-2 bg-indigo-500 text-white rounded-full shadow hover:bg-indigo-600 transition">
-//             Share Profile
-//           </button>
-//         </div>
-//       </nav>
-
-//       <div className="container mx-auto px-4 pt-20 pb-10">
-//         <div className="bg-white shadow-2xl rounded-3xl p-8 flex flex-col lg:flex-row gap-8">
-//           {/* Left Section */}
-//           <div className="lg:w-1/3 text-center">
-//             <img
-//               src="https://png.pngtree.com/png-clipart/20231019/original/pngtree-user-profile-avatar-png-image_13369988.png"
-//               alt="Profile"
-//               className="w-40 h-40 mx-auto rounded-full shadow-lg border-4 border-indigo-500"
-//             />
-//             <h2 className="text-2xl font-extrabold mt-4 text-gray-800">Sharayu Aswale</h2>
-//             <p className="text-gray-600 font-medium">Frontend Developer</p>
-//             <p className="mt-4 text-sm text-gray-700">
-//               Full stack product designer with hands-on experience in solving
-//               problems for clients ranging from Real Estate, Hospitality, IT
-//               Services, and more. A user-centered approach to design.
-//             </p>
-//             <div className="flex justify-center mt-6 gap-4">
-//               <button className="px-4 py-2 bg-indigo-500 text-white rounded-lg shadow hover:bg-indigo-600 transition">
-//                 Download Resume
-//               </button>
-//               <button className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg shadow hover:bg-gray-300 transition">
-//                 Send Email
-//               </button>
-//             </div>
-//           </div>
-
-//           {/* Right Section */}
-//           <div className="lg:w-2/3">
-//             {/* Basic Information */}
-//             <div className="mb-8">
-//               <h3 className="text-lg font-semibold text-indigo-700 mb-4">Basic Information</h3>
-//               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-//                 {[{ label: "Age", value: "23 years" },
-//                   { label: "CTC", value: "12.5 Lac" },
-//                   { label: "Location", value: "Nagpur, Maharashtra" },
-//                   { label: "Phone", value: "+91 8329866144 " },
-//                   { label: "Email", value: "sharayuaswale123@gmail.com" }].map((info, index) => (
-//                   <div key={index} className="flex flex-col">
-//                     <p className="text-gray-500 text-sm">{info.label}</p>
-//                     <p className="text-gray-900 font-semibold">{info.value}</p>
-//                   </div>
-//                 ))}
-//               </div>
-//             </div>
-
-//             {/* Experience */}
-//             <div className="mb-8">
-//               <h3 className="text-lg font-semibold text-indigo-700 mb-4">Experience</h3>
-//               {["Infosys - Product & UI/UX Designer (2018 - Present)",
-//                 "Pixel Studio - UI/UX Designer (2016 - 2018)",
-//                 "Ramotion Studio - Web Designer (2015 - 2016)"].map((exp, index) => (
-//                 <p key={index} className="text-gray-800 text-sm mb-2">{exp}</p>
-//               ))}
-//             </div>
-
-//             {/* Skills */}
-//             <div className="mb-8">
-//               <h3 className="text-lg font-semibold text-indigo-700 mb-4">Skills</h3>
-//               <div className="flex flex-wrap gap-2">
-//                 {["UI/UX Design", "Wireframing", "Adobe XD", "User Research", "Mobile Apps", "Information Architecture"].map((skill, index) => (
-//                   <span
-//                     key={index}
-//                     className="bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full text-sm font-medium"
-//                   >
-//                     {skill}
-//                   </span>
-//                 ))}
-//               </div>
-//             </div>
-
-//             {/* Notes */}
-//             <div>
-//               <h3 className="text-lg font-semibold text-indigo-700 mb-4">Add Notes</h3>
-//               <textarea
-//                 placeholder="Add notes for future reference"
-//                 className="w-full h-24 border rounded-lg p-3 focus:ring focus:ring-indigo-300"
-//               ></textarea>
-//               <button className="mt-4 px-4 py-2 bg-indigo-500 text-white rounded-lg shadow hover:bg-indigo-600 transition">
-//                 Add Note
-//               </button>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Profile;
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import Myimg from "../../../assets/Images/Profile.jpg";
+import Header from "../../common/header/Header";
+import Footer from "../../common/Footer/Footer";
+import { IoIosArrowDown } from "react-icons/io";
 
 const Profile = () => {
   const [isEducationOpen, setIsEducationOpen] = useState(false);
@@ -332,29 +231,35 @@ const Profile = () => {
   const [isCertificationOpen, setIsCertificationOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gray-100 p-4">
+    <>
+    <Header />
+    <div className="min-h-screen mt-20 bg-gray-100 p-4">
       <div className="max-w-6xl mx-auto bg-white shadow-lg rounded-xl overflow-hidden">
-        {/* Header Section */}
-        <div className="bg-indigo-500 p-6 text-white text-center">
-          <h1 className="text-2xl font-bold">Sharayu Aswale</h1>
-          <p className="text-sm">Frontend Developer</p>
-        </div>
-
         {/* Main Content */}
-        <div className="p-6 lg:flex lg:space-x-6">
+        <div className="p-6  lg:flex lg:space-x-6">
           {/* Left Section */}
-          <div className="lg:w-1/3 text-center lg:text-left">
+          <div className="lg:w-1/3 flex flex-col items-center lg:items-center lg:justify-start text-center">
             <img
               src={Myimg}
               alt="Profile"
-              className="w-32 h-32 mx-auto lg:mx-0 rounded-full border-4 border-indigo-500"
+              className="w-32 h-32 mx-auto rounded-full border-4 border-indigo-500"
             />
+            <div className="p-6 text-indigo-500 text-center">
+              <h1 className="text-2xl font-bold">Sharayu Aswale</h1>
+              <p className="text-sm">Frontend Developer</p>
+              <button
+                   onClick={() => setIsEditing(true)}
+                   className="mt-4 px-8 py-2 bg-indigo-500 text-white font-semibold rounded-full shadow-lg hover:bg-indigo-600 transition-all"
+                 >
+                   Edit Profile
+                 </button>
+            </div>
             <p className="text-gray-600 mt-4">
               Full stack product designer with hands-on experience in solving problems for clients ranging from Real Estate, Hospitality, Rentals, and more.
             </p>
-            <div className="mt-4">
-              <h3 className="text-indigo-500 font-semibold mb-2">Skills</h3>
-              <div className="flex flex-wrap gap-2">
+            <div className="mt-4 items-center mb-4">
+              <h3 className="text-indigo-500 font-semibold mb-2 text-center">Skills</h3>
+              <div className="flex flex-wrap justify-center gap-2">
                 {["UI Design", "UX", "Adobe XD", "Wireframing", "User Research"].map((skill) => (
                   <span
                     key={skill}
@@ -369,6 +274,38 @@ const Profile = () => {
 
           {/* Right Section */}
           <div className="lg:w-2/3">
+          <div className="bg-gray-50 mb-6 rounded-lg shadow max-w-4xl w-full p-6 space-y-6">
+        <h2 className="text-2xl font-bold text-gray-800">Basic Information</h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-gray-600">
+          <div>
+            <p className="font-semibold">AGE</p>
+            <p>23 years</p>
+          </div>
+          <div>
+            <p className="font-semibold">YEARS OF EXPERIENCE</p>
+            <p>Fresher</p>
+          </div>
+          <div>
+            <p className="font-semibold">PHONE</p>
+            <p>+91 9999999999</p>
+          </div>
+
+          <div>
+            <p className="font-semibold">CTC</p>
+            {/* <p>12.5 Lac</p> */}
+          </div>
+          <div>
+            <p className="font-semibold">LOCATION</p>
+            <p>Nagpur, Maharshtra</p>
+          </div>
+          <div>
+            <p className="font-semibold">EMAIL</p>
+            <p>sharayuaswale123@gmail.com</p>
+          </div>
+        </div>
+      </div>
+
             {/* Experience */}
             <div className="mb-6">
               <h3 className="text-indigo-500 font-semibold mb-4">Experience</h3>
@@ -405,75 +342,136 @@ const Profile = () => {
             </div>
 
             {/* Education */}
-            <div className="mb-6">
+            <div className="bg-gray-50 p-4 rounded-lg shadow mb-6">
               <button
                 onClick={() => setIsEducationOpen(!isEducationOpen)}
-                className="w-full text-left font-semibold text-indigo-500 mb-2"
+                className="w-full"
               >
-                Education
+                <div className="flex justify-between items-center">
+                  <p className="font-semibold text-indigo-500">Education</p>
+                  <p><IoIosArrowDown /></p>
+                </div>
               </button>
               {isEducationOpen && (
                 <motion.div
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: "auto", opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
-                  className="bg-gray-50 p-4 rounded-lg shadow"
+                  className="mt-2"
                 >
-                  <p className="text-gray-600">Bachelors in Design - XYZ University</p>
-                  <p className="text-gray-500 text-sm">2012 - 2016</p>
+                 <div className="space-y-4">
+                {[
+                  {
+                    Degree: "Btech",
+                    Branch: "CSE",
+                    Year: "2023",
+                    College: "Priaydarshani college of Engineering Nagpur",
+                  },
+                  {
+                    Degree: "Mtech",
+                    Branch: "CSE",
+                    Year: "2025",
+                    College: "Priaydarshani college of Engineering Nagpur",
+                  },
+                ].map((exp, index) => (
+                  <div key={index} className="bg-gray-50 p-4 rounded-lg shadow">
+                    <h4 className="font-bold text-gray-800">{exp.College}</h4>
+                    <p className="text-sm text-gray-600">{exp.Degree}</p>
+                    <p className="text-xs text-gray-500">
+                      {exp.Branch} | {exp.Year}
+                    </p>
+                  </div>
+                ))}
+              </div>
                 </motion.div>
               )}
             </div>
 
             {/* Accomplishments */}
-            <div className="mb-6">
+            <div className="bg-gray-50 p-4 rounded-lg shadow mb-6">
               <button
                 onClick={() => setIsAccomplishmentsOpen(!isAccomplishmentsOpen)}
-                className="w-full text-left font-semibold text-indigo-500 mb-2"
+                className="w-full"
               >
-                Accomplishments
+                <div className="flex justify-between items-center">
+                  <p className="font-semibold text-indigo-500">Accomplishments</p>
+                  <p><IoIosArrowDown /></p>
+                </div>
               </button>
               {isAccomplishmentsOpen && (
                 <motion.div
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: "auto", opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
-                  className="bg-gray-50 p-4 rounded-lg shadow"
+                  className="mt-2"
                 >
-                  <ul className="list-disc pl-6">
-                    <li className="text-gray-600">Redesign of major e-commerce platform</li>
-                    <li className="text-gray-600">Awarded "Best UI Designer" in 2020</li>
-                  </ul>
+                  <div className="space-y-4">
+                {[
+                  {
+                    Project: "Redesign of major e-commerce platform",
+                  },
+                  {
+                    Project: "Redesign of Hospital Management System",
+                  },
+                ].map((exp, index) => (
+                  <div key={index} className="bg-gray-50 p-4 rounded-lg shadow">
+                    <h4 className="font-bold text-gray-800">{exp.Project}</h4>
+                  </div>
+                ))}
+              </div>
                 </motion.div>
               )}
             </div>
 
             {/* Certification */}
-            <div className="mb-6">
+            <div className=" bg-gray-50 p-4 rounded-lg shadow">
               <button
                 onClick={() => setIsCertificationOpen(!isCertificationOpen)}
-                className="w-full text-left font-semibold text-indigo-500 mb-2"
+                className="w-full"
               >
-                Certification
+                <div className="flex justify-between items-center">
+                  <p className="font-semibold text-indigo-500">Certification</p>
+                  <p><IoIosArrowDown /></p>
+                </div>
               </button>
               {isCertificationOpen && (
                 <motion.div
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: "auto", opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
-                  className="bg-gray-50 p-4 rounded-lg shadow"
+                  className="mt-2"
                 >
-                  <p className="text-gray-600">Certified UX Designer - ABC Institute</p>
-                  <p className="text-gray-500 text-sm">Issued: 2021</p>
+                 <div className="space-y-4">
+                {[
+                  {
+                    Certificate: "Certified UX Designer - ABC Institute",
+                    Issued: "2021",
+                  },
+                  {
+                    Certificate: "Certified Backend Developer - ABC Institute",
+                    Issued: "2023",
+                  },
+                ].map((exp, index) => (
+                  <div key={index} className="bg-gray-50 p-4 rounded-lg shadow">
+                    <h4 className="font-bold text-gray-800">{exp.Certificate}</h4>
+                    <p className="text-sm text-gray-600">{exp.Issued}</p>
+                  </div>
+                ))}
+              </div>
                 </motion.div>
               )}
             </div>
           </div>
         </div>
       </div>
+
     </div>
+    <Footer />
+    </>
+
   );
 };
 
 export default Profile;
+
 
