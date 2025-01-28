@@ -10,20 +10,22 @@ import JobDetail from "./component/Pages/Job_Detail/JobDetail";
 import Profile from "./component/Pages/Profile/Profile";
 import Login from "./component/Authentication/Login/Login";
 import Signup from "./component/Authentication/SignUp/SignUp";
-import Dashboard from "./component/Pages/Dashboard/Dashboard";
+import Dashboard from "./component/Pages/Employer/Dashboard/Dashboard";
+import HosterLogin from "./component/Pages/Employer/HosterLogin/HosterLogin";
+import HosterSignup from "./component/Pages/Employer/HosterSignup/HosterSignup";
+import HosterProfile from "./component/Pages/Employer/HosterProfile/HosterProfile";
+import HosterDetail from "./component/Pages/Employer/HosterDetail/HosterDetail";
 
 // Create a context for authentication
 export const AuthContext = createContext();
 
 const RequireAuth = ({ children }) => {
   const { isAuthorized } = useContext(AuthContext);
-  const currentPath = window.location.pathname;
 
-  if (!isAuthorized && currentPath !== "/") {
-    return<Navigate to="/" />;
+  if (!isAuthorized) {
+    return <Navigate to="/login" />;
   }
   return children;
-  
 };
 
 const App = () => {
@@ -32,19 +34,20 @@ const App = () => {
     () => localStorage.getItem("isAuthorized") === "true"
   );
 
-  useEffect(()=>{
+  useEffect(() => {
     localStorage.setItem("isAuthorized", isAuthorized);
-  },[isAuthorized]);
- 
+  }, [isAuthorized]);
+
+  const handleLogout = () => {
+    setIsAuthorized(false);
+    localStorage.removeItem("isAuthorized");
+    localStorage.removeItem("authToken");
+  };
+
   return (
-    <AuthContext.Provider value={{ isAuthorized, setIsAuthorized }}>
+    <AuthContext.Provider value={{ isAuthorized, setIsAuthorized, handleLogout }}>
       <Routes>
-        <Route
-          path="/"
-          element={
-              <Home />
-          }
-        />
+        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route
@@ -102,19 +105,35 @@ const App = () => {
               <Profile />
             </RequireAuth>
           }
-
-
-          
-
-
         />
-
-
-         <Route
-          path="/Dashboard"
+        <Route
+          path="/dashboard"
           element={
-
               <Dashboard />
+          }
+        />
+        <Route
+          path="/hosterlogin"
+          element={
+              <HosterLogin />
+          }
+        />
+        <Route
+          path="/hostersignup"
+          element={
+              <HosterSignup />
+          }
+        />
+        <Route
+          path="/hosterdetail"
+          element={
+              <HosterDetail />
+          }
+        />
+        <Route
+          path="/hosterprofile"
+          element={
+              <HosterProfile />
           }
         />
       </Routes>

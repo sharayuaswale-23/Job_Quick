@@ -1,5 +1,10 @@
 import React from "react";
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer } from "recharts";
+import myimg from "../../../../assets/Images/Profile.jpg";
+import { Link } from "react-router-dom";
+import Hostersidebar from "../Hostersidebar/Hostersidebar";
+import Header from "../../../common/header/Header";
+import Footer from "../../../common/Footer/Footer";
 import {
   Bell,
   Search,
@@ -12,86 +17,30 @@ import {
   Bookmark,
   Users,
   Circle,
-  BriefcaseBusiness,
 } from "lucide-react";
+
+const chartData = [
+  { name: "Sun", views: 70 },
+  { name: "Sat", views: 120 },
+  { name: "Mon", views: 60 },
+  { name: "Tue", views: 250 },
+  { name: "Wed", views: 220 },
+  { name: "Thu", views: 230 },
+  { name: "Fri", views: 180 },
+  { name: "Sat", views: 90 },
+];
 
 const Dashboard = () => {
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <>
+    <div className="flex min-h-screen bg-gray-100 mt-20">
+    <Header/>
       {/* Sidebar */}
-      <div className="w-64 bg-white p-6 flex flex-col shadow-sm">
-        {/* Logo */}
-        <div className="flex items-center mb-8">
-          <BriefcaseBusiness className="w-6 h-6 text-teal-500" />
-          <span className="ml-2 text-2xl font-bold text-teal-700">
-            Job Qucik
-          </span>
-        </div>
-
-        {/* Profile Section */}
-        <div className="flex items-center mb-6">
-          <div className="w-12 h-12 rounded-full bg-gray-200" />
-          <div className="ml-3">
-            <div className="font-medium">john singh</div>
-            <div className="w-2 h-2 bg-teal-500 rounded-full" />
-          </div>
-        </div>
-
-        {/* Navigation */}
-        <nav className="flex-1">
-          <div className="space-y-1">
-            <div className="flex items-center space-x-3 p-3 bg-teal-700 text-white rounded-lg">
-              <Users className="w-5 h-5" />
-              <span>Dashboard</span>
-            </div>
-
-            {[
-              { icon: <User className="w-5 h-5" />, label: "My Profile" },
-              { icon: <Briefcase className="w-5 h-5" />, label: "My Jobs" },
-              {
-                icon: <MessageSquare className="w-5 h-5" />,
-                label: "Messages",
-              },
-              { icon: <FileText className="w-5 h-5" />, label: "Submit Job" },
-              {
-                icon: <Bookmark className="w-5 h-5" />,
-                label: "Save Candidate",
-              },
-              //   { icon: <Users className="w-5 h-5" />, label: "Membership" },
-              //   {
-              //     icon: <Settings className="w-5 h-5" />,
-              //     label: "Account Settings",
-              //   },
-              //   { icon: <Circle className="w-5 h-5" />, label: "Delete Account" },
-            ].map((item, index) => (
-              <div
-                key={index}
-                className="flex items-center space-x-3 p-3 text-gray-600 hover:bg-gray-50 rounded-lg cursor-pointer"
-              >
-                {item.icon}
-                <span>{item.label}</span>
-              </div>
-            ))}
-          </div>
-        </nav>
-
-        {/* Profile Progress */}
-        <div className="mt-auto">
-          <div className="mb-4">
-            <div className="h-2 bg-gray-100 rounded-full">
-              <div className="h-full w-[87%] bg-teal-500 rounded-full" />
-            </div>
-            <div className="mt-1 text-sm text-gray-500">Profile Complete</div>
-          </div>
-          <div className="flex items-center space-x-2 text-gray-600 cursor-pointer">
-            <LogOut className="w-5 h-5" />
-            <span>Logout</span>
-          </div>
-        </div>
-      </div>
-
+     
+<Hostersidebar/>
       {/* Main Content */}
-      <div className="flex-1 p-8">
+      <div className="flex-1 p-8 ">
+      
         {/* Header */}
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-2xl font-bold text-gray-800">Dashboard</h1>
@@ -101,14 +50,10 @@ const Dashboard = () => {
               <input
                 type="text"
                 placeholder="Search here..."
-                className="pl-10 pr-4 py-2 w-64 rounded-lg bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500"
+                className="pl-10 pr-4 py-2 w-64 rounded-lg bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500"
               />
             </div>
-            <button className="p-2 relative">
-              <Bell className="w-6 h-6 text-gray-600" />
-              <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
-            </button>
-            <button className="bg-teal-700 text-white px-4 py-2 rounded-lg hover:bg-teal-800 transition-colors">
+            <button className="bg-green-700 text-white px-4 py-2 rounded-lg hover:bg-green-800 transition-colors">
               Post a Job
             </button>
           </div>
@@ -120,22 +65,22 @@ const Dashboard = () => {
             {
               number: "07",
               label: "Posted Job",
-              icon: <User className="w-6 h-6 text-teal-600" />,
+              icon: <User className="w-6 h-6 text-green-600" />,
             },
             {
               number: "03",
               label: "Shortlisted",
-              icon: <Bookmark className="w-6 h-6 text-teal-600" />,
+              icon: <Bookmark className="w-6 h-6 text-green-600" />,
             },
             {
               number: "1.7k",
               label: "Application",
-              icon: <Search className="w-6 h-6 text-teal-600" />,
+              icon: <Search className="w-6 h-6 text-green-600" />,
             },
             {
               number: "04",
               label: "Save Candidate",
-              icon: <FileText className="w-6 h-6 text-teal-600" />,
+              icon: <FileText className="w-6 h-6 text-green-600" />,
             },
           ].map((stat, index) => (
             <div key={index} className="bg-white p-6 rounded-lg shadow-sm">
@@ -154,7 +99,46 @@ const Dashboard = () => {
           ))}
         </div>
 
+        {/* Charts and Jobs Grid */}
         <div className="grid grid-cols-3 gap-6">
+          {/* Job Views Chart */}
+          <div className="col-span-2 bg-white p-6 rounded-lg shadow-sm">
+            <div className="mb-6">
+              <h2 className="text-lg font-semibold text-gray-800">Job Views</h2>
+              <div className="flex space-x-4 mt-4">
+                <div className="flex space-x-2">
+                  {["1h", "Day", "Week", "Month", "Year"].map((period) => (
+                    <button
+                      key={period}
+                      className={`px-4 py-2 rounded-lg ${
+                        period === "Day"
+                          ? "bg-green-700 text-white"
+                          : "text-gray-500 hover:bg-gray-50"
+                      }`}
+                    >
+                      {period}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div className="h-64">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={chartData}>
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Line
+                    type="monotone"
+                    dataKey="views"
+                    stroke="#16a34a"
+                    strokeWidth={2}
+                    dot={false}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+
           {/* Posted Jobs */}
           <div className="bg-white p-6 rounded-lg shadow-sm">
             <h2 className="text-lg font-semibold text-gray-800 mb-4">
@@ -219,7 +203,10 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
+     
     </div>
+    <Footer/>
+    </>
   );
 };
 

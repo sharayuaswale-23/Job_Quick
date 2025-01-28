@@ -155,14 +155,16 @@ const ContactPage = () => {
         <div className="w-full h-[450px] mt-10 overflow-hidden shadow-lg">
           <iframe
             title="Google Map Location"
-            src="https://www.google.com/maps/embed?pb=!1m23!1m12!1m3!1d119090.96691046697!2d79.04094567126575!3d21.128797808777016!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m8!3e6!4m0!4m5!1s0x3bd4c742b8355b1d%3A0x14a5864727eef499!2sArc%20Technologies%20And%20Institutions%2C%20Gurudev%20Nagar%20Main%20Road%2C%20beside%20HPCL%20Gurudeo%20Petrol%20Pump%2C%20Chota%20Tajbag%2C%20Nandanvan%2C%20Nagpur%2C%20Maharashtra!3m2!1d21.1286576!2d79.12334919999999!5e0!3m2!1sen!2sin!4v1725872988478!5m2!1sen!2sin"
-            width="100%"
+           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3721.2079855033585!2d79.05346007343789!3d21.144119683809947!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd4c05d75e3bae1%3A0x5094d1a9292b665a!2sRam%20Nagar%2C%20Nagpur%2C%20Maharashtra%20440010!5e0!3m2!1sen!2sin!4v1738052911196!5m2!1sen!2sin"
+           width="100%"
             height="450"
             style={{ border: 0 }}
             allowFullScreen=""
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
           ></iframe>
+
+         
         </div>
       </div>
 

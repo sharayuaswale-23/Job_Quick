@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import { FaTh, FaBars, FaTimes, FaUserCircle, FaChevronDown } from "react-icons/fa";
+import {AuthContext} from '../../../App';
 import { Link, useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const { isAuthorized, handleLogout } = useContext(AuthContext);
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isAiDropdownOpen, setIsAiDropdownOpen] = useState(false);
@@ -26,13 +29,11 @@ const Header = () => {
     setIsAiDropdownOpen(!isAiDropdownOpen);
   };
 
-    const handleLogout = () => {
-      localStorage.removeItem("authToken");
-      setIsAuthenticated(false);
-      setIsAuthorized(false); // Ensure global logout
-      navigate("/");
-    };
-
+  useEffect(() => {
+    const token = localStorage.getItem("authToken");
+    setIsAuthenticated(!!token);
+  }, []);
+  
   return (
     <nav className="bg-pink-50 fixed top-0 left-0 w-full z-50 shadow-lg">
       <div className="flex items-center justify-between px-4 py-5 md:px-10">
@@ -59,7 +60,7 @@ const Header = () => {
           </button>
         </div>
 
-        {!isAuthenticated ? (
+        {!isAuthorized ? (
             <>
             
             </>
@@ -128,7 +129,7 @@ const Header = () => {
           {!isAuthenticated ? (
             <>
               <button className="px-4 py-2 border border-white text-black rounded-lg hover:bg-gray-100">
-                <Link to="/dashboard">For Employer</Link>
+                <Link to="/hosterlogin">For Employer</Link>
               </button>
               <button className="px-4 py-2 text-black bg-white rounded-lg hover:bg-gray-100">
                 <Link to="/login">Log in</Link>
@@ -137,7 +138,7 @@ const Header = () => {
           ) : (
             <>
               <button className="px-4 py-2 text-black bg-white rounded-lg hover:bg-gray-100">
-                <Link to="/Dashboard">For Employer</Link>
+                <Link to="/hosterlogin">For Employer</Link>
               </button>
               <div className="relative">
                 <FaUserCircle
@@ -201,7 +202,7 @@ const Header = () => {
             <>
               <div className="flex flex-col items-center gap-4">
               <button className="px-4 py-2 border border-white text-black rounded-lg hover:bg-gray-100">
-                <Link to="/Dashboard">For Employer</Link>
+                <Link to="/hosterlogin">For Employer</Link>
               </button>
               <button className="px-4 py-2 text-black bg-white rounded-lg hover:bg-gray-100">
                 <Link to="/login">Log in</Link>
@@ -211,7 +212,7 @@ const Header = () => {
           ) : (
             <>
             <button className="px-4 py-2 text-black bg-white rounded-lg hover:bg-gray-100">
-            <Link to="/Dashboard">For Employer</Link>
+            <Link to="/hosterlogin">For Employer</Link>
               </button>
             </>
           )}

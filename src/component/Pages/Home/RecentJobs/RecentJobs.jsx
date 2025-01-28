@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const RecentJobs = () => {
   const jobs = [
@@ -59,7 +60,8 @@ const RecentJobs = () => {
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-4 md:px-10 lg:px-20">
         {jobs.map((job, index) => (
-          <div
+          <Link
+          to="/jobdetail"
             key={index}
             className="bg-white rounded-lg shadow-lg p-6 transform transition-transform duration-500 hover:scale-105 hover:shadow-2xl relative"
           >
@@ -86,7 +88,7 @@ const RecentJobs = () => {
                 </span>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>
