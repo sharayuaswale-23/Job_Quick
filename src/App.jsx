@@ -17,6 +17,7 @@ import HosterSignup from "./component/Pages/Employer/HosterSignup/HosterSignup";
 import HosterDetail from "./component/Pages/Employer/HosterDetail/HosterDetail";
 import HosterProfile from "./component/Pages/Employer/HosterProfile/HosterProfile";
 import Hosterheader from "./component/Pages/Employer/Hosterheader/Hosterheader";
+import UserDetails from "./component/Pages/UserDetails/UserDetails";
 
 // Create a context for authentication
 export const AuthContext = createContext();
@@ -46,8 +47,7 @@ const App = () => {
   const handleLogout = () => {
     setIsAuthorized(false);
     localStorage.removeItem("authToken");
-    localStorage.setItem("isAuthorized", "false"); // Ensure persistence
-    navigate("/"); // Redirect to home page
+    navigate("/");
   };
 
   return (
@@ -109,6 +109,15 @@ const App = () => {
           element={
             <RequireAuth>
               <Profile />
+            </RequireAuth>
+          }
+        />
+
+       <Route
+          path="/userdetails"
+          element={
+            <RequireAuth>
+              <UserDetails />
             </RequireAuth>
           }
         />

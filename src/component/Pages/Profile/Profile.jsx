@@ -224,6 +224,7 @@ import Myimg from "../../../assets/Images/Profile.jpg";
 import Header from "../../common/header/Header";
 import Footer from "../../common/Footer/Footer";
 import { IoIosArrowDown } from "react-icons/io";
+import { Link } from "react-router-dom";
 
 const Profile = () => {
   const [isEducationOpen, setIsEducationOpen] = useState(false);
@@ -247,11 +248,11 @@ const Profile = () => {
             <div className="p-6 text-indigo-500 text-center">
               <h1 className="text-2xl font-bold">Sharayu Aswale</h1>
               <p className="text-sm">Frontend Developer</p>
-              <button
+              <button 
                    onClick={() => setIsEditing(true)}
                    className="mt-4 px-8 py-2 bg-indigo-500 text-white font-semibold rounded-full shadow-lg hover:bg-indigo-600 transition-all"
                  >
-                   Edit Profile
+                   <Link to="/userdetails">Edit Profile</Link>
                  </button>
             </div>
             <p className="text-gray-600 mt-4">

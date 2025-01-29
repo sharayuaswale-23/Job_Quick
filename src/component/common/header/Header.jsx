@@ -66,7 +66,7 @@ const Header = () => {
           ) : (
             <>
          
-          <div className="relative lg:hidden">
+          <div className="relative md:hidden">
               <FaUserCircle
                 onClick={toggleDropdown}
                 className="text-2xl text-black cursor-pointer"
