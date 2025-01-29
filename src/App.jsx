@@ -11,15 +11,19 @@ import Profile from "./component/Pages/Profile/Profile";
 import Login from "./component/Authentication/Login/Login";
 import Signup from "./component/Authentication/SignUp/SignUp";
 import Dashboard from "./component/Pages/Employer/Dashboard/Dashboard";
+import { useNavigate } from "react-router-dom";
 import HosterLogin from "./component/Pages/Employer/HosterLogin/HosterLogin";
 import HosterSignup from "./component/Pages/Employer/HosterSignup/HosterSignup";
-import HosterProfile from "./component/Pages/Employer/HosterProfile/HosterProfile";
 import HosterDetail from "./component/Pages/Employer/HosterDetail/HosterDetail";
+import HosterProfile from "./component/Pages/Employer/HosterProfile/HosterProfile";
+import Hosterheader from "./component/Pages/Employer/Hosterheader/Hosterheader";
 
 // Create a context for authentication
 export const AuthContext = createContext();
 
 const RequireAuth = ({ children }) => {
+
+ 
   const { isAuthorized } = useContext(AuthContext);
 
   if (!isAuthorized) {
@@ -29,6 +33,7 @@ const RequireAuth = ({ children }) => {
 };
 
 const App = () => {
+  const navigate = useNavigate();
   // Check if the user is already authorized from localStorage
   const [isAuthorized, setIsAuthorized] = useState(
     () => localStorage.getItem("isAuthorized") === "true"
@@ -40,8 +45,9 @@ const App = () => {
 
   const handleLogout = () => {
     setIsAuthorized(false);
-    localStorage.removeItem("isAuthorized");
     localStorage.removeItem("authToken");
+    localStorage.setItem("isAuthorized", "false"); // Ensure persistence
+    navigate("/"); // Redirect to home page
   };
 
   return (
@@ -106,36 +112,13 @@ const App = () => {
             </RequireAuth>
           }
         />
-        <Route
-          path="/dashboard"
-          element={
-              <Dashboard />
-          }
-        />
-        <Route
-          path="/hosterlogin"
-          element={
-              <HosterLogin />
-          }
-        />
-        <Route
-          path="/hostersignup"
-          element={
-              <HosterSignup />
-          }
-        />
-        <Route
-          path="/hosterdetail"
-          element={
-              <HosterDetail />
-          }
-        />
-        <Route
-          path="/hosterprofile"
-          element={
-              <HosterProfile />
-          }
-        />
+        
+        <Route path="/hosterlogin" element={<HosterLogin />} />
+        <Route path="/hostersignup" element={<HosterSignup />} />
+        <Route path="/hosterdetail" element={<HosterDetail />} />
+        <Route path="/hosterprofile" element={<HosterProfile />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/hosterheader" element={<Hosterheader />} />
       </Routes>
     </AuthContext.Provider>
   );

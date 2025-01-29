@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Hostersidebar from "../Hostersidebar/Hostersidebar";
 import Header from "../../../common/header/Header";
 import Footer from "../../../common/Footer/Footer";
+import Hosterheader from "../Hosterheader/Hosterheader";
 import {
   Bell,
   Search,
@@ -33,8 +34,9 @@ const chartData = [
 const Dashboard = () => {
   return (
     <>
+     <Header/>
     <div className="flex min-h-screen bg-gray-100 mt-20">
-    <Header/>
+   
       {/* Sidebar */}
      
 <Hostersidebar/>

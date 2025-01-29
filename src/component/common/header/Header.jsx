@@ -33,7 +33,6 @@ const Header = () => {
     const token = localStorage.getItem("authToken");
     setIsAuthenticated(!!token);
   }, []);
-  
   return (
     <nav className="bg-pink-50 fixed top-0 left-0 w-full z-50 shadow-lg">
       <div className="flex items-center justify-between px-4 py-5 md:px-10">

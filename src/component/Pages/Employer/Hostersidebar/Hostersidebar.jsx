@@ -103,12 +103,6 @@ function Hostersidebar() {
           </button>
           <button className="flex w-full items-center space-x-3 p-3 hover:bg-green-700 hover:text-white text-gray-600 rounded-lg cursor-pointer">
             <Briefcase className="w-5 h-5" />
-            <Link to="/hosterprofile">Profile</Link>
-          </button>
-
-
-          <button className="flex w-full items-center space-x-3 p-3 hover:bg-green-700 hover:text-white text-gray-600 rounded-lg cursor-pointer">
-            <Briefcase className="w-5 h-5" />
             <Link>My Jobs</Link>
           </button>
 
@@ -136,3 +130,7 @@ function Hostersidebar() {
 }
 
 export default Hostersidebar;
+
+
+
+

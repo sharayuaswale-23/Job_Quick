@@ -11,11 +11,10 @@ const Signup = () => {
   const { setIsAuthorized } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const signupApi = "https://e-commerce-api-1f9s.onrender.com/user/signup";
+  const signupApi = "https://jobquick.onrender.com/seekuser/signup";
 
   const handleSignup = (e) => {
     e.preventDefault();
-
     const person = { email, password };
 
     fetch(signupApi, {
@@ -32,9 +31,9 @@ const Signup = () => {
         return response.json();
       })
       .then((data) => {
-        setIsAuthorized(true); // Update authorization status
+        setIsAuthorized(true);
         setSuccess("Signup successful!");
-        navigate("/"); // Redirect to home page
+        navigate("/");
         setError(null);
       })
       .catch((error) => {
@@ -44,61 +43,49 @@ const Signup = () => {
   };
 
   return (
-    // Signup form (same as before)
-
-   
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-gray-500 to-gray-600">
-      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
-        <div className="text-center">
-          <div className="w-16 h-16 mx-auto mb-4 bg-blue-500 rounded-full flex items-center justify-center">
-            <img
-              src="https://t3.ftcdn.net/jpg/05/45/72/84/360_F_545728418_CAHP3iWIHQSyhiQijlHxoLvS8yRAm2sE.jpg"
-              alt="Logo"
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <h1 className="text-2xl font-bold text-gray-800">Welcome Back</h1>
+    <div className="flex items-center justify-center min-h-screen bg-gray-50 p-6">
+      <div className="w-full max-w-4xl bg-white rounded-lg shadow-xl flex flex-col md:flex-row overflow-hidden border border-gray-300">
+        <div className="w-full md:w-1/2 flex flex-col items-center justify-center p-10 bg-indigo-300 text-white">
+          <h2 className="text-3xl font-bold mb-4">Join Us!</h2>
+          <p className="text-lg text-center">Create an account to get started.</p>
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/295/295128.png"
+            alt="Signup Illustration"
+            className="w-52 mt-6"
+          />
         </div>
-
-        <form className="space-y-4" onSubmit={handleSignup}>
-          <h2 className="text-lg font-semibold text-gray-700">Signup to your account</h2>
-          <div className="space-y-2">
-            <label htmlFor="email" className="block text-sm font-medium text-gray-600">
-              E-mail Address
-            </label>
-            <input onChange={(e) => setEmail(e.target.value)}
-              type="email"
-              id="email"
-              placeholder="Enter your email"
-              required
-              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-            />
-          </div>
-          <div className="space-y-2">
-            <label htmlFor="password" className="block text-sm font-medium text-gray-600">
-              Password
-            </label>
-            <input onChange={(e) => setPassword(e.target.value)}
-              type="password"
-              id="password"
-              placeholder="Enter your password"
-              required
-              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-            />
-          </div>
-          <div className="flex space-x-4">
+        <div className="w-full md:w-1/2 p-12 flex flex-col justify-center">
+          <h1 className="text-3xl font-bold text-gray-800 text-center mb-6">Sign Up</h1>
+          <form className="space-y-6" onSubmit={handleSignup}>
+            {error && <p className="text-red-500 text-sm">{error}</p>}
+            {success && <p className="text-green-500 text-sm">{success}</p>}
+            <div>
+              <input
+                type="email"
+                placeholder="Email Address"
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="w-full px-5 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none text-lg shadow-sm hover:border-indigo-500"
+              />
+            </div>
+            <div>
+              <input
+                type="password"
+                placeholder="Password"
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className="w-full px-5 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none text-lg shadow-sm hover:border-indigo-500"
+              />
+            </div>
             <button
               type="submit"
-              className="w-full px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full py-3 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 text-lg font-semibold transition duration-300 shadow-md"
             >
-              Signup
+              SIGN UP
             </button>
-          </div>
-        </form>
-
-        <div className="text-center mt-4">
-          <p className="text-sm text-gray-600">
-            Login? <Link to="/login" className="text-blue-500 underline">Login</Link>
+          </form>
+          <p className="text-center text-sm text-gray-600 mt-6">
+            Already have an account? <Link to="/login" className="text-indigo-600 font-semibold hover:underline">Login</Link>
           </p>
         </div>
       </div>
@@ -107,3 +94,4 @@ const Signup = () => {
 };
 
 export default Signup;
+
