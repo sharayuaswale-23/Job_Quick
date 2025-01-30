@@ -33,7 +33,7 @@ const Signup = () => {
       .then((data) => {
         setIsAuthorized(true);
         setSuccess("Signup successful!");
-        navigate("/");
+        navigate("/login");
         setError(null);
       })
       .catch((error) => {

@@ -51,12 +51,12 @@ const HosterDetail = () => {
     }).then((data) => {
       console.log(data);
     });
-    navigate('/dashboard');
+    navigate('/hosterprofile');
   };
 
   return (
     <div className="max-w-3xl mx-auto p-6 bg-gray-50 rounded-lg shadow-md">
-      <h2 className="text-4xl font-bold text-black mb-6 text-center text-transparent bg-gradient-to-r from-pink-500 to-blue-500 bg-clip-text">
+      <h2 className="text-4xl font-bold text-black mb-6 text-center text-transparent bg-gradient-to-r from-green-600 to-green-800 bg-clip-text">
         Hoster Details
       </h2>
       <form className="space-y-6 p-4" onSubmit={handleHostData}>
@@ -68,7 +68,7 @@ const HosterDetail = () => {
             type="file"
             accept="image/*"
             onChange={(e) => setimage(e.target.files)}
-            className="block w-full border border-gray-300 rounded-lg shadow-sm py-1 px-3 focus:ring-blue-500 focus:border-blue-500 text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:font-semibold file:bg-gradient-to-r from-pink-500 to-blue-500 file:text-white hover:file:opacity-90"
+            className="block w-full border border-gray-300 rounded-lg shadow-sm py-1 px-3 focus:ring-blue-500 focus:border-blue-500 text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:font-semibold file:bg-gradient-to-r from-green-600 to-green-800 file:text-white hover:file:opacity-90"
           />
         </div>
 
@@ -231,7 +231,7 @@ const HosterDetail = () => {
         </div>
         <button
           type="submit"
-          className="w-full font-semibold bg-gradient-to-r from-pink-500 to-blue-500 text-xl text-white py-3 px-4 rounded-md hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          className="w-full font-semibold bg-gradient-to-r from-green-600 to-green-800 text-xl text-white py-3 px-4 rounded-md hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
         >
           Submit
         </button>

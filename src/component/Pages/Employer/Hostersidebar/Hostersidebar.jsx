@@ -5,15 +5,19 @@ import {
   LogOut,
   User,
   Briefcase,
-  MessageSquare,
   FileText,
   Bookmark,
   Users,
+  Menu,
 } from "lucide-react";
+import { motion } from "framer-motion";
+import { IoIosArrowDown } from "react-icons/io";
 
 function Hostersidebar() {
   const [hoster, setHoster] = useState(null);
   const [error, setError] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isCertificationOpen, setIsCertificationOpen] = useState(false);
 
   const HostId = Cookies.get("userId");
   const HostToken = Cookies.get("jwtToken");
@@ -38,7 +42,7 @@ function Hostersidebar() {
         setHoster(data);
       } catch (error) {
         console.error("Error fetching host profile:", error);
-        setError("Failed to load hoster details.");
+        setError("Failed to load host details.");
       }
     };
 
@@ -55,74 +59,91 @@ function Hostersidebar() {
 
   if (!hoster) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-100">
-        <p className="text-gray-600 text-lg">Loading hoster details...</p>
+      <div className="min-h-screen flex items-center justify-center bg-red-100">
+        <p className="text-gray-600 text-lg">Loading host details...</p>
       </div>
     );
   }
 
   return (
-    <div className="w-64 bg-white p-6 flex flex-col shadow-sm">
-      {/* Profile Section */}
-      <div className="flex flex-col items-center mb-6 text-center">
-        <div className="w-20 h-20 rounded-full overflow-hidden shadow-md">
-          <img
-            src={hoster.profileImage || "https://tse3.mm.bing.net/th?id=OIP.tlqnziQxJqVPudFX75jFpgAAAA&pid=Api&P=0&h=180"}
-            alt="Profile"
-            className="w-full h-full object-cover"
-          />
-        </div>
-        <h1 className="text-xl font-semibold text-gray-800 mt-4">
-          {hoster.fullName}
-        </h1>
-        <p className="text-sm text-gray-600 mt-1">{hoster.phoneNumber}</p>
-        <a
-          href={hoster.companyUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-sm text-blue-600 hover:underline mt-1"
-        >
-          {hoster.companyUrl}
-        </a>
-         <div className="mt-2 flex justify-center">
-                    <Link
-                      to="/hosterdetail"
-                      className="w-full md:w-auto text-center font-semibold bg-gradient-to-r from-pink-500 to-blue-500 text-xl text-white py-2 px-2 rounded-md hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                    >
-                      Edit Profile
-                    </Link>
-                  </div>
-      </div>
+    <div>
+      {/* Mobile Toggle Button */}
+      <button
+        className="lg:hidden fixed top-4 left-4 bg-gray-800 text-white p-2 rounded-md z-50 mb-40 mt-20"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <Menu className="w-6 h-6" />
+      </button>
+      
+      {/* Sidebar */}
+      <div
+        className={`fixed inset-y-0 left-0 bg-white shadow-lg transform ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
+        } lg:translate-x-0 transition-transform duration-300  z-40`}
+      >
+        <div className="p-6 flex flex-col min-h-screen">
+          {/* Profile Section */}
+          <div className="flex flex-col items-center mb-6 text-center mt-20">
+            <div className="w-16 h-16 rounded-full overflow-hidden shadow-md">
+              <img
+                src={
+                  hoster.profileImage ||
+                  "https://tse3.mm.bing.net/th?id=OIP.tlqnziQxJqVPudFX75jFpgAAAA&pid=Api&P=0&h=180"
+                }
+                alt="Profile"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <h1 className="text-xl font-semibold text-gray-800 mt-4">
+              {hoster.fullName}
+            </h1>
+            <p className="text-sm text-gray-600 mt-1">{hoster.phoneNumber}</p>
+       
+           
+          </div>
 
-      {/* Navigation */}
-      <nav className="flex-1">
-        <div className="space-y-1">
-          <button className="flex w-full items-center space-x-3 p-3 hover:bg-green-700 hover:text-white text-gray-600 rounded-lg">
-            <Users className="w-5 h-5" />
-            <Link to="/dashboard">Dashboard</Link>
-          </button>
-          <button className="flex w-full items-center space-x-3 p-3 hover:bg-green-700 hover:text-white text-gray-600 rounded-lg cursor-pointer">
-            <Briefcase className="w-5 h-5" />
-            <Link>My Jobs</Link>
-          </button>
+          {/* Navigation */}
+          <nav className="flex-1">
+            <div className="space-y-1">
+              <Link
+                to="/dashboard"
+                className="flex items-center space-x-3 p-3 hover:bg-green-700 hover:text-white text-gray-600 rounded-lg"
+              >
+                <Users className="w-5 h-5" />
+                <span>Dashboard</span>
+              </Link>
+              <Link
+                to="/hosterprofile"
+                className="flex items-center space-x-3 p-3 hover:bg-green-700 hover:text-white text-gray-600 rounded-lg"
+              >
+                <Users className="w-5 h-5" />
+                <span>My Profile</span>
+              </Link>
+              <Link
+                to="/myjobs"
+                className="flex items-center space-x-3 p-3 hover:bg-green-700 hover:text-white text-gray-600 rounded-lg"
+              >
+                <Briefcase className="w-5 h-5" />
+                <span>My Jobs</span>
+              </Link>
+              <Link
+                to="/submitjob"
+                className="flex items-center space-x-3 p-3 hover:bg-green-700 hover:text-white text-gray-600 rounded-lg"
+              >
+                <FileText className="w-5 h-5" />
+                <span>Submit Job</span>
+              </Link>
+              <Link
+                to="/savedcandidates"
+                className="flex items-center space-x-3 p-3 hover:bg-green-700 hover:text-white text-gray-600 rounded-lg"
+              >
+                <Bookmark className="w-5 h-5" />
+                <span>Save Candidate</span>
+              </Link>
+            </div>
+          </nav>
 
-          <button className="flex w-full items-center space-x-3 p-3 hover:bg-green-700 hover:text-white text-gray-600 rounded-lg cursor-pointer">
-            <FileText className="w-5 h-5" />
-            <Link>Submit Job</Link>
-          </button>
-
-          <button className="flex w-full items-center space-x-3 p-3 hover:bg-green-700 hover:text-white text-gray-600 rounded-lg cursor-pointer">
-            <Bookmark className="w-5 h-5" />
-            <Link>Save Candidate</Link>
-          </button>
-        </div>
-      </nav>
-
-      {/* Logout Section */}
-      <div className="mt-auto">
-        <div className="flex items-center space-x-2 text-gray-600 cursor-pointer">
-          <LogOut className="w-5 h-5" />
-          <span>Logout</span>
+         
         </div>
       </div>
     </div>
@@ -130,7 +151,3 @@ function Hostersidebar() {
 }
 
 export default Hostersidebar;
-
-
-
-

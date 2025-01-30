@@ -40,7 +40,8 @@ const HosterSignup = () => {
           console.log("Signup Response:", data);
           setSuccess("Signup successful!");
           setError(null);
-          navigate('/dashboard')
+          console.log(data);
+          navigate('/hosterlogin')
         })
         .catch((error) => {
           console.error("Signup Error:", error);

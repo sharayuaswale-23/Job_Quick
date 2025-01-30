@@ -8,6 +8,7 @@ import Header from "../../common/header/Header"
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import userimg from "../../../assets/Images/userdetailimg.webp";
+import Footer from "../../common/Footer/Footer";
 
 const UserDetails = () => {
   const navigate = useNavigate();
@@ -73,21 +74,28 @@ const UserDetails = () => {
   return (
     <>
       <Header />
-      <div className="flex flex-col lg:flex-row justify-center items-center min-h-screen bg-gray-100 px-4 sm:px-6 lg:px-8 py-10">
+      <div className="flex flex-col mt-10 lg:flex-row justify-center items-center min-h-screen bg-gray-100 px-4 sm:px-6 lg:px-16 py-10">
         {/* Left Side - Image */}
-        <div className="w-full  lg:w-1/2 flex justify-center lg:justify-end mb-6 lg:mb-0">
+        {/* <div className="w-full  lg:w-1/2 flex justify-center lg:justify-end mb-6 lg:mb-0">
           <img
             src={userimg} // Replace with actual image URL
             alt="Profile Preview"
-            className="w-96 h-96 object-cover"
+            className="w-50 h-50 md:w-full md:h-full object-cover"
           />
-        </div>
+        </div> */}
+        <div className="w-full lg:w-1/2 flex justify-center lg:justify-end mb-6 lg:mb-0">
+  <img
+    src={userimg} // Replace with actual image URL
+    alt="Profile Preview"
+    className="w-40 h-40 sm:w-64 sm:h-48 md:w-60 md:h-60 lg:w-full lg:h-full object-cover"
+  />
+</div>
 
           <div className="w-full lg:w-1/2 bg-white shadow-lg rounded-lg max-w-lg sm:p-6 p-4">
             <form onSubmit={handleSeekData}>
               {step === 1 && (
                 <div className="space-y-6">
-                  <h2 className="text-3xl font-bold text-center text-transparent bg-gradient-to-r from-pink-500 to-blue-500 bg-clip-text mb-6">
+                  <h2 className="text-3xl font-bold text-center text-transparent bg-gradient-to-r from-blue-400 to-blue-700 bg-clip-text mb-6">
                     User Details
                   </h2>
                   <div>
@@ -98,7 +106,7 @@ const UserDetails = () => {
                       type="file"
                       accept="image/*"
                       onChange={(e) => setimage(e.target.files)}
-                      className="block w-full border border-gray-300 rounded-lg shadow-sm py-1 px-3 focus:ring-blue-500 focus:border-blue-500 text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:font-semibold file:bg-gradient-to-r from-pink-500 to-blue-500 file:text-white hover:file:opacity-90"
+                      className="block w-full border border-gray-300 rounded-lg shadow-sm py-1 px-3 focus:ring-blue-500 focus:border-blue-500 text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:font-semibold file:bg-gradient-to-r from-blue-400 to-blue-700 file:text-white hover:file:opacity-90"
                     />
                   </div>
 
@@ -190,7 +198,7 @@ const UserDetails = () => {
                   <button
                     type="button"
                     onClick={handleNext}
-                    className="w-full bg-gradient-to-r from-pink-500 to-blue-500 text-white text-xl py-3 px-4 rounded-lg shadow-md hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                    className="w-full bg-gradient-to-r from-blue-400 to-blue-700 text-white text-xl py-3 px-4 rounded-lg shadow-md hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                   >
                     Next
                   </button>
@@ -199,7 +207,7 @@ const UserDetails = () => {
 
               {step === 2 && (
                 <div className="space-y-6">
-                  <h2 className="text-3xl font-bold text-center text-transparent bg-gradient-to-r from-pink-500 to-blue-500 bg-clip-text mb-6">
+                <h2 className="text-3xl font-bold text-center text-transparent bg-gradient-to-r from-blue-400 to-blue-700 bg-clip-text mb-6">
                     User Location
                   </h2>
                   <div>
@@ -274,7 +282,7 @@ const UserDetails = () => {
                     <button
                       type="button"
                       onClick={handleNext}
-                      className="bg-gradient-to-r from-pink-500 to-blue-500 text-white text-xl py-3 px-4 rounded-lg shadow-md hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                      className=" bg-gradient-to-r from-blue-400 to-blue-700 text-white text-xl py-3 px-4 rounded-lg shadow-md hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                     >
                       Next
                     </button>
@@ -284,7 +292,7 @@ const UserDetails = () => {
               {step === 3 && (
                 <>
                   <div className="space-y-6">
-                    <h2 className="text-3xl font-bold text-center text-transparent bg-gradient-to-r from-pink-500 to-blue-500 bg-clip-text mb-6">
+                    <h2 className="text-3xl font-bold text-center text-transparent bg-gradient-to-r from-blue-400 to-blue-700 bg-clip-text mb-6">
                       User Education & Skills
                     </h2>
                     <div>
@@ -335,7 +343,7 @@ const UserDetails = () => {
 
                       <button
                         type="submit"
-                        className="bg-gradient-to-r from-pink-500 to-blue-500 text-white py-33 px-5 rounded-lg shadow-md hover:opacity-90"
+                        className=" bg-gradient-to-r from-blue-400 to-blue-700 text-white py-33 px-5 rounded-lg shadow-md hover:opacity-90"
                       >
                         Submit
                       </button>
@@ -347,6 +355,8 @@ const UserDetails = () => {
           </div>
      
       </div> 
+
+      <Footer/>
 
 
     </>

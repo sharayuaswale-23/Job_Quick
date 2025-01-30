@@ -1,220 +1,3 @@
-// import React, { useState, useEffect } from "react";
-// import { motion } from "framer-motion";
-// import Header from "../../common/header/Header";
-// import Footer from "../../common/Footer/Footer";
-
-// const Profile = () => {
-//   const [userData, setUserData] = useState(() => {
-//     const savedData = localStorage.getItem("userProfile");
-//     return savedData ? JSON.parse(savedData) : null;
-//   });
-//   const [isEditing, setIsEditing] = useState(false);
-//   const [formData, setFormData] = useState({
-//     name: "",
-//     designation: "",
-//     age: "",
-//     email: "",
-//     address: "",
-//     phone: "",
-//     skills: "",
-//     experience: "",
-//     activities: "",
-//     photo: "",
-//   });
-
-//   useEffect(() => {
-//     if (userData) {
-//       setFormData(userData);
-//     }
-//   }, [userData]);
-
-//   const handleInputChange = (e) => {
-//     const { name, value } = e.target;
-//     setFormData({ ...formData, [name]: value });
-//   };
-
-//   const handlePhotoChange = (e) => {
-//     const file = e.target.files[0];
-//     if (file) {
-//       const reader = new FileReader();
-//       reader.onload = () => {
-//         setFormData({ ...formData, photo: reader.result });
-//       };
-//       reader.readAsDataURL(file);
-//     }
-//   };
-
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     setUserData(formData);
-//     localStorage.setItem("userProfile", JSON.stringify(formData));
-//     setIsEditing(false);
-//   };
-
-//   return (
-//     <>
-//       <Header />
-//       <div className="mt-20 min-h-screen bg-gradient-to-b from-blue-400 to-indigo-100 flex items-center justify-center p-4">
-//         <div className="bg-white shadow-2xl rounded-3xl p-8 w-full max-w-6xl">
-//           {!isEditing ? (
-//             <motion.div
-//               initial={{ opacity: 0, y: 20 }}
-//               animate={{ opacity: 1, y: 0 }}
-//               className="flex flex-col lg:flex-row items-center lg:items-start gap-12"
-//             >
-//               {/* Profile Section */}
-//               <div className="w-full lg:w-1/3 text-center">
-//                 <div className="relative">
-//                   <img
-//                     src={
-//                       formData.photo ||
-//                       "https://png.pngtree.com/png-clipart/20231019/original/pngtree-user-profile-avatar-png-image_13369988.png"
-//                     }
-//                     alt="Profile"
-//                     className="w-40 h-40 mx-auto rounded-full shadow-xl border-4 border-indigo-500"
-//                   />
-                 
-//                 </div>
-//                 <h2 className="text-2xl font-extrabold mt-4 text-gray-800">
-//                   {formData.name || "Your Name"}
-//                 </h2>
-//                 <p className="text-gray-600 font-medium">
-//                   {formData.designation || "Your Designation"}
-//                 </p>
-//                 <button
-//                   onClick={() => setIsEditing(true)}
-//                   className="mt-6 px-8 py-3 bg-indigo-500 text-white font-semibold rounded-full shadow-lg hover:bg-indigo-600 transition-all"
-//                 >
-//                   Edit Profile
-//                 </button>
-//               </div>
-
-//               {/* Details Section */}
-//               <div className="w-full lg:w-2/3">
-//                 {/* Personal Details */}
-//                 <div className="mb-8">
-//                   <h3 className="text-lg font-semibold text-indigo-700 mb-4">
-//                     Personal Details
-//                   </h3>
-//                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-//                     {[
-//                       { label: "Age", value: formData.age || "Not Provided" },
-//                       { label: "Email", value: formData.email || "Not Provided" },
-//                       { label: "Address", value: formData.address || "Not Provided" },
-//                       { label: "Phone", value: formData.phone || "Not Provided" },
-//                     ].map((item) => (
-//                       <div key={item.label} className="flex flex-col">
-//                         <p className="text-gray-500 text-sm">{item.label}:</p>
-//                         <p className="text-gray-900 font-semibold">{item.value}</p>
-//                       </div>
-//                     ))}
-//                   </div>
-//                 </div>
-
-//                 {/* Skills */}
-//                 <div className="mb-8">
-//                   <h3 className="text-lg font-semibold text-indigo-700 mb-4">Skills</h3>
-//                   <p className="text-gray-800 text-sm">
-//                     {formData.skills || "Not Provided"}
-//                   </p>
-//                 </div>
-
-//                 {/* Work Experience */}
-//                 <div className="mb-8">
-//                   <h3 className="text-lg font-semibold text-indigo-700 mb-4">
-//                     Work Experience
-//                   </h3>
-//                   <p className="text-gray-800 text-sm">
-//                     {formData.experience || "Not Provided"}
-//                   </p>
-//                 </div>
-
-//                 {/* Last Activities */}
-//                 <div>
-//                   <h3 className="text-lg font-semibold text-indigo-700 mb-4">
-//                     Last Activities
-//                   </h3>
-//                   <p className="text-gray-800 text-sm">
-//                     {formData.activities || "Not Provided"}
-//                   </p>
-//                 </div>
-//               </div>
-//             </motion.div>
-//           ) : (
-//             <motion.form
-//               initial={{ opacity: 0, y: -20 }}
-//               animate={{ opacity: 1, y: 0 }}
-//               onSubmit={handleSubmit}
-//               className="space-y-8"
-//             >
-//               {/* Form Inputs */}
-//               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-//                 {[
-//                   { label: "Name", name: "name", type: "text" },
-//                   { label: "Designation", name: "designation", type: "text" },
-//                   { label: "Age", name: "age", type: "text" },
-//                   { label: "Email", name: "email", type: "email" },
-//                   { label: "Address", name: "address", type: "text" },
-//                   { label: "Phone", name: "phone", type: "text" },
-//                 ].map((input) => (
-//                   <div key={input.name} className="flex flex-col">
-//                     <label className="font-semibold text-sm text-gray-600">
-//                       {input.label}
-//                     </label>
-//                     <input
-//                       type={input.type}
-//                       name={input.name}
-//                       value={formData[input.name]}
-//                       onChange={handleInputChange}
-//                       className="border rounded-lg p-3 focus:ring focus:ring-indigo-300"
-//                     />
-//                   </div>
-//                 ))}
-//                 <div className="flex flex-col">
-//                   <label className="font-semibold text-sm text-gray-600">Photo</label>
-//                   <input
-//                     type="file"
-//                     onChange={handlePhotoChange}
-//                     className="border rounded-lg p-3 focus:ring focus:ring-indigo-300"
-//                   />
-//                 </div>
-//               </div>
-
-//               {/* Text Areas */}
-//               {[
-//                 { label: "Skills", name: "skills" },
-//                 { label: "Work Experience", name: "experience" },
-//                 { label: "Last Activities", name: "activities" },
-//               ].map((textarea) => (
-//                 <div key={textarea.name} className="flex flex-col">
-//                   <label className="font-semibold text-sm text-gray-600">
-//                     {textarea.label}
-//                   </label>
-//                   <textarea
-//                     name={textarea.name}
-//                     value={formData[textarea.name]}
-//                     onChange={handleInputChange}
-//                     className="border rounded-lg p-3 h-24 focus:ring focus:ring-indigo-300"
-//                   />
-//                 </div>
-//               ))}
-
-//               <button
-//                 type="submit"
-//                 className="w-full px-6 py-3 bg-indigo-500 text-white font-bold rounded-lg shadow-lg hover:bg-indigo-600 transition-all"
-//               >
-//                 Save Profile
-//               </button>
-//             </motion.form>
-//           )}
-//         </div>
-//       </div>
-//       <Footer />
-//     </>
-//   );
-// };
-
-// export default Profile;
 
 
 
@@ -375,7 +158,7 @@ const Profile = () => {
                     College: "Priaydarshani college of Engineering Nagpur",
                   },
                 ].map((exp, index) => (
-                  <div key={index} className="bg-gray-50 p-4 rounded-lg shadow">
+                  <div key={index} className="bg-white p-4 rounded-lg shadow">
                     <h4 className="font-bold text-gray-800">{exp.College}</h4>
                     <p className="text-sm text-gray-600">{exp.Degree}</p>
                     <p className="text-xs text-gray-500">
@@ -415,7 +198,7 @@ const Profile = () => {
                     Project: "Redesign of Hospital Management System",
                   },
                 ].map((exp, index) => (
-                  <div key={index} className="bg-gray-50 p-4 rounded-lg shadow">
+                  <div key={index} className="bg-white p-4 rounded-lg shadow">
                     <h4 className="font-bold text-gray-800">{exp.Project}</h4>
                   </div>
                 ))}
@@ -453,7 +236,7 @@ const Profile = () => {
                     Issued: "2023",
                   },
                 ].map((exp, index) => (
-                  <div key={index} className="bg-gray-50 p-4 rounded-lg shadow">
+                  <div key={index} className="bg-white p-4 rounded-lg shadow">
                     <h4 className="font-bold text-gray-800">{exp.Certificate}</h4>
                     <p className="text-sm text-gray-600">{exp.Issued}</p>
                   </div>

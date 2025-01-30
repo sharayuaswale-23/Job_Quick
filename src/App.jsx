@@ -18,6 +18,7 @@ import HosterDetail from "./component/Pages/Employer/HosterDetail/HosterDetail";
 import HosterProfile from "./component/Pages/Employer/HosterProfile/HosterProfile";
 import Hosterheader from "./component/Pages/Employer/Hosterheader/Hosterheader";
 import UserDetails from "./component/Pages/UserDetails/UserDetails";
+import JobPosting from "./component/Pages/Employer/JobPosting/JobPosting";
 
 // Create a context for authentication
 export const AuthContext = createContext();
@@ -128,6 +129,7 @@ const App = () => {
         <Route path="/hosterprofile" element={<HosterProfile />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/hosterheader" element={<Hosterheader />} />
+        <Route path="/jobposting" element={<JobPosting />} />
       </Routes>
     </AuthContext.Provider>
   );
