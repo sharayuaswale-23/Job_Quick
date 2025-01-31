@@ -25,7 +25,7 @@ const Hosterheader = ()=> {
                 className="md:pl-10 pl-4 md:pr-4 pr-2 py-2 md:w-64 w-32 rounded-lg bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500"
               />
             </div>
-            <Link to="/jobposting" className="bg-gradient-to-r from-green-600 to-green-800 text-white px-1 md:px-4 py-2 rounded-lg hover:bg-green-800 transition-colors">
+            <Link to="/jobposting" className="bg-green-600 text-white px-1 md:px-4 py-2 rounded-lg hover:bg-green-800 transition-colors">
               Post a Job
             </Link>
           </div>

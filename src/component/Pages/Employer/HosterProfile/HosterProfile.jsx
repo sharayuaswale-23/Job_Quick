@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Hostersidebar from "../Hostersidebar/Hostersidebar";
-import Header from "../../../common/header/Header";
+import Hosterheader from "../Hosterheader/Hosterheader";
 import Footer from "../../../common/Footer/Footer";
 
 const HosterProfile = () => {
@@ -59,79 +59,67 @@ const HosterProfile = () => {
   return (
     <>
 
-   <Header />
+   <Hosterheader />
     <div className="flex min-h-screen bg-gray-100 mt-20 relative">
      {/* Sidebar */}
      <div className=" inset-y-0 left-0 shadow-lg z-40">
           <Hostersidebar />
         </div>
 
-      <div className="flex-1 mt-10 lg:mt-2 p-4 md:p-8 lg:ml-56 ">
-        <div className="max-w-4xl w-full bg-white shadow-lg rounded-2xl p-6">
-          <div className="flex flex-col items-center mb-6">
-            <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-blue-500 shadow-md">
-              <img
-                src={hoster.profileImage || "https://via.placeholder.com/150"}
-                alt="Profile"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <h1 className="text-2xl font-bold text-gray-800 mt-4">
-              {hoster.fullName}
-            </h1>
+    
+      <div className="flex-1 mt-10 lg:mt-4 p-4 md:p-10 lg:ml-56 bg-gray-100 min-h-screen">
+      <div className="max-w-4xl w-full bg-white shadow-xl rounded-3xl p-8 border border-gray-200">
+        <div className="flex flex-col items-center mb-8">
+          <div className="w-36 h-36 rounded-full overflow-hidden border-4 border-green-500 shadow-lg">
+            <img
+              src={hoster.profileImage || "https://via.placeholder.com/150"}
+              alt="Profile"
+              className="w-full h-full object-cover"
+            />
           </div>
+          <h1 className="text-3xl font-extrabold text-gray-900 mt-5 capitalize">
+            {hoster.fullName}
+          </h1>
+          <p className="text-lg text-gray-600">{hoster.city}, {hoster.state}</p>
+        </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <p className="text-sm text-gray-600">City</p>
-              <p className="text-lg font-medium text-gray-800">{hoster.city}</p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 border-t border-gray-300 pt-6">
+          {[
+            { label: "City", value: hoster.city },
+            { label: "State", value: hoster.state },
+            { label: "Address", value: hoster.address },
+            { label: "Phone Number", value: hoster.phoneNumber },
+            { label: "Pincode", value: hoster.pincode },
+            { label: "Gender", value: hoster.gender },
+          ].map((item, index) => (
+            <div key={index} className="bg-gray-50 p-4 rounded-lg shadow-sm">
+              <p className="text-sm text-gray-500 font-semibold">{item.label}</p>
+              <p className="text-lg font-medium text-gray-800">{item.value}</p>
             </div>
-            <div>
-              <p className="text-sm text-gray-600">State</p>
-              <p className="text-lg font-medium text-gray-800">{hoster.state}</p>
-            </div>
-            <div>
-              <p className="text-sm text-gray-600">Address</p>
-              <p className="text-lg font-medium text-gray-800">{hoster.address}</p>
-            </div>
-            <div>
-              <p className="text-sm text-gray-600">Phone Number</p>
-              <p className="text-lg font-medium text-gray-800">{hoster.phoneNumber}</p>
-            </div>
-            <div>
-              <p className="text-sm text-gray-600">Company URL</p>
-              <a
-                href={hoster.companyUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-lg font-medium text-blue-600 hover:underline"
-              >
-                {hoster.companyUrl}
-              </a>
-            </div>
-            <div>
-              <p className="text-sm text-gray-600">Gender</p>
-              <p className="text-lg font-medium text-gray-800">{hoster.gender}</p>
-            </div>
-            <div>
-              <p className="text-sm text-gray-600">Pincode</p>
-              <p className="text-lg font-medium text-gray-800">{hoster.pincode}</p>
-            </div>
-          </div>
-
-          <div className="mt-6 flex justify-center">
-            <Link
-              to="/hosterdetail"
-              className="w-full md:w-auto text-center font-semibold bg-green-700 text-white hover:bg-green-800 transition-colors  text-xl py-3 px-6 rounded-md  focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          ))}
+          <div className="col-span-1 sm:col-span-2 bg-gray-50 p-4 rounded-lg shadow-sm">
+            <p className="text-sm text-gray-500 font-semibold">Company URL</p>
+            <a
+              href={hoster.companyUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-lg font-medium text-blue-600 hover:underline break-all"
             >
-              Edit Profile
-            </Link>
+              {hoster.companyUrl}
+            </a>
           </div>
         </div>
+
+        <div className="mt-8 flex justify-center">
+          <Link
+            to="/hosterdetail"
+            className="w-full md:w-auto text-center font-semibold bg-green-600 text-white hover:bg-green-700 transition-colors text-lg py-3 px-8 rounded-lg shadow-md"
+          >
+            Edit Profile
+          </Link>
+        </div>
       </div>
-
-    
-
+    </div>
      
     </div>
     <div className="lg:ml-52">

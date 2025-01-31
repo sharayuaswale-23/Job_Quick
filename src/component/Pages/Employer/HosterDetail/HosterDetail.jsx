@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import bgimg from "../../../../assets/Images/formimage.avif";
 
 const HosterDetail = () => {
   const navigate = useNavigate();
@@ -55,6 +56,13 @@ const HosterDetail = () => {
   };
 
   return (
+
+    <div className="flex min-h-screen flex-col lg:flex-row">
+    {/* Left Side - Background Image */}
+    <div className="hidden lg:block w-1/2 bg-cover bg-center" style={{ backgroundImage: `url(${bgimg})` }}></div>
+    
+    {/* Right Side - Content */}
+    <div className="flex-1 flex justify-center items-center p-6 w-full">
     <div className="max-w-3xl mx-auto p-6 bg-gray-50 rounded-lg shadow-md">
       <h2 className="text-4xl font-bold text-black mb-6 text-center text-transparent bg-gradient-to-r from-green-600 to-green-800 bg-clip-text">
         Hoster Details
@@ -237,6 +245,9 @@ const HosterDetail = () => {
         </button>
       </form>
     </div>
+    </div>
+    </div>
+
   );
 };
 
