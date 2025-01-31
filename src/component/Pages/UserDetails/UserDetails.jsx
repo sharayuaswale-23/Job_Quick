@@ -74,22 +74,17 @@ const UserDetails = () => {
   return (
     <>
       <Header />
-      <div className="flex flex-col mt-10 lg:flex-row justify-center items-center min-h-screen bg-gray-100 px-4 sm:px-6 lg:px-16 py-10">
+      <div className="flex flex-col mt-10 md:flex-row justify-center items-center min-h-screen bg-gray-100 px-4 sm:px-6 lg:px-16 py-10">
         {/* Left Side - Image */}
-        {/* <div className="w-full  lg:w-1/2 flex justify-center lg:justify-end mb-6 lg:mb-0">
+        <div className="hidden md:block w-full  lg:w-1/2 justify-center lg:justify-end mb-6 lg:mb-0">
           <img
             src={userimg} // Replace with actual image URL
             alt="Profile Preview"
             className="w-50 h-50 md:w-full md:h-full object-cover"
           />
-        </div> */}
-        <div className="w-full lg:w-1/2 flex justify-center lg:justify-end mb-6 lg:mb-0">
-  <img
-    src={userimg} // Replace with actual image URL
-    alt="Profile Preview"
-    className="w-40 h-40 sm:w-64 sm:h-48 md:w-60 md:h-60 lg:w-full lg:h-full object-cover"
-  />
-</div>
+        </div> 
+  
+
 
           <div className="w-full lg:w-1/2 bg-white shadow-lg rounded-lg max-w-lg sm:p-6 p-4">
             <form onSubmit={handleSeekData}>

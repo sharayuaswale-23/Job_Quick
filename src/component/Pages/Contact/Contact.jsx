@@ -50,13 +50,13 @@ const ContactPage = () => {
       <Header />
 
       {/* Page Content */}
-      <div className="min-h-screen bg-gradient-to-br bg-gray-100 flex flex-col items-center justify-center pt-24 animate-fadeIn">
+      {/* <div className="min-h-screen bg-gradient-to-br bg-gray-100 flex flex-col items-center justify-center pt-24 animate-fadeIn">
         <h1 className="text-5xl font-extrabold text-gray-800 mb-10 text-center animate-bounceIn">
           Get in Touch with Us
         </h1>
 
         <div className="grid grid-cols-1 px-4 md:px-12 md:grid-cols-2 gap-12 w-full max-w-7xl">
-          {/* Contact Details */}
+         
           <div className="flex flex-col gap-10 p-8 bg-white rounded-3xl shadow-2xl transform transition-transform duration-700 hover:scale-105 animate-slideInLeft">
             <div className="flex items-center gap-6 p-6 bg-gradient-to-r from-blue-100 to-blue-200 rounded-2xl shadow-lg hover:shadow-xl transition-shadow">
               <div className="text-5xl text-blue-500 animate-pulseSlow">
@@ -92,7 +92,7 @@ const ContactPage = () => {
             </div>
           </div>
 
-          {/* Contact Form */}
+      
           <div className="p-10 bg-white rounded-3xl shadow-2xl transform transition-transform duration-700 hover:scale-105 animate-slideInRight">
             <h2 className="text-3xl font-bold text-gray-800 mb-4">We'll get in touch with you</h2>
             <p className="text-gray-600 mb-6">
@@ -137,7 +137,7 @@ const ContactPage = () => {
           </div>
         </div>
 
-        {/* Modal */}
+     
         {isModalVisible && (
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 animate-fadeIn">
             <div className="bg-white rounded-2xl p-6 shadow-xl max-w-sm text-center">
@@ -166,7 +166,171 @@ const ContactPage = () => {
 
          
         </div>
+      </div> */}
+
+      {/* <div className="min-h-screen pt-28 flex items-center justify-center bg-gray-100 px-4 sm:px-6 lg:px-16 py-20">
+      <div className="flex flex-col lg:flex-row w-full max-w-5xl shadow-lg rounded-lg overflow-hidden">
+      
+        <div className="hidden lg:flex bg-cover flex-col justify-center w-1/2 bg-black relative p-10 text-white" style={{backgroundImage:'url(https://www.pixelstalk.net/wp-content/uploads/2016/10/Download-Architecture-Photo.png)'}}>
+        <div className="bg-black inset-0  bg-opacity-60 backdrop-blur-3xl"></div>
+          <h2 className="text-3xl font-bold mb-4">Contact Information</h2>
+          <p className="text-sm text-white-300 mb-6">Reach us at our office or send us a message.</p>
+          <div className="space-y-4">
+            <div>
+              <p className="text-lg font-semibold">Address</p>
+              <p className="text-white-300">Ram Nagar, Nagpur</p>
+            </div>
+            <div>
+              <p className="text-lg font-semibold">Let's Talk</p>
+              <p className="text-gray-400">+91 9999999999</p>
+            </div>
+            <div>
+              <p className="text-lg font-semibold">General Support</p>
+              <p className="text-gray-400">sharayuawale123@gmail.com</p>
+            </div>
+          </div>
+        </div>
+
+      
+        <div className="w-full lg:w-1/2 bg-white p-8 sm:p-10">
+          <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">Send Us A Message</h2>
+          <form className="space-y-6">
+          <input
+          onChange={(e) => setName(e.target.value)}
+          required
+           type="text" placeholder="Name" 
+           className="w-full border border-gray-300 outline-none rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500" />
+
+            <input
+             onChange={(e) => setEmail(e.target.value)}
+             required 
+             type="email" placeholder="Email Address" 
+             className="w-full border border-gray-300 outline-none  rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500" />
+
+            <input
+            onChange={(e) => setNumber(e.target.value)}
+            required
+             type="number" placeholder="Phone Number" className="w-full border outline-none  border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500" />
+
+            <textarea
+             onChange={(e) => setMessage(e.target.value)}
+             placeholder="Write us a message" className="w-full border border-gray-300 outline-none  rounded-lg px-4 py-2 h-32 focus:ring-2 focus:ring-blue-500">
+             </textarea>
+
+            <button
+             onClick={closeModal}
+             className="w-full bg-blue-500 text-white py-3 rounded-lg text-lg font-semibold hover:bg-blue-600 transition-all duration-300">
+              Send Message
+            </button>
+
+          </form>
+        </div>
       </div>
+
+      
+    </div>
+    <div className="w-full h-[450px] overflow-hidden shadow-lg">
+          <iframe
+            title="Google Map Location"
+           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3721.2079855033585!2d79.05346007343789!3d21.144119683809947!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd4c05d75e3bae1%3A0x5094d1a9292b665a!2sRam%20Nagar%2C%20Nagpur%2C%20Maharashtra%20440010!5e0!3m2!1sen!2sin!4v1738052911196!5m2!1sen!2sin"
+           width="100%"
+            height="450"
+            style={{ border: 0 }}
+            allowFullScreen=""
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          ></iframe>
+
+         
+      </div> */}
+
+    <div className="min-h-screen pt-28 flex items-center justify-center bg-gray-100 px-4 sm:px-6 lg:px-16 py-20">
+  <div className="flex flex-col lg:flex-row w-full max-w-5xl shadow-lg rounded-lg overflow-hidden">
+    
+   
+    <div 
+      className="hidden lg:flex flex-col justify-center w-1/2 relative p-10 text-white"
+      style={{ backgroundImage: 'url(https://www.pixelstalk.net/wp-content/uploads/2016/10/Download-Architecture-Photo.png)', backgroundSize: 'cover', backgroundPosition: 'center' }}
+    >
+    
+      <div className="absolute inset-0  bg-opacity-60 backdrop-blur-3xl"></div>
+
+   
+      <div className="relative z-10">
+        <h2 className="text-4xl font-extrabold mb-4 text-white">Contact Information</h2>
+        <p className="text-lg text-gray-300 mb-6">Reach us at our office or send us a message.</p>
+        <div className="space-y-6">
+          <div>
+            <p className="text-lg font-semibold text-white">📍 Address</p>
+            <p className="text-gray-300">Ram Nagar, Nagpur</p>
+          </div>
+          <div>
+            <p className="text-lg font-semibold text-white">📞 Let's Talk</p>
+            <p className="text-gray-300">+91 9999999999</p>
+          </div>
+          <div>
+            <p className="text-lg font-semibold text-white">📧 General Support</p>
+            <p className="text-gray-300">sharayuaswale123@gmail.com</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  
+    <div className="w-full lg:w-1/2 bg-white p-8 sm:p-10">
+      <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">Send Us A Message</h2>
+      <form className="space-y-6">
+        <input 
+        onChange={(e) => setName(e.target.value)}
+        required
+        type="text" placeholder="First Name" 
+        className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500" />
+
+        <input
+         onChange={(e) => setEmail(e.target.value)}
+         required 
+         type="email" placeholder="Email Address" 
+         className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500" />
+
+        <input
+         onChange={(e) => setNumber(e.target.value)}
+         required
+         type="number" placeholder="Phone Number" 
+         className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500" />
+
+        <textarea
+        onChange={(e) => setMessage(e.target.value)}
+         placeholder="Write us a message" 
+         className="w-full border border-gray-300 rounded-lg px-4 py-2 h-32 focus:ring-2 focus:ring-blue-500">
+         </textarea>
+
+        <button
+        onClick={closeModal}
+         className="w-full bg-blue-500 text-white py-3 rounded-lg text-lg font-semibold hover:bg-blue-600 transition-all duration-300">
+          Send Message
+        </button>
+
+      </form>
+    </div>
+
+  </div>
+</div>
+
+<div className="w-full h-[450px] overflow-hidden shadow-lg">
+          <iframe
+            title="Google Map Location"
+           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3721.2079855033585!2d79.05346007343789!3d21.144119683809947!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd4c05d75e3bae1%3A0x5094d1a9292b665a!2sRam%20Nagar%2C%20Nagpur%2C%20Maharashtra%20440010!5e0!3m2!1sen!2sin!4v1738052911196!5m2!1sen!2sin"
+           width="100%"
+            height="450"
+            style={{ border: 0 }}
+            allowFullScreen=""
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          ></iframe>
+
+         
+        </div>
+
 
       <Footer />
     </>

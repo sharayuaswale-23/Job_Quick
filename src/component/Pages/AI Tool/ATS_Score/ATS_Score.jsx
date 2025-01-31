@@ -66,8 +66,8 @@ function ATS_Score() {
         {/* Add padding to avoid overlap with fixed navbar */}
         <div className="pt-20 w-full">
           {/* Header Section */}
-          <header className="w-full text-center px-6 py-12 bg-gradient-to-r from-indigo-400 via-purple-300 to-pink-300 text-white relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-400 via-pink-300 to-indigo-400 opacity-70 animate-gradient-x"></div>
+          <header className="w-full text-center px-6 py-12 bg-gradient-to-r from-blue-200 to-blue-400 text-white relative overflow-hidden">
+            <div className="absolute inset-0bg-gradient-to-r from-blue-400 to-blue-700 opacity-70 animate-gradient-x"></div>
             <div className="relative z-10">
               <h1 className="text-5xl md:text-6xl font-extrabold drop-shadow-lg">
                 ATS Resume Checker
@@ -102,7 +102,7 @@ function ATS_Score() {
                 />
                 <label
                   htmlFor="fileUpload"
-                  className="mt-4 inline-block bg-gradient-to-r from-indigo-500 to-purple-500 text-white px-8 py-4 rounded-full shadow-md hover:shadow-lg font-semibold cursor-pointer"
+                  className="mt-4 inline-block bg-gradient-to-r from-blue-400 to-blue-700 text-white px-8 py-4 rounded-full shadow-md hover:shadow-lg font-semibold cursor-pointer"
                 >
                   Choose a File
                 </label>

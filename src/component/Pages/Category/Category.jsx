@@ -116,7 +116,7 @@ const Category = () => {
             )}
           </div>
           <button
-            className="bg-green-800 text-white px-6 py-2 font-semibold"
+            className="bg-gradient-to-r from-blue-400 to-blue-700 text-white px-6 py-2 font-semibold"
             onClick={handleFilter}
           >
             Search
@@ -199,7 +199,7 @@ const Category = () => {
             </select>
 
             <button
-              className="mt-6 w-full bg-green-500 text-white py-2 rounded-md flex items-center justify-center space-x-2 hover:bg-green-600 transition"
+              className="mt-6 w-full bg-blue-400 text-white py-2 rounded-md flex items-center justify-center space-x-2 hover:bg-blue-600 transition"
               onClick={handleFilter}
             >
               <FaSearch /> <span>Search</span>

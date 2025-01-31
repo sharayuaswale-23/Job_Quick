@@ -20,7 +20,7 @@ const JobDetail = () => {
           <h1 className="text-2xl font-bold">Front-end Developer</h1>
           <p className="text-sm text-gray-600">Upwork</p>
           <p className="text-lg font-semibold">$50 - $100 / week</p>
-          <button onClick={applybtn} className="mt-4 px-6 py-2 bg-green-600 text-white rounded-md">
+          <button onClick={applybtn} className="mt-4 px-6 py-2 bg-gradient-to-r from-blue-400 to-blue-700 text-white rounded-md">
             Apply Now
           </button>
         </section>
