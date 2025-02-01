@@ -131,7 +131,7 @@ function Hostersidebar() {
                 className="flex items-center space-x-3 p-3 hover:bg-green-700 hover:text-white text-gray-600 rounded-lg"
               >
                 <FileText className="w-5 h-5" />
-                <span>Submit Job</span>
+                <span>Applied Candidates</span>
               </Link>
               <Link
                 to="/savedcandidates"

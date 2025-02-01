@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../App";
+import Cookies from "js-cookie";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -14,34 +15,36 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const person = { email, password };
+    setError(null);
+    setSuccess(null);
+    
+    try {
+      const response = await fetch(loginApi, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
-    fetch(loginApi, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(person),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          return response.json().then((data) => {
-            throw new Error(data.message || "Login failed");
-          });
-        }
-        return response.json();
-      })
-      .then((data) => {
-        localStorage.setItem("authToken", data.token);
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Login failed");
+      }
+
+      if (data.token && data._id) {
+        Cookies.set("userToken", data.token, { expires: 8 });
+        Cookies.set("userNewId", data._id, { expires: 8 });
         setIsAuthorized(true);
         setSuccess("Login successful!");
-        setError(null);
         navigate("/");
-      })
-      .catch((error) => {
-        setError(error.message);
-        setSuccess(null);
-      });
+      } else {
+        throw new Error("Token or ID not received");
+      }
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
   return (
@@ -57,7 +60,7 @@ const Login = () => {
           />
         </div>
         <div className="w-full md:w-1/2 p-12 flex flex-col justify-center">
-          <h1 className="text-3xl font-bold text-gray-800 text-center mb-6">Login In</h1>
+          <h1 className="text-3xl font-bold text-gray-800 text-center mb-6">Log In</h1>
           <form className="space-y-6" onSubmit={handleLogin}>
             {error && <p className="text-red-500 text-sm">{error}</p>}
             {success && <p className="text-green-500 text-sm">{success}</p>}
@@ -65,6 +68,7 @@ const Login = () => {
               <input
                 type="email"
                 placeholder="Email Address"
+                value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 className="w-full px-5 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-lg shadow-sm hover:border-blue-500"
@@ -74,6 +78,7 @@ const Login = () => {
               <input
                 type="password"
                 placeholder="Password"
+                value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 className="w-full px-5 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-lg shadow-sm hover:border-blue-500"
@@ -99,4 +104,3 @@ const Login = () => {
 };
 
 export default Login;
-

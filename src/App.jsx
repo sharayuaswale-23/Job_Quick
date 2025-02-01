@@ -1,5 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useState, createContext, useContext, useEffect } from "react";
+import Cookies from "js-cookie";
 import Home from "./component/Pages/Home/Home";
 import ContactPage from "./component/Pages/Contact/Contact";
 import Category from "./component/Pages/Category/Category";
@@ -16,16 +17,12 @@ import HosterLogin from "./component/Pages/Employer/HosterLogin/HosterLogin";
 import HosterSignup from "./component/Pages/Employer/HosterSignup/HosterSignup";
 import HosterDetail from "./component/Pages/Employer/HosterDetail/HosterDetail";
 import HosterProfile from "./component/Pages/Employer/HosterProfile/HosterProfile";
-import Hosterheader from "./component/Pages/Employer/Hosterheader/Hosterheader";
-import UserDetails from "./component/Pages/UserDetails/UserDetails";
 import JobPosting from "./component/Pages/Employer/JobPosting/JobPosting";
 
 // Create a context for authentication
 export const AuthContext = createContext();
 
 const RequireAuth = ({ children }) => {
-
- 
   const { isAuthorized } = useContext(AuthContext);
 
   if (!isAuthorized) {
@@ -36,23 +33,40 @@ const RequireAuth = ({ children }) => {
 
 const App = () => {
   const navigate = useNavigate();
-  // Check if the user is already authorized from localStorage
+
+  // Check if the user is already authorized from cookies
   const [isAuthorized, setIsAuthorized] = useState(
-    () => localStorage.getItem("isAuthorized") === "true"
+    () => Cookies.get("isAuthorized") === "true"
   );
 
+  // Check for token on app load
   useEffect(() => {
-    localStorage.setItem("isAuthorized", isAuthorized);
+    const token = Cookies.get("userToken");
+    if (token) {
+      setIsAuthorized(true);
+    }
+  }, []);
+
+  // Persist isAuthorized state in cookies
+  useEffect(() => {
+    Cookies.set("isAuthorized", isAuthorized, { expires: 7 }); // Expires in 7 days
   }, [isAuthorized]);
+
+  const handleLogin = (token) => {
+    Cookies.set("authToken", token, { expires: 7 }); // Store the token in cookies
+    setIsAuthorized(true); // Set authorization to true
+    navigate("/dashboard"); // Redirect to dashboard
+  };
 
   const handleLogout = () => {
     setIsAuthorized(false);
-    localStorage.removeItem("authToken");
-    navigate("/");
+    Cookies.remove("authToken");
+    Cookies.set("isAuthorized", "false", { expires: 7 }); // Ensure persistence
+    navigate("/"); // Redirect to home page
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthorized, setIsAuthorized, handleLogout }}>
+    <AuthContext.Provider value={{ isAuthorized, setIsAuthorized, handleLogin, handleLogout }}>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
@@ -113,23 +127,26 @@ const App = () => {
             </RequireAuth>
           }
         />
-
-       <Route
-          path="/userdetails"
-          element={
-            <RequireAuth>
-              <UserDetails />
-            </RequireAuth>
-          }
-        />
-        
         <Route path="/hosterlogin" element={<HosterLogin />} />
         <Route path="/hostersignup" element={<HosterSignup />} />
         <Route path="/hosterdetail" element={<HosterDetail />} />
         <Route path="/hosterprofile" element={<HosterProfile />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/hosterheader" element={<Hosterheader />} />
-        <Route path="/jobposting" element={<JobPosting />} />
+        <Route
+          path="/dashboard"
+          element={
+            <RequireAuth>
+              <Dashboard />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/jobposting"
+          element={
+            <RequireAuth>
+              <JobPosting />
+            </RequireAuth>
+          }
+        />
       </Routes>
     </AuthContext.Provider>
   );

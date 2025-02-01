@@ -50,7 +50,7 @@ const ContactPage = () => {
       <Header />
 
       {/* Page Content */}
-      {/* <div className="min-h-screen bg-gradient-to-br bg-gray-100 flex flex-col items-center justify-center pt-24 animate-fadeIn">
+     {/* <div className="min-h-screen bg-gradient-to-br bg-gray-100 flex flex-col items-center justify-center pt-24 animate-fadeIn">
         <h1 className="text-5xl font-extrabold text-gray-800 mb-10 text-center animate-bounceIn">
           Get in Touch with Us
         </h1>
@@ -166,9 +166,9 @@ const ContactPage = () => {
 
          
         </div>
-      </div> */}
+      </div>  */}
 
-      {/* <div className="min-h-screen pt-28 flex items-center justify-center bg-gray-100 px-4 sm:px-6 lg:px-16 py-20">
+     {/* <div className="min-h-screen pt-28 flex items-center justify-center bg-gray-100 px-4 sm:px-6 lg:px-16 py-20">
       <div className="flex flex-col lg:flex-row w-full max-w-5xl shadow-lg rounded-lg overflow-hidden">
       
         <div className="hidden lg:flex bg-cover flex-col justify-center w-1/2 bg-black relative p-10 text-white" style={{backgroundImage:'url(https://www.pixelstalk.net/wp-content/uploads/2016/10/Download-Architecture-Photo.png)'}}>
@@ -242,35 +242,36 @@ const ContactPage = () => {
           ></iframe>
 
          
-      </div> */}
+      </div>  */}
 
-    <div className="min-h-screen pt-28 flex items-center justify-center bg-gray-100 px-4 sm:px-6 lg:px-16 py-20">
+     
+     <div className="min-h-screen pt-28 flex items-center justify-center bg-gray-100 px-4 sm:px-6 lg:px-16 py-20">
   <div className="flex flex-col lg:flex-row w-full max-w-5xl shadow-lg rounded-lg overflow-hidden">
     
    
     <div 
       className="hidden lg:flex flex-col justify-center w-1/2 relative p-10 text-white"
-      style={{ backgroundImage: 'url(https://www.pixelstalk.net/wp-content/uploads/2016/10/Download-Architecture-Photo.png)', backgroundSize: 'cover', backgroundPosition: 'center' }}
+      style={{ backgroundImage: 'url(https://media.istockphoto.com/id/1817139946/photo/wall-of-building-modern-architecture-with-metal-elements-building-with-transparent-ceiling.jpg?s=1024x1024&w=is&k=20&c=ZkrbWqVAUhzROo1k1Z19gWsRMRhwqd8l5k_9NGy8ykA=)', backgroundSize: 'cover', backgroundPosition: 'center' }}
     >
     
-      <div className="absolute inset-0  bg-opacity-60 backdrop-blur-3xl"></div>
+      <div className="absolute inset-0 bg-opacity-50 backdrop-blur"></div>
 
    
       <div className="relative z-10">
         <h2 className="text-4xl font-extrabold mb-4 text-white">Contact Information</h2>
-        <p className="text-lg text-gray-300 mb-6">Reach us at our office or send us a message.</p>
+        <p className="text-lg text-white-300 mb-6">Reach us at our office or send us a message.</p>
         <div className="space-y-6">
           <div>
             <p className="text-lg font-semibold text-white">📍 Address</p>
-            <p className="text-gray-300">Ram Nagar, Nagpur</p>
+            <p className="text-white-300">Ram Nagar, Nagpur</p>
           </div>
           <div>
             <p className="text-lg font-semibold text-white">📞 Let's Talk</p>
-            <p className="text-gray-300">+91 9999999999</p>
+            <p className="text-white-300">+91 9999999999</p>
           </div>
           <div>
             <p className="text-lg font-semibold text-white">📧 General Support</p>
-            <p className="text-gray-300">sharayuaswale123@gmail.com</p>
+            <p className="text-white-300">sharayuaswale123@gmail.com</p>
           </div>
         </div>
       </div>
@@ -284,24 +285,24 @@ const ContactPage = () => {
         onChange={(e) => setName(e.target.value)}
         required
         type="text" placeholder="First Name" 
-        className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500" />
+        className="w-full border border-gray-300 outline-none rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500" />
 
         <input
          onChange={(e) => setEmail(e.target.value)}
          required 
          type="email" placeholder="Email Address" 
-         className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500" />
+         className="w-full border outline-none border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500" />
 
         <input
          onChange={(e) => setNumber(e.target.value)}
          required
          type="number" placeholder="Phone Number" 
-         className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500" />
+         className="w-full border outline-none border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500" />
 
         <textarea
         onChange={(e) => setMessage(e.target.value)}
          placeholder="Write us a message" 
-         className="w-full border border-gray-300 rounded-lg px-4 py-2 h-32 focus:ring-2 focus:ring-blue-500">
+         className="w-full border outline-none border-gray-300 rounded-lg px-4 py-2 h-32 focus:ring-2 focus:ring-blue-500">
          </textarea>
 
         <button
@@ -329,7 +330,7 @@ const ContactPage = () => {
           ></iframe>
 
          
-        </div>
+        </div> 
 
 
       <Footer />

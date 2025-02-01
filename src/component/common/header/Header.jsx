@@ -2,18 +2,20 @@ import React, { useState, useEffect,useContext } from "react";
 import { FaTh, FaBars, FaTimes, FaUserCircle, FaChevronDown } from "react-icons/fa";
 import {AuthContext} from '../../../App';
 import { Link, useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const Header = () => {
-  const { isAuthorized, handleLogout } = useContext(AuthContext);
-
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isAiDropdownOpen, setIsAiDropdownOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const navigate = useNavigate();
+  const [isAuthorized, setIsAuthorized] = useState(
+      () => Cookies.get("isAuthorized") === "true"
+    );
 
   useEffect(() => {
-    const token = localStorage.getItem("authToken");
+    const token = Cookies.get("userToken");
     setIsAuthenticated(!!token);
   }, []);
 
@@ -29,12 +31,19 @@ const Header = () => {
     setIsAiDropdownOpen(!isAiDropdownOpen);
   };
 
+    const handleLogout = () => {
+      setIsAuthorized(false);
+      Cookies.remove("userToken");
+      Cookies.set("isAuthorized", "false", { expires: 7 }); // Ensure persistence
+      navigate("/login"); // Redirect to home page
+    };
+
   useEffect(() => {
-    const token = localStorage.getItem("authToken");
+    const token = Cookies.get("userToken");
     setIsAuthenticated(!!token);
   }, []);
   return (
-    <nav className="bg-pink-50 fixed top-0 left-0 w-full z-50 shadow-lg">
+    <nav className="bg-white fixed top-0 left-0 w-full z-50 shadow-md">
       <div className="flex items-center justify-between px-4 py-5 md:px-10">
         {/* Logo */}
         <div className="flex items-center text-lg font-bold text-black">
@@ -74,15 +83,14 @@ const Header = () => {
              
               {isDropdownOpen && (
                 <ul className="absolute right-0 mt-2 bg-white shadow-lg rounded-lg w-40 text-gray-700">
-                  <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                  <button className="px-4 py-2 w-full text-left hover:bg-gray-100 cursor-pointer">
                     <Link to="/Profile">Profile</Link>
-                  </li>
-                  <li
+                  </button>
+                  <button
                     onClick={handleLogout}
-                    className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                  >
+                    className="px-4 py-2 w-full text-left hover:bg-gray-100 cursor-pointer">
                     Logout
-                  </li>
+                  </button>
                 </ul>
               )}
             </div>
@@ -127,16 +135,16 @@ const Header = () => {
         <div className="relative hidden md:flex items-center gap-4">
           {!isAuthenticated ? (
             <>
-              <button className="px-4 py-2 border border-white text-black rounded-lg hover:bg-gray-100">
+              <button className="px-4 py-2 bg-slate-200 text-black rounded-lg hover:bg-gray-100">
                 <Link to="/hosterlogin">For Employer</Link>
               </button>
-              <button className="px-4 py-2 text-black bg-white rounded-lg hover:bg-gray-100">
+              <button className="px-4 py-2 border border-black text-black bg-white rounded-lg hover:bg-gray-100">
                 <Link to="/login">Log in</Link>
               </button>
             </>
           ) : (
             <>
-              <button className="px-4 py-2 text-black bg-white rounded-lg hover:bg-gray-100">
+              <button className="px-4 py-2 bg-slate-200 text-black rounded-lg hover:bg-gray-100">
                 <Link to="/hosterlogin">For Employer</Link>
               </button>
               <div className="relative">
@@ -146,15 +154,15 @@ const Header = () => {
                 />
                 {isDropdownOpen && (
                   <ul className="absolute right-0 mt-2 bg-white shadow-lg rounded-lg w-40 text-gray-700">
-                    <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                    <button className="px-4 py-2 w-full text hover:bg-gray-100 cursor-pointer">
                       <Link to="/profile">Profile</Link>
-                    </li>
-                    <li
+                    </button>
+                    <button
                       onClick={handleLogout}
-                      className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                      className="px-4 py-2 w-full text-left hover:bg-gray-100 cursor-pointer"
                     >
                       Logout
-                    </li>
+                    </button>
                   </ul>
                 )}
               </div>
@@ -165,7 +173,7 @@ const Header = () => {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="flex flex-col items-center px-6 py-4 space-y-4 text-black md:hidden bg-pink-50">
+        <div className="flex flex-col items-center px-6 py-4 space-y-4 text-black md:hidden bg-white">
           <ul className="space-y-4 text-center">
             <li className="cursor-pointer ">
               <Link to="/">Home</Link>
@@ -200,19 +208,22 @@ const Header = () => {
             {!isAuthenticated ? (
             <>
               <div className="flex flex-col items-center gap-4">
-              <button className="px-4 py-2 border border-white text-black rounded-lg hover:bg-gray-100">
+              <button className="px-4 py-2 bg-slate-200 text-black rounded-lg hover:bg-gray-100">
                 <Link to="/hosterlogin">For Employer</Link>
               </button>
-              <button className="px-4 py-2 text-black bg-white rounded-lg hover:bg-gray-100">
+              <button className="px-4 py-2 border border-black text-black bg-white rounded-lg hover:bg-gray-100">
                 <Link to="/login">Log in</Link>
               </button>
               </div>
             </>
           ) : (
             <>
-            <button className="px-4 py-2 text-black bg-white rounded-lg hover:bg-gray-100">
+           <div className="flex flex-col">
+           <button className="px-4 py-2 bg-slate-200 text-black rounded-lg hover:bg-gray-100">
             <Link to="/hosterlogin">For Employer</Link>
               </button>
+           
+           </div>
             </>
           )}
           </ul>

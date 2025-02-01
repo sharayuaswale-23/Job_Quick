@@ -1,8 +1,18 @@
 import React from "react";
 import Homeimg from "../../../../assets/Images/HomeImg.jpg";
 import TextMarque from "../../../Animation/TextMarque/TextMarque";
+import { useState } from "react";
 
 const MainHome = () => {
+
+  const [searchInput, setSearchInput] = useState(""); // Stores user input
+  const [searchQuery, setSearchQuery] = useState(""); // Stores query after clicking search
+
+  // Handle search button click
+  const handleSearch = () => {
+    setSearchQuery(searchInput);
+  };
+
   return (
     <>
       <div className="flex flex-col md:flex-row min-h-screen w-full bg-gradient-to-br bg-gray-100 text-black mt-16">
@@ -20,9 +30,12 @@ const MainHome = () => {
             <input
               type="text"
               placeholder="Search for designation..."
+              onChange={(e) => setSearchInput(e.target.value)}
               className="w-full p-4 outline-none text-gray-700 placeholder-gray-400"
             />
-            <button className="bg-gradient-to-r from-blue-400 to-blue-700 text-white px-6 py-3 rounded-full font-semibold hover:scale-105 transition-transform duration-300">
+            <button
+            onClick={handleSearch} 
+             className="bg-gradient-to-r from-blue-400 to-blue-700 text-white px-6 py-3 rounded-full font-semibold hover:scale-105 transition-transform duration-300">
               Search
             </button>
           </div>
