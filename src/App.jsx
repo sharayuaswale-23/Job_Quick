@@ -9,6 +9,7 @@ import Salary from "./component/Pages/AI Tool/Salary/Salary";
 import ResumeBuilder from "./component/Pages/AI Tool/Resume_Builder/Resumebuilder";
 import JobDetail from "./component/Pages/Job_Detail/JobDetail";
 import Profile from "./component/Pages/Profile/Profile";
+import UserDetails from "./component/Pages/UserDetails/UserDetails";
 import Login from "./component/Authentication/Login/Login";
 import Signup from "./component/Authentication/SignUp/SignUp";
 import Dashboard from "./component/Pages/Employer/Dashboard/Dashboard";
@@ -127,6 +128,14 @@ const App = () => {
             </RequireAuth>
           }
         />
+          <Route
+          path="/userdetails"
+          element={
+            <RequireAuth>
+              <UserDetails />
+            </RequireAuth>
+          }
+        />
         <Route path="/hosterlogin" element={<HosterLogin />} />
         <Route path="/hostersignup" element={<HosterSignup />} />
         <Route path="/hosterdetail" element={<HosterDetail />} />
@@ -134,17 +143,17 @@ const App = () => {
         <Route
           path="/dashboard"
           element={
-            <RequireAuth>
+           
               <Dashboard />
-            </RequireAuth>
+           
           }
         />
         <Route
           path="/jobposting"
           element={
-            <RequireAuth>
+    
               <JobPosting />
-            </RequireAuth>
+      
           }
         />
       </Routes>

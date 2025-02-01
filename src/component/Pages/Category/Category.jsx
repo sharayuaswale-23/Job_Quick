@@ -60,6 +60,7 @@ const Category = () => {
       setIsLoading(true);
       setError(null);
       try {
+        const filterUrl = buildFilterUrl();
         const response = await fetch(`${BASE_URL}/categories`, {
           method: "GET",
           headers: {
@@ -77,7 +78,8 @@ const Category = () => {
         }
 
         const data = await response.json();
-        setCategories(data.categories || data.data || []);
+        // setCategories(data.categories || data.data || []);
+        setCategories(data.jobs || data.data || []);
       } catch (error) {
         console.error("Error fetching categories:", error);
         setError("Failed to load categories");
@@ -87,7 +89,7 @@ const Category = () => {
     };
 
     fetchCategories();
-  }, [JobToken]);
+  }, [JobToken, filters]);
 
   // Fetch job listings
   useEffect(() => {

@@ -34,6 +34,7 @@ const Header = () => {
     const handleLogout = () => {
       setIsAuthorized(false);
       Cookies.remove("userToken");
+      Cookies.remove("userNewId");
       Cookies.set("isAuthorized", "false", { expires: 7 }); // Ensure persistence
       navigate("/login"); // Redirect to home page
     };
@@ -154,7 +155,7 @@ const Header = () => {
                 />
                 {isDropdownOpen && (
                   <ul className="absolute right-0 mt-2 bg-white shadow-lg rounded-lg w-40 text-gray-700">
-                    <button className="px-4 py-2 w-full text hover:bg-gray-100 cursor-pointer">
+                    <button className="px-4 py-2 w-full text-left hover:bg-gray-100 cursor-pointer">
                       <Link to="/profile">Profile</Link>
                     </button>
                     <button

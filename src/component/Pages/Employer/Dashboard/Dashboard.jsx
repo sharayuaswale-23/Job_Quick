@@ -5,6 +5,8 @@ import Hostersidebar from "../Hostersidebar/Hostersidebar";
 import Hosterheader from "../Hosterheader/Hosterheader";
 import Footer from "../../../common/Footer/Footer";
 import { Search, User, Bookmark, FileText ,LogOut} from "lucide-react";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 
 const chartData = [
@@ -19,6 +21,13 @@ const chartData = [
 ];
 
 const Dashboard = () => {
+  const navigate = useNavigate();
+
+  const logout = ()=> {
+     Cookies.remove("jwtToken");
+     Cookies.remove("userId");
+     navigate("/");
+  }
   return (
     <>
       <Hosterheader />
@@ -41,7 +50,7 @@ const Dashboard = () => {
             </Link> */}
              {/* Logout Section */}
           <div className="mt-auto">
-            <button className="flex items-center space-x-2 text-gray-600 hover:text-red-600 p-3">
+            <button onClick={logout} className="flex items-center space-x-2 text-gray-600 hover:text-red-600 p-3">
               <LogOut className="w-5 h-5" />
               <span>Logout</span>
             </button>

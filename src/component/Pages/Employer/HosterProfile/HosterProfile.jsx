@@ -72,13 +72,13 @@ const HosterProfile = () => {
         <div className="flex flex-col items-center mb-8">
           <div className="w-36 h-36 rounded-full overflow-hidden border-4 border-green-500 shadow-lg">
             <img
-              src={hoster.profileImage || "https://via.placeholder.com/150"}
+              src={hoster.profileImg || "https://tse3.mm.bing.net/th?id=OIP.tlqnziQxJqVPudFX75jFpgAAAA&pid=Api&P=0&h=180"}
               alt="Profile"
               className="w-full h-full object-cover"
             />
           </div>
           <h1 className="text-3xl font-extrabold text-gray-900 mt-5 capitalize">
-            {hoster.fullName}
+          {hoster.fullName}
           </h1>
           <p className="text-lg text-gray-600">{hoster.city}, {hoster.state}</p>
         </div>
@@ -88,7 +88,7 @@ const HosterProfile = () => {
             { label: "City", value: hoster.city },
             { label: "State", value: hoster.state },
             { label: "Address", value: hoster.address },
-            { label: "Phone Number", value: hoster.phoneNumber },
+            { label: "Phone Number", value: hoster.phoneNumber},
             { label: "Pincode", value: hoster.pincode },
             { label: "Gender", value: hoster.gender },
           ].map((item, index) => (
@@ -97,17 +97,20 @@ const HosterProfile = () => {
               <p className="text-lg font-medium text-gray-800">{item.value}</p>
             </div>
           ))}
-          <div className="col-span-1 sm:col-span-2 bg-gray-50 p-4 rounded-lg shadow-sm">
-            <p className="text-sm text-gray-500 font-semibold">Company URL</p>
-            <a
-              href={hoster.companyUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-lg font-medium text-blue-600 hover:underline break-all"
-            >
-              {hoster.companyUrl}
-            </a>
-          </div>
+          <div>
+                  <p className="col-span-1 sm:col-span-2 bg-gray-50 p-4 rounded-lg shadow-sm">
+                    {" "}
+                    CompanyUrl{" "}
+                  </p>
+                  <a
+                    href={hoster.companyUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-lg font-medium text-blue-600 hover:underline break-all"
+                  >
+                    {hoster.companyUrl}
+                  </a>
+                </div>
         </div>
 
         <div className="mt-8 flex justify-center">

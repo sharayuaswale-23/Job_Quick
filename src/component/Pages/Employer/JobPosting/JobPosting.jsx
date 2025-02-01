@@ -1,8 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import backgroundImage from "../../../../assets/Images/backgroundimage.jpg";
+import { BriefcaseBusiness, CalendarDays, Trophy } from "lucide-react";
 
 const JobPosting = () => {
+  const JobId = Cookies.get("userId");
   const [step, setStep] = useState(1);
+  const [categories, setCategories] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
+  const [skillInput, setSkillInput] = useState("");
   const [formData, setFormData] = useState({
     profileImg: null,
     fullName: "",
@@ -25,64 +35,160 @@ const JobPosting = () => {
     noOfOpeaning: "",
     location: "",
     categoryTitle: "",
+    createdBy: JobId,
   });
 
-  const JobId = Cookies.get("userId");
   const JobToken = Cookies.get("jwtToken");
   const jobPostApi = "https://jobquick.onrender.com/job";
   const CategoryApi = "https://jobquick.onrender.com/categories";
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const response = await axios.get(CategoryApi, {
+          headers: {
+            Authorization: `Bearer ${JobToken}`,
+          },
+        });
+
+        let processedCategories = [];
+        const data = response.data;
+
+        if (data.categories) {
+          processedCategories = data.categories;
+        } else if (data.data) {
+          processedCategories = data.data;
+        } else if (Array.isArray(data)) {
+          processedCategories = data;
+        } else if (typeof data === "object") {
+          processedCategories = Object.values(data);
+        }
+
+        setCategories(processedCategories);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+        setError("Failed to load categories. Please try again later.");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    if (JobToken) {
+      fetchCategories();
+    }
+  }, [JobToken]);
+
+  const addSkill = (skill) => {
+    const trimmedSkill = skill.trim();
+    if (trimmedSkill && !formData.skills.includes(trimmedSkill)) {
+      setFormData(prev => ({
+        ...prev,
+        skills: [...prev.skills, trimmedSkill]
+      }));
+    }
+  };
 
   const handleInputChange = (e) => {
     const { name, value, type, files } = e.target;
 
     if (type === "file") {
-      setFormData((prev) => ({
-        ...prev,
-        [name]: files[0],
-      }));
-    } else if (name === "skills") {
-      setFormData((prev) => ({
-        ...prev,
-        [name]: value.split(",").map((skill) => skill.trim()),
-      }));
+      const file = files[0];
+      if (file) {
+        // Check file type
+        if (!file.type.startsWith("image/")) {
+          setError("Please upload an image file");
+          return;
+        }
+        // Check file size (e.g., 5MB limit)
+        if (file.size > 5 * 1024 * 1024) {
+          setError("File size should be less than 5MB");
+          return;
+        }
+
+        // Create preview URL
+        const previewUrl = URL.createObjectURL(file);
+        setImagePreview(previewUrl);
+        setFormData((prev) => ({ ...prev, [name]: file }));
+      }
+      return;
+    }
+
+    else if (name === "skills") {
+      setSkillInput(value);
     } else {
-      setFormData((prev) => ({
-        ...prev,
-        [name]: value,
-      }));
+      setFormData(prev => ({ ...prev, [name]: value }));
     }
   };
 
+  const handleSkillInputKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault(); // Prevent form submission
+      if (skillInput.trim()) {
+        addSkill(skillInput);
+        setSkillInput(''); // Clear input after adding
+      }
+    } else if (e.key === ',' || e.key === ' ') {
+      e.preventDefault();
+      if (skillInput.trim()) {
+        addSkill(skillInput);
+        setSkillInput('');
+      }
+    }
+  };
+
+  const handleRemoveSkill = (indexToRemove) => {
+    setFormData(prev => ({
+      ...prev,
+      skills: prev.skills.filter((_, index) => index !== indexToRemove)
+    }));
+  };
+
+
   const handlePostJob = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    setError(null);
 
     try {
-      const formPayload = {
-        ...formData,
-        createdBy: JobId,
-      };
+      const submitFormData = new FormData();
 
-      console.log(formPayload);
-
-      const response = await fetch(jobPostApi, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${JobToken}`,
-        },
-        body: JSON.stringify(formPayload),
+      // Append all form fields to FormData
+      Object.keys(formData).forEach(key => {
+        if (formData[key] !== null && formData[key] !== undefined) {
+          if (key === 'skills') {
+            // Convert skills array to a simple comma-separated string when sending to server
+            const skillsString = formData[key].join(", ");
+            submitFormData.append(key, skillsString);
+          } else if (key === 'profileImg') {
+            if (formData[key] instanceof File) {
+              submitFormData.append(key, formData[key]);
+            }
+          } else {
+            submitFormData.append(key, formData[key]);
+          }
+        }
       });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+      const response = await axios.post(jobPostApi, submitFormData, {
+        headers: {
+          Authorization: `Bearer ${JobToken}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
-      const data = await response.json();
-      console.log("Job posted successfully:", data);
-      // Add success notification here
+      if (response.data) {
+        navigate("/dashboard");
+      }
     } catch (error) {
       console.error("Error posting job:", error);
-      // Add error notification here
+      setError(
+        error.response?.data?.message || "Failed to post job. Please try again."
+      );
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -100,13 +206,23 @@ const JobPosting = () => {
         <label className="block text-sm font-medium text-gray-700 mb-2">
           Upload Company Logo
         </label>
-        <input
-          type="file"
-          name="profileImg"
-          accept="image/*"
-          onChange={handleInputChange}
-          className="block w-full border border-gray-300 rounded-lg shadow-sm py-2 px-3 focus:ring-blue-500 focus:border-blue-500 text-sm"
-        />
+        <div className="mt-1 flex items-center space-x-4">
+          <input
+            type="file"
+            name="profileImg"
+            accept="image/*"
+            onChange={handleInputChange}
+            className="block w-full border border-gray-300 rounded-lg shadow-sm py-2 px-3 focus:ring-blue-500 focus:border-blue-500 text-sm"
+          />
+          {imagePreview && (
+            <img
+              src={imagePreview}
+              alt="Preview"
+              className="h-20 w-20 object-cover rounded-lg"
+            />
+          )}
+        </div>
+        {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
       </div>
 
       <div className="flex gap-4">
@@ -213,7 +329,7 @@ const JobPosting = () => {
       <button
         type="button"
         onClick={handleNext}
-        className="w-full bg-gradient-to-r from-pink-500 to-blue-500 text-white py-3 px-4 rounded-md hover:opacity-90 font-semibold"
+        className="w-full bg-green-500 hover:bg-green-700 text-white py-3 px-4 rounded-md hover:opacity-90 font-semibold"
       >
         Next
       </button>
@@ -222,6 +338,7 @@ const JobPosting = () => {
 
   const renderJobDetailsForm = () => (
     <>
+
       <div className="flex-1">
         <label className="block text-sm font-medium text-gray-700">
           Job Title
@@ -254,22 +371,30 @@ const JobPosting = () => {
         <label className="block text-sm font-medium text-gray-700">
           Category
         </label>
-        <select
-          name="categoryTitle"
-          value={formData.categoryTitle}
-          onChange={handleInputChange}
-          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-        >
-          <option value="">Select Category</option>
-          <option value="IT & Networking">IT & Networking</option>
-          <option value="Sales & Marketing">Sales & Marketing</option>
-          <option value="Data Science">Data Science</option>
-          <option value="Customer Service">Customer Service</option>
-          <option value="Digital Marketing">Digital Marketing</option>
-          <option value="Human Resource">Human Resource</option>
-          <option value="Project Manager">Project Manager</option>
-          <option value="Accounting">Accounting</option>
-        </select>
+        {isLoading ? (
+          <div className="mt-1 block w-full h-10 bg-gray-100 animate-pulse rounded-md" />
+        ) : error ? (
+          <div className="mt-1 text-red-500 text-sm">{error}</div>
+        ) : (
+          <select
+            name="categoryTitle"
+            value={formData.categoryTitle}
+            onChange={handleInputChange}
+            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          >
+            <option value="" disabled>
+              Select Category
+            </option>
+            {categories.map((category) => (
+              <option
+                key={category._id || category.id || Math.random().toString(36)}
+                value={category.title || category.name || ""}
+              >
+                {category.title || category.name || "Unnamed Category"}
+              </option>
+            ))}
+          </select>
+        )}
       </div>
 
       <div className="flex-1">
@@ -301,23 +426,25 @@ const JobPosting = () => {
           placeholder="Enter job location"
         />
       </div>
+ 
 
       <div className="flex justify-between">
         <button
           type="button"
           onClick={handlePrevious}
-          className="w-1/3 bg-gradient-to-r from-pink-700 to-blue-700 text-white py-3 px-4 rounded-md hover:opacity-90 font-semibold"
+          className="w-1/3 bg-green-500 hover:bg-green-700 text-white py-3 px-4 rounded-md hover:opacity-90 font-semibold"
         >
           Previous
         </button>
         <button
           type="button"
           onClick={handleNext}
-          className="w-1/2 bg-gradient-to-r from-pink-500 to-blue-500 text-white py-3 px-4 rounded-md hover:opacity-90 font-semibold"
+          className="w-1/2 bg-green-500 hover:bg-green-700 text-white py-3 px-4 rounded-md hover:opacity-90 font-semibold"
         >
           Next
         </button>
       </div>
+    
     </>
   );
 
@@ -329,12 +456,12 @@ const JobPosting = () => {
             Minimum Package
           </label>
           <input
-            type="number"
+            type="text"
             name="minPackage"
             value={formData.minPackage}
             onChange={handleInputChange}
             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            placeholder="Enter minimum package"
+            placeholder="Enter minimum package eg: 3LPA"
           />
         </div>
         <div className="flex-1">
@@ -342,12 +469,12 @@ const JobPosting = () => {
             Maximum Package
           </label>
           <input
-            type="number"
+            type="text"
             name="maxPackage"
             value={formData.maxPackage}
             onChange={handleInputChange}
             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            placeholder="Enter maximum package"
+            placeholder="Enter maximum package eg: 5LPA"
           />
         </div>
       </div>
@@ -381,7 +508,6 @@ const JobPosting = () => {
             <option value="">Select experience level</option>
             <option value="Fresher">Fresher</option>
             <option value="1 to 3 years">1 to 3 years</option>
-            <option value="3 to 5 years">1 to 3 years</option>
             <option value="3 to 5 years">3 to 5 years</option>
             <option value="more than 5 years">more than 5 years</option>
           </select>
@@ -424,14 +550,39 @@ const JobPosting = () => {
         <label className="block text-sm font-medium text-gray-700">
           Required Skills
         </label>
-        <input
-          type="text"
-          name="skills"
-          value={formData.skills.join(", ")}
-          onChange={handleInputChange}
-          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-          placeholder="Enter skills (comma-separated)"
-        />
+        <div className="relative">
+          <input
+            type="text"
+            name="skills"
+            value={skillInput}
+            onChange={handleInputChange}
+            onKeyDown={handleSkillInputKeyDown}
+            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            placeholder="Type a skill and press Enter or comma to add"
+          />
+          <div className="mt-2 text-xs text-gray-500">
+            Press Enter or comma (,) to add a skill
+          </div>
+        </div>
+        {formData.skills.length > 0 && (
+          <div className="mt-2 flex flex-wrap gap-2">
+            {formData.skills.map((skill, index) => (
+              <span
+                key={index}
+                className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800"
+              >
+                {skill}
+                <button
+                  type="button"
+                  onClick={() => handleRemoveSkill(index)}
+                  className="ml-1 inline-flex items-center p-0.5 rounded-full text-blue-400 hover:bg-blue-200 hover:text-blue-900"
+                >
+                  ×
+                </button>
+              </span>
+            ))}
+          </div>
+        )}
       </div>
 
       <div>
@@ -452,13 +603,13 @@ const JobPosting = () => {
         <button
           type="button"
           onClick={handlePrevious}
-          className="w-1/3 bg-gradient-to-r from-pink-700 to-blue-700 text-white py-3 px-4 rounded-md hover:opacity-90 font-semibold"
+          className="w-1/3 bg-green-500 hover:bg-green-700 text-white py-3 px-4 rounded-md hover:opacity-90 font-semibold"
         >
           Previous
         </button>
         <button
           type="submit"
-          className="w-1/2 bg-gradient-to-r from-pink-500 to-blue-500 text-white py-3 px-4 rounded-md hover:opacity-90 font-semibold"
+          className="w-1/2 bg-green-500 hover:bg-green-700 text-white py-3 px-4 rounded-md hover:opacity-90 font-semibold"
         >
           Submit
         </button>
@@ -467,10 +618,53 @@ const JobPosting = () => {
   );
 
   return (
-    <div className="max-w-3xl mx-auto p-6 bg-gray-100 rounded-lg shadow-md">
-      <h2 className="text-4xl font-bold mb-6 text-center bg-gradient-to-r from-pink-500 to-blue-500 bg-clip-text text-transparent">
+    <>
+    <div className="min-h-screen bg-cover bg-center flex justify-center p-10"
+  style={{
+    backgroundImage: `url(${backgroundImage})`,
+  }}>
+      <div className="hidden w-1/2 lg:flex flex-1 flex-col justify-center p-20 backdrop-blur">
+          <div className="flex flex-col justify-center px-8 w-full text-black">
+            <h2 className="text-3xl font-bold mb-4">🚀 Find the Right Talent, Faster!</h2>
+            <p className="mb-4 text-teal-500">
+              Join thousands of businesses that trust us for hiring top talent.
+            </p>
+            <div className="mb-4 flex items-center">
+              <div className="bg-white rounded-full flex items-center justify-center w-10 h-10 mr-4">
+                <BriefcaseBusiness className="text-teal-500" />
+              </div>
+              Post your job in minutes and connect with qualified candidates.
+            </div>
+            <div className="mb-4 flex items-center">
+              <div className="bg-white rounded-full flex items-center justify-center w-10 h-10 mr-4">
+                <CalendarDays className="text-teal-900" />
+              </div>
+              Effortless recruitment – because hiring should be easy, not stressful.
+            </div>
+            <div className="mb-4 flex items-center">
+              <div className="bg-white rounded-full flex items-center justify-center w-10 h-10 mr-4">
+                <Trophy className="text-teal-500" />
+              </div>
+              Your next great hire is just a click away.
+            </div>
+            <p className="mb-4 text-teal-900">
+              "They say great businesses are built by great teams—let’s build yours today!"
+            </p>
+            <p className="text-lg font-bold mb-4">📢 Post your job now and start hiring the best!</p>
+          </div>
+        </div>
+
+  
+    <div className="w-1/2 p-6 bg-gray-100 rounded-lg shadow-md">
+      <h2 className="text-4xl font-bold mb-6 text-center bg-green-700 bg-clip-text text-transparent">
         Post Job
       </h2>
+
+      {isLoading && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+        </div>
+      )}
 
       <form className="space-y-6 p-4" onSubmit={handlePostJob}>
         {step === 1 && renderCompanyForm()}
@@ -478,6 +672,8 @@ const JobPosting = () => {
         {step === 3 && renderRequirementsForm()}
       </form>
     </div>
+    </div>
+    </>
   );
 };
 
