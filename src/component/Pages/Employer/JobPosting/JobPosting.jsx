@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import backgroundImage from "../../../../assets/Images/backgroundimage.jpg";
+import backgroundImage from "../../../../assets/Images/bgm.png";
 import { BriefcaseBusiness, CalendarDays, Trophy } from "lucide-react";
 
 const JobPosting = () => {
@@ -339,8 +339,9 @@ const JobPosting = () => {
   const renderJobDetailsForm = () => (
     <>
 
-      <div className="flex-1">
-        <label className="block text-sm font-medium text-gray-700">
+      <div className="flex gap-4">
+       <div className="flex-1">
+       <label className="block text-sm font-medium text-gray-700">
           Job Title
         </label>
         <input
@@ -351,10 +352,11 @@ const JobPosting = () => {
           className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           placeholder="Enter job title"
         />
+       </div>
       </div>
 
-      <div className="flex-1">
-        <label className="block text-sm font-medium text-gray-700">
+      <div className="flex gap-4">
+       <div className="flex-1"> <label className="block text-sm font-medium text-gray-700">
           Number of Openings
         </label>
         <input
@@ -364,11 +366,11 @@ const JobPosting = () => {
           onChange={handleInputChange}
           className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           placeholder="Enter number of positions"
-        />
+        /></div>
       </div>
 
-      <div className="flex-1">
-        <label className="block text-sm font-medium text-gray-700">
+      <div className="flex gap-4">
+        <div className="flex-1"><label className="block text-sm font-medium text-gray-700">
           Category
         </label>
         {isLoading ? (
@@ -394,10 +396,11 @@ const JobPosting = () => {
               </option>
             ))}
           </select>
-        )}
+        )}</div>
       </div>
 
-      <div className="flex-1">
+      <div className="flex gap-4">
+        <div className="flex-1">
         <label className="block text-sm font-medium text-gray-700">
           Job Type
         </label>
@@ -411,9 +414,11 @@ const JobPosting = () => {
           <option value="Full-Time">Full Time</option>
           <option value="Part-Time">Part Time</option>
         </select>
+        </div>
       </div>
 
-      <div className="flex-1">
+     <div className="flex gap-4">
+     <div className="flex-1">
         <label className="block text-sm font-medium text-gray-700">
           Location
         </label>
@@ -426,13 +431,14 @@ const JobPosting = () => {
           placeholder="Enter job location"
         />
       </div>
+     </div>
  
 
       <div className="flex justify-between">
         <button
           type="button"
           onClick={handlePrevious}
-          className="w-1/3 bg-green-500 hover:bg-green-700 text-white py-3 px-4 rounded-md hover:opacity-90 font-semibold"
+          className="w-1/3 bg-gray-300 text-gray-700 py-3 px-4 rounded-md hover:opacity-90 font-semibold"
         >
           Previous
         </button>
@@ -603,7 +609,7 @@ const JobPosting = () => {
         <button
           type="button"
           onClick={handlePrevious}
-          className="w-1/3 bg-green-500 hover:bg-green-700 text-white py-3 px-4 rounded-md hover:opacity-90 font-semibold"
+          className="w-1/3 bg-gray-300 text-gray-700 py-3 px-4 rounded-md hover:opacity-90 font-semibold"
         >
           Previous
         </button>

@@ -67,7 +67,7 @@ const HosterProfile = () => {
         </div>
 
     
-      <div className="flex-1 mt-10 lg:mt-4 p-4 md:p-10 lg:ml-56 bg-gray-100 min-h-screen">
+      <div className="flex-1 mt-10 lg:mt-4 p-4 md:p-10 lg:ml-64 bg-gray-100 min-h-screen">
       <div className="max-w-4xl w-full bg-white shadow-xl rounded-3xl p-8 border border-gray-200">
         <div className="flex flex-col items-center mb-8">
           <div className="w-36 h-36 rounded-full overflow-hidden border-4 border-green-500 shadow-lg">
@@ -91,26 +91,13 @@ const HosterProfile = () => {
             { label: "Phone Number", value: hoster.phoneNumber},
             { label: "Pincode", value: hoster.pincode },
             { label: "Gender", value: hoster.gender },
+            { label: "Company Url", value: hoster.companyUrl },
           ].map((item, index) => (
             <div key={index} className="bg-gray-50 p-4 rounded-lg shadow-sm">
               <p className="text-sm text-gray-500 font-semibold">{item.label}</p>
               <p className="text-lg font-medium text-gray-800">{item.value}</p>
             </div>
           ))}
-          <div>
-                  <p className="col-span-1 sm:col-span-2 bg-gray-50 p-4 rounded-lg shadow-sm">
-                    {" "}
-                    CompanyUrl{" "}
-                  </p>
-                  <a
-                    href={hoster.companyUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-lg font-medium text-blue-600 hover:underline break-all"
-                  >
-                    {hoster.companyUrl}
-                  </a>
-                </div>
         </div>
 
         <div className="mt-8 flex justify-center">
