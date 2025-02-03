@@ -12,64 +12,73 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { IoIosArrowDown } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
 
 function Hostersidebar() {
-  const [hoster, setHoster] = useState(null);
-  const [error, setError] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
-  const [isCertificationOpen, setIsCertificationOpen] = useState(false);
+  const [hoster, setHoster] = useState(null);
+    const [error, setError] = useState(null);
 
-  const HostId = Cookies.get("userId");
-  const HostToken = Cookies.get("jwtToken");
-  const hostProfileApi = `https://jobquick.onrender.com/hostuser/${HostId}`;
+    const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchHostProfile = async () => {
-      try {
-        const response = await fetch(hostProfileApi, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${HostToken}`,
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+  const logout = ()=> {
+     Cookies.remove("jwtToken");
+     Cookies.remove("userId");
+     navigate("/");
+  }
+  
+    const HostId = Cookies.get("userId");
+    const HostToken = Cookies.get("jwtToken");
+    const hostProfileApi = `https://jobquick.onrender.com/hostuser/${HostId}`;
+  
+    useEffect(() => {
+      const fetchHostProfile = async () => {
+        try {
+          const response = await fetch(hostProfileApi, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${HostToken}`,
+            },
+          });
+  
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+  
+          const data = await response.json();
+          setHoster(data);
+        } catch (error) {
+          console.error("Error fetching host profile:", error);
+          setError("Failed to load hoster details.");
         }
+      };
+  
+      fetchHostProfile();
+    }, [hostProfileApi, HostToken]);
+  
+    if (error) {
+      return (
+        <div className="min-h-screen flex items-center justify-center bg-gray-100">
+          <p className="text-red-600 text-lg">{error}</p>
+        </div>
+      );
+    }
+  
+    if (!hoster) {
+      return (
+        <div className="min-h-screen flex items-center justify-center bg-gray-100">
+          <p className="text-gray-600 text-lg">Loading hoster details...</p>
+        </div>
+      );
+    }
 
-        const data = await response.json();
-        setHoster(data);
-      } catch (error) {
-        console.error("Error fetching host profile:", error);
-        setError("Failed to load host details.");
-      }
-    };
-
-    fetchHostProfile();
-  }, [hostProfileApi, HostToken]);
-
-  if (error) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-100">
-        <p className="text-red-600 text-lg">{error}</p>
-      </div>
-    );
-  }
-
-  if (!hoster) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-red-100">
-        <p className="text-gray-600 text-lg">Loading host details...</p>
-      </div>
-    );
-  }
-
+  
   return (
     <div>
       {/* Mobile Toggle Button */}
       <button
-        className="lg:hidden fixed top-4 left-4 bg-gray-800 text-white p-2 rounded-md z-50 mb-40 mt-20"
+        className="lg:hidden fixed top-4 left-4 bg-gray-800 text-white p-2 rounded-md z-50 mb-40"
         onClick={() => setIsOpen(!isOpen)}
       >
         <Menu className="w-6 h-6" />
@@ -83,13 +92,10 @@ function Hostersidebar() {
       >
         <div className="p-6 flex flex-col min-h-screen">
           {/* Profile Section */}
-          <div className="flex flex-col items-center mb-6 text-center mt-20">
+          <div className="flex flex-col items-center mb-6 text-center">
             <div className="w-16 h-16 rounded-full overflow-hidden shadow-md">
               <img
-                src={
-                  hoster.profileImage ||
-                  "https://tse3.mm.bing.net/th?id=OIP.tlqnziQxJqVPudFX75jFpgAAAA&pid=Api&P=0&h=180"
-                }
+                src={hoster.profileImg || "https://tse3.mm.bing.net/th?id=OIP.tlqnziQxJqVPudFX75jFpgAAAA&pid=Api&P=0&h=180"}
                 alt="Profile"
                 className="w-full h-full object-cover"
               />
@@ -140,6 +146,13 @@ function Hostersidebar() {
                 <Bookmark className="w-5 h-5" />
                 <span>Save Candidate</span>
               </Link>
+                      {/* Logout Section */}
+                <div className="mt-auto">
+                  <button onClick={logout} className="flex items-center space-x-2 text-gray-600 hover:text-red-600 p-3">
+                    <LogOut className="w-5 h-5" />
+                    <span>Logout</span>
+                  </button>
+          </div>
             </div>
           </nav>
 

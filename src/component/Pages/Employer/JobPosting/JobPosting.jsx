@@ -655,7 +655,7 @@ const JobPosting = () => {
         </div>
 
   
-    <div className="w-1/2 p-6 bg-gray-100 rounded-lg shadow-md">
+    <div className="p-6 bg-gray-100 rounded-lg shadow-md">
       <h2 className="text-4xl font-bold mb-6 text-center bg-green-700 bg-clip-text text-transparent">
         Post Job
       </h2>

@@ -59,8 +59,8 @@ const HosterProfile = () => {
   return (
     <>
 
-   <Hosterheader />
-    <div className="flex min-h-screen bg-gray-100 mt-20 relative">
+   {/* <Hosterheader /> */}
+    <div className="flex min-h-screen bg-gray-100 relative">
      {/* Sidebar */}
      <div className=" inset-y-0 left-0 shadow-lg z-40">
           <Hostersidebar />
@@ -125,9 +125,9 @@ const HosterProfile = () => {
     </div>
      
     </div>
-    <div className="lg:ml-52">
+    {/* <div className="lg:ml-52">
      <Footer />
-     </div>
+     </div> */}
     </>
   );
 };

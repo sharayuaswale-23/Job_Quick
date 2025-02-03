@@ -30,8 +30,8 @@ const Dashboard = () => {
   }
   return (
     <>
-      <Hosterheader />
-      <div className="flex min-h-screen bg-gray-100 mt-20 relative">
+      {/* <Hosterheader /> */}
+      <div className="flex min-h-screen bg-gray-100 relative">
         {/* Sidebar */}
         <div className=" inset-y-0 left-0 shadow-lg z-40">
           <Hostersidebar />
@@ -48,13 +48,11 @@ const Dashboard = () => {
               <span>Home</span>
               <LogOut className="w-5 h-5" />
             </Link> */}
-             {/* Logout Section */}
-          <div className="mt-auto">
-            <button onClick={logout} className="flex items-center space-x-2 text-gray-600 hover:text-red-600 p-3">
-              <LogOut className="w-5 h-5" />
-              <span>Logout</span>
-            </button>
-          </div>
+
+              <Link to="/jobposting" className="bg-green-600 text-white px-1 md:px-4 py-2 rounded-lg hover:bg-green-800 transition-colors">
+                          Post a Job
+                        </Link>
+           
               
             </div>
           </div>
@@ -134,9 +132,9 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-     <div className="lg:ml-52">
+     {/* <div className="lg:ml-52">
      <Footer />
-     </div>
+     </div> */}
     </>
   );
 };

@@ -221,11 +221,11 @@ const ResumeBuilder = () => {
     <>
     <Header/>
       
-      <div className="bg-gray-100 min-h-screen">
+      {/* <div className="bg-gray-100 min-h-screen">
         <div className="max-w-5xl mx-auto py-10 px-6">
           <h1 className="text-4xl font-extrabold text-center text-gray-800 mb-8">Resume Builder</h1>
 
-          {/* Step Progress Bar */}
+      
           <div className="flex justify-around mb-8">
             {[1, 2, 3, 4].map((step) => (
               <div
@@ -240,7 +240,7 @@ const ResumeBuilder = () => {
           </div>
 
           <div className="bg-white shadow-lg rounded-lg p-8">
-            {/* Step Content */}
+        
             {currentStep === 1 && (
               <div>
                 <h2 className="text-2xl font-semibold mb-4">Personal Information</h2>
@@ -451,10 +451,7 @@ const ResumeBuilder = () => {
               </div>
             )}
 
-            {/* Other steps: Education, Work Experience, Skills */}
-            {/* Add similar layouts for steps 2, 3, and 4 */}
-
-            {/* Navigation Buttons */}
+       
             <div className="flex justify-between mt-8">
               {currentStep > 1 && (
                 <button
@@ -482,7 +479,271 @@ const ResumeBuilder = () => {
             </div>
           </div>
         </div>
+      </div> */}
+
+      <div className="bg-gray-50 min-h-screen">
+  <div className="max-w-4xl mx-auto py-10 px-6">
+    <h1 className="text-3xl md:text-4xl font-extrabold text-center text-gray-800 mb-8">Resume Builder</h1>
+
+    {/* Step Progress Bar */}
+    <div className="flex justify-between mb-8">
+      {[1, 2, 3, 4].map((step) => (
+        <div
+          key={step}
+          className={`flex-1 text-center py-2 rounded-full text-sm font-semibold ${
+            currentStep === step ? "bg-blue-500 text-white" : "bg-gray-300 text-gray-600"
+          } transition duration-300`}
+        >
+          Step {step}
+        </div>
+      ))}
+    </div>
+
+    <div className="bg-white shadow-lg rounded-lg p-8 space-y-8">
+      {/* Step Content */}
+      {currentStep === 1 && (
+        <div>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6">Personal Information</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Full Name</label>
+              <input
+                type="text"
+                placeholder="Enter your full name"
+                value={personalInfo.fullName}
+                onChange={(e) => setPersonalInfo({ ...personalInfo, fullName: e.target.value })}
+                className="w-full mt-1 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Email</label>
+              <input
+                type="email"
+                placeholder="Enter your email"
+                value={personalInfo.email}
+                onChange={(e) => setPersonalInfo({ ...personalInfo, email: e.target.value })}
+                className="w-full mt-1 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Phone</label>
+              <input
+                type="text"
+                placeholder="Enter your phone number"
+                value={personalInfo.phone}
+                onChange={(e) => setPersonalInfo({ ...personalInfo, phone: e.target.value })}
+                className="w-full mt-1 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Location</label>
+              <input
+                type="text"
+                placeholder="Enter your location"
+                value={personalInfo.location}
+                onChange={(e) => setPersonalInfo({ ...personalInfo, location: e.target.value })}
+                className="w-full mt-1 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div className="sm:col-span-2">
+              <label className="block text-sm font-medium text-gray-700">Professional Summary</label>
+              <textarea
+                placeholder="Write a brief summary about yourself"
+                value={personalInfo.summary}
+                onChange={(e) => setPersonalInfo({ ...personalInfo, summary: e.target.value })}
+                className="w-full mt-1 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                rows="4"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {currentStep === 2 && (
+        <div>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6">Education</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-sm font-medium text-gray-700">College</label>
+              <input
+                type="text"
+                placeholder="College Name"
+                value={currentEducation.school}
+                onChange={(e) => setCurrentEducation({ ...currentEducation, school: e.target.value })}
+                className="w-full mt-1 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Degree</label>
+              <input
+                type="text"
+                placeholder="Degree"
+                value={currentEducation.degree}
+                onChange={(e) => setCurrentEducation({ ...currentEducation, degree: e.target.value })}
+                className="w-full mt-1 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Major</label>
+              <input
+                type="text"
+                placeholder="Major"
+                value={currentEducation.major}
+                onChange={(e) => setCurrentEducation({ ...currentEducation, major: e.target.value })}
+                className="w-full mt-1 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Year</label>
+              <input
+                type="text"
+                placeholder="Graduation Year"
+                value={currentEducation.graduationYear}
+                onChange={(e) => setCurrentEducation({ ...currentEducation, graduationYear: e.target.value })}
+                className="w-full mt-1 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div className="sm:col-span-2 text-center">
+              <button
+                type="button"
+                onClick={addEducation}
+                className="bg-blue-500 text-white px-6 py-3 rounded-md shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                Add Education
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Similar updates for Steps 3 and 4 (Work Experience, Skills) */}
+      {currentStep === 3 && (
+        <div>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6">Work Experience</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Company Name</label>
+              <input
+                type="text"
+                  placeholder="Company Name"
+                  value={currentWork.company}
+                  onChange={(e) => setCurrentWork({ ...currentWork, company: e.target.value })}
+                className="w-full mt-1 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Position</label>
+              <input
+                type="text"
+                  placeholder="Position"
+                  value={currentWork.position}
+                  onChange={(e) => setCurrentWork({ ...currentWork, position: e.target.value })}
+                className="w-full mt-1 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Start Date</label>
+              <input
+                type="date"
+                  placeholder="Start Date"
+                  value={currentWork.startDate}
+                  onChange={(e) => setCurrentWork({ ...currentWork, startDate: e.target.value })}
+                className="w-full mt-1 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">End Date</label>
+              <input
+                type="date"
+                  placeholder="End Date"
+                  value={currentWork.endDate}
+                  onChange={(e) => setCurrentWork({ ...currentWork, endDate: e.target.value })}
+                className="w-full mt-1 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div className="sm:col-span-2">
+              <label className="block text-sm font-medium text-gray-700">Job Description</label>
+              <textarea
+                placeholder="Job Description"
+                  value={currentWork.description}
+                  onChange={(e) => setCurrentWork({ ...currentWork, description: e.target.value })}
+                className="w-full mt-1 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                rows="4"
+              ></textarea>
+            </div>
+            <div className="sm:col-span-2 text-center">
+              <button
+                type="button"
+                onClick={addWorkExperience}
+                className="bg-blue-500 text-white px-6 py-3 rounded-md shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                Add Work Experience
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {currentStep === 4 && (
+        <div>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6">Work Experience</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Skills</label>
+              <input
+                type="text"
+                  placeholder="Skill"
+                  value={currentSkill}
+                  onChange={(e) => setCurrentSkill(e.target.value)}
+                className="w-full mt-1 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            
+            <div className="sm:col-span-2 text-center">
+              <button
+                type="button"
+                onClick={addSkill}
+                className="bg-blue-500 text-white px-6 py-3 rounded-md shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                Add Skill
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      
+
+      {/* Navigation Buttons */}
+      <div className="flex justify-between mt-8">
+        {currentStep > 1 && (
+          <button
+            onClick={prevStep}
+            className="bg-gray-500 text-white px-6 py-3 rounded-md shadow-md hover:bg-gray-600 focus:outline-none"
+          >
+            Previous
+          </button>
+        )}
+        {currentStep < 4 ? (
+          <button
+            onClick={nextStep}
+            className="bg-blue-500 text-white px-6 py-3 rounded-md shadow-md hover:bg-blue-600 focus:outline-none"
+          >
+            Next
+          </button>
+        ) : (
+          <button
+            onClick={generatePDF}
+            className="bg-blue-500 text-white px-6 py-3 rounded-md shadow-md hover:bg-blue-600 focus:outline-none"
+          >
+            Generate PDF
+          </button>
+        )}
       </div>
+    </div>
+  </div>
+</div>
+
+
       <Footer/>
     </>
   );
