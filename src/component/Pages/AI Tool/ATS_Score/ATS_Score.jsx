@@ -62,12 +62,12 @@ function ATS_Score() {
   return (
     <>
       <Header />
-      <div className="min-h-screen bg-gradient-to-tr from-indigo-50 to-indigo-100 flex flex-col items-center justify-start text-gray-900 font-sans">
+      <div className="min-h-screen bg-gradient-to-tr from-indigo-50 to-indigo-100 flex flex-col items-center justify-start text-gray-900 font-inter">
         {/* Add padding to avoid overlap with fixed navbar */}
         <div className="pt-20 w-full">
           {/* Header Section */}
-          <header className="w-full text-center px-6 py-12 bg-gradient-to-r from-blue-400 to-blue-500 text-white relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-blue-500 opacity-70 animate-gradient-x"></div>
+          <header className="w-full text-center px-6 py-12 bg-gradient-to-r from-blue-200 via-teal-400 to-blue-600 text-white relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-200 via-teal-400 to-blue-600 opacity-70 animate-gradient-x"></div>
             <div className="relative z-10">
               <h1 className="text-5xl md:text-6xl font-extrabold drop-shadow-lg">
                 ATS Resume Checker

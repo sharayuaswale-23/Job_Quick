@@ -45,7 +45,7 @@ const Header = () => {
   }, []);
   return (
     <nav className="bg-white fixed top-0 left-0 w-full z-50 shadow-md">
-      <div className="flex items-center justify-between px-4 py-5 md:px-10">
+      <div className="flex items-center justify-between px-4   lg:px-10 py-5 md:px-6">
         {/* Logo */}
         <div className="flex items-center text-lg font-bold text-black">
           <Link to="/">
@@ -99,7 +99,7 @@ const Header = () => {
           )}
           </div>
         {/* Desktop Menu */}
-        <ul className="hidden md:flex items-center gap-6 text-black">
+        <ul className="hidden md:flex items-center lg:gap-6 gap-2 text-black">
           <li className="cursor-pointer">
             <Link to="/">Home</Link>
           </li>
@@ -129,6 +129,9 @@ const Header = () => {
           </li>
           <li className="cursor-pointer">
             <Link to="/contact">Contact Us</Link>
+          </li>
+          <li className="cursor-pointer">
+            <Link to="/about">About Us</Link>
           </li>
         </ul>
 
@@ -206,6 +209,9 @@ const Header = () => {
             <li className="cursor-pointer">
               <Link to="/contact">Contact Us</Link>
             </li>
+            <li className="cursor-pointer">
+            <Link to="/about">About Us</Link>
+          </li>
             {!isAuthenticated ? (
             <>
               <div className="flex flex-col items-center gap-4">

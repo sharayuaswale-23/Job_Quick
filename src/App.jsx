@@ -20,6 +20,8 @@ import HosterDetail from "./component/Pages/Employer/HosterDetail/HosterDetail";
 import HosterProfile from "./component/Pages/Employer/HosterProfile/HosterProfile";
 import JobPosting from "./component/Pages/Employer/JobPosting/JobPosting";
 import NotFound from "./component/Pages/NotFound/NotFound";
+import About from "./component/Pages/About/About";
+import MyJob from "./component/Pages/Employer/MyJob/MyJob";
 
 // Create a context for authentication
 export const AuthContext = createContext();
@@ -137,12 +139,21 @@ const App = () => {
             </RequireAuth>
           }
         />
+        <Route
+          path="/about"
+          element={
+            <RequireAuth>
+              <About />
+            </RequireAuth>
+          }
+        />
         <Route path="/hosterlogin" element={<HosterLogin />} />
         <Route path="/hostersignup" element={<HosterSignup />} />
         <Route path="/hosterdetail" element={<HosterDetail />} />
         <Route path="/hosterprofile" element={<HosterProfile />} />
         <Route path="/dashboard" element={<Dashboard />}/>
         <Route path="/jobposting" element={<JobPosting />}/>
+        <Route path="/myjob" element={<MyJob />}/>
         <Route path="/*" element={<NotFound />} />
       </Routes>
     </AuthContext.Provider>

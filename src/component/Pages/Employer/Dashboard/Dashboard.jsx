@@ -46,7 +46,7 @@ const Dashboard = () => {
       {/* Main Content */}
       <div className="flex-1 lg:ml-64 p-4 md:p-6 lg:p-8">
         {/* Header */}
-        <div className="flex flex-col md:flex-row justify-between items-center mb-6">
+        <div className="flex flex-row mt-16 lg:mt-2 justify-between items-center mb-6">
           <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
           <Link to="/jobposting" className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-800 transition-all shadow-md">
             Post a Job

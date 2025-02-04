@@ -299,7 +299,7 @@ const JobPosting = () => {
         </div>
         <div className="flex-1">
           <label className="block text-sm font-medium text-gray-700">
-            Number of Employees
+            No.of Employees
           </label>
           <input
             type="number"
@@ -336,12 +336,12 @@ const JobPosting = () => {
     </>
   );
 
+
+
   const renderJobDetailsForm = () => (
     <>
-
-      <div className="flex gap-4">
-       <div className="flex-1">
-       <label className="block text-sm font-medium text-gray-700">
+      <div className="flex-1">
+        <label className="block text-sm font-medium text-gray-700">
           Job Title
         </label>
         <input
@@ -352,11 +352,10 @@ const JobPosting = () => {
           className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           placeholder="Enter job title"
         />
-       </div>
       </div>
 
-      <div className="flex gap-4">
-       <div className="flex-1"> <label className="block text-sm font-medium text-gray-700">
+      <div className="flex-1">
+        <label className="block text-sm font-medium text-gray-700">
           Number of Openings
         </label>
         <input
@@ -366,11 +365,11 @@ const JobPosting = () => {
           onChange={handleInputChange}
           className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           placeholder="Enter number of positions"
-        /></div>
+        />
       </div>
 
-      <div className="flex gap-4">
-        <div className="flex-1"><label className="block text-sm font-medium text-gray-700">
+      <div className="flex-1">
+        <label className="block text-sm font-medium text-gray-700">
           Category
         </label>
         {isLoading ? (
@@ -396,11 +395,10 @@ const JobPosting = () => {
               </option>
             ))}
           </select>
-        )}</div>
+        )}
       </div>
 
-      <div className="flex gap-4">
-        <div className="flex-1">
+      <div className="flex-1">
         <label className="block text-sm font-medium text-gray-700">
           Job Type
         </label>
@@ -414,11 +412,9 @@ const JobPosting = () => {
           <option value="Full-Time">Full Time</option>
           <option value="Part-Time">Part Time</option>
         </select>
-        </div>
       </div>
 
-     <div className="flex gap-4">
-     <div className="flex-1">
+      <div className="flex-1">
         <label className="block text-sm font-medium text-gray-700">
           Location
         </label>
@@ -431,26 +427,23 @@ const JobPosting = () => {
           placeholder="Enter job location"
         />
       </div>
-     </div>
- 
 
-      <div className="flex justify-between">
+      <div className="flex justify-between gap-2 md:gap-6">
         <button
           type="button"
           onClick={handlePrevious}
-          className="w-1/3 bg-gray-300 text-gray-700 py-3 px-4 rounded-md hover:opacity-90 font-semibold"
+          className="w-1/2 bg-gray-300 text-gray-700 py-3 px-4 rounded-md hover:opacity-90 font-semibold"
         >
           Previous
         </button>
         <button
           type="button"
           onClick={handleNext}
-          className="w-1/2 bg-green-500 hover:bg-green-700 text-white py-3 px-4 rounded-md hover:opacity-90 font-semibold"
+          className="w-1/2  bg-green-500 hover:bg-green-700 text-white py-3 px-4 rounded-md hover:opacity-90 font-semibold"
         >
           Next
         </button>
       </div>
-    
     </>
   );
 
@@ -459,7 +452,7 @@ const JobPosting = () => {
       <div className="flex gap-4">
         <div className="flex-1">
           <label className="block text-sm font-medium text-gray-700">
-            Minimum Package
+            Minimun Package
           </label>
           <input
             type="text"
@@ -539,7 +532,7 @@ const JobPosting = () => {
         </div>
         <div className="flex-1">
           <label className="block text-sm font-medium text-gray-700">
-            Minimum Education
+            Min. Education
           </label>
           <input
             type="text"
@@ -605,11 +598,11 @@ const JobPosting = () => {
         ></textarea>
       </div>
 
-      <div className="flex justify-between">
+      <div className="flex justify-between gap-2 md:gap-6">
         <button
           type="button"
           onClick={handlePrevious}
-          className="w-1/3 bg-gray-300 text-gray-700 py-3 px-4 rounded-md hover:opacity-90 font-semibold"
+          className="w-1/2 bg-gray-300  text-gray-700 py-3 px-4 rounded-md hover:opacity-90 font-semibold"
         >
           Previous
         </button>
@@ -627,17 +620,17 @@ const JobPosting = () => {
     <>
     <div className="min-h-screen bg-cover bg-center flex justify-center p-10"
   style={{
-    backgroundImage: `url(${backgroundImage})`,
+    backgroundImage: `url(https://img.freepik.com/premium-photo/green-blurred-background_44621-625.jpg?semt=ais_hybrid)`,
   }}>
       <div className="hidden w-1/2 lg:flex flex-1 flex-col justify-center p-20 backdrop-blur">
           <div className="flex flex-col justify-center px-8 w-full text-black">
             <h2 className="text-3xl font-bold mb-4">🚀 Find the Right Talent, Faster!</h2>
-            <p className="mb-4 text-teal-500">
+            <p className="mb-4 text-teal-900">
               Join thousands of businesses that trust us for hiring top talent.
             </p>
             <div className="mb-4 flex items-center">
               <div className="bg-white rounded-full flex items-center justify-center w-10 h-10 mr-4">
-                <BriefcaseBusiness className="text-teal-500" />
+                <BriefcaseBusiness className="text-teal-900" />
               </div>
               Post your job in minutes and connect with qualified candidates.
             </div>
@@ -661,7 +654,7 @@ const JobPosting = () => {
         </div>
 
   
-    <div className="p-6 bg-gray-100 rounded-lg shadow-md">
+    <div className="p-6 w-full md:w-1/2 bg-gray-100 rounded-lg shadow-md">
       <h2 className="text-4xl font-bold mb-6 text-center bg-green-700 bg-clip-text text-transparent">
         Post Job
       </h2>

@@ -75,92 +75,7 @@ function Hostersidebar() {
 
   
   return (
-    // <div>
-    //   {/* Mobile Toggle Button */}
-    //   <button
-    //     className="lg:hidden fixed top-4 left-4 bg-gray-800 text-white p-2 rounded-md z-50 mb-40"
-    //     onClick={() => setIsOpen(!isOpen)}
-    //   >
-    //     <Menu className="w-6 h-6" />
-    //   </button>
-      
-    //   {/* Sidebar */}
-    //   <div
-    //     className={`fixed inset-y-0 left-0 bg-white shadow-lg transform ${
-    //       isOpen ? "translate-x-0" : "-translate-x-full"
-    //     } lg:translate-x-0 transition-transform duration-300  z-40`}
-    //   >
-    //     <div className="p-6 flex flex-col min-h-screen">
-    //       {/* Profile Section */}
-    //       <div className="flex flex-col items-center mb-6 text-center">
-    //         <div className="w-16 h-16 rounded-full overflow-hidden shadow-md">
-    //           <img
-    //             src={hoster.profileImg || "https://tse3.mm.bing.net/th?id=OIP.tlqnziQxJqVPudFX75jFpgAAAA&pid=Api&P=0&h=180"}
-    //             alt="Profile"
-    //             className="w-full h-full object-cover"
-    //           />
-    //         </div>
-    //         <h1 className="text-xl font-semibold text-gray-800 mt-4">
-    //           {hoster.fullName}
-    //         </h1>
-    //         <p className="text-sm text-gray-600 mt-1">{hoster.phoneNumber}</p>
-       
-           
-    //       </div>
-
-    //       {/* Navigation */}
-    //       <nav className="flex-1">
-    //         <div className="space-y-1">
-    //           <Link
-    //             to="/dashboard"
-    //             className="flex items-center space-x-3 p-3 hover:bg-green-700 hover:text-white text-gray-600 rounded-lg"
-    //           >
-    //             <Users className="w-5 h-5" />
-    //             <span>Dashboard</span>
-    //           </Link>
-    //           <Link
-    //             to="/hosterprofile"
-    //             className="flex items-center space-x-3 p-3 hover:bg-green-700 hover:text-white text-gray-600 rounded-lg"
-    //           >
-    //             <Users className="w-5 h-5" />
-    //             <span>My Profile</span>
-    //           </Link>
-    //           <Link
-    //             to="/myjobs"
-    //             className="flex items-center space-x-3 p-3 hover:bg-green-700 hover:text-white text-gray-600 rounded-lg"
-    //           >
-    //             <Briefcase className="w-5 h-5" />
-    //             <span>My Jobs</span>
-    //           </Link>
-    //           <Link
-    //             to="/submitjob"
-    //             className="flex items-center space-x-3 p-3 hover:bg-green-700 hover:text-white text-gray-600 rounded-lg"
-    //           >
-    //             <FileText className="w-5 h-5" />
-    //             <span>Applied Candidates</span>
-    //           </Link>
-    //           <Link
-    //             to="/savedcandidates"
-    //             className="flex items-center space-x-3 p-3 hover:bg-green-700 hover:text-white text-gray-600 rounded-lg"
-    //           >
-    //             <Bookmark className="w-5 h-5" />
-    //             <span>Save Candidate</span>
-    //           </Link>
-    //                   {/* Logout Section */}
-    //             <div className="mt-auto">
-    //               <button onClick={logout} className="flex items-center space-x-2 text-gray-600 hover:text-red-600 p-3">
-    //                 <LogOut className="w-5 h-5" />
-    //                 <span>Logout</span>
-    //               </button>
-    //       </div>
-    //         </div>
-    //       </nav>
-
-         
-    //     </div>
-    //   </div>
-    // </div>
-
+ 
     <div>
     {/* Mobile Toggle Button */}
     <button
@@ -179,7 +94,7 @@ function Hostersidebar() {
       <div className="p-6 flex flex-col min-h-screen border-r border-gray-200">
         {/* Profile Section */}
         <div className="flex flex-col items-center mb-6 text-center">
-          <div className="w-20 h-20 rounded-full overflow-hidden shadow-md border-2 border-green-600">
+          <div className="w-20 h-20 rounded-full overflow-hidden shadow-md">
             <img
               src={hoster.profileImg || "https://tse3.mm.bing.net/th?id=OIP.tlqnziQxJqVPudFX75jFpgAAAA&pid=Api&P=0&h=180"}
               alt="Profile"
@@ -201,7 +116,7 @@ function Hostersidebar() {
             icon: <Users className="w-5 h-5" />,
             label: "My Profile"
           }, {
-            to: "/myjobs",
+            to: "/myjob",
             icon: <Briefcase className="w-5 h-5" />,
             label: "My Jobs"
           }, {
