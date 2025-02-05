@@ -81,7 +81,7 @@ const ContactPage = () => {
 
         {/* Right Side - Contact Form */}
         <div className="w-full lg:w-1/2 p-8 sm:p-12">
-          <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">Send Us A Message</h2>
+          <h2 className="text-3xl text-center font-bold bg-gradient-to-r from-blue-600 to-blue-900 text-black bg-clip-text text-transparent mb-6">Send Us A Message</h2>
           <form className="space-y-6" onSubmit={handleSubmit}>
             <input
               type="text"
@@ -116,7 +116,7 @@ const ContactPage = () => {
             ></textarea>
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white py-3 rounded-xl text-lg font-semibold hover:from-blue-600 hover:to-blue-700 transition-all duration-300 shadow-md"
+              className="w-full bg-gradient-to-r from-blue-400 to-blue-700 text-white py-3 rounded-xl text-lg font-semibold hover:from-blue-600 hover:to-blue-700 transition-all duration-300 shadow-md"
             >
               Send Message
             </button>

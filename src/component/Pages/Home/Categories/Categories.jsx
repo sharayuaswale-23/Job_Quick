@@ -12,6 +12,8 @@ const Categorie = [
   { id: 8, name: "Finance & Accounting", services: 4, logo: "📊" },
 ];
 
+
+
 const Categories = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-gray-100  py-10 px-4">

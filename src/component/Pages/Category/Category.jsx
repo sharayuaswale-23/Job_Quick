@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Header from "../../../component/common/header/Header";
 import Footer from "../../../component/common/Footer/Footer";
 import searchimg from "../../../assets/Images/Search.webp";
+import { Link } from "react-router-dom";
 
 const Category = () => {
   const [categories, setCategories] = useState([]);
@@ -94,7 +95,7 @@ const Category = () => {
       <div className="max-w-6xl mx-auto px-4">
 
 
-        <div className="bg-rose-100 p-6 rounded-xl shadow-lg flex flex-col md:flex-row items-center gap-6 mb-6 w-full">
+        <div className="bg-gradient-to-b from-blue-50 to-blue-100 p-6 rounded-xl shadow-lg flex flex-col md:flex-row items-center gap-6 mb-6 w-full">
  
   <div className="w-full md:w-[65%] flex flex-col items-center md:items-start gap-3 p-2">
   
@@ -159,7 +160,7 @@ const Category = () => {
   ) : (
     <div className="space-y-6">
       {jobListings.map((job) => (
-        <div
+        <Link to={`/job/${job._id}`}
           key={job._id}
           className="flex flex-row p-6 bg-white rounded-xl border border-gray-300 shadow-md gap-4 sm:gap-6 
                     hover:bg-gray-50 hover:shadow-lg transition-all w-full"
@@ -209,7 +210,7 @@ const Category = () => {
             </button>
            </div>
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   )}

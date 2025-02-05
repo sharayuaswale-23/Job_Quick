@@ -34,7 +34,7 @@ const AboutMarque = () => {
   ];
 
   return (
-    <div className="bg-gradient-to-b from-gray-100 to-gray-300 py-14 px-6">
+    <div className="bg-gradient-to-b mt-20 from-blue-50 to-blue-100 py-14 px-6">
       {/* Header */}
       <div className="text-center mb-10">
         <h2 className="text-4xl font-extrabold text-gray-800">Testimonials</h2>

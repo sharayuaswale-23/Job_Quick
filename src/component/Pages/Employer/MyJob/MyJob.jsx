@@ -2,6 +2,14 @@ import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import Hostersidebar from "../Hostersidebar/Hostersidebar";
+import { TbCategory } from "react-icons/tb";
+import { FaUserClock } from "react-icons/fa";
+import { GiWallet } from "react-icons/gi";
+import { GrUserWorker } from "react-icons/gr";
+import { BsPersonWorkspace } from "react-icons/bs";
+import { IoLocationOutline } from "react-icons/io5";
+import { Link } from "react-router-dom";
+import ComImg from "../../../../assets/Images/infosys-logo-transparent-free-png.webp";
 
 const MyJob = () => {
   const [jobs, setJobs] = useState([]);
@@ -103,57 +111,106 @@ const MyJob = () => {
   return (
     <>
       <Hostersidebar />
-      <div className="min-h-screen flex flex-col md:flex-row bg-gray-100 p-6">
-        <div className="w-full flex flex-col items-center">
-          <h1 className="text-3xl font-extrabold mb-6 text-gray-800">My Jobs</h1>
-          {jobs.length === 0 ? (
-            <h1 className="text-xl font-semibold text-center text-gray-600">No jobs found.</h1>
-          ) : (
-            <div className="flex w-full justify-center flex-wrap gap-6">
-              {jobs.map((job) => (
-                <div
-                  key={job._id}
-                  className="border p-6 rounded-lg shadow-lg bg-white hover:shadow-xl transition transform hover:-translate-y-2 w-80 flex flex-col"
-                >
-                  <h2 className="text-xl font-semibold text-gray-800 mb-2">{job.title}</h2>
-                  <p className="text-gray-600"><strong>Company:</strong> {job.companyName}</p>
-                  <p className="text-gray-600"><strong>Location:</strong> {job.location}</p>
-                  <p className="text-gray-600"><strong>Type:</strong> {job.jobType}</p>
-                  <p className="text-gray-600"><strong>Skills:</strong> {job.skills?.length > 0 ? job.skills.join(", ") : "N/A"}</p>
-                  <p className="text-gray-600"><strong>Openings:</strong> {job.noOfOpeaning}</p>
-                  <button
-                    onClick={() => setSelectedJob(job._id)}
-                    className="bg-red-500 text-white px-4 py-2 rounded mt-4 hover:bg-red-600 transition shadow-md"
-                  >
-                    Delete Job
-                  </button>
-                </div>
-              ))}
-            </div>
-          )}
+
+      <div className="min-h-screen lg:ml-64 flex flex-col items-center bg-gradient-to-b from-green-50 to-green-100 p-8 sm:p-12">
+      <h1 className="text-5xl text-center font-extrabold bg-gradient-to-r from-green-600 to-green-900 text-black bg-clip-text text-transparent mb-6">My Jobs</h1>
+      {jobs.length === 0 ? (
+        <h1 className="text-2xl font-semibold text-gray-700">No jobs found.</h1>
+      ) : (
+        <div className="grid grid-cols sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-6 w-full">
+          {jobs.map((job) => (
+       
+
+            <div key={job._id} className="border rounded-lg p-6 flex flex-col justify-between items-start hover:shadow-lg transition-shadow bg-white">
+      
+      <div className="flex w-full mb-4">
+        <img
+          src={job.profileImg || {ComImg}}
+          alt={`${job.companyName} logo`}
+          className="w-24 h-24 rounded-lg object-cover mr-4"
+        />
+        <div className="flex-1">
+          <h3 className="font-semibold text-lg text-gray-800 mb-1">
+            {job.title}
+          </h3>
+          <p className="text-gray-500 font-semibold mb-1">{job.companyName}</p>
+          <span className="text-gray-500 font-semibold">
+            {new Date(job.dateCreated).toLocaleDateString()}
+          </span>
         </div>
-        {selectedJob && (
-          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60">
-            <div className="bg-white p-8 rounded-lg shadow-xl w-96 text-center">
-              <h2 className="text-lg font-semibold text-gray-800">Are you sure you want to delete this job?</h2>
-              <div className="mt-6 flex justify-center gap-6">
-                <button
-                  onClick={handleDeleteJob}
-                  className="bg-red-500 text-white px-6 py-2 rounded hover:bg-red-600 transition shadow-md"
-                >
-                  Confirm
-                </button>
-                <button
-                  onClick={() => setSelectedJob(null)}
-                  className="bg-gray-300 text-black px-6 py-2 rounded hover:bg-gray-400 transition shadow-md"
-                >
-                  Cancel
-                </button>
-              </div>
+      </div>
+ 
+       <div className="bg-white w-full">
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+    
+        <div>
+          <div className="flex items-center mb-3">
+            <BsPersonWorkspace className="w-6 h-6 text-green-500 mr-3" />
+            <span className="text-gray-700 font-semibold">{job.workType}</span>
+          </div>
+          <div className="flex items-center mb-3">
+            <FaUserClock className="w-6 h-6 text-green-500 mr-3" />
+            <span className="text-gray-700 font-semibold">{job.jobType}</span>
+          </div>
+          <div className="flex items-center mb-3">
+            <GiWallet className="w-6 h-6 text-green-500 mr-3" />
+            <span className="text-gray-700 font-semibold">${job.minPackage} - ${job.maxPackage}</span>
+          </div>
+        </div>
+        <div>
+          <div className="flex items-center mb-3">
+            <IoLocationOutline className="w-6 h-6 text-green-500 mr-3" />
+            <span className="text-gray-700 font-semibold">{job.location}</span>
+          </div>
+          <div className="flex items-center mb-3">
+            <GrUserWorker className="w-6 h-6 text-green-500 mr-3" />
+            <span className="text-gray-700 font-semibold">{job.experience}</span>
+          </div>
+          <div className="flex items-center mb-3">
+            <TbCategory className="w-6 h-6 text-green-500 mr-3" />
+            <span className="text-gray-700 font-semibold">   {job.category?.title || "Uncategorized"}</span>
+          </div>
+        </div>
+      </div>
+       </div>
+
+
+   
+          <button onClick={() => setSelectedJob(job._id)}
+            className="block w-full mt-4 h-10 bg-green-500 text-white rounded-lg text-base font-semibold shadow-md   hover:scale-105 hover:shadow-lg transition-transform duration-300 focus:outline-none focus:ring-2 focus:ring-pink-400  sm:h-12 md:h-14 lg:h-12">
+              Delete
+          </button>
+     
+
+    </div>
+
+          ))}
+        </div>
+      )}
+      {selectedJob && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm p-4">
+          <div className="bg-white p-8 rounded-xl shadow-xl w-full max-w-md text-center">
+            <h2 className="text-xl font-semibold text-gray-900">Are you sure you want to delete this job?</h2>
+            <div className="mt-6 flex justify-center gap-6">
+              <button
+                onClick={handleDeleteJob}
+                className="bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600 transition shadow-md"
+              >
+                Delete
+              </button>
+              <button
+                onClick={() => setSelectedJob(null)}
+                className="bg-gray-300 text-black px-6 py-2 rounded-lg hover:bg-gray-400 transition shadow-md"
+              >
+                Cancel
+              </button>
             </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
+    </div>
+
     </>
   );
 };

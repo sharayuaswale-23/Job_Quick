@@ -120,7 +120,7 @@ function Hostersidebar() {
             icon: <Briefcase className="w-5 h-5" />,
             label: "My Jobs"
           }, {
-            to: "/submitjob",
+            to: "/viewapplicant",
             icon: <FileText className="w-5 h-5" />,
             label: "Applied Candidates"
           }, {

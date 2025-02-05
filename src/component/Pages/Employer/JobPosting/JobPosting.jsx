@@ -618,10 +618,7 @@ const JobPosting = () => {
 
   return (
     <>
-    <div className="min-h-screen bg-cover bg-center flex justify-center p-10"
-  style={{
-    backgroundImage: `url(https://img.freepik.com/premium-photo/green-blurred-background_44621-625.jpg?semt=ais_hybrid)`,
-  }}>
+    <div className="min-h-screen flex justify-center p-10 bg-gradient-to-b from-green-100 to-green-200">
       <div className="hidden w-1/2 lg:flex flex-1 flex-col justify-center p-20 backdrop-blur">
           <div className="flex flex-col justify-center px-8 w-full text-black">
             <h2 className="text-3xl font-bold mb-4">🚀 Find the Right Talent, Faster!</h2>

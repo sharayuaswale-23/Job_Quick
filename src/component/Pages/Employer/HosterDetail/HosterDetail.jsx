@@ -47,35 +47,74 @@ const HosterDetail = () => {
   const hostDetailApi = `https://jobquick.onrender.com/hostuser/update/${HostId}`;
   const getHostDetailApi = `https://jobquick.onrender.com/hostuser/${HostId}`;
 
+  // useEffect(() => {
+  //   const fetchHostDetails = async () => {
+  //     try {
+  //       const response = await axios.get(getHostDetailApi, {
+  //         headers: { Authorization: `Bearer ${HostToken}` },
+  //       });
+        
+  //       setFormData(prevData => ({
+  //         ...prevData,
+  //         fullName: response.data.fullName || "",
+  //         city: response.data.city || "",
+  //         companyURL: response.data.companyURL || "",
+  //         address: response.data.address || "",
+  //         pincode: response.data.pincode || "",
+  //         state: response.data.state || "",
+  //         country: response.data.country || "",
+  //         gender: response.data.gender || "",
+  //         phoneNumber: response.data.phoneNumber || ""
+  //       }));
+        
+  //       setLoading(false);
+  //     } catch (error) {
+  //       setError(error.message);
+  //       setLoading(false);
+  //     }
+  //   };
+  //   fetchHostDetails();
+  // }, [HostId, HostToken]);
+
   useEffect(() => {
     const fetchHostDetails = async () => {
       try {
-        const response = await axios.get(getHostDetailApi, {
+        const response = await fetch(getHostDetailApi, {
           headers: { Authorization: `Bearer ${HostToken}` },
         });
-        
-        setFormData(prevData => ({
-          ...prevData,
-          fullName: response.data.fullName || "",
-          city: response.data.city || "",
-          companyURL: response.data.companyURL || "",
-          address: response.data.address || "",
-          pincode: response.data.pincode || "",
-          state: response.data.state || "",
-          country: response.data.country || "",
-          gender: response.data.gender || "",
-          phoneNumber: response.data.phoneNumber || ""
-        }));
-        
+  
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+  
+        const data = await response.json(); // Fetch the response as JSON
+        console.log("Fetched Data:", data); // Debugging log to check API response
+  
+        setFormData({
+          fullName: data.fullName || "",
+          city: data.city || "",
+          companyURL: data.companyURL || "",
+          address: data.address || "",
+          pincode: data.pincode || "",
+          state: data.state || "",
+          country: data.country || "",
+          gender: data.gender || "",
+          phoneNumber: data.phoneNumber || "",
+          image: data.image || null, // Ensure image is properly set
+        });
+  
         setLoading(false);
       } catch (error) {
+        console.error("Error fetching host details:", error);
         setError(error.message);
         setLoading(false);
       }
     };
+  
     fetchHostDetails();
-  }, [HostId, HostToken]);
+  }, [HostId, HostToken]); // Ensure it fetches when ID or Token changes
 
+  
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
     setFormData(prevData => ({
@@ -119,7 +158,7 @@ const HosterDetail = () => {
   };
 
   if (loading) {
-    return <p className="text-center mt-5 text-5xl text-pink-500 font-semibold">Loading...</p>;
+    return <p className="text-center mt-5 text-5xl text-blue-500 font-semibold">Loading...</p>;
   }
 
 

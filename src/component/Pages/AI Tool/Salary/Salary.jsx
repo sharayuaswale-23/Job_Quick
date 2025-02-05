@@ -16,7 +16,7 @@ const Salary = () => {
     if (company && designation && previousCTC && experience) {
       const ctc = parseFloat(previousCTC);
       const exp = parseInt(experience);
-      const multiplier = exp > 5 ? 1.3 : exp > 2 ? 1.3 : 1.1; // Mock multiplier logic
+      const multiplier = exp > 5 ? 2 : exp > 2 ? 1.9 : 1.3; // Mock multiplier logic
       const calculatedSalary = (ctc * multiplier).toFixed(2);
       setExpectedSalary(`₹${calculatedSalary}`);
     } else {
@@ -27,12 +27,26 @@ const Salary = () => {
   return (
     <>
     <Header />
+
+    <header className="w-full text-center mt-20 py-8 bg-gradient-to-b from-blue-50 to-blue-100 text-black relative overflow-hidden">     
+            <div className="relative z-10">
+              <h1 className="text-6xl font-bold bg-gradient-to-r from-blue-600 to-blue-900 text-black bg-clip-text text-transparent mb-6">
+                Salary Calculator
+              </h1>
+              <p className="mt-4 text-gray-900 text-lg md:text-xl leading-relaxed">
+              "Know your worth, calculate your earnings! Get accurate salary insights based on your skills, experience, and industry trends."
+              </p>
+            </div>
+          </header>
   
 
-    <div className="bg-gradient-to-r mt-20 from-blue-50 to-purple-50 min-h-screen py-6">
-  <main className="container mx-auto px-4 md:px-8 py-12">
+    <div className="bg-gradient-to-r from-blue-50 to-purple-50 min-h-screen py-6">
+  <main className="container mx-auto px-4 md:px-8 py-8">
+ 
+
+
     <div className="bg-white shadow-xl mb-20 rounded-lg p-8 md:max-w-4xl mx-auto">
-      <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">Salary Calculator</h2>
+      <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-900 text-black bg-clip-text text-transparent mb-6 text-center">Salary Calculator</h2>
       <form className="grid grid-cols-1 md:grid-cols-2 gap-8">
 
         <div>
@@ -83,7 +97,7 @@ const Salary = () => {
           <button 
             type="button"
             onClick={calculateSalary}
-            className="bg-blue-600 text-white py-3 px-6 rounded-lg text-lg font-medium shadow-lg hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            className="bg-gradient-to-r from-blue-400 to-blue-700 text-white py-3 px-6 rounded-lg text-lg font-medium shadow-lg hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:outline-none"
           >
             Calculate Expected Salary
           </button>
