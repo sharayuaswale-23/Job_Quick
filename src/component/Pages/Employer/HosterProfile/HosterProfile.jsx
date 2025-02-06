@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
+import Profile from "../../../../assets/Images/profile1.webp";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Hostersidebar from "../Hostersidebar/Hostersidebar";
@@ -58,65 +59,101 @@ const HosterProfile = () => {
 
   return (
     <>
-
-   {/* <Hosterheader /> */}
-    <div className="flex min-h-screen bg-gray-100 relative">
-     {/* Sidebar */}
-     <div className=" inset-y-0 left-0 shadow-lg z-40">
+      <div className="flex min-h-screen bg-gradient-to-br from-green-50 to-blue-50 relative">
+        {/* Sidebar */}
+        <div className=" inset-y-0 left-0 shadow-lg z-40">
           <Hostersidebar />
         </div>
 
-    
-      <div className="flex-1 mt-8 lg:mt-4 p-4 md:p-10 lg:ml-96 bg-gray-100 min-h-screen">
-      <h1 className="text-5xl text-center font-extrabold bg-gradient-to-r from-green-600 to-green-900 text-black bg-clip-text text-transparent mb-10">My Profile</h1>
-      <div className="max-w-4xl w-full bg-white shadow-xl rounded-3xl p-8 border border-gray-200">
-    
-        <div className="flex flex-col items-center mb-8">
-          <div className="w-36 h-36 rounded-full overflow-hidden border-4 border-green-500 shadow-lg">
-            <img
-              src={hoster.profileImg || "https://tse3.mm.bing.net/th?id=OIP.tlqnziQxJqVPudFX75jFpgAAAA&pid=Api&P=0&h=180"}
-              alt="Profile"
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <h1 className="text-3xl font-extrabold text-gray-900 mt-5 capitalize">
-          {hoster.fullName}
+        {/* Main Profile Section */}
+        <div className="flex-1 mt-8 lg:mt-1 p-4 md:p-10 lg:ml-64 bg-gradient-to-br from-green-50 to-blue-50 min-h-screen">
+          <h1 className="text-5xl text-center font-extrabold bg-gradient-to-r from-green-600 to-green-900 text-black bg-clip-text text-transparent mb-8">
+            My Profile
           </h1>
-          <p className="text-lg text-gray-600">{hoster.city}, {hoster.state}</p>
-        </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 border-t border-gray-300 pt-6">
-          {[
-            { label: "City", value: hoster.city },
-            { label: "State", value: hoster.state },
-            { label: "Address", value: hoster.address },
-            { label: "Phone Number", value: hoster.phoneNumber},
-            { label: "Pincode", value: hoster.pincode },
-            { label: "Gender", value: hoster.gender },
-            { label: "Company Url", value: hoster.companyUrl },
-          ].map((item, index) => (
-            <div key={index} className="bg-gray-50 p-4 rounded-lg shadow-sm">
-              <p className="text-sm text-gray-500 font-semibold">{item.label}</p>
-              <p className="text-lg font-medium text-gray-800">{item.value}</p>
+          {/* Profile Container */}
+          <div className="max-w-5xl mx-auto w-full bg-white shadow-xl rounded-3xl p-8 border border-gray-200">
+            {/* Profile Section */}
+            <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
+              {/* Profile Image */}
+              <div className="w-32 h-32 rounded-full overflow-hidden shadow-lg">
+                <img
+                  src={Profile}
+                  alt="Profile"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              {/* User Details */}
+              <div className="text-center md:text-left">
+                <h1 className="text-3xl font-extrabold text-gray-900 capitalize">
+                  {hoster.fullName}
+                </h1>
+                <div className="mt-3">
+                  <Link
+                    to="/hosterdetail"
+                    className="inline-block mt-2 text-white bg-green-600 hover:bg-green-700 transition-colors text-lg py-2 px-6 rounded-lg shadow-md font-semibold"
+                  >
+                    Edit Profile
+                  </Link>
+                </div>
+              </div>
             </div>
-          ))}
-        </div>
 
-        <div className="mt-8 flex justify-center">
-          <Link
-            to="/hosterdetail"
-            className="w-full md:w-auto text-center font-semibold bg-green-600 text-white hover:bg-green-700 transition-colors text-lg py-3 px-8 rounded-lg shadow-md"
-          >
-            Edit Profile
-          </Link>
+            {/* Profile Information Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+            
+              {/* Other Details */}
+              <div className="bg-gray-50 p-6 rounded-lg shadow-md border">
+                <h2 className="text-xl font-semibold text-gray-800 mb-3">
+                  Additional Information
+                </h2>
+                <div className="space-y-3">
+                  {[
+                    { label: "Gender", value: hoster.gender },
+                    { label: "Email", value: hoster.email || "N/A" },
+                    { label: "Phone Number", value: hoster.phoneNumber || "N/A" },
+                    { label: "Company URL", value: hoster.companyUrl || "N/A" },
+                  ].map((item, index) => (
+                    <div key={index}>
+                      <p className="text-sm text-gray-500 font-semibold">
+                        {item.label}
+                      </p>
+                      <p className="text-lg font-medium text-gray-800">
+                        {item.value}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              {/* Location Details */}
+              <div className="bg-gray-50 p-6 rounded-lg shadow-md border">
+                <h2 className="text-xl font-semibold text-gray-800 mb-3">
+                  Location Details
+                </h2>
+                <div className="space-y-3">
+                  {[
+                    { label: "City", value: hoster.city },
+                    { label: "State", value: hoster.state },
+                    { label: "Address", value: hoster.address },
+                    { label: "Pincode", value: hoster.pincode },
+                  ].map((item, index) => (
+                    <div key={index}>
+                      <p className="text-sm text-gray-500 font-semibold">
+                        {item.label}
+                      </p>
+                      <p className="text-lg font-medium text-gray-800">
+                        {item.value}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-     
-    </div>
-    {/* <div className="lg:ml-52">
-     <Footer />
-     </div> */}
     </>
   );
 };

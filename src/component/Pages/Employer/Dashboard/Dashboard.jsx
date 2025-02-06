@@ -7,6 +7,7 @@ import Footer from "../../../common/Footer/Footer";
 import { Search, User, Bookmark, FileText ,LogOut} from "lucide-react";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import Dashboardjob from "../DashboardJob/DashboardJob";
 
 
 // const chartData = [
@@ -39,7 +40,7 @@ const Dashboard = () => {
   return (
     <>
 
-    <div className="flex min-h-screen bg-gray-100">
+    <div className="flex min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
       {/* Sidebar */}
         <Hostersidebar />
       
@@ -89,31 +90,12 @@ const Dashboard = () => {
             </div>
           </div>
           
-          <div className="bg-white p-6 rounded-lg shadow-lg">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Posted Jobs</h2>
-            <div className="space-y-4">
-              {["Web & Mobile Prototype", "Document Writer", "Outbound Call Service", "Product Designer", "Marketing Specialist"].map((job, index) => (
-                <div key={index} className="flex items-center justify-between p-3 bg-gray-100 rounded-lg hover:bg-gray-200 transition duration-300">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 bg-gray-300 rounded-lg flex items-center justify-center text-gray-700 font-semibold">
-                      {job.charAt(0)}
-                    </div>
-                    <div>
-                      <div className="font-medium text-gray-900">{job}</div>
-                      <div className="text-sm text-gray-500">Full-time · Location</div>
-                    </div>
-                  </div>
-                  <button className="text-gray-500 hover:text-gray-700">•••</button>
-                </div>
-              ))}
-            </div>
-          </div>
+         
+          <Dashboardjob/>
+          
         </div>
       </div>
     </div>
-     {/* <div className="lg:ml-52">
-     <Footer />
-     </div> */}
     </>
   );
 };

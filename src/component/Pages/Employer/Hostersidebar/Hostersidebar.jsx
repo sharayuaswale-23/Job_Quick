@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
+import Profile from "../../../../assets/Images/profile1.webp";
 import {
   LogOut,
   User,
@@ -96,7 +97,7 @@ function Hostersidebar() {
         <div className="flex flex-col items-center mb-6 text-center">
           <div className="w-20 h-20 rounded-full overflow-hidden shadow-md">
             <img
-              src={hoster.profileImg || "https://tse3.mm.bing.net/th?id=OIP.tlqnziQxJqVPudFX75jFpgAAAA&pid=Api&P=0&h=180"}
+              src={Profile}
               alt="Profile"
               className="w-full h-full object-cover"
             />

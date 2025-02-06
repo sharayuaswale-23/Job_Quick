@@ -9,6 +9,7 @@ import { GrUserWorker } from "react-icons/gr";
 import { BsPersonWorkspace } from "react-icons/bs";
 import { IoLocationOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
+import logo from "../../../../assets/Images/companylogo.jpg";
 import ComImg from "../../../../assets/Images/infosys-logo-transparent-free-png.webp";
 
 const MyJob = () => {
@@ -116,7 +117,7 @@ const MyJob = () => {
     <>
       <Hostersidebar />
 
-      <div className="min-h-screen lg:ml-64 flex flex-col items-center bg-gray-100 p-8 sm:p-12">
+      <div className="min-h-screen lg:ml-64 flex flex-col items-center bg-gradient-to-br from-green-50 to-blue-50 p-8 sm:p-12">
       <h1 className="text-5xl text-center font-extrabold bg-gradient-to-r from-green-600 to-green-900 text-black bg-clip-text text-transparent mb-6">My Jobs</h1>
       {jobs.length === 0 ? (
         <h1 className="text-2xl font-semibold text-gray-700">No jobs found.</h1>
@@ -129,7 +130,7 @@ const MyJob = () => {
       
       <div className="flex w-full mb-4">
         <img
-          src={job.profileImg || {ComImg}}
+          src={logo}
           alt={`${job.companyName} logo`}
           className="w-24 h-24 rounded-lg object-cover mr-4"
         />
@@ -181,11 +182,11 @@ const MyJob = () => {
 
        <div className="flex justify-between w-full mt-4 space-x-4">
                 <button onClick={() => handleViewApplicants(job._id)}
-                  className="flex-1 h-10 bg-green-500 text-white rounded-lg text-base font-semibold shadow-md hover:scale-105 hover:shadow-lg transition-transform duration-300 focus:outline-none focus:ring-2 focus:ring-pink-400">
+                  className="flex-1 h-10 bg-green-500 text-white rounded-lg text-base font-semibold shadow-md hover:scale-105 hover:shadow-lg transition-transform duration-300 focus:outline-none focus:ring-2 focus:ring-green-400">
                   View Applicant
                 </button>
                 <button onClick={() => setSelectedJob(job._id)}
-                  className="flex-1 h-10 bg-red-500 text-white rounded-lg text-base font-semibold shadow-md hover:scale-105 hover:shadow-lg transition-transform duration-300 focus:outline-none focus:ring-2 focus:ring-pink-400">
+                  className="flex-1 h-10 bg-red-500 text-white rounded-lg text-base font-semibold shadow-md hover:scale-105 hover:shadow-lg transition-transform duration-300 focus:outline-none focus:ring-2 focus:ring-red-400">
                   Delete
                 </button>
               </div>

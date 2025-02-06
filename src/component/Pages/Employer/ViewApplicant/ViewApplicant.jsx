@@ -9,6 +9,14 @@ const ViewApplicant = () => {
   const [applicants, setApplicants] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [expandedId, setExpandedId] = useState(null);
+  const [shortlistedIds, setShortlistedIds] = useState([]);
+
+  const toggleShortlist = (id) => {
+    setShortlistedIds((prev) =>
+      prev.includes(id) ? prev.filter((sid) => sid !== id) : [...prev, id]
+    );
+  };
   
   const token = Cookies.get("jwtToken");
 
@@ -64,8 +72,8 @@ const ViewApplicant = () => {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-teal-50 to-blue-50">
         <div className="text-center">
-          <div className="animate-spin w-16 h-16 border-4 border-teal-500 border-t-transparent rounded-full mx-auto mb-4"></div>
-          <p className="text-xl text-teal-700">Loading applicants...</p>
+          <div className="animate-spin w-16 h-16 border-4 border-green-500 border-t-transparent rounded-full mx-auto mb-4"></div>
+          <p className="text-xl text-green-700">Loading applicants...</p>
         </div>
       </div>
     );
@@ -87,98 +95,11 @@ const ViewApplicant = () => {
   return (
     <>
     <Hostersidebar/>
-    {/* <div className="min-h-screen ml-64 bg-gradient-to-br from-teal-50 to-blue-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-5xl mx-auto">
-        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
-          <div className="bg-gradient-to-r from-teal-500 to-blue-500 px-6 py-5">
-            <h2 className="text-3xl font-bold text-white flex items-center gap-3">
-              <User className="w-8 h-8" />
-              Job Applicants
-            </h2>
-          </div>
 
-          <div className="p-6">
-            {applicants.length === 0 ? (
-              <div className="text-center py-12 bg-gray-50 rounded-lg">
-                <p className="text-xl text-gray-500">No applicants yet</p>
-              </div>
-            ) : (
-              <div className="grid md:grid-cols-2 gap-6">
-                {applicants.map((applicant) => (
-                  <div 
-                    key={applicant?._id} 
-                    className="bg-white border border-gray-200 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2"
-                  >
-                    <div className="p-6 space-y-4">
-                      <div className="flex items-center gap-4">
-                        <div className="bg-teal-100 p-3 rounded-full">
-                          <User className="w-6 h-6 text-teal-600" />
-                        </div>
-                        <div>
-                          <p className="text-sm text-gray-500">Full Name</p>
-                          <p className="font-semibold text-gray-900 text-lg">{applicant?.fullName || "N/A"}</p>
-                        </div>
-                      </div>
-
-                      <div className="grid grid-cols-2 gap-4">
-                        <div className="flex items-center gap-3">
-                          <Mail className="w-5 h-5 text-teal-600" />
-                          <div>
-                            <p className="text-xs text-gray-500">Email</p>
-                            <p className="font-medium text-gray-900 truncate">{applicant?.email || "N/A"}</p>
-                          </div>
-                        </div>
-
-                        <div className="flex items-center gap-3">
-                          <MapPin className="w-5 h-5 text-teal-600" />
-                          <div>
-                            <p className="text-xs text-gray-500">City</p>
-                            <p className="font-medium text-gray-900">{applicant?.city || "N/A"}</p>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="flex items-center gap-3">
-                        <Star className="w-5 h-5 text-teal-600" />
-                        <div>
-                          <p className="text-sm text-gray-500">Skills</p>
-                          <p className="font-medium text-gray-900">{applicant?.skills?.join(', ') || "N/A"}</p>
-                        </div>
-                      </div>
-
-                      <div className="flex items-center gap-3">
-                        <GraduationCap className="w-5 h-5 text-teal-600" />
-                        <div>
-                          <p className="text-sm text-gray-500">Education</p>
-                          <p className="font-medium text-gray-900">
-                            {applicant?.eduDegree ? `${applicant.eduDegree} - ${applicant.eduSpecialisation}` : "N/A"}
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="flex items-center gap-3">
-                        <Briefcase className="w-5 h-5 text-teal-600" />
-                        <div>
-                          <p className="text-sm text-gray-500">Experience</p>
-                          <p className="font-medium text-gray-900">
-                            {applicant?.expPosition ? `${applicant.expPosition} at ${applicant.expCompany}` : "N/A"}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-    </div> */}
-
-    <div className="min-h-screen ml-64 bg-gradient-to-br from-teal-50 to-blue-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen pt-20 lg:pt-4 lg:ml-64 bg-gradient-to-br from-green-50 to-blue-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
-          <div className="bg-gradient-to-r from-teal-500 to-blue-500 px-6 py-5 flex justify-between items-center">
+          <div className="bg-gradient-to-r from-green-600 to-blue-200 px-6 py-5 flex justify-between items-center">
             <h2 className="text-3xl font-bold text-white flex items-center gap-3">
               <User className="w-8 h-8" />
               Job Applicants
@@ -192,78 +113,112 @@ const ViewApplicant = () => {
               </div>
             ) : (
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {applicants.map((applicant) => (
-                  <div 
-                    key={applicant?._id} 
-                    className="bg-white border border-gray-200 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 p-6"
-                  >
-                    <div className="space-y-4">
-                      <div className="flex items-center gap-4">
-                        <div className="bg-teal-100 p-3 rounded-full">
-                          <User className="w-6 h-6 text-teal-600" />
-                        </div>
-                        <div>
-                          <p className="text-sm text-gray-500">Full Name</p>
-                          <p className="font-semibold text-gray-900 text-lg">{applicant?.fullName || "N/A"}</p>
-                        </div>
-                      </div>
+                {applicants.map((applicant) => {
+                  const isExpanded = expandedId === applicant?._id;
+                  const isShortlisted = shortlistedIds.includes(applicant?._id);
 
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="flex items-center gap-3">
-                          <Mail className="w-5 h-5 text-teal-600" />
-                          <div>
-                            <p className="text-xs text-gray-500">Email</p>
-                            <p className="font-medium text-gray-900 truncate">{applicant?.email || "N/A"}</p>
+                  return (
+                    <div
+                      key={applicant?._id}
+                      className={`bg-white border border-gray-200 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 p-6 ${
+                        isExpanded ? "h-auto" : "h-fit"
+                      }`}
+                    >
+                      <div className="space-y-4">
+                        <div className="flex items-center gap-4">
+                          <div className="bg-green-100 p-3 rounded-full">
+                            <User className="w-6 h-6 text-green-600" />
+                          </div>
+                          <div className="w-full">
+                            <p className="font-semibold text-gray-900 text-lg">
+                              {applicant?.fullName || "N/A"}
+                            </p>
+                            <p className="text-sm text-gray-500 truncate max-w-full overflow-hidden whitespace-nowrap">
+                              {applicant?.email || "N/A"}
+                            </p>
                           </div>
                         </div>
-
                         <div className="flex items-center gap-3">
-                          <MapPin className="w-5 h-5 text-teal-600" />
-                          <div>
-                            <p className="text-xs text-gray-500">City</p>
-                            <p className="font-medium text-gray-900">{applicant?.city || "N/A"}</p>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="grid grid-cols-1 gap-3">
-                        <div className="flex items-center gap-3">
-                          <Star className="w-5 h-5 text-teal-600" />
+                          <Star className="w-5 h-5 text-green-600" />
                           <div>
                             <p className="text-sm text-gray-500">Skills</p>
-                            <p className="font-medium text-gray-900">{applicant?.skills?.join(', ') || "N/A"}</p>
-                          </div>
-                        </div>
-
-                        <div className="flex items-center gap-3">
-                          <GraduationCap className="w-5 h-5 text-teal-600" />
-                          <div>
-                            <p className="text-sm text-gray-500">Education</p>
                             <p className="font-medium text-gray-900">
-                              {applicant?.eduDegree ? `${applicant.eduDegree} - ${applicant.eduSpecialisation}` : "N/A"}
+                              {applicant?.skills?.join(", ") || "N/A"}
                             </p>
                           </div>
                         </div>
 
-                        <div className="flex items-center gap-3">
-                          <Briefcase className="w-5 h-5 text-teal-600" />
-                          <div>
-                            <p className="text-sm text-gray-500">Experience</p>
-                            <p className="font-medium text-gray-900">
-                              {applicant?.expPosition ? `${applicant.expPosition} at ${applicant.expCompany}` : "N/A"}
-                            </p>
+                        <button
+                          onClick={() =>
+                            setExpandedId(isExpanded ? null : applicant?._id)
+                          }
+                          className="mt-4 text-green-600 font-semibold cursor-pointer"
+                        >
+                          {isExpanded ? "View Less" : "View More"}
+                        </button>
+
+                        {isExpanded && (
+                          <div className="mt-3 space-y-3">
+                            <div className="flex items-center gap-3">
+                              <MapPin className="w-5 h-5 text-green-600" />
+                              <div>
+                                <p className="text-xs text-gray-500">City</p>
+                                <p className="font-medium text-gray-900">
+                                  {applicant?.city || "N/A"}
+                                </p>
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-3">
+                              <GraduationCap className="w-5 h-5 text-green-600" />
+                              <div>
+                                <p className="text-sm text-gray-500">
+                                  Education
+                                </p>
+                                <p className="font-medium text-gray-900">
+                                  {applicant?.eduDegree
+                                    ? `${applicant.eduDegree} - ${applicant.eduSpecialisation}`
+                                    : "N/A"}
+                                </p>
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-3">
+                              <Briefcase className="w-5 h-5 text-green-600" />
+                              <div>
+                                <p className="text-sm text-gray-500">
+                                  Experience
+                                </p>
+                                <p className="font-medium text-gray-900">
+                                  {applicant?.expPosition
+                                    ? `${applicant.expPosition} at ${applicant.expCompany}`
+                                    : "N/A"}
+                                </p>
+                              </div>
+                            </div>
                           </div>
-                        </div>
+                        )}
+
+                        {/* Shortlist Button */}
+                        <button
+                          onClick={() => toggleShortlist(applicant?._id)}
+                          className={`w-full mt-4 py-2 px-4 text-white font-semibold rounded-lg transition-all duration-300 ${
+                            isShortlisted
+                              ? "bg-green-600 hover:bg-green-700"
+                              : "bg-gray-400 hover:bg-gray-500"
+                          }`}
+                        >
+                          {isShortlisted ? "Shortlisted" : "Shortlist"}
+                        </button>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             )}
           </div>
         </div>
       </div>
     </div>
+
     </>
   );
 };

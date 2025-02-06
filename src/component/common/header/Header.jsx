@@ -43,6 +43,18 @@ const Header = () => {
     const token = Cookies.get("userToken");
     setIsAuthenticated(!!token);
   }, []);
+
+  const handleEmployerClick = () => {
+    const userToken = Cookies.get("jwtToken");
+    const userNewId = Cookies.get("userId");
+    
+    if (userToken && userNewId) {
+      navigate("/dashboard");
+    } else {
+      navigate("/hosterlogin");
+    }
+  };
+
   return (
     <nav className="bg-white fixed top-0 left-0 w-full z-50 shadow-md">
       <div className="flex items-center justify-between px-4   lg:px-10 py-5 md:px-6">
@@ -139,8 +151,8 @@ const Header = () => {
         <div className="relative hidden md:flex items-center gap-4">
           {!isAuthenticated ? (
             <>
-              <button className="px-4 py-2 bg-slate-200 text-black rounded-lg hover:bg-gray-100">
-                <Link to="/hosterlogin">For Employer</Link>
+              <button onClick={handleEmployerClick} className="px-4 py-2 bg-slate-200 text-black rounded-lg hover:bg-gray-100">
+                Employer
               </button>
               <button className="px-4 py-2 border border-black text-black bg-white rounded-lg hover:bg-gray-100">
                 <Link to="/login">Log in</Link>
@@ -148,8 +160,8 @@ const Header = () => {
             </>
           ) : (
             <>
-              <button className="px-4 py-2 bg-slate-200 text-black rounded-lg hover:bg-gray-100">
-                <Link to="/hosterlogin">For Employer</Link>
+              <button onClick={handleEmployerClick} className="px-4 py-2 bg-slate-200 text-black rounded-lg hover:bg-gray-100">
+              For Employer
               </button>
               <div className="relative">
                 <FaUserCircle
@@ -215,8 +227,8 @@ const Header = () => {
             {!isAuthenticated ? (
             <>
               <div className="flex flex-col items-center gap-4">
-              <button className="px-4 py-2 bg-slate-200 text-black rounded-lg hover:bg-gray-100">
-                <Link to="/hosterlogin">For Employer</Link>
+              <button onClick={handleEmployerClick} className="px-4 py-2 bg-slate-200 text-black rounded-lg hover:bg-gray-100">
+                Employer
               </button>
               <button className="px-4 py-2 border border-black text-black bg-white rounded-lg hover:bg-gray-100">
                 <Link to="/login">Log in</Link>
@@ -226,8 +238,8 @@ const Header = () => {
           ) : (
             <>
            <div className="flex flex-col">
-           <button className="px-4 py-2 bg-slate-200 text-black rounded-lg hover:bg-gray-100">
-            <Link to="/hosterlogin">For Employer</Link>
+           <button onClick={handleEmployerClick} className="px-4 py-2 bg-slate-200 text-black rounded-lg hover:bg-gray-100">
+          For Employer
               </button>
            
            </div>
