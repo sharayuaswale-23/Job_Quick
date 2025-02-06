@@ -164,11 +164,11 @@ const HosterDetail = () => {
 
   return (
 
-<div className="flex min-h-screen p-6 sm:p-10 md:p-14 rounded-lg bg-white w-full flex-col md:flex-row">
+<div className="flex min-h-screen p-4 sm:p-4 md:p-14 rounded-lg bg-white w-full flex-col md:flex-row">
 {/* Right Side - Content */}
-<div className="flex-1 flex rounded-l-lg bg-gray-100 justify-center items-center p-4 w-full">
+<div className="flex-1 flex rounded-l-lg bg-gray-100 justify-center items-center p-2 md:p-4 w-full">
   <div className="h-full flex my-6 items-center justify-center">
-    <div className="mx-auto py-10 p-4 rounded-lg w-full max-w-4xl h-full flex flex-col justify-center">
+    <div className="mx-auto py-10 p-2 md:p-4 rounded-lg w-full md:max-w-4xl h-full flex flex-col justify-center">
       <h2 className="text-3xl font-bold text-black text-center text-transparent bg-green-600 hover:bg-green-800 bg-clip-text">
         Hoster Details
       </h2>

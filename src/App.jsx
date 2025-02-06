@@ -155,7 +155,7 @@ const App = () => {
         <Route path="/dashboard" element={<Dashboard />}/>
         <Route path="/jobposting" element={<JobPosting />}/>
         <Route path="/myjob" element={<MyJob />}/>
-        <Route path="/viewapplicant" element={<ViewApplicant />}/>
+        <Route path="/job/:id/applicants" element={<ViewApplicant />}/>
         <Route path="/*" element={<NotFound />} />
       </Routes>
     </AuthContext.Provider>

@@ -618,7 +618,7 @@ const JobPosting = () => {
 
   return (
     <>
-    <div className="min-h-screen flex justify-center p-10 bg-gradient-to-b from-green-100 to-green-200">
+    <div className="min-h-screen flex justify-center p-4 md:p-10 bg-gradient-to-b from-green-100 to-green-200">
       <div className="hidden w-1/2 lg:flex flex-1 flex-col justify-center p-20 backdrop-blur">
           <div className="flex flex-col justify-center px-8 w-full text-black">
             <h2 className="text-3xl font-bold mb-4">🚀 Find the Right Talent, Faster!</h2>
@@ -651,7 +651,7 @@ const JobPosting = () => {
         </div>
 
   
-    <div className="p-6 w-full md:w-1/2 bg-gray-100 rounded-lg shadow-md">
+    <div className="md:p-6 p-2 w-full md:w-1/2 bg-gray-100 rounded-lg shadow-md">
       <h2 className="text-4xl font-bold mb-6 text-center bg-green-700 bg-clip-text text-transparent">
         Post Job
       </h2>

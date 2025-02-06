@@ -60,14 +60,14 @@ const HosterProfile = () => {
     <>
 
    {/* <Hosterheader /> */}
-    <div className="flex min-h-screen bg-gradient-to-b from-green-50 to-green-100 relative">
+    <div className="flex min-h-screen bg-gray-100 relative">
      {/* Sidebar */}
      <div className=" inset-y-0 left-0 shadow-lg z-40">
           <Hostersidebar />
         </div>
 
     
-      <div className="flex-1 mt-8 lg:mt-4 p-4 md:p-10 lg:ml-96 bg-gradient-to-b from-green-50 to-green-100 min-h-screen">
+      <div className="flex-1 mt-8 lg:mt-4 p-4 md:p-10 lg:ml-96 bg-gray-100 min-h-screen">
       <h1 className="text-5xl text-center font-extrabold bg-gradient-to-r from-green-600 to-green-900 text-black bg-clip-text text-transparent mb-10">My Profile</h1>
       <div className="max-w-4xl w-full bg-white shadow-xl rounded-3xl p-8 border border-gray-200">
     
