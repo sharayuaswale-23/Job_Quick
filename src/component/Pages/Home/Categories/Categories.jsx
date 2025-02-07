@@ -2,14 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Categorie = [
-  { id: 1, name: "Development & IT", services: 8, logo: "💻" },
-  { id: 2, name: "Design & Creative", services: 8, logo: "🎨" },
-  { id: 3, name: "Digital Marketing", services: 1, logo: "📣" },
-  { id: 4, name: "Writing & Translation", services: 1, logo: "📝" },
-  { id: 5, name: "Music & Audio", services: 0, logo: "🎵" },
-  { id: 6, name: "Video & Animation", services: 0, logo: "🎬" },
-  { id: 7, name: "Programming & Tech", services: 1, logo: "🔧" },
-  { id: 8, name: "Finance & Accounting", services: 4, logo: "📊" },
+  { id: 1, name: "IT & Networking",  logo: "💻" },
+  { id: 2, name: "Digital Marketing", logo: "🎨" },
+  { id: 3, name: "Data Science", logo: "📣" },
+  { id: 4, name: "Customer Service",  logo: "📝" },
+  { id: 5, name: "Sales & Marketing",  logo: "🎵" },
+  { id: 6, name: "Human Resource", logo: "🎬" },
+  { id: 7, name: "Project Manager", logo: "🔧" },
+  { id: 8, name: "Accounting", logo: "📊" },
 ];
 
 
@@ -27,7 +27,6 @@ const Categories = () => {
           >
             <div className="text-4xl mb-4">{category.logo}</div>
             <h2 className="text-xl font-medium text-gray-800 mb-2">{category.name}</h2>
-            <p className="text-gray-500">{category.services} Services</p>
           </Link>
         ))}
       </div>

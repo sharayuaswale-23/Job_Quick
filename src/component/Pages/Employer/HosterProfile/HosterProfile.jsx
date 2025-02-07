@@ -113,7 +113,7 @@ const HosterProfile = () => {
                     { label: "Gender", value: hoster.gender },
                     { label: "Email", value: hoster.email || "N/A" },
                     { label: "Phone Number", value: hoster.phoneNumber || "N/A" },
-                    { label: "Company URL", value: hoster.companyUrl || "N/A" },
+                    { label: "Company Url", value: hoster.companyURL || "N/A" },
                   ].map((item, index) => (
                     <div key={index}>
                       <p className="text-sm text-gray-500 font-semibold">

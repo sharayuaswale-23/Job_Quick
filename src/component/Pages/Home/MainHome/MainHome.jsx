@@ -7,14 +7,13 @@ import { useNavigate } from "react-router-dom";
 const MainHome = () => {
 
   const navigate = useNavigate();
-
-  const [searchInput, setSearchInput] = useState(""); 
+  const [searchInput, setSearchInput] = useState("");
   const [searchQuery, setSearchQuery] = useState(""); 
 
  
   const handleSearch = () => {
     if (searchInput.trim()) {
-      navigate(`/category?title=${encodeURIComponent(searchInput)}`); 
+      navigate(`/category?title=${encodeURIComponent(searchInput)}`);
     }
   };
 

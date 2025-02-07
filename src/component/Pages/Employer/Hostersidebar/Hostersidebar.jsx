@@ -104,6 +104,7 @@ function Hostersidebar() {
           </div>
           <h1 className="text-xl font-semibold text-gray-900 mt-4">{hoster.fullName}</h1>
           <p className="text-sm text-gray-500 mt-1">{hoster.phoneNumber}</p>
+          <a href="" className="text-sm text-gray-500 mt-1">{hoster.email}</a>
         </div>
 
         {/* Navigation */}
@@ -120,10 +121,6 @@ function Hostersidebar() {
             to: "/myjob",
             icon: <Briefcase className="w-5 h-5" />,
             label: "My Jobs"
-          },  {
-            to: "/savedcandidates",
-            icon: <Bookmark className="w-5 h-5" />,
-            label: "Save Candidate"
           }].map((item, index) => (
             <Link
               key={index}

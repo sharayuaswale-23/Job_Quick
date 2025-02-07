@@ -1,20 +1,35 @@
 import React, { useState, useEffect } from "react";
-import { Search, BriefcaseBusiness, MapPin, Clock, Wallet, Menu, X } from "lucide-react";
+import {Search, Menu, X} from "lucide-react";
+import { TbCategory } from "react-icons/tb";
+import { GrUserWorker } from "react-icons/gr";
+import { BsPersonWorkspace } from "react-icons/bs";
+import { IoLocationOutline } from "react-icons/io5";
+import { FaUserClock } from "react-icons/fa";
+import { GiWallet } from "react-icons/gi";
 import Cookies from "js-cookie";
-import searchimg from "../../../assets/Images/Search.webp";
+import { Link } from "react-router-dom";
 import Header from "../../common/header/Header";
 import Footer from "../../common/Footer/Footer";
+import searchimg from "../../../assets/Images/Search.webp";
+import logo from "../../../assets/Images/companylogo.jpg"
 
-const JobFilters = ({ filters, onFilterChange, categories, isLoading, onApplyFilters }) => {
+
+
+const JobFilters = ({filters, onFilterChange, categories, isLoading, onApplyFilters}) => {
+
   return (
-    <div className="rounded-lg bg-white p-6 shadow-md">
-      {/* Categories */}
+    
+    <div className="sticky top-0 border rounded-lg px-3 py-4  bg-white shadow-lg w-90">
+    
+      
       <div className="mb-6">
-        <label className="text-xl font-bold text-gray-800 mb-2">Categories</label>
+        <label className="text-xl text-black mb-6">
+          Categories
+        </label>
         <select
           value={filters.categories}
           onChange={(e) => onFilterChange("categories", e.target.value)}
-          className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-blue-500 focus:border-blue-500"
+          className="mt-5 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3"
         >
           <option value="">All Categories</option>
           <option value="IT & Networking">IT & Networking</option>
@@ -29,13 +44,15 @@ const JobFilters = ({ filters, onFilterChange, categories, isLoading, onApplyFil
         </select>
       </div>
 
-      {/* Experience Level */}
+
       <div className="mb-6">
-        <label className="text-xl font-bold text-gray-800 mb-2">Experience Level</label>
+        <label className="text-xl text-black mb-6">
+          Experience Level
+        </label>
         <select
           value={filters.experience}
           onChange={(e) => onFilterChange("experience", e.target.value)}
-          className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-blue-500 focus:border-blue-500"
+          className="mt-5 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3"
         >
           <option value="">All Experience Levels</option>
           <option value="fresher">Fresher</option>
@@ -45,10 +62,11 @@ const JobFilters = ({ filters, onFilterChange, categories, isLoading, onApplyFil
         </select>
       </div>
 
-      {/* Job Type (Radio Buttons) */}
       <div className="mb-6">
-        <label className="text-xl font-bold text-gray-800 mb-2">Job Type</label>
-        <div className="flex flex-col space-y-2 mt-2">
+        <label className="text-xl text-black mb-6">
+          Job Type
+        </label>
+        <div className="mt-5 flex flex-col space-y-3">
           {["Full-Time", "Part-Time"].map((type) => (
             <label key={type} className="flex items-center space-x-2">
               <input
@@ -57,18 +75,19 @@ const JobFilters = ({ filters, onFilterChange, categories, isLoading, onApplyFil
                 value={type}
                 checked={filters.jobType === type}
                 onChange={(e) => onFilterChange("jobType", e.target.value)}
-                className="h-4 w-4 text-blue-500 focus:ring-blue-300"
+                className="form-radio text-pink-500"
               />
-              <span className="text-gray-700">{type}</span>
+              <span>{type}</span>
             </label>
           ))}
         </div>
       </div>
 
-      {/* Work Type (Radio Buttons) */}
       <div className="mb-6">
-        <label className="text-xl font-bold text-gray-800 mb-2">Work Type</label>
-        <div className="flex flex-col space-y-2 mt-2">
+        <label className="text-xl text-black mb-6">
+          Work Type
+        </label>
+        <div className="mt-5 flex flex-col space-y-3">
           {["Remote", "OnSite", "Hybrid"].map((type) => (
             <label key={type} className="flex items-center space-x-2">
               <input
@@ -77,72 +96,96 @@ const JobFilters = ({ filters, onFilterChange, categories, isLoading, onApplyFil
                 value={type}
                 checked={filters.workType === type}
                 onChange={(e) => onFilterChange("workType", e.target.value)}
-                className="h-4 w-4 text-blue-500 focus:ring-blue-300"
+                className="form-radio text-pink-500"
               />
-              <span className="text-gray-700">{type}</span>
+              <span>{type}</span>
             </label>
           ))}
         </div>
       </div>
-
-      {/* Apply Filters Button */}
       <button
         onClick={onApplyFilters}
-        className="w-full h-12 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-md font-medium hover:opacity-90 transition-opacity shadow-md"
+        className="w-full h-12 bg-gradient-to-r from-blue-400 to-blue-700 text-white rounded-md font-medium hover:opacity-90 transition-opacity"
       >
         Apply Filters
       </button>
     </div>
+  
   );
 };
 
 const JobCard = ({ job }) => {
+
   return (
-    <div className="w-full mx-auto border rounded-2xl p-6 flex flex-col bg-white shadow-md hover:shadow-lg transition-shadow transform hover:scale-[1.02]">
-      {/* Company Info */}
-      <div className="flex flex-col md:flex-row md:items-center w-full mb-5">
+
+    <div className="border rounded-lg p-6 flex flex-col justify-between items-start hover:shadow-lg transition-shadow bg-white">
+      
+      <div className="flex w-full mb-4">
         <img
-          src={job.profileImg}
+          src={logo}
           alt={`${job.companyName} logo`}
-          className="w-16 h-16 object-cover mb-4 md:mb-0 md:mr-4 rounded-full"
+          className="w-24 h-24 rounded-lg object-cover mr-4"
         />
-        <div className="flex-1 text-center md:text-left">
-          <h3 className="font-semibold text-xl text-gray-800">{job.title}</h3>
-          <p className="text-gray-600 font-medium">{job.companyName}</p>
-          <span className="text-gray-500 text-sm">
+        <div className="flex-1">
+          <h3 className="font-semibold text-lg text-gray-800 mb-1">
+            {job.title}
+          </h3>
+          <p className="text-gray-500 font-semibold mb-1">{job.companyName}</p>
+          <span className="text-gray-500 font-semibold">
             {new Date(job.dateCreated).toLocaleDateString()}
           </span>
         </div>
       </div>
+ 
+       <div className="bg-white w-full">
 
-      {/* Job Details */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-gray-600 mb-5 font-medium">
-        <JobDetail icon={<BriefcaseBusiness />} label={job.category?.title || "Uncategorized"} />
-        {/* <JobDetail icon={<Clock />} label={job.jobType} /> */}
-        <JobDetail icon={<Wallet />} label={`$${job.minPackage} - $${job.maxPackage}`} />
-        <JobDetail icon={<MapPin />} label={job.location} />
-        <JobDetail icon={<BriefcaseBusiness />} label={job.experience} />
-        <JobDetail icon={<BriefcaseBusiness />} label={job.workType} />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+    
+        <div>
+          <div className="flex items-center mb-3">
+            <TbCategory className="w-6 h-6 text-blue-500 mr-3" />
+            <span className="text-gray-700 font-semibold">   {job.category?.title || "Uncategorized"}</span>
+          </div>
+          <div className="flex items-center mb-3">
+            <FaUserClock className="w-6 h-6 text-blue-500 mr-3" />
+            <span className="text-gray-700 font-semibold">{job.jobType}</span>
+          </div>
+          <div className="flex items-center mb-3">
+            <GiWallet className="w-6 h-6 text-blue-500 mr-3" />
+            <span className="text-gray-700 font-semibold">${job.minPackage} - ${job.maxPackage}</span>
+          </div>
+        </div>
+        <div>
+          <div className="flex items-center mb-3">
+            <IoLocationOutline className="w-6 h-6 text-blue-500 mr-3" />
+            <span className="text-gray-700 font-semibold">{job.location}</span>
+          </div>
+          <div className="flex items-center mb-3">
+            <GrUserWorker className="w-6 h-6 text-blue-500 mr-3" />
+            <span className="text-gray-700 font-semibold">{job.experience}</span>
+          </div>
+          <div className="flex items-center mb-3">
+            <BsPersonWorkspace className="w-6 h-6 text-blue-500 mr-3" />
+            <span className="text-gray-700 font-semibold">{job.workType}</span>
+          </div>
+        </div>
       </div>
+       </div>
 
-      {/* View Job Button */}
-      <button
-        onClick={() => (window.location.href = `/job/${job._id}`)}
-        className="w-full py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg text-md font-semibold hover:opacity-90 transition-opacity shadow-md"
-      >
-        View Job Details
-      </button>
-    </div>
-  );
-};
 
-const JobDetail = ({ icon, label }) => {
-  return (
-    <div className="flex items-center space-x-2">
-      <span className="text-blue-500">{icon}</span>
-      <span>{label}</span>
+      <Link to={`/job/${job._id}`} className="block w-full">
+          <button
+            className="mt-4 w-60 h-10 bg-blue-500  text-white rounded-lg text-base font-semibold shadow-md  hover:scale-105 hover:shadow-lg transition-transform duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400  sm:h-12 md:h-14 lg:h-12">
+              View Job Details
+          </button>
+      </Link>
+
     </div>
+
+  
+
   );
+
 };
 
 const Category = () => {
@@ -153,15 +196,21 @@ const Category = () => {
   const [jobListings, setJobListings] = useState([]);
   const [totalJobs, setTotalJobs] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const [jobsPerPage] = useState(6); // Number of jobs to display per page
+  const jobsPerPage = 5;
+  const totalPages = Math.ceil(jobListings.length / jobsPerPage);
 
+  const indexOfLastJob = currentPage * jobsPerPage;
+  const indexOfFirstJob = indexOfLastJob - jobsPerPage;
+  const currentJobs = jobListings.slice(indexOfFirstJob, indexOfLastJob);
+  
+  
   const [filters, setFilters] = useState({
     categories: "",
     title: "",
     jobType: "",
     workType: "",
     experience: "",
-    limit: 100,
+    limit: 100
   });
 
   const [pendingFilters, setPendingFilters] = useState(filters);
@@ -183,7 +232,6 @@ const Category = () => {
     return `https://jobquick.onrender.com/job/filter?${queryParams.toString()}`;
   };
 
-  // Fetch categories
   useEffect(() => {
     const fetchCategories = async () => {
       if (!isAuthenticated()) return;
@@ -213,7 +261,7 @@ const Category = () => {
     fetchCategories();
   }, [JobToken]);
 
-  // Fetch jobs
+
   const fetchJobs = async () => {
     if (!isAuthenticated()) return;
 
@@ -241,35 +289,28 @@ const Category = () => {
   };
 
   const handleFilterChange = (name, value) => {
-    setPendingFilters((prev) => ({
+    setPendingFilters(prev => ({
       ...prev,
-      [name]: value,
+      [name]: value
     }));
   };
 
   const handleApplyFilters = () => {
     setFilters(pendingFilters);
-    setCurrentPage(1); // Reset to the first page when filters are applied
     fetchJobs();
   };
 
-  // Initial fetch
   useEffect(() => {
     fetchJobs();
   }, []);
 
-  // Pagination logic
-  const indexOfLastJob = currentPage * jobsPerPage;
-  const indexOfFirstJob = indexOfLastJob - jobsPerPage;
-  const currentJobs = jobListings.slice(indexOfFirstJob, indexOfLastJob);
-
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <>
-      <Header />
 
-      <div className="mt-24 mx-4 bg-gradient-to-b from-blue-50 to-blue-100 p-6 rounded-xl shadow-lg flex flex-col md:flex-row items-center gap-6 mb-6">
+    <>
+    <Header/>
+     
+    <div className="mt-24 mx-4 bg-gradient-to-b from-blue-50 to-blue-100 p-6 rounded-xl shadow-lg flex flex-col md:flex-row items-center gap-6 mb-6">
         <div className="w-full md:w-[65%] flex flex-col items-center md:items-start gap-3 p-2">
           <div className="w-full mb-4 flex flex-col justify-center items-center md:items-start">
             <h2 className="text-3xl font-bold text-gray-900 mb-2">Find Your Dream Job</h2>
@@ -298,89 +339,98 @@ const Category = () => {
         </div>
       </div>
 
-      <div className="mx-4">
-        <div className="flex flex-col lg:flex-row gap-6">
-          {/* Sidebar filters */}
-          <div className="relative">
-            <button
-              className="lg:hidden bg-gradient-to-r from-pink-500 to-blue-500 text-white p-2 rounded-md fixed top-4 left-4 z-50"
-              onClick={() => setIsOpen(!isOpen)}
-            >
-              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </button>
+    <div className="min-h-screen bg-gray">
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        <div className="flex flex-col space-y-8">
 
-            <div
-              className={`fixed top-0 left-0 h-full overflow-y-auto bg-gray-50 shadow-lg p-4 transform transition-transform duration-300 z-40 ${
-                isOpen ? "translate-x-0" : "-translate-x-full"
-              } lg:relative lg:translate-x-0 lg:w-64 flex-shrink-0`}
-            >
-              <JobFilters
-                filters={pendingFilters}
-                onFilterChange={handleFilterChange}
-                categories={categories}
-                isLoading={isLoading}
-                onApplyFilters={handleApplyFilters}
-              />
+          <div className="flex gap-6">
+
+            <div>
+
+              <button
+                className="p-2  bg-gradient-to-r from-blue-500 to-blue-500 text-white rounded-lg lg:hidden"
+                onClick={() => setIsOpen(!isOpen)}
+              >
+                Filter
+              </button>
+
+              <div
+                className={`fixed top-14 lg:top-0 left-0 h-full w-80 p-4 transition-transform duration-300 ease-in-out transform 
+                ${isOpen ? "translate-x-0" : "-translate-x-full"} 
+                lg:relative lg:translate-x-0 lg:w-90 lg:flex-shrink-0`}
+              >
+                <JobFilters
+                  filters={pendingFilters}
+                  onFilterChange={handleFilterChange}
+                  categories={categories}
+                  isLoading={isLoading}
+                  onApplyFilters={handleApplyFilters}
+                />
+              </div>
+
+              {isOpen && (
+                <div
+
+                className="lg:hidden fixed top-4 right-4 p-2 rounded-full bg-gradient-to-r from-pink-500 to-blue-500 text-white shadow-lg hover:opacity-90 transition-all"
+                ></div>
+              )}
             </div>
+
+
+            <div className="flex-1 px-4 sm:px-6 lg:px-8">
+                    {isLoading ? (
+                      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2">
+                        {[1, 2, 3, 4].map((n) => (
+                          <div key={n} className="border rounded-lg p-4 animate-pulse">
+                            <div className="h-32 bg-gray-200 rounded-lg mb-4"></div>
+                            <div className="h-4 bg-gray-200 rounded mb-2"></div>
+                            <div className="h-4 bg-gray-200 rounded w-2/3"></div>
+                          </div>
+                        ))}
+                      </div>
+                    ) : error ? (
+                      <div className="text-red-500 text-center py-8">
+                        <p className="text-xl font-semibold mb-2">Error</p>
+                        <p>{error}</p>
+                      </div>
+                    ) : jobListings.length === 0 ? (
+                      <div className="text-gray-500 text-center py-8">
+                        <p className="text-xl font-semibold mb-2">No jobs found</p>
+                        <p className="text-gray-400">Try adjusting your filters</p>
+                      </div>
+                    ) : (
+                      <>
+                        <div className="grid grid-cols-1 gap-6 sm:grid-cols-1 lg:grid-cols-1">
+                          {currentJobs.map((job) => (
+                            <JobCard key={job._id} job={job} />
+                          ))}
+                        </div>
+                        <div className="flex justify-between mt-6 space-x-4">
+                          <button
+                            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                            disabled={currentPage === 1}
+                            className="px-4 py-2 bg-blue-500 text-white rounded-md disabled:opacity-50"
+                          >
+                            Previous
+                          </button>
+                          <span className="text-lg font-semibold">Page {currentPage} of {totalPages}</span>
+                          <button
+                            onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                            disabled={currentPage === totalPages}
+                            className="px-4 py-2 bg-blue-500 text-white rounded-md disabled:opacity-50"
+                          >
+                            Next
+                          </button>
+                        </div>
+                      </>
+                    )}
+              </div>
           </div>
 
-          {/* Job Listings */}
-          <div className="flex-1 rounded-lg bg-gray-50 px-4 py-6 sm:px-6 lg:px-8">
-            {isLoading ? (
-              <div className="grid grid-cols-1 gap-6">
-                {[1, 2, 3, 4].map((n) => (
-                  <div key={n} className="border rounded-lg p-4 animate-pulse">
-                    <div className="h-32 bg-gray-200 rounded-lg mb-4"></div>
-                    <div className="h-4 bg-gray-200 rounded mb-2"></div>
-                    <div className="h-4 bg-gray-200 rounded w-2/3"></div>
-                  </div>
-                ))}
-              </div>
-            ) : error ? (
-              <div className="text-red-500 text-center py-8">
-                <p className="text-xl font-semibold mb-2">Error</p>
-                <p>{error}</p>
-              </div>
-            ) : jobListings.length === 0 ? (
-              <div className="text-gray-500 text-center py-8">
-                <p className="text-xl font-semibold mb-2">No jobs found</p>
-                <p className="text-gray-400">Try adjusting your filters</p>
-              </div>
-            ) : (
-              <>
-                <div className="grid grid-cols-1 gap-6">
-                  {currentJobs.map((job) => (
-                    <JobCard key={job._id} job={job} />
-                  ))}
-                </div>
-
-                {/* Pagination Controls */}
-                <div className="flex justify-between items-center mt-6">
-                  <button
-                    onClick={() => paginate(currentPage - 1)}
-                    disabled={currentPage === 1}
-                    className="bg-blue-500 text-white px-4 py-2 rounded-md disabled:bg-gray-300 disabled:cursor-not-allowed"
-                  >
-                    Previous
-                  </button>
-                  <span className="text-gray-700">
-                    Page {currentPage} of {Math.ceil(jobListings.length / jobsPerPage)}
-                  </span>
-                  <button
-                    onClick={() => paginate(currentPage + 1)}
-                    disabled={currentPage === Math.ceil(jobListings.length / jobsPerPage)}
-                    className="bg-blue-500 text-white px-4 py-2 rounded-md disabled:bg-gray-300 disabled:cursor-not-allowed"
-                  >
-                    Next
-                  </button>
-                </div>
-              </>
-            )}
-          </div>
         </div>
       </div>
-
-      <Footer />
+    </div>
+    <Footer/>
     </>
   );
 };

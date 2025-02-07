@@ -1,79 +1,74 @@
-import React, { useEffect, useState } from 'react';
-import { Mail, User, Briefcase, GraduationCap, MapPin, Star } from 'lucide-react';
-import Cookies from 'js-cookie';
-import { useParams } from 'react-router-dom';
-import Hostersidebar from '../Hostersidebar/Hostersidebar';
+import React, { useEffect, useState } from "react";
+import {
+  User,
+  Mail,
+  MapPin,Briefcase, GraduationCap,
+  Star, Phone,
+} from "lucide-react";
+import Cookies from "js-cookie";
+import { useParams, useNavigate } from "react-router-dom";
+import Hostersidebar from "../Hostersidebar/Hostersidebar";
 
 const ViewApplicant = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [applicants, setApplicants] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [expandedId, setExpandedId] = useState(null);
-  const [shortlistedIds, setShortlistedIds] = useState([]);
+  const [viewMode, setViewMode] = useState("all"); // 'all' or 'shortlisted'
 
-  const toggleShortlist = (id) => {
-    setShortlistedIds((prev) =>
-      prev.includes(id) ? prev.filter((sid) => sid !== id) : [...prev, id]
-    );
-  };
-  
   const token = Cookies.get("jwtToken");
 
-  useEffect(() => {
-    const fetchApplicants = async () => {
-      if (!token) {
-        setError("Authentication required");
-        setIsLoading(false);
-        return;
-      }
-
-      try {
-        const response = await fetch(
-          `https://jobquick.onrender.com/applicants?jobId=${id}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error("Failed to fetch applicants");
-        }
-
-        const data = await response.json();
-        console.log(data);
-
-        if (Array.isArray(data)) {
-          const applicantDetails = data
-            .map((application) => application.applicantId)
-            .filter((applicant) => applicant !== null && applicant !== undefined);
-
-          setApplicants(applicantDetails);
-        } else {
-          setApplicants([]);
-        }
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    if (id) {
-      fetchApplicants();
+  const fetchApplicants = async (mode) => {
+    if (!token) {
+      setError("Authentication required");
+      setIsLoading(false);
+      return;
     }
-  }, [id, token]);
+
+    try {
+      const url = `https://jobquick.onrender.com/applicants?jobId=${id}${
+        mode === "shortlisted" ? "&shortListed=true" : ""
+      }`;
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch applicants");
+      }
+
+      const data = await response.json();
+      console.log(data);
+      setApplicants(Array.isArray(data) ? data : []);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (id) {
+      setIsLoading(true);
+      fetchApplicants(viewMode);
+    }
+  }, [id, token, viewMode]);
+
+  const handleViewProfile = (application) => {
+    navigate(`/applicant/${application._id}`, { state: { application } });
+  };
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-teal-50 to-blue-50">
+      <div className="flex items-center justify-center min-h-screen">
         <div className="text-center">
-          <div className="animate-spin w-16 h-16 border-4 border-green-500 border-t-transparent rounded-full mx-auto mb-4"></div>
-          <p className="text-xl text-green-700">Loading applicants...</p>
+          <div className="animate-spin w-12 h-12 border-4 border-green-500 border-t-transparent rounded-full mx-auto mb-4"></div>
+          <p className="text-lg text-gray-600">Loading applicants...</p>
         </div>
       </div>
     );
@@ -81,145 +76,174 @@ const ViewApplicant = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-red-50 to-pink-50">
-        <div className="bg-white p-8 rounded-xl shadow-2xl text-center">
-          <p className="text-2xl text-red-500 mb-4">
-            {error}
-          </p>
-          <p className="text-gray-600">Please try again later</p>
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="bg-white p-6 rounded-lg shadow-md text-center">
+          <p className="text-red-500 text-lg">{error}</p>
+          <p className="text-gray-500">Please try again later</p>
         </div>
       </div>
     );
   }
 
   return (
-    <>
-    <Hostersidebar/>
-
-    <div className="min-h-screen pt-20 lg:pt-4 lg:ml-64 bg-gradient-to-br from-green-50 to-blue-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-6xl mx-auto">
-        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
-          <div className="bg-gradient-to-r from-green-600 to-blue-200 px-6 py-5 flex justify-between items-center">
-            <h2 className="text-3xl font-bold text-white flex items-center gap-3">
-              <User className="w-8 h-8" />
-              Job Applicants
-            </h2>
-          </div>
-
-          <div className="p-6">
-            {applicants.length === 0 ? (
-              <div className="text-center py-12 bg-gray-50 rounded-lg">
-                <p className="text-xl text-gray-500">No applicants yet</p>
-              </div>
-            ) : (
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {applicants.map((applicant) => {
-                  const isExpanded = expandedId === applicant?._id;
-                  const isShortlisted = shortlistedIds.includes(applicant?._id);
-
-                  return (
-                    <div
-                      key={applicant?._id}
-                      className={`bg-white border border-gray-200 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 p-6 ${
-                        isExpanded ? "h-auto" : "h-fit"
-                      }`}
-                    >
-                      <div className="space-y-4">
-                        <div className="flex items-center gap-4">
-                          <div className="bg-green-100 p-3 rounded-full">
-                            <User className="w-6 h-6 text-green-600" />
-                          </div>
-                          <div className="w-full">
-                            <p className="font-semibold text-gray-900 text-lg">
-                              {applicant?.fullName || "N/A"}
-                            </p>
-                            <p className="text-sm text-gray-500 truncate max-w-full overflow-hidden whitespace-nowrap">
-                              {applicant?.email || "N/A"}
-                            </p>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <Star className="w-5 h-5 text-green-600" />
-                          <div>
-                            <p className="text-sm text-gray-500">Skills</p>
-                            <p className="font-medium text-gray-900">
-                              {applicant?.skills?.join(", ") || "N/A"}
-                            </p>
-                          </div>
-                        </div>
-
-                        <button
-                          onClick={() =>
-                            setExpandedId(isExpanded ? null : applicant?._id)
-                          }
-                          className="mt-4 text-green-600 font-semibold cursor-pointer"
-                        >
-                          {isExpanded ? "View Less" : "View More"}
-                        </button>
-
-                        {isExpanded && (
-                          <div className="mt-3 space-y-3">
-                            <div className="flex items-center gap-3">
-                              <MapPin className="w-5 h-5 text-green-600" />
-                              <div>
-                                <p className="text-xs text-gray-500">City</p>
-                                <p className="font-medium text-gray-900">
-                                  {applicant?.city || "N/A"}
-                                </p>
-                              </div>
-                            </div>
-                            <div className="flex items-center gap-3">
-                              <GraduationCap className="w-5 h-5 text-green-600" />
-                              <div>
-                                <p className="text-sm text-gray-500">
-                                  Education
-                                </p>
-                                <p className="font-medium text-gray-900">
-                                  {applicant?.eduDegree
-                                    ? `${applicant.eduDegree} - ${applicant.eduSpecialisation}`
-                                    : "N/A"}
-                                </p>
-                              </div>
-                            </div>
-                            <div className="flex items-center gap-3">
-                              <Briefcase className="w-5 h-5 text-green-600" />
-                              <div>
-                                <p className="text-sm text-gray-500">
-                                  Experience
-                                </p>
-                                <p className="font-medium text-gray-900">
-                                  {applicant?.expPosition
-                                    ? `${applicant.expPosition} at ${applicant.expCompany}`
-                                    : "N/A"}
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-                        )}
-
-                        {/* Shortlist Button */}
-                        <button
-                          onClick={() => toggleShortlist(applicant?._id)}
-                          className={`w-full mt-4 py-2 px-4 text-white font-semibold rounded-lg transition-all duration-300 ${
-                            isShortlisted
-                              ? "bg-green-600 hover:bg-green-700"
-                              : "bg-gray-400 hover:bg-gray-500"
-                          }`}
-                        >
-                          {isShortlisted ? "Shortlisted" : "Shortlist"}
-                        </button>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-        </div>
+    <div className="flex min-h-screen">
+      <div className="fixed left-0 top-0 w-62 lg:w-80 h-screen">
+        <Hostersidebar />
       </div>
+
+      <div className="ml-62 pt-20 lg:ml-64 flex-1 min-h-screen bg-gray-100 p-6 lg:p-8">
+  <div className="max-w-6xl mx-auto bg-white rounded-xl shadow-lg p-6">
+    
+    {/* Header Section */}
+    <div className="flex flex-col sm:flex-row items-center justify-between pb-5 border-b">
+      <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
+        <Briefcase className="w-6 h-6 text-green-600" /> Job Applications
+      </h2>
     </div>
 
-    </>
+    {/* Tab Navigation */}
+    <div className="flex flex-wrap justify-center sm:justify-start gap-4 pt-4">
+      <button
+        className={`relative px-6 py-2 text-lg font-semibold rounded-lg transition-all shadow-sm ${
+          viewMode === "all"
+            ? "bg-green-600 text-white shadow-md scale-105"
+            : "text-gray-600 hover:bg-gray-200"
+        }`}
+        onClick={() => setViewMode("all")}
+      >
+        Job Applicants
+        {viewMode === "all" && (
+          <span className="absolute left-1/2 -bottom-1 transform -translate-x-1/2 w-3/4 bg-green-600 rounded-full"></span>
+        )}
+      </button>
+
+      <button
+        className={`relative px-6 py-2 text-lg font-semibold rounded-lg transition-all shadow-sm ${
+          viewMode === "shortlisted"
+            ? "bg-green-600 text-white shadow-md scale-105"
+            : "text-gray-600 hover:bg-gray-200"
+        }`}
+        onClick={() => setViewMode("shortlisted")}
+      >
+        Shortlisted
+        {viewMode === "shortlisted" && (
+          <span className="absolute left-1/2 -bottom-1 transform -translate-x-1/2 w-3/4 bg-green-600 rounded-full"></span>
+        )}
+      </button>
+    </div>
+
+    {/* Applicants Section */}
+    <div className="mt-6">
+      {applicants.length === 0 ? (
+        <p className="text-center text-gray-600">
+          {viewMode === "shortlisted"
+            ? "No shortlisted applicants yet."
+            : "No applicants yet."}
+        </p>
+      ) : (
+        <div className="grid md:grid-cols-2 gap-6">
+          {applicants.map((application) => (
+            <div
+              key={application._id}
+              className="bg-gray-50 border rounded-lg p-6 shadow-md hover:shadow-lg transition"
+            >
+              <div className="flex flex-wrap items-center justify-between gap-4">
+                {/* Left Side: Full Name & Email */}
+                <div className="flex items-center gap-4">
+                  <div className="p-3 bg-green-100 rounded-full">
+                    <User className="text-green-600 w-6 h-6" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-800">
+                      {application?.applicantId?.fullName || "N/A"}
+                    </h3>
+                   
+                  </div>
+                </div>
+
+                {/* Right Side: Status Badge */}
+                <div>
+                  {application.shortListed ? (
+                    <span className="px-3 py-1 bg-green-200 text-green-700 rounded-full text-sm font-semibold">
+                      ✅ Shortlisted
+                    </span>
+                  ) : (
+                    <span className="px-3 py-1 bg-gray-200 text-gray-700 rounded-full text-sm font-semibold">
+                      🔄 Under Review
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-700">
+                {/* Left Side: Phone Number & Location */}
+                <div className="flex items-center gap-4">
+                  <Phone className="w-5 h-5" />
+                  <span>{application?.applicantId?.phoneNumber || "N/A"}</span>
+                </div>
+                <div className="flex items-center gap-4">
+                  <MapPin className="w-5 h-5" />
+                  <span>{application?.applicantId?.city || "N/A"}</span>
+                </div>
+
+                {/* Right Side: Education & Experience */}
+                <div className="flex items-center gap-4">
+                  <GraduationCap className="w-5 h-5" />
+                  <span>{application?.applicantId?.eduDegree || "N/A"}</span>
+                </div>
+                <div className="flex items-center gap-4">
+                  <Briefcase className="w-5 h-5" />
+                  <span>{application?.applicantId?.expPosition || "N/A"}</span>
+                </div>
+             
+                {/* Full Width: Skills */}
+                <div className="col-span-1 sm:col-span-2 flex items-start gap-4 rounded-lg">
+                  <Mail className="w-5 h-5 mt-1" />
+                    <p className="text-sm text-gray-500">
+                      {application?.applicantId?.email || "N/A"}
+                    </p>
+                </div>
+                <div className="col-span-1 sm:col-span-2 flex items-start gap-4 pb-4 rounded-lg">
+                  <Star className="w-5 h-5 mt-1" />
+                  <div>
+                    <p className="text-sm mb-4 font-semibold text-gray-600">
+                      Skills
+                    </p>
+                    <div className="flex flex-wrap gap-2 mt-1">
+                      {application?.applicantId?.skills?.length > 0 ? (
+                        application.applicantId.skills.map((skill, index) => (
+                          <span
+                            key={index}
+                            className="px-3 py-1 text-sm font-medium bg-green-100 text-green-700 rounded-full"
+                          >
+                            {skill}
+                          </span>
+                        ))
+                      ) : (
+                        <span className="text-gray-500">N/A</span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-4">
+                <button
+                  onClick={() => handleViewProfile(application)}
+                  className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
+                >
+                  View Profile
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  </div>
+</div>
+
+    </div>
   );
 };
 

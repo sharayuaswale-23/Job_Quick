@@ -23,6 +23,7 @@ import NotFound from "./component/Pages/NotFound/NotFound";
 import About from "./component/Pages/About/About";
 import MyJob from "./component/Pages/Employer/MyJob/MyJob";
 import ViewApplicant from "./component/Pages/Employer/ViewApplicant/ViewApplicant";
+import Applicant from "./component/Pages/Employer/Applicant/Applicant";
 
 // Create a context for authentication
 export const AuthContext = createContext();
@@ -156,6 +157,7 @@ const App = () => {
         <Route path="/jobposting" element={<JobPosting />}/>
         <Route path="/myjob" element={<MyJob />}/>
         <Route path="/job/:id/applicants" element={<ViewApplicant />}/>
+        <Route path="applicant/:id" element={<Applicant />}/>
         <Route path="/*" element={<NotFound />} />
       </Routes>
     </AuthContext.Provider>
