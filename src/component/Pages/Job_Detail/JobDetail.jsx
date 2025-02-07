@@ -16,6 +16,7 @@ import Header from "../../common/header/Header";
 import Footer from "../../common/Footer/Footer";
 import Cookies from "js-cookie";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const JobDetail = () => {
   const { id } = useParams();
@@ -24,10 +25,16 @@ const JobDetail = () => {
   const [hasApplied, setHasApplied] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showProfileModal, setShowProfileModal] = useState(false);
+  const [profile, setProfile] = useState(null);
+  const [modalMessage, setModalMessage] = useState("");
+
+
   const jobToken = Cookies.get("userToken");
   const userId = Cookies.get("userNewId");
   const jobDetailsAPI = `https://jobquick.onrender.com/job/${id}`;
   const jobApplyAPI = `https://jobquick.onrender.com/applicants`;
+  const userProfileApi = `https://jobquick.onrender.com/seekuser/${userId}`;
 
   useEffect(() => {
     const fetchAllJobDetails = async () => {
@@ -45,6 +52,7 @@ const JobDetail = () => {
         }
 
         const data = await response.json();
+        console.log(data)
         setJobData(data);
       } catch (error) {
         console.error("Error fetching host jobs:", error);
@@ -55,42 +63,91 @@ const JobDetail = () => {
     fetchAllJobDetails();
   }, [id]);
 
-  const handleApplynow = async () => {
-    try {
-      const response = await axios.post(
-        jobApplyAPI,
-        {
-          jobId: id,
-          applicantId: userId,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${jobToken}`,
-          },
-        }
-      );
+   useEffect(() => {
+      const fetchUserProfile = async () => {
+        try {
+          const response = await fetch(userProfileApi, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${jobToken}`,
+            },
+          });
+  
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+  
+          const data = await response.json();
 
-      if (response && response.data) {
-        console.log(response.data);
-        if (hasApplied) {
-          setShowModal(true);
-          return;
+          console.log(data)
+          setProfile(data);
+        } catch (error) {
+          console.error("Error fetching host profile:", error);
+          setError("Failed to load seeker details.");
         }
-        setShowSuccessModal(true);
-        setHasApplied(true);
-      } else {
-        console.error("Error applying for job: No response data");
+      };
+  
+      fetchUserProfile();
+    }, [userProfileApi, jobToken]);
+
+    const isProfileComplete = () => {
+      if (!profile) return false;
+      
+      const requiredFields = ['fullName', 'city', 'phoneNumber', 'gender'];
+      const missingFields = requiredFields.filter(field => !profile[field]);
+      
+      if (missingFields.length > 0) {
+        const formattedFields = missingFields.map(field => 
+          field.replace(/([A-Z])/g, ' $1').toLowerCase()
+        ).join(', ');
+        setModalMessage(`Please complete your profile. Missing fields: ${formattedFields}`);
+        return false;
+      }
+      return true;
+    };
+
+    const handleApplynow = async () => {
+      if (!isProfileComplete()) {
+        setShowProfileModal(true);
+        return;
+      }
+    
+      try {
+        const response = await axios.post(
+          jobApplyAPI,
+          {
+            jobId: id,
+            applicantId: userId,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${jobToken}`,
+            },
+          }
+        );
+    
+        if (response && response.data) {
+          console.log(response.data);
+          if (hasApplied) {
+            setShowModal(true);
+            return;
+          }
+          setShowSuccessModal(true);
+          setHasApplied(true);
+        } else {
+          console.error("Error applying for job: No response data");
+          setShowModal(true);
+        }
+      } catch (error) {
+        console.error(
+          "Error applying for job:",
+          error.response?.data || error.message
+        );
         setShowModal(true);
       }
-    } catch (error) {
-      console.error(
-        "Error applying for job:",
-        error.response?.data || error.message
-      );
-      setShowModal(true);
-    }
-  };
+    };
 
   if (error) {
     return (
@@ -343,6 +400,28 @@ const JobDetail = () => {
           </div>
         </div>
       </div>
+      {showProfileModal && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg shadow-xl max-w-md">
+            <h2 className="text-xl font-bold mb-4 text-red-600">Incomplete Profile</h2>
+            <p className="text-gray-700">{modalMessage}</p>
+            <div className="mt-6 flex justify-between">
+              <button
+                className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600"
+                onClick={() => setShowProfileModal(false)}
+              >
+                Close
+              </button>
+              <Link
+                to="/profile"
+                className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+              >
+                Complete Profile
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-6 rounded-lg shadow-xl">

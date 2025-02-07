@@ -1,5 +1,4 @@
 import React from 'react'
-import SignUpImg from '../../../../assets/Images/Profile.jpg';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import backgroundImage from "../../../../assets/Images/bgm.png";
 import { BriefcaseBusiness, CalendarDays, Trophy } from "lucide-react";
 
 const JobPosting = () => {

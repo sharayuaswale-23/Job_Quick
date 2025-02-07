@@ -120,6 +120,7 @@ const JobCard = ({ job }) => {
 
     <div className="border rounded-lg p-6 flex flex-col justify-between items-start hover:shadow-lg transition-shadow bg-white">
       
+
       <div className="flex w-full mb-4">
         <img
           src={logo}
@@ -136,16 +137,16 @@ const JobCard = ({ job }) => {
           </span>
         </div>
       </div>
- 
+
        <div className="bg-white w-full">
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
     
         <div>
-          <div className="flex items-center mb-3">
+          {/* <div className="flex items-center mb-3">
             <TbCategory className="w-6 h-6 text-blue-500 mr-3" />
             <span className="text-gray-700 font-semibold">   {job.category?.title || "Uncategorized"}</span>
-          </div>
+          </div> */}
           <div className="flex items-center mb-3">
             <FaUserClock className="w-6 h-6 text-blue-500 mr-3" />
             <span className="text-gray-700 font-semibold">{job.jobType}</span>
@@ -164,10 +165,10 @@ const JobCard = ({ job }) => {
             <GrUserWorker className="w-6 h-6 text-blue-500 mr-3" />
             <span className="text-gray-700 font-semibold">{job.experience}</span>
           </div>
-          <div className="flex items-center mb-3">
+          {/* <div className="flex items-center mb-3">
             <BsPersonWorkspace className="w-6 h-6 text-blue-500 mr-3" />
             <span className="text-gray-700 font-semibold">{job.workType}</span>
-          </div>
+          </div> */}
         </div>
       </div>
        </div>
@@ -181,9 +182,7 @@ const JobCard = ({ job }) => {
       </Link>
 
     </div>
-
-  
-
+    
   );
 
 };

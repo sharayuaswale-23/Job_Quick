@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
-import bgimg from "../../../../assets/Images/formimage.avif";
 import { useEffect } from "react";
 
 const HosterDetail = () => {

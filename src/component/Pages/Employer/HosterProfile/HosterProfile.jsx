@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import Profile from "../../../../assets/Images/profile1.webp";
-import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Hostersidebar from "../Hostersidebar/Hostersidebar";
-import Hosterheader from "../Hosterheader/Hosterheader";
-import Footer from "../../../common/Footer/Footer";
 
 const HosterProfile = () => {
   const [hoster, setHoster] = useState(null);

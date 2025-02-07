@@ -10,7 +10,6 @@ import { BsPersonWorkspace } from "react-icons/bs";
 import { IoLocationOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import logo from "../../../../assets/Images/companylogo.jpg";
-import ComImg from "../../../../assets/Images/infosys-logo-transparent-free-png.webp";
 
 const MyJob = () => {
   const [jobs, setJobs] = useState([]);
