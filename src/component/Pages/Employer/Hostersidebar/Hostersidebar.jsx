@@ -88,7 +88,7 @@ function Hostersidebar() {
     
   
     <div
-      className={`fixed min-h-screen inset-y-0 left-0 bg-white shadow-xl transform ${
+      className={`fixed bottom-0 inset-y-0 left-0 bg-white shadow-xl transform ${
         isOpen ? "translate-x-0" : "-translate-x-full"
       } lg:translate-x-0 transition-transform duration-300 z-40 w-64`}
     >
@@ -135,15 +135,16 @@ function Hostersidebar() {
             </Link>
 
           ))}
-          <div className="mt-auto">
-          <button onClick={logout} className="mt-40 lg:mt-16 flex items-center space-x-2 text-gray-600 hover:text-red-600 p-3">
+
+        </nav>
+
+       
+        <div className="mt-auto">
+          <button onClick={logout} className="flex items-center space-x-2 text-gray-600 hover:text-red-600 p-3">
             <LogOut className="w-5 h-5" />
             <span>Logout</span>
           </button>
         </div>
-        </nav>
-
-       
       </div>
     </div>
   </div>
