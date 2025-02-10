@@ -39,9 +39,9 @@ const Dashboard = () => {
       <div className="flex-1 lg:ml-64 p-4 md:p-6 lg:p-8">
     
         <div className="flex flex-col md:flex-row lg:flex-row mt-16 lg:mt-2 justify-between items-center lg:mb-6 mb-10">
-          <div><h1 className="text-5xl text-center font-extrabold bg-gradient-to-r from-green-600 to-green-900 text-black bg-clip-text text-transparent mb-6">Dashboard</h1></div>
+          <div><h1 className="text-5xl text-center font-extrabold text-green-700 mb-6">Dashboard</h1></div>
          <div>
-         <Link to="/jobposting" className="bg-green-600 text-white px-4 py-4 rounded-lg hover:bg-green-800 transition-all shadow-md">
+         <Link to="/jobposting" className="bg-green-500 text-white rounded-lg font-semibold px-4 py-2 transition-all shadow-md">
             Post a Job
           </Link>
          </div>

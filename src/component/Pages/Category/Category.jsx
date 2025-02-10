@@ -83,6 +83,7 @@ const Category = () => {
   }, [JobToken]);
 
   const fetchJobs = async () => {
+   
     if (!isAuthenticated()) return;
 
     setIsLoading(true);
@@ -122,28 +123,28 @@ const Category = () => {
   return (
     <>
       <Header />
-      <div className="mt-24 mx-4 bg-gradient-to-b from-blue-50 to-blue-100 p-6 rounded-xl shadow-lg flex flex-col md:flex-row items-center gap-6 mb-6">
+      <div className="mt-24 mx-4 bg-gradient-to-b from-blue-100 to-blue-200 p-6 rounded-xl shadow-lg flex flex-col md:flex-row items-center gap-6 mb-6">
         <div className="w-full md:w-[65%] flex flex-col items-center md:items-start gap-3 p-2">
           <div className="w-full mb-4 flex flex-col justify-center items-center md:items-start">
             <h2 className="text-3xl font-bold text-gray-900 mb-2">Find Your Dream Job</h2>
             <p className="text-gray-700 text-md">Search for jobs by title to start your career journey.</p>
           </div>
 
-          <div className="w-full flex flex-col md:flex-row items-center gap-4">
-            <input
+          <form className="w-full flex flex-col md:flex-row items-center gap-4" onSubmit={fetchJobs}>
+          
+          <input
               type="text"
               value={filters.title}
               onChange={(e) => handleFilterChange("title", e.target.value)}
               placeholder="Job title"
-              className="flex-1 p-3 border border-blue-300 rounded-lg focus:ring-2 focus:ring-blue-500 w-full"
+              className="flex-1 p-3 border border-blue-300 outline-none rounded-lg focus:ring-2 focus:ring-blue-500 w-full"
             />
-            <button
-              onClick={fetchJobs}
+            <button type="submit"
               className="bg-blue-700 text-white px-5 py-3 rounded-lg flex items-center gap-2 shadow-md hover:bg-blue-800"
             >
               <Search size={20} /> Search
             </button>
-          </div>
+          </form>
         </div>
 
         <div className="w-[35%] hidden md:flex justify-center p-2 rounded-lg">
@@ -173,11 +174,11 @@ const Category = () => {
                 </button>
 
                 <div
-                  className={`fixed top-0 left-0 h-full w-80 p-4 transition-transform duration-300 ease-in-out transform 
+                  className={`fixed top-16 md:20 lg:top-0 left-0 h-full w-80 p-4 transition-transform duration-300 ease-in-out transform 
                   ${isOpen ? "translate-x-0" : "-translate-x-full"} 
                   lg:relative lg:translate-x-0 lg:w-90 lg:flex-shrink-0 z-20`}
                 >
-                  <JobFilters
+                  <JobFilters 
                     filters={filters}
                     onFilterChange={handleFilterChange}
                     categories={categories}

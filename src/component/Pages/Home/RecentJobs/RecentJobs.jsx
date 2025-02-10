@@ -71,7 +71,7 @@ const RecentJobs = () => {
               <img
                 src={job.logo}
                 alt={`${job.company} Logo`}
-                className="w-10 h-10 object-contain"
+                className="w-full h-full rounded-full object-contain"
               />
             </div>
           

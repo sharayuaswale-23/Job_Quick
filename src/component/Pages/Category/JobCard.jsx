@@ -1,62 +1,67 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { TbCategory } from "react-icons/tb";
-import { GrUserWorker } from "react-icons/gr";
-import { BsPersonWorkspace } from "react-icons/bs";
-import { IoLocationOutline } from "react-icons/io5";
-import { FaUserClock } from "react-icons/fa";
-import { GiWallet } from "react-icons/gi";
 import logo from "../../../assets/Images/companylogo.jpg";
+import { BsArrowRight } from "react-icons/bs";
 
 const JobCard = ({ job }) => {
   return (
-    <div className="border rounded-lg p-4 flex flex-col justify-between items-start hover:shadow-lg transition-shadow bg-white w-full">
-      <div className="flex flex-col sm:flex-row w-full mb-4">
-        <img
-          src={logo}
-          alt={`${job.companyName} logo`}
-          className="w-full sm:w-24 h-auto rounded-lg object-cover mb-4 sm:mb-0 sm:mr-4"
-        />
-        <div className="flex-1">
-          <h3 className="font-semibold text-lg text-gray-800 mb-1">{job.title.toUpperCase()}</h3>
-          <p className="text-gray-500 font-semibold mb-1">{job.companyName}</p>
-          <span className="text-gray-500 font-semibold">
-            {new Date(job.dateCreated).toLocaleDateString()}
-          </span>
+
+    <div className="w-full bg-white rounded-xl shadow-lg border p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-5 hover:shadow-xl transition-shadow duration-300">
+      
+  
+    <div className="flex items-start w-full md:w-3/4">
+  
+      <img
+        src={logo}
+        alt="Company Logo"
+        className="w-14 h-14 rounded-full object-cover shadow-md"
+      />
+
+    
+      <div className="ml-5 w-full">
+        <div className="flex flex-col lg:flex-row justify-between items-start w-full">
+          
+     
+          <div>
+            <h3 className="text-xl font-bold text-gray-900">{job.title.toUpperCase()}</h3>
+            <p className="text-gray-500 text-sm">{job.companyName}</p>
+          </div>
+
+         
+        <div className="text-sm text-gray-700 mt-4 lg:mt-0 mb-3">
+          <p className="flex items-center">
+            <span className="w-2 h-2 bg-teal-500 rounded-full mr-2"></span>
+            <span className="font-semibold">Salary:</span> <span className="ml-1">{job.minPackage} - {job.maxPackage}</span>
+          </p>
+          <p className="flex items-center mt-1">
+            <span className="w-2 h-2 bg-red-500 rounded-full mr-2"></span>
+            <span className="font-semibold">Date:</span> <span className="ml-1">{new Date(job.dateCreated).toLocaleDateString()}</span>
+          </p>
+        </div>
+        </div>
+
+     
+
+
+        <div className="flex flex-wrap gap-2 mt-3">
+          <span className="px-4 mt-1 py-1 text-sm bg-yellow-100 text-yellow-700 font-medium rounded-full shadow-sm">{job.jobType}</span>
+          <span className="px-4 mt-1 py-1 text-sm bg-purple-100 text-purple-700 font-medium rounded-full shadow-sm">{job.location}</span>
+          <span className="px-4 mt-1 py-1 text-sm bg-teal-100 text-teal-700 font-medium rounded-full shadow-sm">{job.experience}</span>
         </div>
       </div>
+    </div>
 
-      <div className="bg-white w-full">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
-          <div>
-            <div className="flex items-center mb-3">
-              <FaUserClock className="w-6 h-6 text-blue-500 mr-3" />
-              <span className="text-gray-700 font-semibold">{job.jobType}</span>
-            </div>
-            <div className="flex items-center mb-3">
-              <GiWallet className="w-6 h-6 text-blue-500 mr-3" />
-              <span className="text-gray-700 font-semibold">${job.minPackage} - ${job.maxPackage}</span>
-            </div>
-          </div>
-          <div>
-            <div className="flex items-center mb-3">
-              <IoLocationOutline className="w-6 h-6 text-blue-500 mr-3" />
-              <span className="text-gray-700 font-semibold">{job.location.toUpperCase()}</span>
-            </div>
-            <div className="flex items-center mb-3">
-              <GrUserWorker className="w-6 h-6 text-blue-500 mr-3" />
-              <span className="text-gray-700 font-semibold">{job.experience}</span>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <Link to={`/job/${job._id}`} className="block w-full">
-        <button className="mt-4 px-2 py-2 p-2 bg-blue-500 text-white rounded-lg text-base font-semibold shadow-md hover:scale-105 hover:shadow-lg transition-transform duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400">
-          View Job Details
-        </button>
+    <div className="flex flex-col items-end w-full md:w-auto">
+      
+      <Link to={`/job/${job._id}`}>
+      <button className="mt-3 flex items-center text-blue-600 font-semibold hover:text-blue-800 transition duration-300">
+        Apply Now <BsArrowRight className="ml-2 text-lg" />
+      </button>
       </Link>
     </div>
+
+  </div>
   );
 };
 

@@ -129,8 +129,8 @@ const Applicant = () => {
     onClick={handleShorlisted}
     className={`mt-4 sm:mt-0 px-4 py-2 rounded-lg font-semibold transition duration-300 ease-in-out ${
       application.shortListed
-        ? "bg-gray-300 text-black hover:bg-gray-400" // When Shortlisted
-        : "bg-white text-black hover:bg-green-950 hover:text-white" // Default
+        ? "bg-gray-300 text-black hover:bg-gray-400" 
+        : "bg-white text-black hover:bg-green-950 hover:text-white" 
     }`}
   >
     {application.shortListed ? "Shortlisted" : "Shortlist"}
@@ -153,7 +153,7 @@ const Applicant = () => {
               {job?.companyURL && (
                 <div>
                   <p className="text-gray-700">Company Website</p>
-                  <a href={job.companyURL} target="_blank" rel="noopener noreferrer" className="text-green-600 hover:underline">
+                  <a href={job.companyURL} target="_blank" rel="noopener noreferrer" className="text-black-600 hover:underline">
                     {job.companyURL}
                   </a>
                 </div>
@@ -168,34 +168,34 @@ const Applicant = () => {
               <div className="bg-gray-50 p-6 rounded-xl">
                 <h3 className="text-2xl font-bold text-green-800 mb-4">Personal Information</h3>
                 <p className="font-semibold">{applicant.fullName || "N/A"}</p>
-                <p className="text-green-700">{applicant.email || "N/A"}</p>
-                <p className="text-green-700">{applicant.phoneNumber || "N/A"}</p>
-                <p className="text-green-700">{applicant.gender || "N/A"}</p>
+                <p className="text-gray-700">{applicant.email || "N/A"}</p>
+                <p className="text-gray-700">{applicant.phoneNumber || "N/A"}</p>
+                <p className="text-gray-700">{applicant.gender || "N/A"}</p>
               </div>
               <div className="bg-gray-50 p-6 rounded-xl">
                 <h3 className="text-2xl font-bold text-green-800 mb-4">Address</h3>
                 <p className="font-semibold">{applicant.address || "N/A"}</p>
-                <p className="text-green-700">{applicant.city || "N/A"}</p>
-                <p className="text-green-700">{applicant.state || "N/A"}</p>
-                <p className="text-green-700">{applicant.country || "N/A"}</p>
+                <p className="font-semibold">{applicant.city || "N/A"}</p>
+                <p className="font-semibold">{applicant.state || "N/A"}</p>
+                <p className="font-semibold">{applicant.country || "N/A"}</p>
               </div>
             </div>
 
-            {/* Right Side (Summary, Education, Experience, Skills, Links, Status) */}
+   
             <div className="lg:col-span-2 space-y-6">
               <div className="bg-gray-50 p-6 rounded-xl">
                 <h3 className="text-2xl font-bold text-green-800 mb-4">Summary</h3>
-                <p className="text-green-700">{applicant.summary || "No summary provided"}</p>
+                <p className="text-gray-700">{applicant.summary || "No summary provided"}</p>
               </div>
               <div className="bg-gray-50 p-6 rounded-xl">
                 <h3 className="text-2xl font-bold text-green-800 mb-4">Education</h3>
                 <p className="font-semibold">{applicant.eduDegree || "N/A"}</p>
-                <p className="text-green-700">{applicant.eduInstitution || "N/A"}</p>
+                <p className="text-gray-700">{applicant.eduInstitution || "N/A"}</p>
               </div>
               <div className="bg-gray-50 p-6 rounded-xl">
                 <h3 className="text-2xl font-bold text-green-800 mb-4">Experience</h3>
                 <p className="font-semibold">{applicant.expPosition || "N/A"}</p>
-                <p className="text-green-700">{applicant.expCompany || "N/A"}</p>
+                <p className="text-gray-700">{applicant.expCompany || "N/A"}</p>
               </div>
             </div>
           </div>
@@ -211,18 +211,18 @@ const Applicant = () => {
                         </span>
                       ))
                     ) : (
-                      <p className="text-green-600">No skills listed</p>
+                      <p className="text-gray-600">No skills listed</p>
                     )}
                   </div>
                 </div>
                 <div className="bg-gray-50 p-6 rounded-xl">
                   <h3 className="text-2xl font-bold text-green-800 mb-4">Links</h3>
                   {applicant.projectUrl ? (
-                    <a href={applicant.projectUrl} target="_blank" rel="noopener noreferrer" className="text-green-600 hover:underline">
+                    <a href={applicant.projectUrl} target="_blank" rel="noopener noreferrer" className="text-black-600 hover:underline">
                       {applicant.projectUrl}
                     </a>
                   ) : (
-                    <p className="text-green-600">No project URL provided</p>
+                    <p className="text-black-600">No project URL provided</p>
                   )}
                 </div>
               </div>

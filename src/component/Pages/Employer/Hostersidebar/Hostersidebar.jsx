@@ -93,7 +93,6 @@ function Hostersidebar() {
       } lg:translate-x-0 transition-transform duration-300 z-40 w-64`}
     >
       <div className="p-6 flex flex-col min-h-screen border-r border-gray-200">
-    
         <div className="flex flex-col items-center mb-6 text-center">
           <div className="w-20 h-20 rounded-full overflow-hidden shadow-md">
             <img
@@ -110,6 +109,10 @@ function Hostersidebar() {
     
         <nav className="flex-1 space-y-2">
           {[{
+            to: "/",
+            icon: <Bookmark className="w-5 h-5" />,
+            label: "Home"
+          },{
             to: "/dashboard",
             icon: <Users className="w-5 h-5" />,
             label: "Dashboard"

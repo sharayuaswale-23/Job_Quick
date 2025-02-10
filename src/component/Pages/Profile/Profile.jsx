@@ -116,7 +116,7 @@ const Profile = () => {
           <img
             src={ProfileImg}
             alt="Company Profile"
-            className="w-36 h-32 rounded-2xl border-4 border-white shadow-xl bg-white"
+            className="w-40 h-32 rounded-2xl border-4 border-white shadow-xl bg-white"
           />
           <div className="sm:mt-0 text-center sm:text-left flex-1">
             <h1 className="text-4xl mb-4 mt-2 sm:mt-28 lg:mt-20 font-bold text-blue-900">

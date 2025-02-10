@@ -10,7 +10,8 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import girl1 from "../../../assets/Images/girl1.jpg";
 import girl2 from "../../../assets/Images/girl2.jpg";
-import girl3 from "../../../assets/Images/girl3.avif"
+import girl3 from "../../../assets/Images/girl3.avif";
+import aboutimg from "../../../assets/Images/aboutimg.avif";
 
 const About = () => {
 
@@ -48,7 +49,7 @@ const About = () => {
     <Header/>
 
       {/* Part 1  */}
-      <div className="mt-20 bg-cover bg-center min-h-screen flex flex-col justify-center items-center px-6 md:px-12 py-12" style={{backgroundImage:`url(https://images.unsplash.com/photo-1586775490184-b79f0621891f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)`}}>
+      <div className="mt-20 bg-cover bg-center min-h-screen flex flex-col justify-center items-center px-6 md:px-12 py-12" style={{backgroundImage:`url(${aboutimg})`}}>
 
   <div className="max-w-6xl w-full text-center">
     <h1 className="text-4xl md:text-5xl font-extrabold text-blue-900 drop-shadow-lg">
@@ -110,7 +111,7 @@ const About = () => {
         
       
         <div className="relative w-full h-full flex justify-center items-center">
-          <div className="w-96 h-96 overflow-hidden rounded-xl">
+          <div className="w-80 h-80 overflow-hidden rounded-xl">
             <img
               src={images[currentImage]}
               alt="Freelancer"
