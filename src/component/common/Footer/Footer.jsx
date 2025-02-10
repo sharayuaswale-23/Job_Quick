@@ -46,23 +46,23 @@ const Footer = () => {
     
         <div>
           <h4 className="font-bold text-lg mb-4">Subscribe</h4>
-          <div className="flex flex-col md:flex-row items-start md:items-center space-y-2 md:space-y-0 md:space-x-2">
+          <form onSubmit={sendbtn} className="flex flex-col md:flex-row items-start md:items-center space-y-2 md:space-y-0 md:space-x-2">
             <input
-              type="email"
+              type="email" required
               placeholder="Your email address"
               className="px-4 py-2 rounded bg-gray-800 text-white focus:outline-none w-1/2 md:w-full"
             />
-            <button onClick={sendbtn} className="bg-blue-600 px-4 py-2 rounded hover:bg-blue-700 w-1/3 md:w-auto">
+            <button type="submit" className="bg-blue-600 px-4 py-2 rounded hover:bg-blue-700 w-1/3 md:w-auto">
               Send
             </button>
-          </div>
+          </form>
         </div>
       </div>
 
 
       <div className="border-t border-gray-700 mt-8 pt-4 flex flex-col md:flex-row justify-between items-center text-sm">
         <p className="text-center md:text-left mb-4 md:mb-0">
-          © JobQuick. 2025 CreativeLayers. All rights reserved.
+          © JobQuick. 2025 All rights reserved.
         </p>
         <div className="flex space-x-4">
           <p href="#">Follow Us:</p>

@@ -11,8 +11,6 @@ import {
   Users,
   Menu,
 } from "lucide-react";
-import { motion } from "framer-motion";
-import { IoIosArrowDown } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 
 function Hostersidebar() {
@@ -69,7 +67,7 @@ function Hostersidebar() {
     if (!hoster) {
       return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100">
-          <p className="text-gray-600 text-lg">Loading hoster details...</p>
+          {/* <p className="text-gray-600 text-lg">Loading hoster details...</p> */}
         </div>
       );
     }

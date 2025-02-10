@@ -18,6 +18,20 @@ const Signup = () => {
 
   const handleSignup = (e) => {
     e.preventDefault();
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  
+    if (!emailRegex.test(email)) {
+      setError("Please enter a valid email address.");
+      setSuccess(null);
+      return;
+    }
+  
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters.");
+      setSuccess(null);
+      return;
+    }
+    
     const person = { email, password };
 
     fetch(signupApi, {
@@ -87,8 +101,7 @@ const Signup = () => {
         <div className="space-y-4">
           <div className="flex items-center border-b-2 border-blue-400 py-2">
             <FaUser className="text-blue-600 mr-2" />
-            <input
-              type="email"
+            <input type="email"
               placeholder="Email Address"
               onChange={(e) => setEmail(e.target.value)}
               required

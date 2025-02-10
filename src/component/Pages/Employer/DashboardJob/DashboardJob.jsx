@@ -58,7 +58,7 @@ const Dashboardjob = () => {
 
   return (
  
-    <div className="flex flex-col items-center rounded-lg bg-white p-4">
+    <div className="flex w-full flex-col items-center rounded-lg bg-white p-4">
   <h2 className="text-xl font-semibold mb-4">Posted Jobs</h2>
 
   {loading ? (

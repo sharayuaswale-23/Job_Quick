@@ -282,7 +282,7 @@ const Profile = () => {
 
 
 
-
+<Footer/>
       
 </>
      

@@ -68,7 +68,7 @@ const ViewApplicant = () => {
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-center">
           <div className="animate-spin w-12 h-12 border-4 border-green-500 border-t-transparent rounded-full mx-auto mb-4"></div>
-          <p className="text-lg text-gray-600">Loading applicants...</p>
+          {/* <p className="text-lg text-gray-600">Loading applicants...</p> */}
         </div>
       </div>
     );

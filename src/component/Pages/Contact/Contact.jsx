@@ -9,16 +9,24 @@ const ContactPage = () => {
   const [number, setNumber] = useState("");
   const [message, setMessage] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [modalMessage, setModalMessage] = useState("");
+  const [error, setError] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
- 
-    console.log({ name, email, number, message });
-  };
 
-  const closeModal = () => {
-    setIsModalVisible(false);
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  
+    if (!emailRegex.test(email)) {
+      setError("Please enter a valid email address.");
+      setSuccess(null);
+      return;
+    }
+ 
+    alert("Message send successfully");
+    setName("");
+    setEmail("");
+    setNumber("");
+    setMessage("");
   };
 
   return (
@@ -52,6 +60,7 @@ const ContactPage = () => {
       
         <div className="w-full lg:w-1/2 p-8 sm:p-12">
           <h2 className="text-3xl text-center font-bold bg-gradient-to-r from-blue-600 to-blue-900 text-black bg-clip-text text-transparent mb-6">Send Us A Message</h2>
+          {error && <p className="text-red-500 mb-4 text-sm text-center">{error}</p>}
           <form className="space-y-6" onSubmit={handleSubmit}>
             <input
               type="text"

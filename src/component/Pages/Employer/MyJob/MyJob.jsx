@@ -95,7 +95,7 @@ const MyJob = () => {
   };
 
   if (loading) {
-    return <h1 className="text-center text-lg font-semibold">Loading...</h1>;
+    // return <h1 className="text-center text-lg font-semibold">Loading...</h1>;
   }
 
   if (error) {

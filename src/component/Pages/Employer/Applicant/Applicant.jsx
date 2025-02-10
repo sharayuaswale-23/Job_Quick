@@ -77,7 +77,7 @@ const Applicant = () => {
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-50 to-blue-50">
         <div className="text-center">
           <div className="animate-spin w-16 h-16 border-4 border-green-500 border-t-transparent rounded-full mx-auto mb-4"></div>
-          <p className="text-xl text-green-700">Loading applicant details...</p>
+          {/* <p className="text-xl text-green-700">Loading applicant details...</p> */}
         </div>
       </div>
     );

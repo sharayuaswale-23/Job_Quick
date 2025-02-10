@@ -130,7 +130,7 @@ const HosterDetail = () => {
   };
 
   if (loading) {
-    return <p className="text-center mt-5 text-5xl text-green-500 font-semibold">Loading...</p>;
+    // return <p className="text-center mt-5 text-5xl text-green-500 font-semibold">Loading...</p>;
   }
 
 

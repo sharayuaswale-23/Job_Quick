@@ -454,11 +454,11 @@ const ResumeBuilder = () => {
       
 
  
-      <div className="flex justify-between mt-8">
+      <div className="flex justify-between gap-4 mt-8">
         {currentStep > 1 && (
           <button
             onClick={prevStep}
-            className="bg-gray-500 text-white px-6 py-3 rounded-md shadow-md hover:bg-gray-600 focus:outline-none"
+            className="bg-gray-500 text-white px-6 py-2 rounded-md shadow-md hover:bg-gray-600 focus:outline-none"
           >
             Previous
           </button>
@@ -466,14 +466,14 @@ const ResumeBuilder = () => {
         {currentStep < 4 ? (
           <button
             onClick={nextStep}
-            className="bg-blue-500 text-white px-6 py-3 rounded-md shadow-md hover:bg-blue-600 focus:outline-none"
+            className="bg-blue-500 text-white px-6 py-2 rounded-md shadow-md hover:bg-blue-600 focus:outline-none"
           >
             Next
           </button>
         ) : (
           <button
             onClick={generatePDF}
-            className="bg-blue-500 text-white px-6 py-3 rounded-md shadow-md hover:bg-blue-600 focus:outline-none"
+            className="bg-blue-500 text-white px-6 py-2 rounded-md shadow-md hover:bg-blue-600 focus:outline-none"
           >
             Generate PDF
           </button>
