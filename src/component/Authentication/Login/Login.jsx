@@ -4,6 +4,7 @@ import { AuthContext } from "../../../App";
 import Cookies from "js-cookie";
 import { motion } from "framer-motion";
 import { FaUser, FaLock } from "react-icons/fa";
+import loginimg from "../../../assets/Images/loginimg.webp";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -59,7 +60,7 @@ const Login = () => {
     transition={{ duration: 0.5 }}
     className="bg-white rounded-2xl shadow-2xl overflow-hidden w-full max-w-4xl grid grid-cols-1 md:grid-cols-2"
   >
-    {/* Left Section */}
+
     <div className="hidden md:flex items-center justify-center bg-blue-200 p-8 w-full">
       <motion.div 
         initial={{ x: -50, opacity: 0 }} 
@@ -68,14 +69,14 @@ const Login = () => {
         className="relative w-full h-96 flex items-center justify-center"
       >
         <img 
-          src="https://cdni.iconscout.com/illustration/premium/thumb/boy-coding-on-laptop-8202501-6578006.png" 
+          src={loginimg}
           alt="illustration" 
           className="relative w-full h-80 object-cover  drop-shadow-xl"
         />
       </motion.div>
     </div>
 
-    {/* Right Section */}
+  
     <div className="flex flex-col justify-center p-8">
       <div className="flex justify-center mb-6">
         <img 

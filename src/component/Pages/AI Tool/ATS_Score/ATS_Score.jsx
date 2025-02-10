@@ -63,9 +63,9 @@ function ATS_Score() {
     <>
       <Header />
       <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-start text-gray-900 font-inter">
-        {/* Add padding to avoid overlap with fixed navbar */}
+  
         <div className="pt-20 w-full">
-          {/* Header Section */}
+       
           <header className="w-full text-center px-6 py-12 bg-gradient-to-b from-blue-50 to-blue-100 text-black relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-b from-blue-50 to-blue-100 opacity-70 animate-gradient-x"></div>
             <div className="relative z-10">
@@ -78,9 +78,8 @@ function ATS_Score() {
             </div>
           </header>
 
-          {/* Main Content Section */}
           <main className="w-full max-w-7xl px-6 py-12 grid grid-cols-1 lg:grid-cols-2 gap-10">
-            {/* Left Section: Upload */}
+           
             <section className="bg-white rounded-3xl p-8 shadow-lg border border-gray-300 hover:shadow-xl transition-all">
               <h2 className="text-3xl font-semibold text-center text-indigo-700">
                 Upload Your Resume
@@ -109,7 +108,7 @@ function ATS_Score() {
               </div>
             </section>
 
-            {/* Right Section: Results */}
+      
             <section className="bg-white rounded-3xl p-8 shadow-lg border border-gray-300 hover:shadow-xl transition-all">
               {score !== null ? (
                 <>
@@ -123,7 +122,7 @@ function ATS_Score() {
                     </p>
                   </div>
 
-                  {/* Suggestions */}
+           
                   {suggestions.length > 0 && (
                     <div className="mt-8 bg-yellow-50 p-6 rounded-xl shadow-md">
                       <h3 className="text-lg font-bold text-yellow-700">Suggestions for Improvement</h3>

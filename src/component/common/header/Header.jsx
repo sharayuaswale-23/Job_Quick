@@ -35,8 +35,8 @@ const Header = () => {
       setIsAuthorized(false);
       Cookies.remove("userToken");
       Cookies.remove("userNewId");
-      Cookies.set("isAuthorized", "false", { expires: 7 }); // Ensure persistence
-      navigate("/login"); // Redirect to home page
+      Cookies.set("isAuthorized", "false", { expires: 7 }); 
+      navigate("/login"); 
     };
 
   useEffect(() => {
@@ -66,7 +66,7 @@ const Header = () => {
           <Link to="/">Job Quick</Link>
         </div>
 
-        {/* Hamburger Menu (Mobile) */}
+    
 
 
 
@@ -110,7 +110,7 @@ const Header = () => {
             </>
           )}
           </div>
-        {/* Desktop Menu */}
+      
         <ul className="hidden md:flex items-center lg:gap-6 gap-2 text-black">
           <li className="cursor-pointer">
             <Link to="/">Home</Link>
@@ -147,7 +147,7 @@ const Header = () => {
           </li>
         </ul>
 
-        {/* Action Buttons */}
+       
         <div className="relative hidden md:flex items-center gap-4">
           {!isAuthenticated ? (
             <>
@@ -187,7 +187,7 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
+   
       {isMenuOpen && (
         <div className="flex flex-col items-center px-6 py-4 space-y-4 text-black md:hidden bg-white">
           <ul className="space-y-4 text-center">

@@ -96,18 +96,18 @@ const JobPosting = () => {
     if (type === "file") {
       const file = files[0];
       if (file) {
-        // Check file type
+        
         if (!file.type.startsWith("image/")) {
           setError("Please upload an image file");
           return;
         }
-        // Check file size (e.g., 5MB limit)
+      
         if (file.size > 5 * 1024 * 1024) {
           setError("File size should be less than 5MB");
           return;
         }
 
-        // Create preview URL
+   
         const previewUrl = URL.createObjectURL(file);
         setImagePreview(previewUrl);
         setFormData((prev) => ({ ...prev, [name]: file }));
@@ -124,10 +124,10 @@ const JobPosting = () => {
 
   const handleSkillInputKeyDown = (e) => {
     if (e.key === 'Enter') {
-      e.preventDefault(); // Prevent form submission
+      e.preventDefault(); 
       if (skillInput.trim()) {
         addSkill(skillInput);
-        setSkillInput(''); // Clear input after adding
+        setSkillInput(''); 
       }
     } else if (e.key === ',' || e.key === ' ') {
       e.preventDefault();
@@ -154,11 +154,11 @@ const JobPosting = () => {
     try {
       const submitFormData = new FormData();
 
-      // Append all form fields to FormData
+  
       Object.keys(formData).forEach(key => {
         if (formData[key] !== null && formData[key] !== undefined) {
           if (key === 'skills') {
-            // Convert skills array to a simple comma-separated string when sending to server
+           
             const skillsString = formData[key].join(", ");
             submitFormData.append(key, skillsString);
           } else if (key === 'profileImg') {

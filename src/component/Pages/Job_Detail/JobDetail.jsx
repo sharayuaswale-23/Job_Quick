@@ -183,10 +183,10 @@ const JobDetail = () => {
       <Header />
       <div className="min-h-screen mt-20 bg-gray-100 py-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto">
-          {/* Header Section */}
+       
           <div className="bg-white rounded-xl shadow-md overflow-hidden mb-6 relative">
             <div className="p-6 sm:p-8">
-              {/* Apply Button Positioned at Top Right */}
+        
               <div className="absolute top-6 right-6 sm:top-8 sm:right-8">
               <button
                       onClick={handleApplynow}
@@ -241,9 +241,9 @@ const JobDetail = () => {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* Main Content */}
+          
             <div className="lg:col-span-2 space-y-6">
-              {/* Job Description */}
+       
               <div className="bg-white rounded-xl shadow-md p-6">
                 <h2 className="text-xl font-semibold text-gray-900 mb-4">
                   Job Description
@@ -254,7 +254,7 @@ const JobDetail = () => {
               </div>
 
          
-              {/* Requirements */}
+           
               <div className="bg-white rounded-xl shadow-md p-6">
                 <h2 className="text-xl font-semibold text-gray-900 mb-4">
                   Requirements
@@ -298,7 +298,7 @@ const JobDetail = () => {
             </div>
 
             <div className="space-y-6">
-              {/* Company Info */}
+         
               <div className="bg-white rounded-xl shadow-md p-6">
                 <h2 className="text-xl font-semibold text-gray-900 mb-4">
                   Company Details
@@ -348,7 +348,7 @@ const JobDetail = () => {
                 </div>
               </div>
 
-              {/* Job Details */}
+             
               <div className="bg-white rounded-xl shadow-md p-6">
                 <h2 className="text-xl font-semibold text-gray-900 mb-4">
                   Additional Details

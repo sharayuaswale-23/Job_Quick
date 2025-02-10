@@ -18,7 +18,7 @@ const JobCard = ({ job }) => {
           className="w-full sm:w-24 h-auto rounded-lg object-cover mb-4 sm:mb-0 sm:mr-4"
         />
         <div className="flex-1">
-          <h3 className="font-semibold text-lg text-gray-800 mb-1">{job.title}</h3>
+          <h3 className="font-semibold text-lg text-gray-800 mb-1">{job.title.toUpperCase()}</h3>
           <p className="text-gray-500 font-semibold mb-1">{job.companyName}</p>
           <span className="text-gray-500 font-semibold">
             {new Date(job.dateCreated).toLocaleDateString()}
@@ -41,7 +41,7 @@ const JobCard = ({ job }) => {
           <div>
             <div className="flex items-center mb-3">
               <IoLocationOutline className="w-6 h-6 text-blue-500 mr-3" />
-              <span className="text-gray-700 font-semibold">{job.location}</span>
+              <span className="text-gray-700 font-semibold">{job.location.toUpperCase()}</span>
             </div>
             <div className="flex items-center mb-3">
               <GrUserWorker className="w-6 h-6 text-blue-500 mr-3" />

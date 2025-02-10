@@ -15,7 +15,7 @@ const ViewApplicant = () => {
   const [applicants, setApplicants] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [viewMode, setViewMode] = useState("all"); // 'all' or 'shortlisted'
+  const [viewMode, setViewMode] = useState("all"); 
 
   const token = Cookies.get("jwtToken");
 
@@ -94,14 +94,14 @@ const ViewApplicant = () => {
       <div className="ml-62 pt-20 lg:ml-64 flex-1 min-h-screen bg-gray-100 p-6 lg:p-8">
   <div className="max-w-6xl mx-auto bg-white rounded-xl shadow-lg p-6">
     
-    {/* Header Section */}
+
     <div className="flex flex-col sm:flex-row items-center justify-between pb-5 border-b">
       <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
         <Briefcase className="w-6 h-6 text-green-600" /> Job Applications
       </h2>
     </div>
 
-    {/* Tab Navigation */}
+ 
     <div className="flex flex-wrap justify-center sm:justify-start gap-4 pt-4">
       <button
         className={`relative px-6 py-2 text-lg font-semibold rounded-lg transition-all shadow-sm ${
@@ -132,7 +132,6 @@ const ViewApplicant = () => {
       </button>
     </div>
 
-    {/* Applicants Section */}
     <div className="mt-6">
       {applicants.length === 0 ? (
         <p className="text-center text-gray-600">
@@ -148,7 +147,7 @@ const ViewApplicant = () => {
               className="bg-gray-50 border rounded-lg p-6 shadow-md hover:shadow-lg transition"
             >
               <div className="flex flex-wrap items-center justify-between gap-4">
-                {/* Left Side: Full Name & Email */}
+             
                 <div className="flex items-center gap-4">
                   <div className="p-3 bg-green-100 rounded-full">
                     <User className="text-green-600 w-6 h-6" />
@@ -161,7 +160,7 @@ const ViewApplicant = () => {
                   </div>
                 </div>
 
-                {/* Right Side: Status Badge */}
+              
                 <div>
                   {application.shortListed ? (
                     <span className="px-3 py-1 bg-green-200 text-green-700 rounded-full text-sm font-semibold">
@@ -176,7 +175,7 @@ const ViewApplicant = () => {
               </div>
 
               <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-700">
-                {/* Left Side: Phone Number & Location */}
+            
                 <div className="flex items-center gap-4">
                   <Phone className="w-5 h-5" />
                   <span>{application?.applicantId?.phoneNumber || "N/A"}</span>
@@ -186,7 +185,7 @@ const ViewApplicant = () => {
                   <span>{application?.applicantId?.city || "N/A"}</span>
                 </div>
 
-                {/* Right Side: Education & Experience */}
+            
                 <div className="flex items-center gap-4">
                   <GraduationCap className="w-5 h-5" />
                   <span>{application?.applicantId?.eduDegree || "N/A"}</span>
@@ -196,7 +195,7 @@ const ViewApplicant = () => {
                   <span>{application?.applicantId?.expPosition || "N/A"}</span>
                 </div>
              
-                {/* Full Width: Skills */}
+            
                 <div className="col-span-1 sm:col-span-2 flex items-start gap-4 rounded-lg">
                   <Mail className="w-5 h-5 mt-1" />
                     <p className="text-sm text-gray-500">

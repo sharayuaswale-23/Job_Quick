@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Search, Filter, X } from "lucide-react"; // Import Filter and X icons
+import { Search, Filter, X } from "lucide-react";
 import Cookies from "js-cookie";
 import { useLocation } from "react-router-dom";
 import Header from "../../common/header/Header";
@@ -156,7 +156,7 @@ const Category = () => {
           <div className="flex flex-col">
             <div className="flex gap-4">
               <div className="mb-11">
-                {/* Toggle Button for Mobile */}
+             
                 <button
                   className="p-1 bg-gradient-to-r from-gray-500 to-gray-600 text-white rounded-lg lg:hidden flex items-center gap-2 shadow-md hover:opacity-90 transition-all fixed top-20 left-4 z-30"
                   onClick={() => setIsOpen(!isOpen)}
@@ -172,7 +172,6 @@ const Category = () => {
                   )}
                 </button>
 
-                {/* Filter Sidebar */}
                 <div
                   className={`fixed top-0 left-0 h-full w-80 p-4 transition-transform duration-300 ease-in-out transform 
                   ${isOpen ? "translate-x-0" : "-translate-x-full"} 
@@ -186,7 +185,7 @@ const Category = () => {
                   />
                 </div>
 
-                {/* Overlay for Mobile */}
+         
                 {isOpen && (
                   <div
                     className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-10"

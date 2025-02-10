@@ -78,7 +78,7 @@ function Hostersidebar() {
   return (
  
     <div>
-    {/* Mobile Toggle Button */}
+   
     <button
       className="lg:hidden fixed top-4 left-4 bg-green-600 text-white p-3 rounded-md shadow-lg z-50"
       onClick={() => setIsOpen(!isOpen)}
@@ -86,14 +86,14 @@ function Hostersidebar() {
       <Menu className="w-6 h-6" />
     </button>
     
-    {/* Sidebar */}
+  
     <div
       className={`fixed inset-y-0 left-0 bg-white shadow-xl transform ${
         isOpen ? "translate-x-0" : "-translate-x-full"
       } lg:translate-x-0 transition-transform duration-300 z-40 w-64`}
     >
       <div className="p-6 flex flex-col min-h-screen border-r border-gray-200">
-        {/* Profile Section */}
+    
         <div className="flex flex-col items-center mb-6 text-center">
           <div className="w-20 h-20 rounded-full overflow-hidden shadow-md">
             <img
@@ -107,7 +107,7 @@ function Hostersidebar() {
           <a href="" className="text-sm text-gray-500 mt-1">{hoster.email}</a>
         </div>
 
-        {/* Navigation */}
+    
         <nav className="flex-1 space-y-2">
           {[{
             to: "/dashboard",
@@ -133,7 +133,7 @@ function Hostersidebar() {
           ))}
         </nav>
 
-        {/* Logout Section */}
+       
         <div className="mt-auto">
           <button onClick={logout} className="flex items-center space-x-2 text-gray-600 hover:text-red-600 p-3">
             <LogOut className="w-5 h-5" />

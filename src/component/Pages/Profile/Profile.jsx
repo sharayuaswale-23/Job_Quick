@@ -37,7 +37,7 @@ const Profile = () => {
         );
       }
 
-      // Extract just the jobId details from each application
+  
       if (Array.isArray(result)) {
         const jobDetails = result.map((application) => application.jobId);
         setJobs(jobDetails);

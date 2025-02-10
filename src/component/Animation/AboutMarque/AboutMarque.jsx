@@ -35,13 +35,13 @@ const AboutMarque = () => {
 
   return (
     <div className="bg-gradient-to-b from-blue-50 to-blue-100 py-14 px-6">
-      {/* Header */}
+   
       <div className="text-center mb-10">
         <h2 className="text-4xl font-extrabold text-gray-800">Testimonials</h2>
         <p className="text-gray-600 mt-2 text-lg">See what our users have to say.</p>
       </div>
 
-      {/* Marquee Container */}
+   
       <Marquee pauseOnHover={true} gradient={false} speed={50} className="mb-6 w-full">
         {feedbacks.map((item, index) => (
           <div

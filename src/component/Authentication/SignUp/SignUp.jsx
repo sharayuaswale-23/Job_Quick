@@ -4,6 +4,7 @@ import { AuthContext } from "../../../App";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { FaUser, FaLock } from "react-icons/fa";
+import loginimg from "../../../assets/Images/loginimg.webp";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -45,68 +46,6 @@ const Signup = () => {
   };
 
   return (
-  
-  //    <div className="flex items-center justify-center min-h-screen bg-gray-200 p-4">
-  //   <motion.div 
-  //     initial={{ opacity: 0, scale: 0.9 }} 
-  //     animate={{ opacity: 1, scale: 1 }} 
-  //     transition={{ duration: 0.5 }}
-  //     className="bg-white rounded-2xl shadow-lg overflow-hidden w-full max-w-4xl grid grid-cols-1 md:grid-cols-2"
-  //   >
-  //     {/* Left Section */}
-  //     <div className="hidden md:flex items-center justify-center bg-blue-100 p-8 w-full">
-  //         <motion.div 
-  //           initial={{ x: -50, opacity: 0 }} 
-  //           animate={{ x: 0, opacity: 1 }} 
-  //           transition={{ duration: 0.6 }}
-  //           className="relative w-full h-96 flex items-center justify-center"
-  //         >
-  //           {/* <div className="absolute w-full h-80 bg-blue-500 rounded-xl"></div> */}
-  //           <img src="https://cdni.iconscout.com/illustration/premium/thumb/boy-coding-on-laptop-8202501-6578006.png" alt="illustration" className="relative w-full h-80 object-cover" />
-  //         </motion.div>
-  //       </div>
-
-  //     {/* Right Section */}
-  //     <div className="flex flex-col justify-center p-8">
-  //       <div className="flex justify-center mb-6">
-  //         <img src="https://cdn1.iconfinder.com/data/icons/mix-color-3/502/Untitled-7-1024.png" alt="avatar" className="w-16 h-16 rounded-full" />
-  //       </div>
-  //       <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">CREATE ACCOUNT</h2> 
-  //       <form className="space-y-6" onSubmit={handleSignup}>
-  //        {error && <p className="text-red-500 text-sm">{error}</p>}
-  //        {success && <p className="text-green-500 text-sm">{success}</p>}
-  //       <div className="space-y-4">
-  //         <div className="flex items-center border-b-2 py-2">
-  //           <FaUser className="text-gray-500 mr-2" />
-  //           <input
-  //              type="email"
-  //              placeholder="Email Address"
-  //              onChange={(e) => setEmail(e.target.value)}
-  //              required
-  //             className="w-full focus:outline-none"
-  //           />
-  //         </div>
-  //         <div className="flex items-center border-b-2 py-2">
-  //           <FaLock className="text-gray-500 mr-2" />
-  //           <input
-  //              type="password"
-  //              placeholder="Password"
-  //              onChange={(e) => setPassword(e.target.value)}
-  //              required
-  //             className="w-full focus:outline-none"
-  //           />
-  //         </div>
-  //       </div>
-  //       <button type="submit" className=" w-full bg-blue-500 text-white py-2 mt-8 rounded-lg hover:bg-blue-600 transition duration-300">
-  //         SIGN UP
-  //       </button>
-  //       </form>
-  //       <p className="text-center text-sm text-gray-600 mt-6">
-  //        Already have an account? <Link to="/login" className="text-indigo-600 font-semibold hover:underline">Login</Link>
-  //      </p>
-  //     </div>
-  //   </motion.div>
-  // </div>
 
   <div className="flex items-center justify-center min-h-screen bg-gray-50 p-4">
   <motion.div 
@@ -115,7 +54,7 @@ const Signup = () => {
     transition={{ duration: 0.5 }}
     className="bg-white rounded-2xl shadow-2xl overflow-hidden w-full max-w-4xl grid grid-cols-1 md:grid-cols-2"
   >
-    {/* Left Section */}
+
     <div className="hidden md:flex items-center justify-center bg-blue-200 p-8 w-full">
       <motion.div 
         initial={{ x: -50, opacity: 0 }} 
@@ -124,14 +63,14 @@ const Signup = () => {
         className="relative w-full h-96 flex items-center justify-center"
       >
         <img 
-          src="https://cdni.iconscout.com/illustration/premium/thumb/boy-coding-on-laptop-8202501-6578006.png" 
+          src={loginimg}
           alt="illustration" 
           className="relative w-full h-80 object-cover drop-shadow-lg"
         />
       </motion.div>
     </div>
 
-    {/* Right Section */}
+ 
     <div className="flex flex-col justify-center p-8">
       <div className="flex justify-center mb-6">
         <img 

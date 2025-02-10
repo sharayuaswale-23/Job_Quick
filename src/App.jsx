@@ -25,7 +25,7 @@ import MyJob from "./component/Pages/Employer/MyJob/MyJob";
 import ViewApplicant from "./component/Pages/Employer/ViewApplicant/ViewApplicant";
 import Applicant from "./component/Pages/Employer/Applicant/Applicant";
 
-// Create a context for authentication
+
 export const AuthContext = createContext();
 
 const RequireAuth = ({ children }) => {
@@ -40,12 +40,12 @@ const RequireAuth = ({ children }) => {
 const App = () => {
   const navigate = useNavigate();
 
-  // Check if the user is already authorized from cookies
+
   const [isAuthorized, setIsAuthorized] = useState(
     () => Cookies.get("isAuthorized") === "true"
   );
 
-  // Check for token on app load
+
   useEffect(() => {
     const token = Cookies.get("userToken");
     if (token) {
@@ -53,22 +53,22 @@ const App = () => {
     }
   }, []);
 
-  // Persist isAuthorized state in cookies
+
   useEffect(() => {
-    Cookies.set("isAuthorized", isAuthorized, { expires: 7 }); // Expires in 7 days
+    Cookies.set("isAuthorized", isAuthorized, { expires: 7 }); 
   }, [isAuthorized]);
 
   const handleLogin = (token) => {
-    Cookies.set("authToken", token, { expires: 7 }); // Store the token in cookies
-    setIsAuthorized(true); // Set authorization to true
-    navigate("/dashboard"); // Redirect to dashboard
+    Cookies.set("authToken", token, { expires: 7 }); 
+    setIsAuthorized(true);
+    navigate("/dashboard"); 
   };
 
   const handleLogout = () => {
     setIsAuthorized(false);
     Cookies.remove("authToken");
-    Cookies.set("isAuthorized", "false", { expires: 7 }); // Ensure persistence
-    navigate("/"); // Redirect to home page
+    Cookies.set("isAuthorized", "false", { expires: 7 });
+    navigate("/"); 
   };
 
   return (

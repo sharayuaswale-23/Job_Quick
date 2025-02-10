@@ -2,24 +2,27 @@ import React, { useState } from "react";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import girl1 from "../../../../assets/Images/girl1.jpg";
+import girl2 from "../../../../assets/Images/girl2.jpg";
+import girl3 from "../../../../assets/Images/girl3.avif";
 
 const HosterDetail = () => {
 
   const images = [
-    "https://images.unsplash.com/photo-1587614295506-f03c0e6f5b44?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGdpcmwlMjBsYXB0b3B8ZW58MHx8MHx8fDA%3D",
-    "https://images.unsplash.com/photo-1587614382231-d1590f0039e7?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzl8fGxhcHRvcHxlbnwwfHwwfHx8MA%3D%3D",
-    "https://img.freepik.com/free-photo/woman-working-laptop-with-focus-minimal-background_24972-2968.jpg",
+   girl1,
+   girl2,
+   girl3,
   ];
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  // Set the interval to change images every 5 seconds
+
   useEffect(() => {
     const intervalId = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
     }, 3000);
 
-    // Cleanup interval on component unmount
+ 
     return () => clearInterval(intervalId);
   }, []);
 
@@ -57,9 +60,8 @@ const HosterDetail = () => {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
   
-        const data = await response.json(); // Fetch the response as JSON
-        console.log("Fetched Data:", data); // Debugging log to check API response
-  
+        const data = await response.json(); 
+        console.log("Fetched Data:", data); 
         setFormData({
           fullName: data.fullName || "",
           city: data.city || "",
@@ -70,7 +72,7 @@ const HosterDetail = () => {
           country: data.country || "",
           gender: data.gender || "",
           phoneNumber: data.phoneNumber || "",
-          image: data.image || null, // Ensure image is properly set
+          image: data.image || null, 
         });
   
         setLoading(false);
@@ -82,7 +84,7 @@ const HosterDetail = () => {
     };
   
     fetchHostDetails();
-  }, [HostId, HostToken]); // Ensure it fetches when ID or Token changes
+  }, [HostId, HostToken]);
 
   
   const handleChange = (e) => {
@@ -98,7 +100,7 @@ const HosterDetail = () => {
 
     const submitFormData = new FormData();
     
-    // Append all form fields to FormData
+  
     Object.keys(formData).forEach(key => {
       if (formData[key] !== null) {
         submitFormData.append(key, formData[key]);
@@ -135,7 +137,7 @@ const HosterDetail = () => {
   return (
 
 <div className="flex min-h-screen p-4 lg:p-16 rounded-lg bg-white w-full flex-col md:flex-row">
-{/* Right Side - Content */}
+
 <div className="flex-1 flex rounded-l-lg bg-gray-100 justify-center items-center p-2 lg:p-4 w-full">
   <div className="h-full flex my-6 items-center justify-center">
     <div className="mx-auto py-10 p-2 md:p-4 rounded-lg w-full md:max-w-4xl h-full flex flex-col justify-center">
@@ -143,7 +145,7 @@ const HosterDetail = () => {
         Hoster Details
       </h2>
       <form className="space-y-4 flex flex-col justify-center h-full" onSubmit={handleSubmit}>
-        {/* Form Fields */}
+       
         <div>
           <label className="block text-sm font-medium text-gray-700">Upload Profile Image</label>
           <input type="file"
@@ -153,7 +155,7 @@ const HosterDetail = () => {
             className="block w-full border border-gray-300 rounded-lg shadow-sm py-1 px-2 focus:ring-blue-500 focus:border-blue-500 text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:font-semibold file:bg-green-600 file:text-white hover:file:opacity-90" />
         </div>
 
-        {/* Input Fields for Name, Gender, Phone */}
+     
         <div>
           <label htmlFor="fullName" className="block text-sm font-medium text-gray-700">Full Name</label>
           <input type="text" id="fullName" value={formData.fullName} onChange={handleChange} name="fullName" className="block w-full border border-gray-300 rounded-lg shadow-sm py-2 px-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm" placeholder="Enter your full name" />
@@ -190,7 +192,7 @@ const HosterDetail = () => {
           </div>
         </div>
 
-        {/* Other Fields */}
+      
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
           <div>
             <label htmlFor="companyURL" className="block text-sm font-medium text-gray-700">Company URL</label>
@@ -239,7 +241,7 @@ const HosterDetail = () => {
   </div>
 </div>
 
-{/* Left Side - Background Image */}
+
 <div className="hidden md:block w-1/2 bg-cover bg-center rounded-r-lg transition-all duration-1000" style={{
   backgroundImage: `url(${images[currentImageIndex]})`,
 }}></div>

@@ -58,12 +58,12 @@ const HosterLogin = () => {
 
 
     <div className="flex h-screen items-center justify-center bg-gray-100 p-4 relative overflow-hidden">
-    {/* Background Circles */}
+
     <div className="absolute top-0 right-0 w-40 h-40 bg-red-400 rounded-bl-full opacity-40 md:opacity-100"></div>
     <div className="absolute bottom-0 left-0 w-40 h-40 bg-yellow-400 rounded-tr-full opacity-40 md:opacity-100"></div>
 
     <div className="flex w-full mt-6 max-w-4xl overflow-hidden rounded-2xl bg-white shadow-lg md:flex-row flex-col">
-      {/* Left Section */}
+     
       <div className="flex w-full py-15 md:py-20 md:w-1/2 flex-col items-center justify-center bg-gradient-to-r from-green-400 to-teal-500 p-8 text-white relative">
         <h2 className="text-3xl font-bold">Join us Today!</h2>
         <p className="mt-2 text-center">Unlock endless possibilities! Create your account to get started.</p>
@@ -72,7 +72,7 @@ const HosterLogin = () => {
         </Link>
       </div>
 
-      {/* Right Section */}
+   
       <div className="w-full py-15 md:py-20 md:w-1/2 p-8 relative">
         <h2 className="text-3xl font-bold text-teal-500 text-center">Log in to your Account</h2>
         <p className="mt-4 text-center text-gray-500">Use your email for login:</p>

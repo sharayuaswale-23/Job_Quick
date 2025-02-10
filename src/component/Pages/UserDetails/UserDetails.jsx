@@ -606,10 +606,10 @@ const UserDetails = () => {
     <>
       <Header />
       <div className="flex flex-col mt-10 md:flex-row justify-center items-center min-h-screen bg-gray-100 px-4 sm:px-6 lg:px-16 py-10">
-         {/* Left Side - Image */}
+     
          <div className="hidden md:block w-full  lg:w-1/2 justify-center lg:justify-end mb-6 lg:mb-0">
           <img
-            src={userimg} // Replace with actual image URL
+            src={userimg} 
             alt="Profile Preview"
             className="w-50 h-50 md:w-full md:h-full object-cover"
           />

@@ -8,7 +8,6 @@ import { GiWallet } from "react-icons/gi";
 import { GrUserWorker } from "react-icons/gr";
 import { BsPersonWorkspace } from "react-icons/bs";
 import { IoLocationOutline } from "react-icons/io5";
-import { Link } from "react-router-dom";
 import logo from "../../../../assets/Images/companylogo.jpg";
 
 const MyJob = () => {
@@ -180,7 +179,7 @@ const MyJob = () => {
 
                         {isExpanded && (
                           <div className="mt-3 grid grid-cols-1 md:grid-cols-2 gap-4">
-                              {/* Left Side */}
+                            
                               <div className="flex items-center gap-3">
                                 <BsPersonWorkspace className="w-5 h-5 text-green-600" />
                                 <div>
@@ -205,7 +204,7 @@ const MyJob = () => {
                                 </div>
                               </div>
                               
-                              {/* Right Side */}
+                          
                               <div className="flex items-center gap-3">
                                 <IoLocationOutline className="w-5 h-5 text-green-600" />
                                 <div>
@@ -231,7 +230,7 @@ const MyJob = () => {
 
                         )}
 
-                        {/* Shortlist Button */}
+                      
                         <div className="flex justify-between w-full mt-4 space-x-4">
                         <button onClick={() => handleViewApplicants(job._id)}
                           className="flex-1 h-10 border border-green-500 bg-transparent text-black rounded-lg text-base font-semibold shadow-md hover:scale-105 hover:shadow-lg transition-transform duration-300 focus:outline-none focus:ring-2 hover:bg-green-400">

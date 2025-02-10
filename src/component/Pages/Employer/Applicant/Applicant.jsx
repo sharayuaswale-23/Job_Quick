@@ -113,7 +113,7 @@ const Applicant = () => {
   <div className="min-h-screen pt-20 lg:pt-6 lg:ml-64 bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
   <div className="max-w-7xl mx-auto">
     <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
-      {/* Header */}
+    
       <div className="bg-gradient-to-r from-green-600 to-green-800 px-6 py-5 w-full flex flex-col sm:flex-row justify-between items-center text-center sm:text-left">
   <div>
     <h2 className="text-3xl mb-4 font-bold text-white">Applicant Details</h2>
@@ -138,7 +138,7 @@ const Applicant = () => {
 </div>
       <div className="p-2 md:p-6">
         <div className="p-2 md:p-6">
-          {/* Applied Job Details */}
+         
           <div className="mb-8 bg-gray-50 p-6 rounded-xl">
             <h3 className="text-2xl font-bold text-green-800 mb-4">Applied Job Details</h3>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -161,9 +161,9 @@ const Applicant = () => {
             </div>
           </div>
 
-          {/* Main Content Layout */}
+      
           <div className="grid grid-cols-1 lg:grid-cols-3 mb-4 gap-6">
-            {/* Left Side (Personal Info & Address) */}
+        
             <div className="lg:col-span-1 space-y-6">
               <div className="bg-gray-50 p-6 rounded-xl">
                 <h3 className="text-2xl font-bold text-green-800 mb-4">Personal Information</h3>

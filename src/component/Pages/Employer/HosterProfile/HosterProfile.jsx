@@ -57,22 +57,22 @@ const HosterProfile = () => {
   return (
     <>
       <div className="flex min-h-screen bg-gradient-to-br from-green-50 to-blue-50 relative">
-        {/* Sidebar */}
+    
         <div className=" inset-y-0 left-0 shadow-lg z-40">
           <Hostersidebar />
         </div>
 
-        {/* Main Profile Section */}
+    
         <div className="flex-1 mt-8 lg:mt-1 p-4 md:p-10 lg:ml-64 bg-gradient-to-br from-green-50 to-blue-50 min-h-screen">
           <h1 className="text-5xl text-center font-extrabold bg-gradient-to-r from-green-600 to-green-900 text-black bg-clip-text text-transparent mb-8">
             My Profile
           </h1>
 
-          {/* Profile Container */}
+      
           <div className="max-w-5xl mx-auto w-full bg-white shadow-xl rounded-3xl p-8 border border-gray-200">
-            {/* Profile Section */}
+        
             <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
-              {/* Profile Image */}
+            
               <div className="w-32 h-32 rounded-full overflow-hidden shadow-lg">
                 <img
                   src={Profile}
@@ -81,10 +81,10 @@ const HosterProfile = () => {
                 />
               </div>
 
-              {/* User Details */}
+           
               <div className="text-center md:text-left">
                 <h1 className="text-3xl font-extrabold text-gray-900 capitalize">
-                  {hoster.fullName}
+                  {hoster.fullName || "Admin"}
                 </h1>
                 <div className="mt-3">
                   <Link
@@ -97,17 +97,17 @@ const HosterProfile = () => {
               </div>
             </div>
 
-            {/* Profile Information Grid */}
+         
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
             
-              {/* Other Details */}
+             
               <div className="bg-gray-50 p-6 rounded-lg shadow-md border">
                 <h2 className="text-xl font-semibold text-gray-800 mb-3">
                   Additional Information
                 </h2>
                 <div className="space-y-3">
                   {[
-                    { label: "Gender", value: hoster.gender },
+                    { label: "Gender", value: hoster.gender || "N/A" },
                     { label: "Email", value: hoster.email || "N/A" },
                     { label: "Phone Number", value: hoster.phoneNumber || "N/A" },
                     { label: "Company Url", value: hoster.companyURL || "N/A" },
@@ -123,17 +123,17 @@ const HosterProfile = () => {
                   ))}
                 </div>
               </div>
-              {/* Location Details */}
+        
               <div className="bg-gray-50 p-6 rounded-lg shadow-md border">
                 <h2 className="text-xl font-semibold text-gray-800 mb-3">
                   Location Details
                 </h2>
                 <div className="space-y-3">
                   {[
-                    { label: "City", value: hoster.city },
-                    { label: "State", value: hoster.state },
-                    { label: "Address", value: hoster.address },
-                    { label: "Pincode", value: hoster.pincode },
+                    { label: "City", value: hoster.city || "N/A" },
+                    { label: "State", value: hoster.state || "N/A" },
+                    { label: "Address", value: hoster.address || "N/A" },
+                    { label: "Pincode", value: hoster.pincode || "N/A" },
                   ].map((item, index) => (
                     <div key={index}>
                       <p className="text-sm text-gray-500 font-semibold">

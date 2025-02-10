@@ -2,24 +2,24 @@ import React from "react";
 import Businesswoman from "../../../assets/Images/HomeImg.jpg";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { CalendarIcon, FileTextIcon } from "@radix-ui/react-icons";
-import { BellIcon, Share2Icon } from "lucide-react";
-import { Calendar } from "react-calendar";
 import "react-calendar/dist/Calendar.css"; 
 import AboutMarque from "../../Animation/AboutMarque/AboutMarque";
 import Header from "../../common/header/Header";
 import Footer from "../../common/Footer/Footer";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import girl1 from "../../../assets/Images/girl1.jpg";
+import girl2 from "../../../assets/Images/girl2.jpg";
+import girl3 from "../../../assets/Images/girl3.avif"
 
 const About = () => {
 
   const navigate = useNavigate();
 
     const images = [
-        "https://images.unsplash.com/photo-1587614295506-f03c0e6f5b44?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGdpcmwlMjBsYXB0b3B8ZW58MHx8MHx8fDA%3D",
-        "https://images.unsplash.com/photo-1587614382231-d1590f0039e7?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzl8fGxhcHRvcHxlbnwwfHwwfHx8MA%3D%3D",
-        "https://img.freepik.com/free-photo/woman-working-laptop-with-focus-minimal-background_24972-2968.jpg",
+        girl1,
+        girl2,
+       girl3,
       ];
       
         const [currentImage, setCurrentImage] = useState(0);
@@ -27,7 +27,7 @@ const About = () => {
         useEffect(() => {
           const interval = setInterval(() => {
             setCurrentImage((prev) => (prev + 1) % images.length);
-          }, 3000); // Change image every 3 seconds
+          }, 3000); 
       
           return () => clearInterval(interval);
         }, []);
@@ -49,7 +49,7 @@ const About = () => {
 
       {/* Part 1  */}
       <div className="mt-20 bg-cover bg-center min-h-screen flex flex-col justify-center items-center px-6 md:px-12 py-12" style={{backgroundImage:`url(https://images.unsplash.com/photo-1586775490184-b79f0621891f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)`}}>
-  {/* Hero Section */}
+
   <div className="max-w-6xl w-full text-center">
     <h1 className="text-4xl md:text-5xl font-extrabold text-blue-900 drop-shadow-lg">
       Join the World's Best Marketplace for Job Seekers
@@ -59,7 +59,7 @@ const About = () => {
     </p>
   </div>
 
-  {/* Features Section */}
+
   <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-5xl">
     {[{
         title: "Proven Career Growth",
@@ -90,7 +90,7 @@ const About = () => {
     ))}
   </div>
 
-  {/* Call to Action */}
+
   <div className="mt-12">
     <Link
       to="/category"
@@ -105,10 +105,10 @@ const About = () => {
 
 {/* Part 2  */}
 
-<div className=" bg-gray-50  flex flex-col justify-center items-center py-20">
+<div className=" bg-gray-50 w-full  flex flex-col justify-center items-center py-20">
       <div className="max-w-6xl w-full grid md:grid-cols-2 gap-12 items-center">
         
-        {/* Left Section - Image Carousel */}
+      
         <div className="relative w-full h-full flex justify-center items-center">
           <div className="w-96 h-96 overflow-hidden rounded-xl">
             <img
@@ -119,7 +119,7 @@ const About = () => {
           </div>
         </div>
 
-        {/* Right Section - Trusted by Employers */}
+     
         <div className="px-10 lg:px-2">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
             Trusted by Top <span className="text-indigo-600">Employers</span>
@@ -157,7 +157,7 @@ const About = () => {
 {/* Part 4  */}
     <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-50 to-white">
       <div className="max-w-6xl w-full grid md:grid-cols-2 gap-12 items-center">
-        {/* Left Section */}
+       
         <div className="px-8 py-8 lg:px-6 lg:py-2">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
             Find the talent needed to{" "}
@@ -172,7 +172,7 @@ const About = () => {
           </button>
         </div>
 
-        {/* Right Section - Image */}
+      
         <div className="relative flex justify-end">
           <img
             src={Businesswoman}

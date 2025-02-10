@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { FaPhone, FaCommentDots, FaMapMarkerAlt } from "react-icons/fa";
 import Header from "../../common/header/Header";
 import Footer from "../../common/Footer/Footer";
+import contactimg from "../../../assets/Images/contactimg.jpg";
 
 const ContactPage = () => {
   const [name, setName] = useState("");
@@ -11,39 +11,9 @@ const ContactPage = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   const api = "https://jobqueck-1.onrender.com/api/contactus";
-  //   const options = { name, email, Number, message };
-
-  //   try {
-  //     const response = await fetch(api, {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify(options),
-  //     });
-
-  //     const data = await response.json();
-  //     if (response.ok) {
-  //       setModalMessage("Your message has been sent successfully!");
-  //       setName("");
-  //       setEmail("");
-  //       setNumber("");
-  //       setMessage("");
-  //     } else {
-  //       setModalMessage(data.message || "Failed to send the message. Please try again.");
-  //     }
-  //   } catch (error) {
-  //     setModalMessage("An error occurred. Please try again later.");
-  //   } finally {
-  //     setIsModalVisible(true);
-  //   }
-  // };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission logic
+ 
     console.log({ name, email, number, message });
   };
 
@@ -57,12 +27,12 @@ const ContactPage = () => {
 
     <div className="min-h-screen mt-20 flex items-center justify-center bg-gray-100 px-4 sm:px-6 lg:px-16 py-20">
       <div className="flex flex-col lg:flex-row w-full max-w-6xl shadow-xl rounded-2xl overflow-hidden bg-white">
-        {/* Left Side - Contact Info */}
+      
         <div
           className="hidden lg:flex flex-col justify-center w-1/2 relative p-12 text-white"
           style={{
             backgroundImage:
-              "url(https://media.istockphoto.com/id/1817139946/photo/wall-of-building-modern-architecture-with-metal-elements-building-with-transparent-ceiling.jpg?s=1024x1024&w=is&k=20&c=ZkrbWqVAUhzROo1k1Z19gWsRMRhwqd8l5k_9NGy8ykA=)",
+              `url(${contactimg})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
@@ -79,7 +49,7 @@ const ContactPage = () => {
           </div>
         </div>
 
-        {/* Right Side - Contact Form */}
+      
         <div className="w-full lg:w-1/2 p-8 sm:p-12">
           <h2 className="text-3xl text-center font-bold bg-gradient-to-r from-blue-600 to-blue-900 text-black bg-clip-text text-transparent mb-6">Send Us A Message</h2>
           <form className="space-y-6" onSubmit={handleSubmit}>
