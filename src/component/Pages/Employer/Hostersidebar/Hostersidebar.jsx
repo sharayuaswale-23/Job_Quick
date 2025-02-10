@@ -139,7 +139,7 @@ function Hostersidebar() {
         </nav>
 
        
-        <div className="mt-auto">
+        <div className="fixed bottom-10">
           <button onClick={logout} className="flex items-center space-x-2 text-gray-600 hover:text-red-600 p-3">
             <LogOut className="w-5 h-5" />
             <span>Logout</span>

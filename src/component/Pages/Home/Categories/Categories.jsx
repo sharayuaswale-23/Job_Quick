@@ -14,7 +14,7 @@ const Categorie = [
 
 const Categories = () => {
   return (
-    <div className="bg-gradient-to-b from-blue-50 to-gray-100 py-10 px-4 sm:px-8">
+    <div className="bg-gray-100 py-10 px-4 sm:px-8">
       <h1 className="text-3xl font-semibold text-center mb-3">Browse talent by category</h1>
       <p className="text-center text-gray-600 mb-6">Get some inspirations from 1800+ skills</p>
       <div className="max-w-8xl mx-auto flex flex-wrap justify-center gap-4">
