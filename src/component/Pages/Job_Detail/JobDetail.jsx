@@ -17,6 +17,7 @@ import Footer from "../../common/Footer/Footer";
 import Cookies from "js-cookie";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import Logo from "../../../assets/Images/companylogo.jpg";
 
 const JobDetail = () => {
   const { id } = useParams();
@@ -202,7 +203,7 @@ const JobDetail = () => {
 
               <div className="flex items-start gap-6">
                 <img
-                  src="https://www.pngkey.com/png/full/191-1911374_company-building-png-office-building-png.png"
+                  src={Logo}
                   alt={jobData?.companyName}
                   className="w-24 h-24 rounded-lg object-cover bg-gray-100"
                 />

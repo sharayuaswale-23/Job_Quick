@@ -46,35 +46,6 @@ const HosterDetail = () => {
   const hostDetailApi = `https://jobquick.onrender.com/hostuser/update/${HostId}`;
   const getHostDetailApi = `https://jobquick.onrender.com/hostuser/${HostId}`;
 
-  // useEffect(() => {
-  //   const fetchHostDetails = async () => {
-  //     try {
-  //       const response = await axios.get(getHostDetailApi, {
-  //         headers: { Authorization: `Bearer ${HostToken}` },
-  //       });
-        
-  //       setFormData(prevData => ({
-  //         ...prevData,
-  //         fullName: response.data.fullName || "",
-  //         city: response.data.city || "",
-  //         companyURL: response.data.companyURL || "",
-  //         address: response.data.address || "",
-  //         pincode: response.data.pincode || "",
-  //         state: response.data.state || "",
-  //         country: response.data.country || "",
-  //         gender: response.data.gender || "",
-  //         phoneNumber: response.data.phoneNumber || ""
-  //       }));
-        
-  //       setLoading(false);
-  //     } catch (error) {
-  //       setError(error.message);
-  //       setLoading(false);
-  //     }
-  //   };
-  //   fetchHostDetails();
-  // }, [HostId, HostToken]);
-
   useEffect(() => {
     const fetchHostDetails = async () => {
       try {
@@ -163,7 +134,7 @@ const HosterDetail = () => {
 
   return (
 
-<div className="flex min-h-screen p-4 lg:p-16 rounded-lg bg-gradient-to-b from-green-100 to-green-200 w-full flex-col md:flex-row">
+<div className="flex min-h-screen p-4 lg:p-16 rounded-lg bg-white w-full flex-col md:flex-row">
 {/* Right Side - Content */}
 <div className="flex-1 flex rounded-l-lg bg-gray-100 justify-center items-center p-2 lg:p-4 w-full">
   <div className="h-full flex my-6 items-center justify-center">

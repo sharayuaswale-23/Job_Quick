@@ -8,9 +8,7 @@ const MainHome = () => {
 
   const navigate = useNavigate();
   const [searchInput, setSearchInput] = useState("");
-  const [searchQuery, setSearchQuery] = useState(""); 
 
- 
   const handleSearch = () => {
     if (searchInput.trim()) {
       navigate(`/category?title=${encodeURIComponent(searchInput)}`);
@@ -39,7 +37,7 @@ const MainHome = () => {
               className="w-full p-4 outline-none text-gray-700 placeholder-gray-400"
             />
             <button
-           onClick={handleSearch} 
+           onClick={handleSearch}
              className="bg-gradient-to-r from-blue-400 to-blue-700 text-white px-6 py-3 rounded-full font-semibold hover:scale-105 transition-transform duration-300">
               Search
             </button>

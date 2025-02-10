@@ -234,11 +234,11 @@ const MyJob = () => {
                         {/* Shortlist Button */}
                         <div className="flex justify-between w-full mt-4 space-x-4">
                         <button onClick={() => handleViewApplicants(job._id)}
-                          className="flex-1 h-10 bg-green-500 text-white rounded-lg text-base font-semibold shadow-md hover:scale-105 hover:shadow-lg transition-transform duration-300 focus:outline-none focus:ring-2 focus:ring-green-400">
+                          className="flex-1 h-10 border border-green-500 bg-transparent text-black rounded-lg text-base font-semibold shadow-md hover:scale-105 hover:shadow-lg transition-transform duration-300 focus:outline-none focus:ring-2 hover:bg-green-400">
                           Applicants
                         </button>
                         <button onClick={() => setSelectedJob(job._id)}
-                          className="flex-1 h-10 bg-red-500 text-white rounded-lg text-base font-semibold shadow-md hover:scale-105 hover:shadow-lg transition-transform duration-300 focus:outline-none focus:ring-2 focus:ring-red-400">
+                          className="flex-1 h-10 border border-red-500 text-black rounded-lg text-base font-semibold shadow-md hover:scale-105 hover:shadow-lg transition-transform duration-300 focus:outline-none focus:ring-2 hover:bg-red-400">
                           Delete
                         </button>
                       </div>
