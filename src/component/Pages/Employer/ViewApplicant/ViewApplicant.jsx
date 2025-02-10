@@ -91,7 +91,7 @@ const ViewApplicant = () => {
         <Hostersidebar />
       </div>
 
-      <div className="ml-62 pt-20 lg:ml-64 flex-1 min-h-screen bg-gray-100 p-6 lg:p-8">
+      <div className="ml-62 pt-32 lg:pt-20 lg:ml-64 flex-1 min-h-screen bg-gray-100 p-6 lg:p-8">
   <div className="max-w-6xl mx-auto bg-white rounded-xl shadow-lg p-6">
     
 
@@ -104,30 +104,30 @@ const ViewApplicant = () => {
  
     <div className="flex flex-wrap justify-center sm:justify-start gap-4 pt-4">
       <button
-        className={`relative px-6 py-2 text-lg font-semibold rounded-lg transition-all shadow-sm ${
+        className={`px-6 py-2 text-lg font-semibold rounded-lg transition-all shadow-sm ${
           viewMode === "all"
-            ? "bg-green-600 text-white shadow-md scale-105"
+            ? "bg-green-600 text-white shadow-md"
             : "text-gray-600 hover:bg-gray-200"
         }`}
         onClick={() => setViewMode("all")}
       >
         Job Applicants
         {viewMode === "all" && (
-          <span className="absolute left-1/2 -bottom-1 transform -translate-x-1/2 w-3/4 bg-green-600 rounded-full"></span>
+          <span className="left-1/2 -bottom-1 transform -translate-x-1/2 w-3/4 bg-green-600 rounded-full"></span>
         )}
       </button>
 
       <button
-        className={`relative px-6 py-2 text-lg font-semibold rounded-lg transition-all shadow-sm ${
+        className={`px-6 py-2 text-lg font-semibold rounded-lg transition-all shadow-sm ${
           viewMode === "shortlisted"
-            ? "bg-green-600 text-white shadow-md scale-105"
+            ? "bg-green-600 text-white shadow-md"
             : "text-gray-600 hover:bg-gray-200"
         }`}
         onClick={() => setViewMode("shortlisted")}
       >
         Shortlisted
         {viewMode === "shortlisted" && (
-          <span className="absolute left-1/2 -bottom-1 transform -translate-x-1/2 w-3/4 bg-green-600 rounded-full"></span>
+          <span className="left-1/2 -bottom-1 transform -translate-x-1/2 w-3/4 bg-green-600 rounded-full"></span>
         )}
       </button>
     </div>
