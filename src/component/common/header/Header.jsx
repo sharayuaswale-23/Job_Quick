@@ -97,9 +97,11 @@ const Header = () => {
              
                {isDropdownOpen && (
                 <ul className="absolute right-0 mt-2 bg-white shadow-lg rounded-lg w-40 text-gray-700">
+                <Link to="/Profile">
                   <button className="px-4 py-2 w-full text-left hover:bg-gray-100 cursor-pointer">
-                    <Link to="/Profile">Profile</Link>
+                    Profile
                   </button>
+                  </Link>
                   <button
                     onClick={handleLogout}
                     className="px-4 py-2 w-full text-left hover:bg-gray-100 cursor-pointer">
@@ -171,9 +173,11 @@ const Header = () => {
                 />
                 {isDropdownOpen && (
                   <ul className="absolute right-0 mt-2 bg-white shadow-lg rounded-lg w-40 text-gray-700">
+                  <Link to="/profile">
                     <button className="px-4 py-2 w-full text-left hover:bg-gray-100 cursor-pointer">
-                      <Link to="/profile">Profile</Link>
-                    </button>
+                      Profile
+                    </button> </Link>
+                  
                     <button
                       onClick={handleLogout}
                       className="px-4 py-2 w-full text-left hover:bg-gray-100 cursor-pointer"

@@ -120,7 +120,7 @@ const Profile = () => {
           />
           <div className="sm:mt-0 text-center sm:text-left flex-1">
             <h1 className="text-4xl mb-4 mt-2 sm:mt-28 lg:mt-20 font-bold text-blue-900">
-            {seeker.fullName}
+            {seeker.fullName || "Admin"}
             </h1>
             <div className="mt-6 sm:mt-0">
            <Link to="/userdetails">
@@ -145,11 +145,11 @@ const Profile = () => {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              ["Gender", seeker.gender],
-              ["Date of Birth",seeker.dateOfBirth],
-              ["Phone Number", seeker. phoneNumber],
-              ["Email ID", seeker.email],
-              ["Project URL", seeker.projectUrl],
+              ["Gender", seeker.gender || "N/A"],
+              ["Date of Birth",seeker.dateOfBirth || "N/A"],
+              ["Phone Number", seeker. phoneNumber  || "N/A"],
+              ["Email ID", seeker.email || "N/A"],
+              ["Project URL", seeker.projectUrl || "N/A"],
 
             ].map(([label, value]) => (
               <div key={label} className="bg-gray-50 rounded-xl p-4">
@@ -167,7 +167,7 @@ const Profile = () => {
               </h3>
               <p className="text-gray-700 leading-relaxed">
               {seeker.
-                summary}
+                summary || "N/A"}
               </p>
             </div>
         </section>
@@ -194,11 +194,11 @@ const Profile = () => {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              ["Degree", seeker.eduDegree],
-              ["Institution Name",seeker.eduInstitution],
-              ["Specialiazatin", seeker.eduSpecialisation],
-              ["Start Year", seeker.eduStartYear],
-              ["End Year", seeker.eduEndYear],
+              ["Degree", seeker.eduDegree || "N/A"],
+              ["Institution Name",seeker.eduInstitution || "N/A"],
+              ["Specialiazatin", seeker.eduSpecialisation || "N/A"],
+              ["Start Year", seeker.eduStartYear || "N/A"],
+              ["End Year", seeker.eduEndYear || "N/A"],
 
             ].map(([label, value]) => (
               <div key={label} className="bg-gray-50 rounded-xl p-4">
@@ -218,10 +218,10 @@ const Profile = () => {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              ["Company Name", seeker.expCompany],
-              ["Designation",seeker.expPosition],
-              ["Start Date", seeker.expStartYear],
-              ["End Date", seeker.expEndYear],
+              ["Company Name", seeker.expCompany || "N/A"],
+              ["Designation",seeker.expPosition || "N/A"],
+              ["Start Date", seeker.expStartYear || "N/A"],
+              ["End Date", seeker.expEndYear || "N/A"],
 
             ].map(([label, value]) => (
               <div key={label} className="bg-gray-50 rounded-xl p-4">
