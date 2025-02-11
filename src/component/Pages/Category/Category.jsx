@@ -12,6 +12,7 @@ const Category = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const initialTitle = queryParams.get("title") || "";
+  const initialCategory = queryParams.get("categories") || "";
 
   const [isOpen, setIsOpen] = useState(false);
   const [categories, setCategories] = useState([]);
@@ -28,7 +29,7 @@ const Category = () => {
   const currentJobs = jobListings.slice(indexOfFirstJob, indexOfLastJob);
 
   const [filters, setFilters] = useState({
-    categories: "",
+    categories: initialCategory,
     title: initialTitle,
     jobType: "",
     workType: "",
@@ -36,7 +37,7 @@ const Category = () => {
     limit: 100,
   });
 
-  const [searchInput, setSearchInput] = useState(initialTitle); // Temporary search input state
+  const [searchInput, setSearchInput] = useState(initialTitle); 
 
   const JobToken = Cookies.get("userToken");
   const userId = Cookies.get("userNewId");
@@ -147,7 +148,7 @@ const Category = () => {
             <input
               type="text"
               value={searchInput}
-              onChange={(e) => setSearchInput(e.target.value)} // Update search input state
+              onChange={(e) => setSearchInput(e.target.value)} 
               placeholder="Job title"
               className="flex-1 p-3 border border-blue-300 outline-none rounded-lg focus:ring-2 focus:ring-blue-500 w-full"
             />

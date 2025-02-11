@@ -8,18 +8,6 @@ import Dashboardjob from "../DashboardJob/DashboardJob";
 import TotalApplicant from "../TotalApplicant/TotalApplicant";
 
 
-const chartData = [
-  { name: "Sun", views: 70 },
-  { name: "Sat", views: 120 },
-  { name: "Mon", views: 60 },
-  { name: "Tue", views: 250 },
-  { name: "Wed", views: 220 },
-  { name: "Thu", views: 230 },
-  { name: "Fri", views: 180 },
-  { name: "Sat", views: 90 },
-];
-
-
 const Dashboard = () => {
   const navigate = useNavigate();
 
@@ -51,26 +39,7 @@ const Dashboard = () => {
        
         <TotalApplicant/>
      
-
- 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="col-span-2 bg-white p-6 rounded-lg shadow-lg">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Job Views</h2>
-            <div className="h-64">
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={chartData}>
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Line type="monotone" dataKey="views" stroke="#16a34a" strokeWidth={3} dot={false} />
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
-          
-         
-          <Dashboardjob/>
-          
-        </div>
+        <Dashboardjob/>
       </div>
     </div>
     </>

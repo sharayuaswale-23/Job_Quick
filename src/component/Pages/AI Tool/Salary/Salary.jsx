@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import Header from "../../../common/header/Header";
 import Footer from "../../../common/Footer/Footer";
-// import { FaRegMoneyBillAlt } from "react-icons/fa"; // Adding an icon for the salary section
 
 const Salary = () => {
   const [company, setCompany] = useState("");
@@ -12,11 +11,11 @@ const Salary = () => {
   const [expectedSalary, setExpectedSalary] = useState(null);
 
   const calculateSalary = () => {
-    // Mock calculation logic
+    
     if (company && designation && previousCTC && experience) {
       const ctc = parseFloat(previousCTC);
       const exp = parseInt(experience);
-      const multiplier = exp > 5 ? 2 : exp > 2 ? 1.9 : 1.3; // Mock multiplier logic
+      const multiplier = exp > 5 ? 2 : exp > 2 ? 1.9 : 1.3; 
       const calculatedSalary = (ctc * multiplier).toFixed(2);
       setExpectedSalary(`₹${calculatedSalary}`);
     } else {
@@ -41,13 +40,13 @@ const Salary = () => {
 
 <div className="bg-gradient-to-r from-blue-50 to-purple-50 min-h-screen py-6">
   <main className="container mx-auto px-4 md:px-8 py-8">
-    {/* Salary Calculator Form */}
+  
     <div className="bg-white shadow-xl mb-20 rounded-lg p-8 md:max-w-4xl mx-auto">
       <h2 className="text-3xl font-extrabold bg-gradient-to-r from-blue-600 to-blue-900 text-transparent bg-clip-text mb-6 text-center">
         Salary Calculator
       </h2>
       <form className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {/* Form Fields */}
+   
         <div>
           <label htmlFor="company" className="block text-sm font-medium text-gray-600 mb-2">Company Name</label>
           <input 

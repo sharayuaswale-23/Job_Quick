@@ -2,18 +2,19 @@ import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineUser } from "react-icons/ai";
+import LineChart from "../LineChart/LineChart";
 
 const Dashboardjob = () => {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const [visibleJobs, setVisibleJobs] = useState(3);
+  const [visibleJobs, setVisibleJobs] = useState(6);
   const [expanded, setExpanded] = useState(false);
 
   const toggleJobs = () => {
     if (expanded) {
-      setVisibleJobs(3);
+      setVisibleJobs(6);
     } else {
       setVisibleJobs(jobs.length);
     }
@@ -57,8 +58,14 @@ const Dashboardjob = () => {
   };
 
   return (
- 
-    <div className="flex w-full flex-col items-center rounded-lg bg-white p-4">
+
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+ {/* Graph  */}
+    <div className="col-span-2 max-h-auto bg-white p-6 rounded-lg shadow-lg">
+    <LineChart jobs = {jobs}/>
+  </div>
+ {/* Jobs  */}
+ <div className="flex w-full flex-col items-center rounded-lg bg-white p-4">
   <h2 className="text-xl font-semibold mb-4">Posted Jobs</h2>
 
   {loading ? (
@@ -67,9 +74,9 @@ const Dashboardjob = () => {
     <p>No jobs found.</p>
   ) : (
     <div className="w-full max-w-lg">
-  
-      <div className="max-h-80 overflow-y-auto scrollbar-hide">
-        {jobs.slice(0, visibleJobs).map((job) => (
+      {/* Set a fixed height and enable scrolling */}
+      <div className="h-[680px] overflow-y-auto scrollbar-hide">
+        {jobs.map((job) => (
           <div
             key={job._id}
             className="bg-gray-100 p-4 rounded-lg flex justify-between shadow-md mb-4 transition-all duration-300"
@@ -92,18 +99,10 @@ const Dashboardjob = () => {
           </div>
         ))}
       </div>
-
- 
-      {jobs.length > 3 && (
-        <button
-          onClick={toggleJobs}
-          className="mt-2 px-4 py-2 bg-green-500 text-white rounded-lg font-semibold hover:opacity-90 transition-opacity shadow-md"
-        >
-          {expanded ? "Show Less" : "Show More"}
-        </button>
-      )}
     </div>
   )}
+</div>
+
 </div>
 
   );
