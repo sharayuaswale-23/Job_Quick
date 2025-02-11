@@ -2,9 +2,9 @@ import React from "react";
 
 const JobFilters = ({ filters, onFilterChange, categories, isLoading, onApplyFilters }) => {
   return (
-    <div className="sticky top-0 border rounded-lg px-3 py-4 bg-white shadow-lg w-90">
+    <div className="sticky top-0 border rounded-lg px-6 py-8 lg:px-4 lg:py-5 bg-white shadow-lg w-90">
       <div className="mb-6">
-        <label className="text-xl text-black mb-6">Categories</label>
+        <label className="text-xl font-semibold text-black mb-6">Categories</label>
         <select
           value={filters.categories}
           onChange={(e) => onFilterChange("categories", e.target.value)}
@@ -24,7 +24,7 @@ const JobFilters = ({ filters, onFilterChange, categories, isLoading, onApplyFil
       </div>
 
       <div className="mb-6">
-        <label className="text-xl text-black mb-6">Experience Level</label>
+        <label className="text-xl font-semibold text-black mb-6">Experience Level</label>
         <select
           value={filters.experience}
           onChange={(e) => onFilterChange("experience", e.target.value)}
@@ -39,7 +39,7 @@ const JobFilters = ({ filters, onFilterChange, categories, isLoading, onApplyFil
       </div>
 
       <div className="mb-6">
-        <label className="text-xl text-black mb-6">Job Type</label>
+        <label className="text-xl font-semibold text-black mb-6">Job Type</label>
         <div className="mt-5 flex flex-col space-y-3">
           {["Full-Time", "Part-Time"].map((type) => (
             <label key={type} className="flex items-center space-x-2">
@@ -58,7 +58,7 @@ const JobFilters = ({ filters, onFilterChange, categories, isLoading, onApplyFil
       </div>
 
       <div className="mb-6">
-        <label className="text-xl text-black mb-6">Work Type</label>
+        <label className="text-xl font-semibold text-black mb-6">Work Type</label>
         <div className="mt-5 flex flex-col space-y-3">
           {["Remote", "OnSite", "Hybrid"].map((type) => (
             <label key={type} className="flex items-center space-x-2">
@@ -75,12 +75,6 @@ const JobFilters = ({ filters, onFilterChange, categories, isLoading, onApplyFil
           ))}
         </div>
       </div>
-      <button
-        onClick={onApplyFilters}
-        className="w-full h-12 bg-gradient-to-r from-blue-400 to-blue-700 text-white rounded-md font-medium hover:opacity-90 transition-opacity"
-      >
-        Apply Filters
-      </button>
     </div>
   );
 };

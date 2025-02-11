@@ -40,153 +40,138 @@ const ResumeBuilder = () => {
       alert("Please enter your full name before generating the resume.");
       return;
     }
-
+  
     const doc = new jsPDF();
     const pageWidth = doc.internal.pageSize.getWidth();
     const pageHeight = doc.internal.pageSize.getHeight();
-
-    // Refined Color Palette
+  
+   
     const colors = {
       primary: [34, 49, 63], 
-      accent: [48, 213, 200], 
+      accent: [48, 213, 200],
       text: {
         dark: [40, 40, 40], 
         light: [255, 255, 255], 
       },
       background: {
         main: [255, 255, 255], 
-        section: [245, 245, 245],
+        section: [245, 245, 245], 
       },
     };
-
+  
     let yPos = 20;
-
-    const drawPageBackground = () => {
-      doc.setFillColor(...colors.background.main);
-      doc.rect(0, 0, pageWidth, pageHeight, 'F');
-
-      doc.setDrawColor(220, 220, 220);
-      doc.setLineWidth(0.1);
-      for (let i = 0; i < pageWidth; i += 5) {
-        for (let j = 0; j < pageHeight; j += 5) {
-          if (Math.random() > 0.9) {
-            doc.line(i, j, i + 1, j + 1);
-          }
-        }
-      }
-    };
-
+  
+    // Add Header
     const drawHeader = () => {
       doc.setFillColor(...colors.primary);
       doc.rect(0, 0, pageWidth, 50, 'F');
-      
-      doc.setDrawColor(200, 200, 200);
-      doc.setLineWidth(0.2);
-      doc.line(0, 50, pageWidth, 50);
-      
-      doc.setFont("helvetica", "bold");
+  
+      doc.setFont("times", "bold");
       doc.setFontSize(22);
       doc.setTextColor(...colors.text.light);
       doc.text(personalInfo.fullName.toUpperCase(), pageWidth / 2, 30, { align: "center" });
-      
-      doc.setFontSize(10);
+  
+      doc.setFontSize(11);
       doc.text(
-        `${personalInfo.email || ""} | ${personalInfo.phone || ""} | ${personalInfo.location || ""}`,
+        `${personalInfo.email} | ${personalInfo.phone} | ${personalInfo.location}`,
         pageWidth / 2,
         40,
         { align: "center" }
       );
-
+  
       yPos = 60;
     };
-
+  
     const drawSectionTitle = (title) => {
-      doc.setFont("helvetica", "bold");
+      doc.setFont("times", "bold");
       doc.setFontSize(14);
       doc.setTextColor(...colors.primary);
-
+  
       doc.text(title.toUpperCase(), 20, yPos);
       doc.setDrawColor(...colors.primary);
       doc.setLineWidth(0.7);
       doc.line(20, yPos + 3, 120, yPos + 3);
-
+  
       yPos += 15;
     };
-
+  
+   
     const drawProfessionalSection = (title, items, formatter) => {
       drawSectionTitle(title);
-
+  
       items.forEach((item, index) => {
         doc.setFillColor(...(index % 2 === 0 ? colors.background.section : [255, 255, 255]));
         doc.rect(20, yPos - 2, pageWidth - 40, 12, 'F');
-
-        doc.setFont("helvetica", "bold");
+  
+        doc.setFont("times", "bold");
         doc.setFontSize(11);
         doc.setTextColor(...colors.text.dark);
-
+  
         doc.text("•", 22, yPos + 6);
-        doc.text(formatter(item), 35, yPos + 6);
-
+        doc.text(formatter(item), 30, yPos + 6);
+  
         yPos += 12;
       });
-
+  
       yPos += 10;
     };
-
+  
+ 
     const renderSkills = () => {
       drawSectionTitle("Skills");
-
+  
       const skillsPerLine = 4;
       skills.forEach((skill, index) => {
         if (index % skillsPerLine === 0) {
           yPos += (index > 0 ? 12 : 0);
         }
-
+  
         const xPosition = 20 + (index % skillsPerLine) * 45;
-
+  
         doc.setFillColor(...colors.accent);
         doc.setTextColor(...colors.text.light);
-        
+  
         doc.roundedRect(xPosition, yPos, 40, 8, 2, 2, 'F');
         doc.setFontSize(9);
         doc.text(skill, xPosition + 20, yPos + 6, { align: 'center' });
       });
-
+  
       yPos += 20;
     };
-
+ 
     const drawSections = () => {
       drawSectionTitle("Professional Summary");
-      doc.setFont("helvetica", "normal");
+      doc.setFont("times", "normal");
       doc.setFontSize(10);
       doc.setTextColor(...colors.text.dark);
       doc.text(doc.splitTextToSize(personalInfo.summary || "No summary provided", pageWidth - 40), 20, yPos);
-      
+  
       yPos += 30;
-
-      drawProfessionalSection("Education", education, (edu) => 
+  
+      drawProfessionalSection("Education", education, (edu) =>
         `${edu.school} - ${edu.degree} in ${edu.major} (${edu.graduationYear})`
       );
-
-      drawProfessionalSection("Work Experience", workExperience, (work) => 
+  
+      drawProfessionalSection("Work Experience", workExperience, (work) =>
         `${work.company} | ${work.position} (${work.startDate} - ${work.endDate})`
       );
-
+  
       renderSkills();
     };
+  
 
-    drawPageBackground();
     drawHeader();
     drawSections();
-
-    doc.setFont("helvetica", "italic");
+  
+  
+    doc.setFont("times", "italic");
     doc.setFontSize(8);
     doc.setTextColor(150, 150, 150);
     doc.text(`Professional Resume | Generated on ${new Date().toLocaleDateString()}`, pageWidth / 2, pageHeight - 10, { align: "center" });
-
-    doc.save(`${personalInfo.fullName}_Professional_Resume.pdf`);
+  
+    doc.save(`${personalInfo.fullName}_Resume.pdf`);
   };
-
+  
   const addEducation = () => {
     if (currentEducation.school || currentEducation.degree || currentEducation.major || currentEducation.graduationYear) {
       setEducation([...education, currentEducation]);
@@ -200,9 +185,7 @@ const ResumeBuilder = () => {
     if (currentWork.company || currentWork.position || currentWork.startDate || currentWork.endDate || currentWork.description) {
       setWorkExperience([...workExperience, currentWork]);
       setCurrentWork({ company: "", position: "", startDate: "", endDate: "", description: "" });
-    } else {
-      alert("Please enter at least one work experience detail.");
-    }
+    } 
   };
 
   const addSkill = () => {
@@ -353,7 +336,19 @@ const ResumeBuilder = () => {
               </button>
             </div>
           </div>
+          {education.length > 0 && (
+              <div className="mt-4">
+                <h3 className="font-bold">Added Education:</h3>
+                {education.map((edu, index) => (
+                  <div key={index} className="bg-gray-100 p-4 rounded-md mb-2">
+                    {edu.school} - {edu.degree} in {edu.major} ({edu.graduationYear})
+                  </div>
+                ))}
+              </div>
+            )}
         </div>
+      
+
       )}
 
      
@@ -421,6 +416,16 @@ const ResumeBuilder = () => {
               </button>
             </div>
           </div>
+          {workExperience.length > 0 && (
+              <div className="mt-4">
+                <h3 className="font-bold">Added Work Experiences:</h3>
+                {workExperience.map((work, index) => (
+                  <div key={index} className="bg-gray-100 p-4 rounded-md mb-2">
+                    {work.company} - {work.position} ({work.startDate} - {work.endDate})
+                  </div>
+                ))}
+              </div>
+            )}
         </div>
       )}
 
@@ -449,6 +454,18 @@ const ResumeBuilder = () => {
               </button>
             </div>
           </div>
+          {skills.length > 0 && (
+              <div className="mt-4">
+                <h3 className="font-bold">Added Skills:</h3>
+                <div className="flex flex-wrap">
+                  {skills.map((skill, index) => (
+                    <div key={index} className="bg-gray-100 p-2 rounded-md mr-2 mb-2">
+                      {skill}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
         </div>
       )}
       
@@ -490,6 +507,4 @@ const ResumeBuilder = () => {
 };
 
 export default ResumeBuilder;
-
-
 

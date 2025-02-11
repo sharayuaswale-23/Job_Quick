@@ -36,6 +36,8 @@ const Category = () => {
     limit: 100,
   });
 
+  const [searchInput, setSearchInput] = useState(initialTitle); // Temporary search input state
+
   const JobToken = Cookies.get("userToken");
   const userId = Cookies.get("userNewId");
 
@@ -52,6 +54,7 @@ const Category = () => {
     });
     return `https://jobquick.onrender.com/job/filter?${queryParams.toString()}`;
   };
+
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -82,8 +85,14 @@ const Category = () => {
     fetchCategories();
   }, [JobToken]);
 
+  
+  useEffect(() => {
+    if (isAuthenticated()) {
+      fetchJobs();
+    }
+  }, [filters]); 
+
   const fetchJobs = async () => {
-   
     if (!isAuthenticated()) return;
 
     setIsLoading(true);
@@ -116,9 +125,13 @@ const Category = () => {
     }));
   };
 
-  useEffect(() => {
-    fetchJobs();
-  }, [filters]);
+  const handleSearch = (e) => {
+    e.preventDefault(); 
+    setFilters((prev) => ({
+      ...prev,
+      title: searchInput, 
+    }));
+  };
 
   return (
     <>
@@ -130,16 +143,16 @@ const Category = () => {
             <p className="text-gray-700 text-md">Search for jobs by title to start your career journey.</p>
           </div>
 
-          <form className="w-full flex flex-col md:flex-row items-center gap-4" onSubmit={fetchJobs}>
-          
-          <input
+          <form className="w-full flex flex-col md:flex-row items-center gap-4" onSubmit={handleSearch}>
+            <input
               type="text"
-              value={filters.title}
-              onChange={(e) => handleFilterChange("title", e.target.value)}
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)} // Update search input state
               placeholder="Job title"
               className="flex-1 p-3 border border-blue-300 outline-none rounded-lg focus:ring-2 focus:ring-blue-500 w-full"
             />
-            <button type="submit"
+            <button
+              type="submit"
               className="bg-blue-700 text-white px-5 py-3 rounded-lg flex items-center gap-2 shadow-md hover:bg-blue-800"
             >
               <Search size={20} /> Search
@@ -157,9 +170,8 @@ const Category = () => {
           <div className="flex flex-col">
             <div className="flex gap-4">
               <div className="mb-11">
-             
                 <button
-                  className="p-1 bg-gradient-to-r from-gray-500 to-gray-600 text-white rounded-lg lg:hidden flex items-center gap-2 shadow-md hover:opacity-90 transition-all fixed top-20 left-4 z-30"
+                  className="p-1 m-2 bg-gradient-to-r from-gray-500 to-gray-600 text-white rounded-lg lg:hidden flex items-center gap-2 shadow-md hover:opacity-90 transition-all fixed top-20 left-4 z-30"
                   onClick={() => setIsOpen(!isOpen)}
                 >
                   {isOpen ? (
@@ -186,7 +198,6 @@ const Category = () => {
                   />
                 </div>
 
-         
                 {isOpen && (
                   <div
                     className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-10"
