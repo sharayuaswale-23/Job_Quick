@@ -29,7 +29,7 @@ const Dashboard = () => {
         <div className="flex flex-col md:flex-row lg:flex-row mt-16 lg:mt-2 justify-between items-center lg:mb-6 mb-10">
           <div><h1 className="text-5xl text-center font-extrabold text-green-700 mb-6">Dashboard</h1></div>
          <div>
-         <Link to="/jobposting" className="bg-green-500 text-white rounded-lg font-semibold px-4 py-2 transition-all shadow-md">
+         <Link to="/jobposting" className="bg-green-500 text-white rounded-lg font-semibold px-4 py-3 transition-all shadow-md">
             Post a Job
           </Link>
          </div>

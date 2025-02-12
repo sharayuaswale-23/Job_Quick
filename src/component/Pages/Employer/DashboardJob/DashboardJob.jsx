@@ -65,8 +65,8 @@ const Dashboardjob = () => {
     <LineChart jobs = {jobs}/>
   </div>
  {/* Jobs  */}
- <div className="flex w-full flex-col items-center rounded-lg bg-white p-4">
-  <h2 className="text-xl font-semibold mb-4">Posted Jobs</h2>
+ <div className="flex w-full flex-col items-center rounded-lg bg-white p-2">
+  <h2 className="text-2xl font-bold text-green-700 p-2 mb-4">Posted Jobs</h2>
 
   {loading ? (
     <p>Loading jobs...</p>
@@ -74,12 +74,12 @@ const Dashboardjob = () => {
     <p>No jobs found.</p>
   ) : (
     <div className="w-full max-w-lg">
-      {/* Set a fixed height and enable scrolling */}
+    
       <div className="h-[680px] overflow-y-auto scrollbar-hide">
         {jobs.map((job) => (
           <div
             key={job._id}
-            className="bg-gray-100 p-4 rounded-lg flex justify-between shadow-md mb-4 transition-all duration-300"
+            className="bg-gray-50 p-2 py-4 rounded-lg flex justify-between shadow-md mb-4 transition-all duration-300"
           >
             <div className="flex">
               <div className="w-12 h-12 bg-gray-300 text-gray-700 font-semibold flex items-center justify-center rounded-lg text-xl uppercase">
