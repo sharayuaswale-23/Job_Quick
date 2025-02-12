@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import Profile from "../../../../assets/Images/profile1.webp";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Hostersidebar from "../Hostersidebar/Hostersidebar";
+import { FaUserEdit, FaTrashAlt, FaTimes, FaCheck } from "react-icons/fa";
 
 const HosterProfile = () => {
   const [hoster, setHoster] = useState(null);
   const [error, setError] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const navigate = useNavigate();
 
   const HostId = Cookies.get("userId");
   const HostToken = Cookies.get("jwtToken");
   const hostProfileApi = `https://jobquick.onrender.com/hostuser/${HostId}`;
+  const deleteProfile = `https://jobquick.onrender.com/hostuser/delete/${HostId}`;
 
   useEffect(() => {
     const fetchHostProfile = async () => {
@@ -37,6 +42,40 @@ const HosterProfile = () => {
 
     fetchHostProfile();
   }, [hostProfileApi, HostToken]);
+
+  const handleDeleteProfile = async (HostId) => {
+    console.log("Attempting to delete profile with ID:", HostId);
+    try {
+      const response = await fetch(deleteProfile, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${HostToken}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      const result = await response.json();
+      console.log("Delete API Response:", result);
+      if (response.ok) {
+        Cookies.remove("jwtToken");
+        Cookies.remove("userId");
+        navigate("/");
+      }
+
+      if (!response.ok) {
+        throw new Error(
+          `Failed to delete profile. Status: ${response.status}, Message: ${
+            result.message || "Unknown error"
+          }`
+        );
+      }
+
+      console.log("Profile deleted successfully");
+    } catch (error) {
+      console.error("Delete profile Error:", error);
+      setError(error.message);
+    }
+  };
 
   if (error) {
     return (
@@ -65,39 +104,47 @@ const HosterProfile = () => {
     
         <div className="flex-1 mt-8 lg:mt-1 p-4 md:p-10 lg:ml-64 bg-gradient-to-br from-green-50 to-blue-50 min-h-screen">
           <h1 className="text-5xl text-center font-extrabold bg-gradient-to-r from-green-600 to-green-900 text-black bg-clip-text text-transparent mb-8">
-            My Profile
+            Profile
           </h1>
 
       
           <div className="max-w-5xl mx-auto w-full bg-white shadow-xl rounded-3xl p-8 border border-gray-200">
         
-            <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
-            
-              <div className="w-32 h-32 rounded-full overflow-hidden shadow-lg">
-                <img
-                  src={Profile}
-                  alt="Profile"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-
-           
-              <div className="text-center md:text-left">
-                <h1 className="text-3xl font-extrabold text-gray-900 capitalize">
-                  {hoster.fullName || "Admin"}
-                </h1>
-                <div className="mt-3">
-                  <Link
-                    to="/hosterdetail"
-                    className="inline-block mt-2 text-white bg-green-600 hover:bg-green-700 transition-colors text-lg py-2 px-6 rounded-lg shadow-md font-semibold"
-                  >
-                    Edit Profile
+          <div className="px-4 h-auto w-full sm:h-48 lg:h-40 bg-gradient-to-br from-green-50 to-blue-50 text-green-900 flex flex-col sm:flex-row items-center justify-between shadow-lg rounded-b-3xl py-4 sm:py-0">
+              {/* Profile Info */}
+              <div className="flex flex-col sm:flex-row items-center w-full space-y-4 sm:space-y-0">
+                <img src={Profile} alt="Profile" className="w-24 h-16 sm:w-32 sm:h-24 lg:w-40 lg:h-28 rounded-full" />
+                <div className="text-center sm:text-left">
+                  <h1 className="text-2xl sm:text-4xl font-bold drop-shadow-md">{hoster.fullName || "Admin"}</h1>
+                  <p className="font-medium text-gray-700 mt-1">{hoster.email || "N/A"}</p>
+                  <Link to="/hosterdetail">
+                    <button className="text-blue-700 hover:text-blue-900 font-semibold mt-2 underline transition-all duration-200">
+                      Edit Profile
+                    </button>
                   </Link>
+
+                  {/* Delete Button - Only below Edit Profile on small screens */}
+                  <div className="sm:hidden mt-3">
+                    <button
+                      onClick={() => setIsModalOpen(true)}
+                      className="w-full px-2 py-2 bg-red-600 text-white hover:bg-red-700  rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"
+                    >
+                      Delete Account
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
 
-         
+              {/* Delete Button - Stays in row layout for larger screens */}
+              <div className="hidden w-full justify-center md:justify-end sm:flex">
+                <button
+                  onClick={() => setIsModalOpen(true)}
+                  className="px-4 py-3 bg-red-600 text-white hover:bg-red-700 font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 w-full sm:w-auto"
+                >
+                  Delete Account
+                </button>
+              </div>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
             
              
@@ -149,6 +196,33 @@ const HosterProfile = () => {
 
             </div>
           </div>
+          {isModalOpen && (
+            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
+              <div className="bg-white p-8 rounded-2xl shadow-xl max-w-sm w-full transform transition-all scale-100 hover:scale-105">
+                <h2 className="text-xl font-bold text-gray-800 mb-4">
+                  Are you sure you want to delete your account?
+                </h2>
+                <p className="text-gray-500 text-sm mb-6">
+                  This action cannot be undone and will permanently remove your
+                  profile.
+                </p>
+                <div className="flex justify-between">
+                  <button
+                    onClick={handleDeleteProfile}
+                    className="px-5 py-2 bg-red-500 text-white font-medium rounded-lg flex items-center gap-2 hover:bg-red-700 transition-all duration-200"
+                  >
+                    <FaCheck className="w-5 h-5" /> Yes, Delete
+                  </button>
+                  <button
+                    onClick={() => setIsModalOpen(false)}
+                    className="px-5 py-2 bg-gray-300 text-gray-700 font-medium rounded-lg flex items-center gap-2 hover:bg-gray-400 transition-all duration-200"
+                  >
+                    <FaTimes className="w-5 h-5" /> Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </>

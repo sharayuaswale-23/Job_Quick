@@ -3,6 +3,7 @@ import axios from "axios";
 import { useDropzone } from "react-dropzone";
 import Header from "../../../common/header/Header";
 import Footer from "../../../common/Footer/Footer";
+import atsscore from "../../../../assets/Images/atsscore.png";
 
 const ATS_Score = () => {
   const [file, setFile] = useState(null);
@@ -57,57 +58,61 @@ const ATS_Score = () => {
 
     <main className="w-full max-w-7xl px-4 sm:px-6 md:px-8 py-12 grid grid-cols-1 lg:grid-cols-2 gap-10">
   
-      <section className="bg-white rounded-3xl p-6 sm:p-8 shadow-lg border border-gray-300 hover:shadow-xl transition-all w-full max-w-xl mx-auto">
-        <h2 className="text-2xl sm:text-3xl font-semibold text-center text-indigo-700">Upload Your Resume</h2>
-        <p className="text-center text-gray-500 text-sm mt-2">Supported formats: PDF. Max size: 5MB.</p>
-        <div
-          {...getRootProps()}
-          className="mt-6 border-2 border-dashed border-gray-300 rounded-lg py-10 text-center hover:border-indigo-500 transition cursor-pointer"
-        >
-          <input {...getInputProps()} />
-          {file ? (
-            <p className="text-lg font-medium text-gray-700">{file.name}</p>
-          ) : (
-            <p className="text-lg font-medium text-gray-700">Drag & Drop your resume here</p>
-          )}
-          <p className="text-gray-500 text-sm mt-2">or</p>
-          <label className="mt-4 inline-block bg-gradient-to-r from-blue-400 to-blue-700 text-white px-6 py-3 rounded-full shadow-md hover:shadow-lg font-semibold cursor-pointer">
-            Choose a File
-          </label>
-        </div>
-        <button
-          onClick={handleUpload}
-          className="mt-6 w-full px-6 py-3 bg-indigo-600 text-white rounded-lg shadow-md hover:bg-indigo-700 transition"
-          disabled={loading}
-        >
-          {loading ? "Analyzing..." : "Upload & Analyze"}
-        </button>
-      </section>
-
-     
-      <section className="bg-white rounded-3xl p-6 sm:p-8 shadow-lg border border-gray-300 hover:shadow-xl transition-all w-full max-w-xl mx-auto">
-        {result !== null ? (
-          <>
-           
-            <div className="mt-4 bg-gradient-to-r from-green-400 to-teal-500 p-6 rounded-xl text-center shadow-lg">
-              <p className="text-5xl sm:text-6xl font-extrabold text-white animate-bounce">{result.score}</p>
-              <p className="text-white font-semibold mt-2 text-base sm:text-lg">
-                {result.score >= 80
-                  ? "Fantastic! Your resume stands out!"
-                  : "Good effort! A few tweaks can make it even better."}
-              </p>
-            </div>
-
+ 
+  <section className="bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-gray-200 hover:shadow-2xl transition-all w-full max-w-xl mx-auto">
+    <h2 className="text-2xl sm:text-3xl font-semibold text-center text-blue-700">Upload Your Resume</h2>
+    <p className="text-center text-gray-500 text-sm mt-2">Supported formats: PDF. Max size: 5MB.</p>
     
-            {result.feedback.length > 0 && (
-              <div className="mt-6 bg-yellow-50 p-6 rounded-xl shadow-md max-h-48 overflow-y-auto border-l-4 border-yellow-500 scrollbar-hide">
-                <h3 className="text-lg font-bold text-yellow-700">Suggestions for Improvement</h3>
-                <div className="mt-4">
+    <div
+      {...getRootProps()}
+      className="mt-6 border-2 border-dashed border-gray-300 rounded-lg py-10 text-center hover:border-blue-500 transition cursor-pointer bg-gray-50 hover:bg-gray-100"
+    >
+      <input {...getInputProps()} />
+      {file ? (
+        <p className="text-lg font-medium text-gray-700">{file.name}</p>
+      ) : (
+        <p className="text-lg font-medium text-gray-700">Drag & Drop your resume here</p>
+      )}
+      <p className="text-gray-500 text-sm mt-2">or</p>
+      <label className="mt-4 inline-block bg-gradient-to-r from-blue-500 to-blue-700 text-white px-6 py-3 rounded-full shadow-md hover:shadow-lg font-semibold cursor-pointer transition transform hover:scale-105">
+        Choose a File
+      </label>
+    </div>
+
+    <button
+      onClick={handleUpload}
+      className="mt-6 w-full px-6 py-3 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition transform hover:scale-105"
+      disabled={loading}
+    >
+      {loading ? "Analyzing..." : "Upload & Analyze"}
+    </button>
+  </section>
+
+  
+
+  <section className="bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-gray-200 hover:shadow-2xl transition-all w-full max-w-xl mx-auto">
+    {result !== null ? (
+      <>
+       
+        <div className="mt-4 bg-gradient-to-r from-green-500 to-teal-600 p-6 rounded-xl text-center shadow-lg">
+          <p className="text-6xl font-extrabold text-white animate-bounce">{result.score}</p>
+          <p className="text-white font-semibold mt-2 text-lg">
+            {result.score >= 80
+              ? "Fantastic! Your resume stands out! 🎉"
+              : "Good effort! A few tweaks can make it even better. 💡"}
+          </p>
+        </div>
+
+       
+        {result.feedback.length > 0 && (
+          <div className="mt-6 bg-yellow-50 p-6 rounded-xl shadow-md max-h-48 overflow-y-auto border-l-4 border-yellow-500 scrollbar-hide">
+            <h3 className="text-lg font-bold text-yellow-700">Suggestions for Improvement</h3>
+            <div className="mt-4">
                   {result.feedback.map((suggestion, index) => {
-                    // Extract key points
+                    
                     const formattedSuggestion = suggestion
-                      .replace(/(?:\*\*)(.*?)(?:\*\*)/g, "<strong>$1</strong>") // Replace **bold** with <strong>
-                      .replace(/\*/g, ""); // Remove stray asterisks
+                      .replace(/(?:\*\*)(.*?)(?:\*\*)/g, "<strong>$1</strong>") 
+                      .replace(/\*/g, ""); 
 
                     return (
                       <p
@@ -118,16 +123,36 @@ const ATS_Score = () => {
                     );
                   })}
                 </div>
-              </div>
-            )}
-          </>
-        ) : (
-          <p className="text-center text-gray-600 text-md">
+          </div>
+        )}
+      </>
+    ) : (
+      <div className="flex flex-col h-full min-h-[300px] px-4 sm:px-8">
+      
+        <div className="w-full mt-8 sm:mt-12">
+          <p className="text-center text-gray-600 text-lg sm:text-xl font-medium">
             Upload your resume to see its score and improvement suggestions.
           </p>
-        )}
-      </section>
-    </main>
+        </div>
+
+    
+        <div className="flex flex-grow items-center justify-center">
+          <img 
+            src={atsscore} 
+            alt="Upload Illustration" 
+            className="opacity-40 w-24 sm:w-32 md:w-36 lg:w-40 xl:w-44 max-w-full"
+          />
+        </div>
+      </div>
+
+
+
+
+    )}
+  </section>
+</main>
+
+
   </div>
         </div>
 

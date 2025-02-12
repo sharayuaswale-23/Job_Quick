@@ -203,13 +203,13 @@ const LineChart = ({ jobs }) => {
 
         {selectedJob && graphData && (
           <div className="grid grid-cols-2 sm:grid-cols-2 gap-4">
-            <div className="p-4 bg-green-50 rounded-lg">
+            <div className="p-4 bg-orange-50 rounded-lg">
               <p className="text-sm text-black">Total Applicants</p>
               <p className="text-xl font-semibold text-black">
                 {graphData.dataPoints.reduce((a, b) => a + b, 0)}
               </p>
             </div>
-            <div className="p-4 bg-green-50 rounded-lg">
+            <div className="p-4 bg-purple-50 rounded-lg">
               <p className="text-sm text-black">Peak Day</p>
               <p className="text-xl font-semibold text-black">
                 {graphData.labels[graphData.dataPoints.indexOf(Math.max(...graphData.dataPoints))]}
@@ -221,7 +221,7 @@ const LineChart = ({ jobs }) => {
                 {(graphData.dataPoints.reduce((a, b) => a + b, 0) / 7).toFixed(1)}
               </p>
             </div>
-            <div className="p-4 bg-green-50 rounded-lg">
+            <div className="p-4 bg-blue-50 rounded-lg">
               <p className="text-sm  text-black">Active Days</p>
               <p className="text-xl font-semibold text-black">
                 {graphData.dataPoints.filter(x => x > 0).length}
