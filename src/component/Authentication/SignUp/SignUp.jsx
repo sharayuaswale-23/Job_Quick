@@ -5,8 +5,10 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { FaUser, FaLock } from "react-icons/fa";
 import loginimg from "../../../assets/Images/loginimg.webp";
+import { Eye, EyeOff } from "lucide-react"; 
 
 const Signup = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -110,13 +112,22 @@ const Signup = () => {
           </div>
           <div className="flex items-center border-b-2 border-blue-400 py-2">
             <FaLock className="text-blue-600 mr-2" />
-            <input
-              type="password"
-              placeholder="Password"
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              className="w-full focus:outline-none bg-transparent placeholder-gray-500 text-gray-800 focus:border-b-2 focus:border-blue-500"
-            />
+            <div className="relative w-full">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Password"
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    className="w-full pr-10 focus:outline-none bg-transparent placeholder-gray-500 text-gray-800 focus:border-b-2 focus:border-blue-500"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-600 hover:text-gray-800"
+                  >
+                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                  </button>
+                </div>
           </div>
         </div>
 

@@ -151,7 +151,7 @@ const Profile = () => {
       <div className="min-h-screen mt-16 bg-gradient-to-br from-blue-50 to-gray-100 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white rounded-3xl overflow-hidden py-4">
-        <h1 className="text-4xl font-extrabold text-blue-900 mb-4 ml-16 mt-4">Profile</h1>
+        <h1 className="text-4xl text-center md:text-left font-extrabold text-blue-900 mb-4 ml-0 md:ml-16 mt-4">Profile</h1>
           {/* Header */}
     <div className="h-auto w-full sm:h-48 lg:h-40 text-blue-900 flex flex-col sm:flex-row items-center px-6 sm:px-12 justify-between py-6 sm:py-0">
     

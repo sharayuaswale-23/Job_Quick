@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import { Eye, EyeOff } from "lucide-react";
+
 const HosterLogin = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -86,15 +89,24 @@ const HosterLogin = () => {
              onChange={(e) => setEmail(e.target.value)}
              required
           />
-          <input
-            className="w-full rounded-lg border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-teal-500"
-            type="password"
-             id="password"
-             value={password}
-             placeholder="Enter your password"
-             onChange={(e) => setPassword(e.target.value)}
-             required
-          />
+          <div className="relative w-full">
+            <input
+              className="w-full rounded-lg border border-gray-300 p-3 pr-10 focus:outline-none focus:ring-2 focus:ring-teal-500"
+              type={showPassword ? "text" : "password"}
+              id="password"
+              value={password}
+              placeholder="Enter your password"
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-600 hover:text-gray-800"
+            >
+              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </button>
+          </div>
           <button type="submit" className="w-full rounded-lg bg-teal-500 p-3 text-white font-semibold hover:bg-teal-600 transition-all">
          LOGIN
           </button>
