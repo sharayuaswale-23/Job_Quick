@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineUser } from "react-icons/ai";
 import LineChart from "../LineChart/LineChart";
+import PieChart from "../PieChart/PieChart";
 
 const Dashboardjob = () => {
   const [jobs, setJobs] = useState([]);
@@ -64,6 +65,7 @@ const Dashboardjob = () => {
     <div className="col-span-2 max-h-auto bg-white p-6 rounded-lg shadow-lg">
     <LineChart jobs = {jobs}/>
   </div>
+ 
  {/* Jobs  */}
  <div className="flex w-full flex-col items-center rounded-lg bg-white p-2">
   <h2 className="text-2xl font-bold text-green-700 p-2 mb-4">Posted Jobs</h2>
@@ -102,6 +104,12 @@ const Dashboardjob = () => {
     </div>
   )}
 </div>
+
+<div className="col-span-2 max-h-auto bg-white p-6 rounded-lg shadow-lg">
+<PieChart jobs = {jobs}/>
+  </div>
+
+
 
 </div>
 

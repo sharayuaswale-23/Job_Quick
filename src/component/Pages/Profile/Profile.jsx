@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
 import Header from "../../common/header/Header";
@@ -7,14 +7,18 @@ import Footer from "../../common/Footer/Footer";
 import ProfileImg from "../../../assets/Images/profileimg.png";
 import { FaUserEdit, FaTrashAlt, FaTimes, FaCheck } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 
 
 const Profile = () => {
+  const resumeDownloadRef = useRef(null);
+  const resumeRef = useRef(null); // Ref for capturing the resume
   const [seeker, setSeeker] = useState(null);
   const [error, setError] = useState(null);
   const [jobs, setJobs] = useState([]);
   const [showAllJobs, setShowAllJobs] = useState(false);
-  const [visibleJobs, setVisibleJobs] = useState(3);
+  const [visibleJobs, setVisibleJobs] = useState(2);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const userId = Cookies.get("userNewId");
@@ -143,143 +147,241 @@ const Profile = () => {
     );
   }
 
+  const downloadPDF = () => {
+    const resumeElement = resumeRef.current;
+    if (!resumeElement) return;
+  
+    html2canvas(resumeElement, { scale: 2 }).then((canvas) => {
+      const pdf = new jsPDF("p", "mm", "a4");
+      pdf.setFont("helvetica");
+  
+      let yOffset = 10;
+      const marginLeft = 10;
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const lineSpacing = 7;
+  
+      // Header with Background
+      pdf.setFillColor(33, 37, 41);
+      pdf.rect(0, yOffset, pageWidth, 20, "F");
+      pdf.setTextColor(255, 255, 255);
+      pdf.setFontSize(18);
+      pdf.text(seeker.fullName || "N/A", pageWidth / 2, yOffset + 13, { align: "center" });
+      yOffset += 25;
+  
+      // Summary Section
+      pdf.setTextColor(33, 37, 41);
+      pdf.setFontSize(14);
+      pdf.text("Summary", marginLeft, yOffset);
+      pdf.setFontSize(12);
+      pdf.setTextColor(0, 0, 0);
+      pdf.text(seeker.summary || "N/A", marginLeft, (yOffset += lineSpacing + 5));
+  
+      // Personal Information (Email & Phone)
+      yOffset += 10;
+      pdf.setFontSize(14);
+      pdf.setTextColor(33, 37, 41);
+      pdf.text("Contact Information", marginLeft, yOffset);
+      pdf.setFontSize(12);
+      pdf.setTextColor(0, 0, 0);
+      pdf.text(`Email: ${seeker.email || "N/A"}`, marginLeft, (yOffset += lineSpacing + 5));
+      pdf.text(`Phone: ${seeker.phoneNumber || "N/A"}`, pageWidth / 2, yOffset);
+  
+      // Project URL
+      pdf.text(`Project URL: ${seeker.projectUrl || "N/A"}`, marginLeft, (yOffset += lineSpacing + 5));
+  
+      // Education Section
+      yOffset += 10;
+      pdf.setFontSize(14);
+      pdf.setTextColor(33, 37, 41);
+      pdf.text("Education", marginLeft, yOffset);
+      pdf.setFontSize(12);
+      pdf.setTextColor(0, 0, 0);
+      pdf.text(`Degree: ${seeker.eduDegree || "N/A"}`, marginLeft, (yOffset += lineSpacing + 5));
+      pdf.text(`Specialization: ${seeker.eduSpecialisation || "N/A"}`, pageWidth / 2, yOffset);
+      pdf.text(`Start Year: ${seeker.eduStartYear || "N/A"}`, marginLeft, (yOffset += lineSpacing + 5));
+      pdf.text(`End Year: ${seeker.eduEndYear || "N/A"}`, pageWidth / 2, yOffset);
+      pdf.text(`Institution: ${seeker.eduInstitution || "N/A"}`, marginLeft, (yOffset += lineSpacing + 5));
+  
+      // Experience Section
+      yOffset += 10;
+      pdf.setFontSize(14);
+      pdf.setTextColor(33, 37, 41);
+      pdf.text("Experience", marginLeft, yOffset);
+      pdf.setFontSize(12);
+      pdf.setTextColor(0, 0, 0);
+      pdf.text(`Company: ${seeker.companyName || "N/A"}`, marginLeft, (yOffset += lineSpacing + 5));
+      pdf.text(`Designation: ${seeker.designation || "N/A"}`, pageWidth / 2, yOffset);
+      pdf.text(`Start Date: ${seeker.startDate || "N/A"}`, marginLeft, (yOffset += lineSpacing + 5));
+      pdf.text(`End Date: ${seeker.endDate || "N/A"}`, pageWidth / 2, yOffset);
+  
+      // Skills Section with background boxes
+      yOffset += 10;
+      pdf.setFontSize(14);
+      pdf.setTextColor(33, 37, 41);
+      pdf.text("Skills", marginLeft, yOffset);
+      yOffset += lineSpacing;
+  
+      if (seeker.skills && seeker.skills.length) {
+        let xPos = marginLeft;
+        let yPos = yOffset;
+        seeker.skills.forEach((skill, index) => {
+          pdf.setFillColor(240, 240, 240);
+          pdf.roundedRect(xPos, yPos, 30, 8, 2, 2, "F");
+          pdf.setTextColor(0, 0, 0);
+          pdf.text(skill, xPos + 3, yPos + 6);
+  
+          xPos += 35;
+          if (xPos + 30 > pageWidth - marginLeft) {
+            xPos = marginLeft;
+            yPos += 12;
+          }
+        });
+      } else {
+        pdf.text("N/A", marginLeft, yOffset);
+      }
+  
+      pdf.save("Resume.pdf");
+    });
+  };
+  
+  
+
   return (
     <>
       <Header />
  
+      <div className="min-h-screen mt-16 bg-gradient-to-br from-blue-50 to-gray-100 py-12">
+  <div className="max-w-7xl mx-auto px-4 sm:px-4 lg:px-10" ref={resumeRef}>
+    <div className="bg-white rounded-3xl overflow-hidden shadow-xl py-6">
+      <h1 className="text-5xl text-center font-extrabold text-blue-900 mb-6">Profile</h1>
+      
+  
+      <div className="grid grid-cols-1 md:grid-cols-10 gap-12 px-4 py-8">
+        
+      
+        <div className="md:col-span-3 space-y-8 flex flex-col items-center p-4">
+       
+          <div className="flex flex-col items-center">
+            <img src={ProfileImg} alt="Profile" className="w-28 h-28 lg:w-32 lg:h-32 rounded-full shadow-md border-4 border-black" />
+            <div className="text-center mt-5">
+              <h1 className="text-3xl font-bold drop-shadow-md text-blue-900">{seeker.fullName || "Admin"}</h1>
+              <p className="font-medium text-gray-600 mt-2">{seeker.email || "N/A"}</p>
+             <div className="flex flex-col">
+             <Link to="/userdetails">
+                <button className="text-blue-700 hover:text-blue-900 font-semibold mt-3 underline transition-all duration-300">Edit Profile</button>
+              </Link>
+              <Link>
+                <button  onClick={() => setIsModalOpen(true)} className="text-red-700 hover:text-red-900 font-semibold mt-3 underline transition-all duration-300">Delete Account</button>
+              </Link>
+              <Link >
+                <button  onClick={downloadPDF} className="text-green-700 hover:text-green-900 font-semibold mt-3 underline transition-all duration-300">Download Resume</button>
+              </Link>
+              
+             </div>
+            </div>
+          </div>
+          
+        
+          <section className="bg-white rounded-xl p-6 shadow-md w-full border border-gray-200">
+            <h2 className="text-xl lg:text-3xl font-bold text-blue-900 mb-4">Summary</h2>
+            <p className="text-gray-700 leading-relaxed">{seeker.summary || "N/A"}</p>
+          </section>
+          
+        
+          <section className="w-full">
+            <h2 className="text-3xl font-bold text-blue-900 mb-4">Skills</h2>
+            <div className="flex flex-wrap gap-3">
+              {seeker.skills?.map((skill, index) => (
+                <span key={index} className="px-5 py-2 bg-blue-200 text-blue-900 rounded-lg text-md font-medium shadow-sm">
+                  {skill}
+                </span>
+              )) || "N/A"}
+            </div>
+          </section>
+        </div>
 
-      <div className="min-h-screen mt-16 bg-gradient-to-br from-blue-50 to-gray-100 py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white rounded-3xl overflow-hidden py-4">
-        <h1 className="text-4xl text-center md:text-left font-extrabold text-blue-900 mb-4 ml-0 md:ml-16 mt-4">Profile</h1>
-          {/* Header */}
-    <div className="h-auto w-full sm:h-48 lg:h-40 text-blue-900 flex flex-col sm:flex-row items-center px-6 sm:px-12 justify-between py-6 sm:py-0">
-    
-  {/* Profile Info */}
-  <div className="flex flex-col sm:flex-row items-center w-full space-y-4 sm:space-y-0 sm:space-x-8">
-    <img src={ProfileImg} alt="Profile" className="w-16 h-16 sm:w-24 sm:h-24 lg:w-28 lg:h-28 rounded-full" />
-    <div className="text-center sm:text-left">
-      <h1 className="text-2xl sm:text-4xl font-bold drop-shadow-md">{seeker.fullName || "Admin"}</h1>
-      <p className="font-medium text-gray-700 mt-1">{seeker.email || "N/A"}</p>
-      <Link to="/userdetails">
-        <button className="text-blue-700 hover:text-blue-900 font-semibold mt-2 underline transition-all duration-200">
-          Edit Profile
-        </button>
-      </Link>
+   
+        <div className="md:col-span-7 space-y-8">
+       
+          <div className="grid grid-cols-1 gap-8">
 
-      {/* Delete Button - Only below Edit Profile on small screens */}
-      <div className="sm:hidden mt-3">
-        <button
-          onClick={() => setIsModalOpen(true)}
-          className="w-full px-2 py-2 bg-red-600 text-white hover:bg-red-700  rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"
-        >
-          Delete Account
-        </button>
+        <section className="bg-white rounded-xl p-6 shadow-md border border-gray-200">
+          <h2 className="text-3xl font-bold text-blue-900 mb-4">Personal Details</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6">
+            {[
+              ["Gender", seeker.gender || "N/A"], 
+              ["Date of Birth", seeker.dateOfBirth || "N/A"], 
+              ["Phone", seeker.phoneNumber || "N/A"], 
+              ["Email", seeker.email || "N/A"], 
+              ["Project URL", seeker.projectUrl || "N/A"]
+            ].map(([label, value], index) => (
+              <p key={index} className="text-gray-700 mb-2"><strong>{label}:</strong> {value}</p>
+            ))}
+          </div>
+        </section>
+
+
+        <section className="bg-white rounded-xl p-6 shadow-md border border-gray-200">
+          <h2 className="text-3xl font-bold text-blue-900 mb-4">Educational Details</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6">
+            {[
+              ["Degree", seeker.eduDegree || "N/A"], 
+              ["Specialization", seeker.eduSpecialisation || "N/A"], 
+              ["Start Year", seeker.eduStartYear || "N/A"], 
+              ["End Year", seeker.eduEndYear || "N/A"], 
+              ["Institution", seeker.eduInstitution || "N/A"]
+            ].map(([label, value], index) => (
+              <p key={index} className="text-gray-700 mb-2"><strong>{label}:</strong> {value}</p>
+            ))}
+          </div>
+        </section>
+      </div>
+
+
+      <section className="bg-white rounded-xl p-6 shadow-md border border-gray-200 mt-8">
+        <h2 className="text-3xl font-bold text-blue-900 mb-4">Experience</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6">
+          {[
+            ["Company", seeker.companyName || "N/A"], 
+            ["Designation", seeker.designation || "N/A"], 
+            ["Start Date", seeker.startDate || "N/A"], 
+            ["End Date", seeker.endDate || "N/A"]
+          ].map(([label, value], index) => (
+            <p key={index} className="text-gray-700 mb-2"><strong>{label}:</strong> {value}</p>
+          ))}
+        </div>
+      </section>  
+          <section>
+            <h2 className="text-3xl font-bold text-blue-900 mb-6 text-center sm:text-left">Jobs You've Applied To</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
+              {displayedJobs.map((job) => (
+                <div key={job._id} className="border mb-2 p-6 rounded-2xl shadow-lg bg-white hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 flex flex-col justify-between">
+                  <h2 className="text-xl font-bold text-blue-900 mb-2">{job.title}</h2>
+                  <p className="text-gray-500 font-semibold mb-2">
+                    <span className="font-bold text-black">Company:</span> {job.companyName}
+                  </p>
+                  <p className="text-gray-500 font-semibold">
+                    <span className="font-bold text-black">Location:</span> {job.location}
+                  </p>
+                </div>
+              ))}
+            </div>
+            {jobs.length > visibleJobs && (
+              <div className="flex justify-center mt-8">
+                <button
+                  onClick={handleSeeMoreJobs}
+                  className="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-800 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 text-lg transform hover:-translate-y-1">
+                  {showAllJobs ? "Show Less" : "See More Jobs"}
+                </button>
+              </div>
+            )}
+          </section>
+        </div>
       </div>
     </div>
   </div>
 
-  {/* Delete Button - Stays in row layout for larger screens */}
-  <div className="hidden w-full justify-center md:justify-end sm:flex">
-    <button
-      onClick={() => setIsModalOpen(true)}
-      className="px-4 py-3 bg-red-600 text-white hover:bg-red-700 font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 w-full sm:w-auto"
-    >
-      Delete Account
-    </button>
-  </div>
-</div>
-
-
-
-          <div className="px-4 sm:px-6 lg:px-8 py-8">
-            <div className="space-y-8">
-              {/* Summary */}
-              <section className="bg-gray-100 rounded-xl p-6 shadow-md">
-                <h2 className="text-3xl font-bold text-blue-900 mb-4">Summary</h2>
-                <p className="text-gray-700 leading-relaxed">{seeker.summary || "N/A"}</p>
-              </section>
-
-              {/* Personal & Educational Details Side by Side */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                <section className="flex flex-wrap gap-6">
-                  <h2 className="text-3xl font-bold text-blue-900 mb-4 w-full">Personal Details</h2>
-                  {[["Gender", seeker.gender || "N/A"], ["Date of Birth", seeker.dateOfBirth || "N/A"], ["Phone Number", seeker.phoneNumber || "N/A"], ["Email ID", seeker.email || "N/A"], ["Project URL", seeker.projectUrl || "N/A"]].map(([label, value], index) => (
-                    <div key={index} className="flex-1 min-w-[200px] bg-gray-100 rounded-xl p-4 shadow-sm">
-                      <p className="text-gray-600 text-sm">{label}</p>
-                      <p className="font-semibold text-gray-900 mt-1">{value}</p>
-                    </div>
-                  ))}
-                </section>
-
-                <section className="flex flex-wrap gap-6">
-                  <h2 className="text-3xl font-bold text-blue-900 mb-4 w-full">Educational Details</h2>
-                  {[["Degree", seeker.eduDegree || "N/A"], ["Specialization", seeker.eduSpecialisation || "N/A"], ["Start Year", seeker.eduStartYear || "N/A"], ["End Year", seeker.eduEndYear || "N/A"], ["Institution Name", seeker.eduInstitution || "N/A"]].map(([label, value], index) => (
-                    <div key={index} className="flex-1 min-w-[200px] bg-gray-100 rounded-xl p-4 shadow-sm">
-                      <p className="text-gray-600 text-sm">{label}</p>
-                      <p className="font-semibold text-gray-900 mt-1">{value}</p>
-                    </div>
-                  ))}
-                </section>
-              </div>
-
-                            {/* Experience */}
-                            <section>
-                <h2 className="text-3xl font-bold text-blue-900 mb-4">Experience</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {["Company Name", "Designation", "Start Date", "End Date"].map((field, index) => (
-                    <div key={index} className="bg-gray-100 rounded-xl p-4">
-                      <p className="text-gray-600 text-sm">{field}</p>
-                      <p className="font-semibold text-gray-900 mt-1">{seeker[field.toLowerCase().replace(/ /g, "")] || "N/A"}</p>
-                    </div>
-                  ))}
-                </div>
-              </section>
-
-                {/* Skills */}
-                <section>
-                <h2 className="text-3xl font-bold text-blue-900 mb-4">Skills</h2>
-                <div className="flex flex-wrap gap-3">
-                  {seeker.skills?.map((skill, index) => (
-                    <span key={index} className="px-4 py-2 bg-blue-100 text-blue-900 rounded-lg text-md font-medium">
-                      {skill}
-                    </span>
-                  )) || "N/A"}
-                </div>
-              </section>
-
-              {/* Jobs Applied */}
-              <section>
-                <h2 className="text-3xl font-bold text-blue-900 mb-6 text-center sm:text-left">Jobs You've Applied To</h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {displayedJobs.map((job) => (
-                    <div key={job._id} className="border p-6 rounded-2xl shadow-xl bg-white hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 flex flex-col justify-between">
-                      <h2 className="text-xl font-bold text-blue-900 mb-2">{job.title}</h2>
-                      <p className="text-gray-500 font-semibold">
-                        <span className="font-bold text-black">Company:</span> {job.companyName}
-                      </p>
-                      <p className="text-gray-500 font-semibold">
-                        <span className="font-bold text-black">Location:</span> {job.location}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-                {jobs.length > visibleJobs && (
-                  <div className="flex justify-center mt-8">
-                    <button
-                      onClick={handleSeeMoreJobs}
-                      className="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-800 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 text-lg transform hover:-translate-y-1"
-                    >
-                      {showAllJobs ? "Show Less" : "See More Jobs"}
-                    </button>
-                  </div>
-                )}
-              </section>
-            </div>
-          </div>
-        </div>
-      </div>
-      {isModalOpen && (
+  {isModalOpen && (
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
           <div className="bg-white p-8 rounded-2xl shadow-xl max-w-sm w-full transform transition-all scale-100 hover:scale-105">
             <h2 className="text-xl font-bold text-gray-800 mb-4">
@@ -306,9 +408,9 @@ const Profile = () => {
         </div>
         
         )}
-    </div>
 
-
+        
+</div>
 
 <Footer/>
       
