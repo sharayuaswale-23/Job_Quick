@@ -71,7 +71,7 @@ const Signup = () => {
     className="bg-white rounded-2xl shadow-2xl overflow-hidden w-full max-w-4xl grid grid-cols-1 md:grid-cols-2"
   >
 
-    <div className="hidden md:flex items-center justify-center bg-blue-50 p-8 w-full">
+    <div className="hidden md:flex items-center justify-center bg-blue-100 p-8 w-full">
       <motion.div 
         initial={{ x: -50, opacity: 0 }} 
         animate={{ x: 0, opacity: 1 }} 
