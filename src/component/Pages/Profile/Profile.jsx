@@ -150,9 +150,11 @@ const Profile = () => {
 
       <div className="min-h-screen mt-16 bg-gradient-to-br from-blue-50 to-gray-100 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
+        <div className="bg-white rounded-3xl overflow-hidden py-4">
+        <h1 className="text-4xl font-extrabold text-blue-900 mb-4 ml-16 mt-4">Profile</h1>
           {/* Header */}
-    <div className="h-auto w-full sm:h-48 lg:h-40 bg-gradient-to-r from-blue-100 to-blue-300 text-blue-900 flex flex-col sm:flex-row items-center px-6 sm:px-12 justify-between shadow-lg rounded-b-3xl py-4 sm:py-0">
+    <div className="h-auto w-full sm:h-48 lg:h-40 text-blue-900 flex flex-col sm:flex-row items-center px-6 sm:px-12 justify-between py-6 sm:py-0">
+    
   {/* Profile Info */}
   <div className="flex flex-col sm:flex-row items-center w-full space-y-4 sm:space-y-0 sm:space-x-8">
     <img src={ProfileImg} alt="Profile" className="w-16 h-16 sm:w-24 sm:h-24 lg:w-28 lg:h-28 rounded-full" />
@@ -231,6 +233,18 @@ const Profile = () => {
                       <p className="font-semibold text-gray-900 mt-1">{seeker[field.toLowerCase().replace(/ /g, "")] || "N/A"}</p>
                     </div>
                   ))}
+                </div>
+              </section>
+
+                {/* Skills */}
+                <section>
+                <h2 className="text-3xl font-bold text-blue-900 mb-4">Skills</h2>
+                <div className="flex flex-wrap gap-3">
+                  {seeker.skills?.map((skill, index) => (
+                    <span key={index} className="px-4 py-2 bg-blue-100 text-blue-900 rounded-lg text-md font-medium">
+                      {skill}
+                    </span>
+                  )) || "N/A"}
                 </div>
               </section>
 

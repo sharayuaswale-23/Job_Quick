@@ -110,10 +110,10 @@ const HosterProfile = () => {
       
           <div className="max-w-5xl mx-auto w-full bg-white shadow-xl rounded-3xl p-8 border border-gray-200">
         
-          <div className="px-4 h-auto w-full sm:h-48 lg:h-40 bg-gradient-to-br from-green-50 to-blue-50 text-green-900 flex flex-col sm:flex-row items-center justify-between shadow-lg rounded-b-3xl py-4 sm:py-0">
-              {/* Profile Info */}
+          <div className="h-auto w-full sm:h-48 lg:h-40 text-green-900 flex flex-col sm:flex-row items-center justify-between py-4 sm:py-0">
+         
               <div className="flex flex-col sm:flex-row items-center w-full space-y-4 sm:space-y-0">
-                <img src={Profile} alt="Profile" className="w-24 h-16 sm:w-32 sm:h-24 lg:w-40 lg:h-28 rounded-full" />
+                <img src={Profile} alt="Profile" className="w-28 h-16 sm:w-32 sm:h-24 lg:w-44 lg:h-28 rounded-full" />
                 <div className="text-center sm:text-left">
                   <h1 className="text-2xl sm:text-4xl font-bold drop-shadow-md">{hoster.fullName || "Admin"}</h1>
                   <p className="font-medium text-gray-700 mt-1">{hoster.email || "N/A"}</p>
@@ -123,7 +123,7 @@ const HosterProfile = () => {
                     </button>
                   </Link>
 
-                  {/* Delete Button - Only below Edit Profile on small screens */}
+           
                   <div className="sm:hidden mt-3">
                     <button
                       onClick={() => setIsModalOpen(true)}
@@ -149,7 +149,7 @@ const HosterProfile = () => {
             
              
               <div className="bg-gray-50 p-6 rounded-lg shadow-md border">
-                <h2 className="text-xl font-semibold text-gray-800 mb-3">
+                <h2 className="text-xl font-extrabold text-gray-800 mb-3">
                   Additional Information
                 </h2>
                 <div className="space-y-3">
@@ -172,7 +172,7 @@ const HosterProfile = () => {
               </div>
         
               <div className="bg-gray-50 p-6 rounded-lg shadow-md border">
-                <h2 className="text-xl font-semibold text-gray-800 mb-3">
+                <h2 className="text-xl font-extrabold text-gray-800 mb-3">
                   Location Details
                 </h2>
                 <div className="space-y-3">

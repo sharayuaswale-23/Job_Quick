@@ -50,9 +50,9 @@ const ContactPage = () => {
             <h2 className="text-4xl font-extrabold">Contact Information</h2>
             <p className="text-lg text-gray-200">Reach us at our office or send us a message.</p>
             <div className="space-y-4">
-              <p className="text-lg font-semibold">📍 Address: <span className="text-gray-300">Ram Nagar, Nagpur</span></p>
+              <p className="text-lg font-semibold">📍 Address: <span className="text-gray-300">Dharampeth Tower, Fionaa Building, Nagpur - 440010</span></p>
               <p className="text-lg font-semibold">📞 Let's Talk: <span className="text-gray-300">+91 9999999999</span></p>
-              <p className="text-lg font-semibold">📧 Email: <span className="text-gray-300">sharayuaswale123@gmail.com</span></p>
+              <p className="text-lg font-semibold">📧 Email: <span className="text-gray-300">jobquick@gmail.com</span></p>
             </div>
           </div>
         </div>
@@ -107,17 +107,14 @@ const ContactPage = () => {
 
 <div className="w-full h-[450px] overflow-hidden shadow-lg">
           <iframe
-            title="Google Map Location"
-           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3721.2079855033585!2d79.05346007343789!3d21.144119683809947!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd4c05d75e3bae1%3A0x5094d1a9292b665a!2sRam%20Nagar%2C%20Nagpur%2C%20Maharashtra%20440010!5e0!3m2!1sen!2sin!4v1738052911196!5m2!1sen!2sin"
+           title="Google Map Location"
+           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6561.210993309147!2d79.05923680865642!3d21.13999799798919!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd4c060d6a8983b%3A0x6e9678ae12e13fd4!2sDharampeth%20Tower!5e0!3m2!1sen!2sin!4v1739422850317!5m2!1sen!2sin"
            width="100%"
             height="450"
             style={{ border: 0 }}
             allowFullScreen=""
             loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          ></iframe>
-
-         
+            referrerPolicy="no-referrer-when-downgrade"></iframe>   
         </div> 
 
 
