@@ -188,7 +188,7 @@ const LineChart = ({ jobs }) => {
           </div>
         </div>
 
-        <div className="relative w-full h-[300px] sm:h-[400px] bg-white rounded-lg">
+        <div className="lg:relative w-full h-[300px] sm:h-[400px] bg-white rounded-lg">
           {isLoading ? (
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="flex flex-col items-center space-y-2">

@@ -5,14 +5,14 @@ import { Link } from "react-router-dom";
 import Header from "../../common/header/Header";
 import Footer from "../../common/Footer/Footer";
 import ProfileImg from "../../../assets/Images/profileimg.png";
-import { FaUserEdit, FaTrashAlt, FaTimes, FaCheck } from "react-icons/fa";
+import {FaTimes, FaCheck } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 
 
 const Profile = () => {
-  const resumeRef = useRef(null); // Ref for capturing the resume
+  const resumeRef = useRef(null); 
   const [seeker, setSeeker] = useState(null);
   const [error, setError] = useState(null);
   const [jobs, setJobs] = useState([]);

@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from "react";
-import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
 import { AiOutlineUser } from "react-icons/ai";
-import LineChart from "../LineChart/LineChart";
-import PieChart from "../PieChart/PieChart";
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const Dashboardjob = () => {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const [visibleJobs, setVisibleJobs] = useState(6);
+  const [visibleJobs, setVisibleJobs] = useState(3);
   const [expanded, setExpanded] = useState(false);
 
   const toggleJobs = () => {
     if (expanded) {
-      setVisibleJobs(6);
+      setVisibleJobs(3);
     } else {
       setVisibleJobs(jobs.length);
     }
@@ -57,31 +55,21 @@ const Dashboardjob = () => {
   const handleViewApplicants = async (jobId) => {
     navigate(`/job/${jobId}/applicants`);
   };
-
   return (
-
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
- {/* Graph  */}
-    <div className="col-span-2 max-h-auto bg-white p-6 rounded-lg shadow-lg">
-    <LineChart jobs = {jobs}/>
-  </div>
- 
- {/* Jobs  */}
- <div className="flex w-full flex-col items-center rounded-lg bg-white p-2">
+<>
+<div className="flex w-full flex-col items-center rounded-lg bg-white p-2">
   <h2 className="text-2xl font-bold text-green-700 p-2 mb-4">Posted Jobs</h2>
 
-  {loading ? (
-    <p>Loading jobs...</p>
-  ) : jobs.length === 0 ? (
+  { jobs.length === 0 ? (
     <p>No jobs found.</p>
   ) : (
     <div className="w-full max-w-lg">
     
-      <div className="h-[680px] overflow-y-auto scrollbar-hide">
+      <div className="h-64 overflow-y-auto scrollbar-hide">
         {jobs.map((job) => (
           <div
             key={job._id}
-            className="bg-gray-50 p-2 py-4 rounded-lg flex justify-between shadow-md mb-4 transition-all duration-300"
+            className="bg-gray-50 p-2 py-4 rounded-lg flex justify-between shadow-md mb-4"
           >
             <div className="flex">
               <div className="w-12 h-12 bg-gray-300 text-gray-700 font-semibold flex items-center justify-center rounded-lg text-xl uppercase">
@@ -104,14 +92,9 @@ const Dashboardjob = () => {
     </div>
   )}
 </div>
-
-<div className="col-span-2 max-h-auto bg-white p-6 rounded-lg shadow-lg">
-<PieChart jobs = {jobs}/>
-  </div>
+</>
 
 
-
-</div>
 
   );
 };

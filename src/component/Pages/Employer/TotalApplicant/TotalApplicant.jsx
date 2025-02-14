@@ -51,7 +51,7 @@ const TotalApplicant = () => {
         <p className="text-red-500">{error}</p>
       ) : (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-    <div className="bg-white p-6 rounded-lg shadow-lg flex justify-between items-center transform hover:scale-105 transition duration-300">
+    <div className="bg-white p-6 rounded-lg shadow-lg flex justify-between items-center lg:transform lg:hover:scale-105 lg:transition lg:duration-300">
           <div>
             <div className="text-3xl font-bold text-gray-900">{totalApplicants.toLocaleString()}</div>
             <div className="text-gray-600">Applications</div>
@@ -61,7 +61,7 @@ const TotalApplicant = () => {
           </div>
         </div>
 
-          <div className="bg-white p-6 rounded-lg shadow-lg flex justify-between items-center transform hover:scale-105 transition duration-300">
+          <div className="bg-white p-6 rounded-lg shadow-lg flex justify-between items-center lg:transform lg:hover:scale-105 lg:transition lg:duration-300">
                           <div>
                             <div className="text-3xl font-bold text-gray-900">{totalJobs.toLocaleString()}</div>
                             <div className="text-gray-600">TotalJobs</div>
@@ -71,7 +71,7 @@ const TotalApplicant = () => {
                           </div>
                         </div>
 
-          <div className="bg-white p-6 rounded-lg shadow-lg flex justify-between items-center transform hover:scale-105 transition duration-300">
+          <div className="bg-white p-6 rounded-lg shadow-lg flex justify-between items-center lg:transform lg:hover:scale-105 lg:transition lg:duration-300">
                     <div>
                       <div className="text-3xl font-bold text-gray-900">{totalShortlisted.toLocaleString()}</div>
                       <div className="text-gray-600">Shortlisted</div>
