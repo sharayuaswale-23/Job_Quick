@@ -12,7 +12,6 @@ import html2canvas from "html2canvas";
 
 
 const Profile = () => {
-  const resumeDownloadRef = useRef(null);
   const resumeRef = useRef(null); // Ref for capturing the resume
   const [seeker, setSeeker] = useState(null);
   const [error, setError] = useState(null);
@@ -153,94 +152,108 @@ const Profile = () => {
   
     html2canvas(resumeElement, { scale: 2 }).then((canvas) => {
       const pdf = new jsPDF("p", "mm", "a4");
-      pdf.setFont("helvetica");
-  
-      let yOffset = 10;
-      const marginLeft = 10;
       const pageWidth = pdf.internal.pageSize.getWidth();
-      const lineSpacing = 7;
+      const pageHeight = pdf.internal.pageSize.getHeight();
+      const marginLeft = 20;
+      let yOffset = 20;
   
-      // Header with Background
-      pdf.setFillColor(33, 37, 41);
-      pdf.rect(0, yOffset, pageWidth, 20, "F");
-      pdf.setTextColor(255, 255, 255);
-      pdf.setFontSize(18);
-      pdf.text(seeker.fullName || "N/A", pageWidth / 2, yOffset + 13, { align: "center" });
-      yOffset += 25;
+      const colors = {
+        primary: [34, 49, 63],
+        accent: [48, 213, 200],
+        text: {
+          dark: [40, 40, 40],
+          light: [255, 255, 255],
+        },
+        background: {
+          section: [245, 245, 245],
+        },
+      };
   
-      // Summary Section
-      pdf.setTextColor(33, 37, 41);
-      pdf.setFontSize(14);
-      pdf.text("Summary", marginLeft, yOffset);
-      pdf.setFontSize(12);
-      pdf.setTextColor(0, 0, 0);
-      pdf.text(seeker.summary || "N/A", marginLeft, (yOffset += lineSpacing + 5));
+      pdf.setFillColor(...colors.primary);
+      pdf.rect(0, 0, pageWidth, 50, "F");
+      pdf.setFont("times", "bold");
+      pdf.setFontSize(22);
+      pdf.setTextColor(...colors.text.light);
+      pdf.text(seeker.fullName || "N/A", pageWidth / 2, 30, { align: "center" });
   
-      // Personal Information (Email & Phone)
-      yOffset += 10;
-      pdf.setFontSize(14);
-      pdf.setTextColor(33, 37, 41);
-      pdf.text("Contact Information", marginLeft, yOffset);
-      pdf.setFontSize(12);
-      pdf.setTextColor(0, 0, 0);
-      pdf.text(`Email: ${seeker.email || "N/A"}`, marginLeft, (yOffset += lineSpacing + 5));
-      pdf.text(`Phone: ${seeker.phoneNumber || "N/A"}`, pageWidth / 2, yOffset);
+      pdf.setFontSize(11);
+      pdf.text(
+        `${seeker.email} | ${seeker.phoneNumber} | ${seeker.projectUrl || "N/A"}`,
+        pageWidth / 2,
+        40,
+        { align: "center" }
+      );
   
-      // Project URL
-      pdf.text(`Project URL: ${seeker.projectUrl || "N/A"}`, marginLeft, (yOffset += lineSpacing + 5));
+      yOffset = 60;
   
-      // Education Section
-      yOffset += 10;
-      pdf.setFontSize(14);
-      pdf.setTextColor(33, 37, 41);
-      pdf.text("Education", marginLeft, yOffset);
-      pdf.setFontSize(12);
-      pdf.setTextColor(0, 0, 0);
-      pdf.text(`Degree: ${seeker.eduDegree || "N/A"}`, marginLeft, (yOffset += lineSpacing + 5));
-      pdf.text(`Specialization: ${seeker.eduSpecialisation || "N/A"}`, pageWidth / 2, yOffset);
-      pdf.text(`Start Year: ${seeker.eduStartYear || "N/A"}`, marginLeft, (yOffset += lineSpacing + 5));
-      pdf.text(`End Year: ${seeker.eduEndYear || "N/A"}`, pageWidth / 2, yOffset);
-      pdf.text(`Institution: ${seeker.eduInstitution || "N/A"}`, marginLeft, (yOffset += lineSpacing + 5));
+      const drawSectionTitle = (title) => {
+        pdf.setFont("times", "bold");
+        pdf.setFontSize(14);
+        pdf.setTextColor(...colors.primary);
+        pdf.text(title.toUpperCase(), marginLeft, yOffset);
+        pdf.setLineWidth(0.7);
+        pdf.line(marginLeft, yOffset + 3, 120, yOffset + 3);
+        yOffset += 15;
+      };
   
-      // Experience Section
-      yOffset += 10;
-      pdf.setFontSize(14);
-      pdf.setTextColor(33, 37, 41);
-      pdf.text("Experience", marginLeft, yOffset);
-      pdf.setFontSize(12);
-      pdf.setTextColor(0, 0, 0);
-      pdf.text(`Company: ${seeker.companyName || "N/A"}`, marginLeft, (yOffset += lineSpacing + 5));
-      pdf.text(`Designation: ${seeker.designation || "N/A"}`, pageWidth / 2, yOffset);
-      pdf.text(`Start Date: ${seeker.startDate || "N/A"}`, marginLeft, (yOffset += lineSpacing + 5));
-      pdf.text(`End Date: ${seeker.endDate || "N/A"}`, pageWidth / 2, yOffset);
+      const drawProfessionalSection = (title, items, formatter) => {
+        drawSectionTitle(title);
+        items.forEach((item, index) => {
+          pdf.setFillColor(...(index % 2 === 0 ? colors.background.section : [255, 255, 255]));
+          pdf.rect(marginLeft, yOffset - 2, pageWidth - 40, 12, "F");
+          pdf.setFont("times", "bold");
+          pdf.setFontSize(11);
+          pdf.setTextColor(...colors.text.dark);
+          pdf.text("•", marginLeft + 2, yOffset + 6);
+          pdf.text(formatter(item), marginLeft + 10, yOffset + 6);
+          yOffset += 12;
+        });
+        yOffset += 10;
+      };
   
-      // Skills Section with background boxes
-      yOffset += 10;
-      pdf.setFontSize(14);
-      pdf.setTextColor(33, 37, 41);
-      pdf.text("Skills", marginLeft, yOffset);
-      yOffset += lineSpacing;
+      pdf.setFont("times", "normal");
+      pdf.setFontSize(10);
+      pdf.setTextColor(...colors.text.dark);
+      drawSectionTitle("Summary");
+      pdf.text(pdf.splitTextToSize(seeker.summary || "No summary provided", pageWidth - 40), marginLeft, yOffset);
+      yOffset += 30;
   
+      drawProfessionalSection("Education", [seeker], (edu) =>
+        `${edu.eduInstitution} - ${edu.eduDegree} in ${edu.eduSpecialisation} (${edu.eduStartYear} - ${edu.eduEndYear})`
+      );
+  
+      drawProfessionalSection("Experience", [seeker], (exp) =>
+        `${exp.expCompany} | ${exp.expPosition} (${exp.expStartYear} - ${exp.expEndYear})`
+      );
+  
+      drawSectionTitle("Skills");
       if (seeker.skills && seeker.skills.length) {
         let xPos = marginLeft;
         let yPos = yOffset;
         seeker.skills.forEach((skill, index) => {
-          pdf.setFillColor(240, 240, 240);
-          pdf.roundedRect(xPos, yPos, 30, 8, 2, 2, "F");
-          pdf.setTextColor(0, 0, 0);
-          pdf.text(skill, xPos + 3, yPos + 6);
-  
-          xPos += 35;
-          if (xPos + 30 > pageWidth - marginLeft) {
+          pdf.setFillColor(...colors.accent);
+          pdf.roundedRect(xPos, yPos, 40, 8, 2, 2, "F");
+          pdf.setTextColor(...colors.text.light);
+          pdf.setFontSize(9);
+          pdf.text(skill, xPos + 20, yPos + 6, { align: "center" });
+          xPos += 45;
+          if (xPos + 40 > pageWidth - marginLeft) {
             xPos = marginLeft;
             yPos += 12;
           }
         });
+        yOffset = yPos + 20;
       } else {
         pdf.text("N/A", marginLeft, yOffset);
+        yOffset += 10;
       }
   
-      pdf.save("Resume.pdf");
+      pdf.setFont("times", "italic");
+      pdf.setFontSize(8);
+      pdf.setTextColor(150, 150, 150);
+      pdf.text(`Generated on ${new Date().toLocaleDateString()}`, pageWidth / 2, pageHeight - 10, { align: "center" });
+  
+      pdf.save(`${seeker.fullName}_Resume.pdf`);
     });
   };
   
@@ -325,11 +338,11 @@ const Profile = () => {
           <h2 className="text-3xl font-bold text-blue-900 mb-4">Educational Details</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6">
             {[
-              ["Degree", seeker.eduDegree || "N/A"], 
-              ["Specialization", seeker.eduSpecialisation || "N/A"], 
-              ["Start Year", seeker.eduStartYear || "N/A"], 
-              ["End Year", seeker.eduEndYear || "N/A"], 
-              ["Institution", seeker.eduInstitution || "N/A"]
+              ["Degree", seeker.eduDegree],
+              ["University", seeker.eduInstitution],
+              ["Specialisation", seeker.eduSpecialisation],
+              ["Start Year", seeker.eduStartYear],
+              ["End Year", seeker.eduEndYear],
             ].map(([label, value], index) => (
               <p key={index} className="text-gray-700 mb-2"><strong>{label}:</strong> {value}</p>
             ))}
@@ -342,10 +355,10 @@ const Profile = () => {
         <h2 className="text-3xl font-bold text-blue-900 mb-4">Experience</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6">
           {[
-            ["Company", seeker.companyName || "N/A"], 
-            ["Designation", seeker.designation || "N/A"], 
-            ["Start Date", seeker.startDate || "N/A"], 
-            ["End Date", seeker.endDate || "N/A"]
+            ["Company Name", seeker.expCompany],
+            ["Position", seeker.expPosition],
+            ["Start Date", seeker.expStartYear],
+            ["End Date", seeker.expEndYear],
           ].map(([label, value], index) => (
             <p key={index} className="text-gray-700 mb-2"><strong>{label}:</strong> {value}</p>
           ))}
