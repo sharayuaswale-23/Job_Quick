@@ -1,27 +1,50 @@
 import React from "react";
 
-const JobFilters = ({ filters, onFilterChange, categories, isLoading, onApplyFilters }) => {
+const JobFilters = ({
+  filters,
+  onFilterChange,
+  categories,
+  isLoading,
+  selectedCategory,
+  selectedSubcategory,
+  handleCategoryChange,
+  handleSubcategoryChange,
+}) => {
   return (
     <div className="sticky top-0 border rounded-lg px-6 py-8 lg:px-4 lg:py-5 bg-white shadow-lg w-90">
       <div className="mb-6">
         <label className="text-xl font-semibold text-black mb-6">Categories</label>
         <select
-          value={filters.categories}
-          onChange={(e) => onFilterChange("categories", e.target.value)}
+          value={selectedCategory ? selectedCategory._id : ""}
+          onChange={(e) => handleCategoryChange(e.target.value)}
           className="mt-5 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3"
         >
           <option value="">All Categories</option>
-          <option value="IT & Networking">IT & Networking</option>
-          <option value="Sales & Marketing">Sales & Marketing</option>
-          <option value="Data Science">Data Science</option>
-          <option value="Customer Service">Customer Service</option>
-          <option value="Digital Marketing">Digital Marketing</option>
-          <option value="Human Resource">Human Resource</option>
-          <option value="Project Manager">Project Manager</option>
-          <option value="Accounting">Accounting</option>
-          <option value="Other">Other</option>
+          {categories.map((category) => (
+            <option key={category._id} value={category._id}>
+              {category.title}
+            </option>
+          ))}
         </select>
       </div>
+
+      {selectedCategory && selectedCategory.subcategories && (
+        <div className="mb-6">
+          <label className="text-xl font-semibold text-black mb-6">Subcategories</label>
+          <select
+            value={selectedSubcategory}
+            onChange={(e) => handleSubcategoryChange(e.target.value)}
+            className="mt-5 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3"
+          >
+            <option value="">All Subcategories</option>
+            {selectedCategory.subcategories.map((subcategory) => (
+              <option key={subcategory.title} value={subcategory.title}>
+                {subcategory.title}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
 
       <div className="mb-6">
         <label className="text-xl font-semibold text-black mb-6">Experience Level</label>

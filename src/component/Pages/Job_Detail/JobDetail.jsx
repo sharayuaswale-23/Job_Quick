@@ -24,131 +24,151 @@ const JobDetail = () => {
   const [jobData, setJobData] = useState(null);
   const [error, setError] = useState(null);
   const [hasApplied, setHasApplied] = useState(false);
-  const [showModal, setShowModal] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showProfileModal, setShowProfileModal] = useState(false);
   const [profile, setProfile] = useState(null);
   const [modalMessage, setModalMessage] = useState("");
-
+  const [isLoading, setIsLoading] = useState(false);
+  
 
   const jobToken = Cookies.get("userToken");
   const userId = Cookies.get("userNewId");
   const jobDetailsAPI = `https://jobquick.onrender.com/job/${id}`;
   const jobApplyAPI = `https://jobquick.onrender.com/applicants`;
   const userProfileApi = `https://jobquick.onrender.com/seekuser/${userId}`;
+  const checkApplicationAPI = `https://jobquick.onrender.com/applicants/check/${id}/${userId}`;
+
+
+  const checkApplicationStatus = async () => {
+    try {
+      const response = await axios.get(checkApplicationAPI, {
+        headers: {
+          Authorization: `Bearer ${jobToken}`,
+        },
+      });
+      
+      if (response.data && response.data.hasApplied) {
+        setHasApplied(true);
+        return true;
+      }
+      return false;
+    } catch (error) {
+      console.error("Error checking application status:", error);
+      return false;
+    }
+  };
 
   useEffect(() => {
-    const fetchAllJobDetails = async () => {
+    const fetchAllData = async () => {
+      setIsLoading(true);
       try {
-        const response = await fetch(jobDetailsAPI, {
-          method: "GET",
+        // First check if user has already applied
+        await checkApplicationStatus();
+
+        // Then fetch job details
+        const response = await axios.get(jobDetailsAPI, {
           headers: {
-            "Content-Type": "application/json",
             Authorization: `Bearer ${jobToken}`,
           },
         });
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+        if (response.data) {
+          setJobData(response.data);
         }
-
-        const data = await response.json();
-        console.log(data)
-        setJobData(data);
       } catch (error) {
-        console.error("Error fetching host jobs:", error);
-        setError("Failed to load hoster job details.");
+        console.error("Error fetching data:", error);
+        setError("Failed to load job details.");
+      } finally {
+        setIsLoading(false);
       }
     };
 
-    fetchAllJobDetails();
-  }, [id]);
+    fetchAllData();
+  }, [id, jobToken]);
 
-   useEffect(() => {
-      const fetchUserProfile = async () => {
-        try {
-          const response = await fetch(userProfileApi, {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${jobToken}`,
-            },
-          });
-  
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-  
-          const data = await response.json();
-
-          console.log(data)
-          setProfile(data);
-        } catch (error) {
-          console.error("Error fetching host profile:", error);
-          setError("Failed to load seeker details.");
-        }
-      };
-  
-      fetchUserProfile();
-    }, [userProfileApi, jobToken]);
-
-    const isProfileComplete = () => {
-      if (!profile) return false;
-      
-      const requiredFields = ['fullName', 'city', 'phoneNumber', 'gender'];
-      const missingFields = requiredFields.filter(field => !profile[field]);
-      
-      if (missingFields.length > 0) {
-        const formattedFields = missingFields.map(field => 
-          field.replace(/([A-Z])/g, ' $1').toLowerCase()
-        ).join(', ');
-        setModalMessage(`Please complete your profile. Missing fields: ${formattedFields}`);
-        return false;
-      }
-      return true;
-    };
-
-    const handleApplynow = async () => {
-      if (!isProfileComplete()) {
-        setShowProfileModal(true);
-        return;
-      }
-    
+  useEffect(() => {
+    const fetchUserProfile = async () => {
       try {
-        const response = await axios.post(
-          jobApplyAPI,
-          {
-            jobId: id,
-            applicantId: userId,
+        const response = await axios.get(userProfileApi, {
+          headers: {
+            Authorization: `Bearer ${jobToken}`,
           },
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${jobToken}`,
-            },
-          }
-        );
-    
-        if (response && response.data) {
-          console.log(response.data);
-          if (hasApplied) {
-            setShowModal(true);
-            return;
-          }
-          setShowSuccessModal(true);
-          setHasApplied(true);
-        } else {
-          console.error("Error applying for job: No response data");
-          setShowModal(true);
+        });
+
+        if (response.data) {
+          setProfile(response.data);
         }
       } catch (error) {
-        console.error(
-          "Error applying for job:",
-          error.response?.data || error.message
-        );
-        setShowModal(true);
+        console.error("Error fetching profile:", error);
+        setError("Failed to load seeker details.");
       }
     };
+
+    fetchUserProfile();
+  }, [userProfileApi, jobToken]);
+
+  const isProfileComplete = () => {
+    if (!profile) return false;
+    
+    const requiredFields = ['fullName', 'city', 'phoneNumber', 'gender'];
+    const missingFields = requiredFields.filter(field => !profile[field]);
+    
+    if (missingFields.length > 0) {
+      const formattedFields = missingFields.map(field => 
+        field.replace(/([A-Z])/g, ' $1').toLowerCase()
+      ).join(', ');
+      setModalMessage(`Please complete your profile. Missing fields: ${formattedFields}`);
+      return false;
+    }
+    return true;
+  };
+
+  const handleApplynow = async () => {
+    if (!isProfileComplete()) {
+      setShowProfileModal(true);
+      return;
+    }
+  
+    try {
+      setIsLoading(true);
+      const response = await axios.post(
+        jobApplyAPI,
+        {
+          jobId: id,
+          applicantId: userId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${jobToken}`,
+          },
+        }
+      );
+  
+      if (response.data) {
+        setHasApplied(true);
+        setShowSuccessModal(true);
+        
+        // Store the application status in localStorage
+        localStorage.setItem(`job-${id}-applied`, 'true');
+      }
+    } catch (error) {
+      if (error.response?.status === 400) {
+        setHasApplied(true);
+        localStorage.setItem(`job-${id}-applied`, 'true');
+      } else {
+        console.error("Error applying for job:", error);
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    const hasAppliedLocally = localStorage.getItem(`job-${id}-applied`) === 'true';
+    if (hasAppliedLocally) {
+      setHasApplied(true);
+    }
+  }, [id]);
 
   if (error) {
     return (
@@ -158,14 +178,13 @@ const JobDetail = () => {
     );
   }
 
-  if (!jobData) {
+  if (!jobData || isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
-        <p className="text-gray-600 text-lg">Loading hoster job details...</p>
+        <p className="text-gray-600 text-lg">Loading job details...</p>
       </div>
     );
   }
-
   const KeyMetric = ({ icon: Icon, label, value }) => (
     <div className="bg-gray-50 p-4 rounded-lg">
       <div className="flex items-center gap-3">
@@ -188,7 +207,7 @@ const JobDetail = () => {
             <div className="p-6 sm:p-8">
         
               <div className="absolute top-6 right-6 sm:top-8 sm:right-8">
-              <button
+              {/* <button
                       onClick={handleApplynow}
                       disabled={hasApplied}
                       className={`px-8 py-3 ${
@@ -198,7 +217,20 @@ const JobDetail = () => {
                       } rounded-xl font-semibold shadow-lg`}
                     >
                       {hasApplied ? "Applied" : "Apply Now"}
-                    </button>
+                    </button> */}
+                    <button
+                    onClick={handleApplynow}
+                    disabled={hasApplied || isLoading}
+                    className={`px-8 py-3 rounded-xl font-semibold shadow-lg ${
+                      hasApplied
+                        ? "bg-gray-400 cursor-not-allowed opacity-75"
+                        : isLoading
+                        ? "bg-gray-300 cursor-wait"
+                        : "bg-gradient-to-r from-pink-500 to-blue-500 hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 text-white"
+                    }`}
+                  >
+                    {hasApplied ? "Applied" : isLoading ? "Processing..." : "Apply Now"}
+                  </button>
               </div>
 
               <div className="flex items-start gap-6">
@@ -420,20 +452,6 @@ const JobDetail = () => {
                 Complete Profile
               </Link>
             </div>
-          </div>
-        </div>
-      )}
-      {showModal && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded-lg shadow-xl">
-            <h2 className="text-xl font-bold mb-4">You have already applied</h2>
-            <p>You have already submitted your application for this job.</p>
-            <button
-              className="mt-4 px-6 py-2 bg-blue-500 text-white rounded-lg"
-              onClick={() => setShowModal(false)}
-            >
-              Close
-            </button>
           </div>
         </div>
       )}

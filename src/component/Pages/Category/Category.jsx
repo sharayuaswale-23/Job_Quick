@@ -34,10 +34,13 @@ const Category = () => {
     jobType: "",
     workType: "",
     experience: "",
+    subcategories: "", // Subcategories filter
     limit: 100,
   });
 
-  const [searchInput, setSearchInput] = useState(initialTitle); 
+  const [searchInput, setSearchInput] = useState(initialTitle);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedSubcategory, setSelectedSubcategory] = useState("");
 
   const JobToken = Cookies.get("userToken");
   const userId = Cookies.get("userNewId");
@@ -56,23 +59,17 @@ const Category = () => {
     return `https://jobquick.onrender.com/job/filter?${queryParams.toString()}`;
   };
 
-
   useEffect(() => {
     const fetchCategories = async () => {
       if (!isAuthenticated()) return;
-
       setIsLoading(true);
       try {
         const response = await fetch("https://jobquick.onrender.com/categories", {
-          headers: {
-            Authorization: `Bearer ${JobToken}`,
-          },
+          headers: { Authorization: `Bearer ${JobToken}` },
         });
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        
         const data = await response.json();
         setCategories(data.categories || data.data || []);
       } catch (error) {
@@ -82,16 +79,15 @@ const Category = () => {
         setIsLoading(false);
       }
     };
-
+    
     fetchCategories();
   }, [JobToken]);
 
-  
   useEffect(() => {
     if (isAuthenticated()) {
       fetchJobs();
     }
-  }, [filters]); 
+  }, [filters]); // Fetch jobs whenever filters change
 
   const fetchJobs = async () => {
     if (!isAuthenticated()) return;
@@ -111,6 +107,7 @@ const Category = () => {
       const data = await response.json();
       setJobListings(data.jobs || data.data || []);
       setTotalJobs(data.totalJobs || 0);
+      console.log(data);
     } catch (error) {
       console.error("Error fetching jobs:", error);
       setError("Failed to load jobs");
@@ -126,11 +123,24 @@ const Category = () => {
     }));
   };
 
+  const handleCategoryChange = (categoryId) => {
+    const selectedCat = categories.find((cat) => cat._id === categoryId);
+    setSelectedCategory(selectedCat);
+    setSelectedSubcategory("");
+    handleFilterChange("categories", selectedCat.title);
+    handleFilterChange("subcategories", ""); // Reset subcategory filter
+  };
+
+  const handleSubcategoryChange = (subcategory) => {
+    setSelectedSubcategory(subcategory);
+    handleFilterChange("subcategories", subcategory); // Update subcategory filter
+  };
+
   const handleSearch = (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     setFilters((prev) => ({
       ...prev,
-      title: searchInput, 
+      title: searchInput,
     }));
   };
 
@@ -148,7 +158,7 @@ const Category = () => {
             <input
               type="text"
               value={searchInput}
-              onChange={(e) => setSearchInput(e.target.value)} 
+              onChange={(e) => setSearchInput(e.target.value)}
               placeholder="Job title"
               className="flex-1 p-3 border border-blue-300 outline-none rounded-lg focus:ring-2 focus:ring-blue-500 w-full"
             />
@@ -191,11 +201,15 @@ const Category = () => {
                   ${isOpen ? "translate-x-0" : "-translate-x-full"} 
                   lg:relative lg:translate-x-0 lg:w-90 lg:flex-shrink-0 z-20`}
                 >
-                  <JobFilters 
+                  <JobFilters
                     filters={filters}
                     onFilterChange={handleFilterChange}
                     categories={categories}
                     isLoading={isLoading}
+                    selectedCategory={selectedCategory}
+                    selectedSubcategory={selectedSubcategory}
+                    handleCategoryChange={handleCategoryChange}
+                    handleSubcategoryChange={handleSubcategoryChange}
                   />
                 </div>
 
