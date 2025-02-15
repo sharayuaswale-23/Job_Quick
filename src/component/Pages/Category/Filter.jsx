@@ -11,8 +11,8 @@ const JobFilters = ({
   handleSubcategoryChange,
 }) => {
   return (
-    <div className="sticky top-0 border rounded-lg px-6 py-8 lg:px-4 lg:py-5 bg-white shadow-lg w-90">
-      <div className="mb-6">
+    <div className="sticky top-0 border rounded-lg pl-16 pt-4 px-6 lg:px-4 lg:py-5 bg-white shadow-lg w-90">
+      <div className="mb-4 lg:mb-6">
         <label className="text-xl font-semibold text-black mb-6">Categories</label>
         <select
           value={selectedCategory ? selectedCategory._id : ""}
@@ -29,7 +29,7 @@ const JobFilters = ({
       </div>
 
       {selectedCategory && selectedCategory.subcategories && (
-        <div className="mb-6">
+        <div className="mb-4 lg:mb-6">
           <label className="text-xl font-semibold text-black mb-6">Subcategories</label>
           <select
             value={selectedSubcategory}
@@ -46,7 +46,7 @@ const JobFilters = ({
         </div>
       )}
 
-      <div className="mb-6">
+      <div className="mb-4 lg:mb-6">
         <label className="text-xl font-semibold text-black mb-6">Experience Level</label>
         <select
           value={filters.experience}
@@ -61,7 +61,7 @@ const JobFilters = ({
         </select>
       </div>
 
-      <div className="mb-6">
+      <div className="mb-4 lg:mb-6">
         <label className="text-xl font-semibold text-black mb-6">Job Type</label>
         <div className="mt-5 flex flex-col space-y-3">
           {["Full-Time", "Part-Time"].map((type) => (
@@ -80,7 +80,7 @@ const JobFilters = ({
         </div>
       </div>
 
-      <div className="mb-6">
+      <div className="mb-4 lg:mb-6">
         <label className="text-xl font-semibold text-black mb-6">Work Type</label>
         <div className="mt-5 flex flex-col space-y-3">
           {["Remote", "OnSite", "Hybrid"].map((type) => (
