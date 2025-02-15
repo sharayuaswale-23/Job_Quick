@@ -11,7 +11,7 @@ const JobFilters = ({
   handleSubcategoryChange,
 }) => {
   return (
-    <div className="sticky top-0 border rounded-lg pl-16 pt-4 px-6 lg:px-4 lg:py-5 bg-white shadow-lg w-90">
+    <div className="sticky top-0 sm:h-full md:h-full lg:h-auto pl-16 pt-4 px-6 lg:px-4 lg:py-5 w-82">
       <div className="mb-4 lg:mb-6">
         <label className="text-xl font-semibold text-black mb-6">Categories</label>
         <select

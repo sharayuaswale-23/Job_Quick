@@ -197,7 +197,7 @@ const Category = () => {
                 </button>
 
                 <div
-                  className={`fixed top-16 md:20 lg:top-0 left-0 h-full w-80 transition-transform duration-300 ease-in-out transform 
+                  className={`fixed top-16 md:20 lg:top-0 left-0 h-full w-80 lg:m-4 transition-transform duration-300 ease-in-out transform rounded-lg border bg-white shadow-lg 
                   ${isOpen ? "translate-x-0" : "-translate-x-full"} 
                   lg:relative lg:translate-x-0 lg:w-90 lg:flex-shrink-0 z-20`}
                 >
