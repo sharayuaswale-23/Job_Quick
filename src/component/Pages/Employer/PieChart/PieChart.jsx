@@ -119,6 +119,7 @@ const PieChart = ({ jobs }) => {
             const value = context.raw;
             const total = context.dataset.data.reduce((a, b) => a + b, 0);
             const percentage = ((value / total) * 100).toFixed(1);
+            
             return viewMode === "all" 
               ? `${value} Applicants (${percentage}%)`
               : `${value} Units (${percentage}%)`;
@@ -158,8 +159,8 @@ const PieChart = ({ jobs }) => {
                 <p className="text-sm text-gray-500">Loading chart data...</p>
               </div>
             </div>
-          ) : (
-            <Pie data={pieChartData} options={options} />
+          ) : (<Pie data={pieChartData} options={options} />
+          
           )}
         </div>
 

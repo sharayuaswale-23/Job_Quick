@@ -24,6 +24,8 @@ import About from "./component/Pages/About/About";
 import MyJob from "./component/Pages/Employer/MyJob/MyJob";
 import ViewApplicant from "./component/Pages/Employer/ViewApplicant/ViewApplicant";
 import Applicant from "./component/Pages/Employer/Applicant/Applicant";
+import AiMockTest from "./component/Pages/Mock/Mock";
+import QuestionComponent from "./component/Pages/Questions/Questions";
 
 
 export const AuthContext = createContext();
@@ -101,6 +103,22 @@ const App = () => {
             </RequireAuth>
           }
         />
+        <Route
+            path='/mocktest'
+            element={
+              <RequireAuth>
+                <AiMockTest />
+              </RequireAuth>
+            }
+          />
+          <Route
+          path='/questions/:category/:subcategory'
+          element={
+            <RequireAuth>
+              <QuestionComponent/>
+            </RequireAuth>
+            }
+            />
         <Route
           path="/salary"
           element={
