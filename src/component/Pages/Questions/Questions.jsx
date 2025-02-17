@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { useParams, useNavigate } from "react-router-dom";
-import { RefreshCcw, Clock, ArrowLeft } from "lucide-react";
-import Header from "../../common/header/Header";
-import Footer from "../../common/Footer/Footer";
+import { ArrowLeft, RefreshCcw, Clock, Trophy, Timer } from 'lucide-react';
 
 const QuestionComponent = () => {
   const navigate = useNavigate();
@@ -16,55 +14,58 @@ const QuestionComponent = () => {
   const [showResults, setShowResults] = useState(false);
   const [error, setError] = useState(null);
   const [timeLeft, setTimeLeft] = useState(60);
+  const [totalTimeTaken, setTotalTimeTaken] = useState(0);
   const [isTimerRunning, setIsTimerRunning] = useState(false);
+  const [startTime, setStartTime] = useState(null);
 
-  useEffect(() => {
-    fetchQuestions();
-  }, [category, subcategory]);
 
-  useEffect(() => {
-    let timer;
-    if (isTimerRunning && timeLeft > 0) {
-      timer = setInterval(() => {
-        setTimeLeft((prevTime) => {
-          if (prevTime <= 1) {
-            clearInterval(timer);
-            setIsTimerRunning(false);
-            calculateScore();
-            return 0;
-          }
-          return prevTime - 1;
-        });
-      }, 1000);
-    }
-    return () => clearInterval(timer);
-  }, [isTimerRunning, timeLeft]);
+   useEffect(() => {
+     fetchQuestions();
+   }, [category, subcategory]);
 
-  const formatTime = (seconds) => {
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
-    return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
-  };
+   useEffect(() => {
+     let timer;
+     if (isTimerRunning && timeLeft > 0) {
+       timer = setInterval(() => {
+         setTimeLeft((prevTime) => {
+           if (prevTime <= 1) {
+             clearInterval(timer);
+             setIsTimerRunning(false);
+             calculateScore();
+             return 0;
+           }
+           return prevTime - 1;
+         });
+       }, 1000);
+     }
+     return () => clearInterval(timer);
+   }, [isTimerRunning, timeLeft]);
 
-  const startTimer = () => {
-    setIsTimerRunning(true);
-  };
+   const formatTime = (seconds) => {
+     const minutes = Math.floor(seconds / 60);
+     const remainingSeconds = seconds % 60;
+     return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
+   };
 
-  const handleGoBack = () => {
-    navigate("/mocktest"); // Navigate back to mocktest page
-  };
+   const startTimer = () => {
+     setIsTimerRunning(true);
+   };
 
-  const resetQuiz = async () => {
-    setCurrentQuestionIndex(0);
-    setUserAnswers({});
-    setScore(null);
-    setShowResults(false);
-    setTimeLeft(360);
-    setIsTimerRunning(false);
-    await fetchQuestions();
-  };
+   const handleGoBack = () => {
+     navigate("/mocktest");  
+   };
 
-  const fetchQuestions = async () => {
+   const resetQuiz = async () => {
+     setCurrentQuestionIndex(0);
+     setUserAnswers({});
+     setScore(null);
+     setShowResults(false);
+     setTimeLeft(60);
+     setIsTimerRunning(false);
+     await fetchQuestions();
+   };
+
+   const fetchQuestions = async () => {
     try {
       const token = Cookies.get("userToken");
       const response = await fetch(QuestionApi, {
@@ -76,10 +77,11 @@ const QuestionComponent = () => {
         body: JSON.stringify({ category, subcategory }),
       });
       const data = await response.json();
-
+  
       if (data.success && Array.isArray(data.questions)) {
         processQuestionsData(data.questions);
-        startTimer(); // Start timer when questions are loaded
+        setStartTime(Date.now()); // Store the start time
+        startTimer(); 
       } else {
         setError("Invalid data format received from server");
       }
@@ -89,80 +91,75 @@ const QuestionComponent = () => {
     }
   };
 
-  const processQuestionsData = (rawQuestions) => {
-    try {
-      const processed = [];
-      let currentQuestion = null;
-      let options = [];
+   const processQuestionsData = (rawQuestions) => {
+     try {
+       const processed = [];
+       let currentQuestion = null;
+       let options = [];
 
-      rawQuestions.forEach((item) => {
-        // Skip level headers
-        if (item.startsWith("**")) return;
+       rawQuestions.forEach((item) => {
+         
+         if (item.startsWith("**")) return;
 
-        // If it's a question
-        if (item.startsWith("Q:")) {
-          // If we have a previous question complete, add it
-          if (currentQuestion && options.length > 0) {
-            processed.push(currentQuestion);
-          }
+          
+         if (item.startsWith("Q:")) {
+           if (currentQuestion && options.length > 0) {
+             processed.push(currentQuestion);
+           }
 
-          // Start new question
-          currentQuestion = {
-            question: item.substring(2).trim(),
-            options: [],
-            correctAnswer: "",
-          };
-          options = [];
-        }
-        // If it's an option
-        else if (item.match(/^[A-D]\)/)) {
-          const letter = item[0].toLowerCase();
-          const text = item.substring(2).trim();
-          options.push({ letter, text });
+           currentQuestion = {
+             question: item.substring(2).trim(),
+             options: [],
+             correctAnswer: "",
+           };
+           options = [];
+         }
+         else if (item.match(/^[A-D]\)/)) {
+           const letter = item[0].toLowerCase();
+           const text = item.substring(2).trim();
+           options.push({ letter, text });
 
-          if (currentQuestion) {
-            currentQuestion.options = options;
-          }
-        }
-        // If it's the correct answer
-        else if (item.startsWith("Correct:")) {
-          const correctAnswer = item.split(":")[1].trim().toLowerCase();
-          if (currentQuestion) {
-            currentQuestion.correctAnswer = correctAnswer;
-          }
-        }
-      });
+           if (currentQuestion) {
+             currentQuestion.options = options;
+           }
+         }
+         else if (item.startsWith("Correct:")) {
+           const correctAnswer = item.split(":")[1].trim().toLowerCase();
+           if (currentQuestion) {
+             currentQuestion.correctAnswer = correctAnswer;
+           }
+         }
+       });
 
-      // Add the last question if exists
-      if (currentQuestion && options.length > 0) {
-        processed.push(currentQuestion);
-      }
+       if (currentQuestion && options.length > 0) {
+         processed.push(currentQuestion);
+       }
 
-      console.log("Processed questions:", processed);
-      setQuestions(processed);
-    } catch (error) {
-      console.error("Error processing questions:", error);
-      setError("Error processing questions data");
-    }
-  };
+       console.log("Processed questions:", processed);
+       setQuestions(processed);
+     } catch (error) {
+       console.error("Error processing questions:", error);
+       setError("Error processing questions data");
+     }
+   };
 
-  const handleAnswerSelection = (answer) => {
-    setUserAnswers((prev) => ({ ...prev, [currentQuestionIndex]: answer }));
-  };
+   const handleAnswerSelection = (answer) => {
+     setUserAnswers((prev) => ({ ...prev, [currentQuestionIndex]: answer }));
+   };
 
-  const handleNext = () => {
-    if (currentQuestionIndex < questions.length - 1) {
-      setCurrentQuestionIndex((prev) => prev + 1);
-    }
-  };
+   const handleNext = () => {
+     if (currentQuestionIndex < questions.length - 1) {
+       setCurrentQuestionIndex((prev) => prev + 1);
+     }
+   };
 
-  const handlePrevious = () => {
-    if (currentQuestionIndex > 0) {
-      setCurrentQuestionIndex((prev) => prev - 1);
-    }
-  };
+   const handlePrevious = () => {
+     if (currentQuestionIndex > 0) {
+       setCurrentQuestionIndex((prev) => prev - 1);
+     }
+   };
 
-  const calculateScore = () => {
+   const calculateScore = () => {
     let correctAnswers = 0;
     questions.forEach((question, index) => {
       if (userAnswers[index] === question.correctAnswer) {
@@ -171,13 +168,33 @@ const QuestionComponent = () => {
     });
     const percentage = (correctAnswers / questions.length) * 100;
     setScore(percentage.toFixed(2));
+  
+    // Calculate total time taken
+    if (startTime) {
+      const timeTaken = Math.floor((Date.now() - startTime) / 1000); // in seconds
+      setTotalTimeTaken(timeTaken);
+    }
+  
     setShowResults(true);
   };
+  
+
 
   if (error) {
     return (
-      <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-2xl mt-6">
-        <p className="text-red-500 text-center">{error}</p>
+      <div className="min-h-screen flex items-center justify-center px-4">
+        <div className="bg-white shadow-xl rounded-lg p-6 w-full max-w-2xl">
+          <div className="text-red-500 text-center space-y-4">
+            <XCircle className="w-16 h-16 mx-auto" />
+            <p className="text-lg font-medium">{error}</p>
+            <button
+              onClick={handleGoBack}
+              className="px-6 py-2 bg-gray-500 text-white rounded-full hover:bg-gray-600 transition-colors"
+            >
+              Return to Tests
+            </button>
+          </div>
+        </div>
       </div>
     );
   }
@@ -185,38 +202,95 @@ const QuestionComponent = () => {
   if (showResults) {
     return (
       <>
-         <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-3xl mx-auto">
-         <div className="flex flex-col md:flex-row justify-between items-center mb-6 space-y-4 md:space-y-0">
-    <button
-      onClick={handleGoBack}
-      className="flex items-center gap-2 px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-all duration-300 transform hover:scale-105"
-    >
-      <ArrowLeft size={16} />
-      Go Back
-    </button>
-    <button
-      onClick={resetQuiz}
-      className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-300 transform hover:scale-105"
-    >
-      <RefreshCcw size={16} />
-      Reset Quiz
-    </button>
-  </div>
-  <div className="text-center mb-8">
-    <h1 className="text-4xl font-bold text-gray-900">Test Results</h1>
-    <p className="text-lg text-gray-600 mt-2">Here are your results. See how well you did and review your answers!</p>
-  </div>
+         <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-4xl mx-auto">
 
-  <div className="mb-8 mx-auto max-w-4xl flex flex-col md:flex-row justify-evenly space-y-4 md:space-y-0 md:space-x-8">
-    <div className="text-center md:text-center text-lg font-medium text-gray-900 bg-green-100 p-4 rounded-lg flex flex-col items-center md:items-start">
-      <span>Your Score</span>
-      <span className="text-green-500 font-semibold">{score}%</span>
+  <div className="bg-gradient-to-br from-blue-50 via-white to-purple-50 p-6 rounded-2xl">
+      {/* Navigation Buttons */}
+      <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-8">
+        <button
+          onClick={handleGoBack}
+          className="group w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 
+            bg-white border-2 border-gray-600 text-gray-700 rounded-xl 
+            hover:bg-gray-600 hover:text-white transition-all duration-300 
+            shadow-md hover:shadow-lg"
+        >
+          <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform duration-300" />
+          <span className="font-medium">Go Back</span>
+        </button>
+        <button
+          onClick={resetQuiz}
+          className="group w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 
+            bg-blue-600 text-white rounded-xl hover:bg-blue-700 
+            transition-all duration-300 shadow-md hover:shadow-lg"
+        >
+          <RefreshCcw size={20} className="group-hover:rotate-180 transition-transform duration-500" />
+          <span className="font-medium">Reset Quiz</span>
+        </button>
+      </div>
+
+      {/* Results Header */}
+      <div className="text-center mb-12">
+        <div className="inline-block mb-4">
+          <Trophy className="w-16 h-16 text-yellow-500 animate-bounce" />
+        </div>
+        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
+          Your Test Results
+        </h1>
+        <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
+          Great effort! Review your performance and see where you can improve.
+        </p>
+      </div>
+
+      {/* Results Stats */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
+        {/* Score Card */}
+        <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-6 
+          shadow-lg transform hover:scale-105 transition-transform duration-300">
+          <div className="flex flex-col items-center">
+            <div className="mb-2">
+              <Trophy className="w-8 h-8 text-green-500" />
+            </div>
+            <span className="text-lg font-medium text-gray-700 mb-2">
+              Your Score
+            </span>
+            <div className="flex items-baseline gap-1">
+              <span className="text-4xl font-bold text-green-600">
+                {score}
+              </span>
+              <span className="text-2xl font-medium text-green-500">%</span>
+            </div>
+            <div className="mt-4 w-full bg-green-100 rounded-full h-2">
+              <div 
+                className="bg-green-500 h-2 rounded-full transition-all duration-1000" 
+                style={{ width: `${score}%` }}
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Time Card */}
+        <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-6 
+          shadow-lg transform hover:scale-105 transition-transform duration-300">
+          <div className="flex flex-col items-center">
+            <div className="mb-2">
+              <Timer className="w-8 h-8 text-blue-500" />
+            </div>
+            <span className="text-lg font-medium text-gray-700 mb-2">
+              Time Taken
+            </span>
+            <div className="flex items-center gap-2">
+              <Clock className="w-6 h-6 text-blue-500" />
+              <span className="text-3xl font-bold text-blue-600 font-mono">
+                {formatTime(1800 - timeLeft)}
+              </span>
+            </div>
+            <span className="text-sm text-gray-500 mt-2">
+              of 60:00 seconds
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
-    <div className="text-center md:text-center text-lg font-medium text-gray-700 bg-gray-200 p-4 rounded-lg flex flex-col items-center md:items-end">
-      <span>Time Taken</span>
-      <span>{formatTime(1800 - timeLeft)}</span>
-    </div>
-  </div>
 
   <div className="space-y-6">
     {questions.map((question, index) => (

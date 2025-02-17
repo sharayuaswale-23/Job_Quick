@@ -29,17 +29,20 @@ const Footer = () => {
     
         <div>
           <h4 className="font-bold text-lg mb-4">Address</h4>
-          <p>Ram Nagar, Nagpur,  Maharashtra- 431214 </p>
+          <p><strong>HEAD OFFICE: </strong>Office No. S11, Dharampeth Tower P No. 209, WHC Road, Nagpur- 44010</p> <br/>
+          <p><strong>CORPORATE OFFICE: </strong>The Iconic Corenthum, floor-25th sector-62, Noida UP- 201301</p>
         </div>
 
        
         <div>
-          <h4 className="font-bold text-lg mb-4">Support</h4>
+          <h4 className="font-bold text-lg mb-4">Links</h4>
           <ul className="space-y-2">
+            <li><Link to="/category" className="hover:underline">My Jobs</Link></li>
+            <li><Link to="/salary" className="hover:underline">Salary</Link></li>
             <li><Link to="/about" className="hover:underline">About Us</Link></li>
             <li><Link to="/contact" className="hover:underline">Contact Us</Link></li>
-            <li><Link to="/category" className="hover:underline">My Jobs</Link></li>
-            <li><Link to="/" className="hover:underline">Terms of Service</Link></li>
+            <li><Link to="/mocktest" className="hover:underline">Mock Questions</Link></li>
+            <li><Link to="/resumebuilder" className="hover:underline">Resume Builder</Link></li>
           </ul>
         </div>
 

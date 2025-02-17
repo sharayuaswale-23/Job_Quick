@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import Cookies from "js-cookie";
 import Header from "../../common/header/Header";
 import Footer from "../../common/Footer/Footer";
-import exam from "../../../assets/Images/exam1.webp";
+import mockgirl from "../../../assets/Images/mockgirl.avif";
+import { BookOpen, Brain, ChevronDown } from 'lucide-react';
 
 const AiMockTest = () => {
     const CategoryApi = "https://jobquick.onrender.com/categories";
@@ -44,59 +45,126 @@ const AiMockTest = () => {
        <>
          <Header/>
 
-         <div className="mt-20 bg-gray-50 px-6 py-4 lg:py-8 md:px-16">
-  <div className="min-h-screen flex flex-col md:flex-row items-center justify-center bg-white border border-gray-200 rounded-lg shadow-lg">
-    {/* Left Section */}
-    <div className="md:w-1/2 min-h-screen w-full h-full text-center bg-white md:text-center flex flex-col items-center justify-center py-4 px-4 md:py-8 md:px-6">
-      <h1 className="text-4xl font-extrabold text-blue-600 mb-4 text-center md:text-left">Online Examination</h1>
-      <p className="text-lg text-gray-600 italic mb-6 text-center md:text-left">“Success is where preparation and opportunity meet.”</p>
-      <div className="bg-gray-50 p-8 w-full md:w-3/4 lg:w-2/3 max-w-md flex flex-col items-center shadow-md rounded-lg">
-        <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">Select Your Test</h2>
-        
-        <select
-          className="w-full p-3 border rounded-lg mb-4 focus:ring-4 focus:ring-blue-400 transition-all hover:shadow-md"
-          onChange={(e) =>
-            setSelectedCategory(categories.find(cat => cat._id === e.target.value))
-          }
-        >
-          <option value="">Select Category</option>
-          {categories.map(category => (
-            <option key={category._id} value={category._id}>{category.title}</option>
-          ))}
-        </select>
-        
-        {selectedCategory && (
-          <select
-            className="w-full p-3 border rounded-lg mb-4 focus:ring-4 focus:ring-blue-400 transition-all hover:shadow-md"
-            onChange={(e) => setSelectedSubcategory(e.target.value)}
-          >
-            <option value="">Select Subcategory</option>
-            {selectedCategory.subcategories.map((sub, index) => (
-              <option key={index} value={sub.title}>{sub.title}</option>
-            ))}
-          </select>
-        )}
-        
-        {selectedSubcategory && (
-          <button
-            className="w-full bg-gradient-to-r from-blue-500 to-indigo-500 text-white p-3 rounded-lg hover:from-blue-600 hover:to-indigo-600 transition-all shadow-md hover:shadow-lg transform hover:scale-105"
-            onClick={handleStartTest}
-          >
-            Start Test
-          </button>
-        )}
-      </div>
-    </div>
-    
-    {/* Right Section - Hidden on smaller devices */}
-    <div className="hidden md:flex md:w-1/2 min-h-screen items-center justify-center relative">
-      <div className="bg-white w-full max-w-md relative">
-        <img src={exam} alt="Exam Illustration" className="w-full" />
-      </div>
-    </div>
-  </div>
-</div>
+    <div className="min-h-screen mt-20 p-4 sm:p-6 md:p-8">
+      <div className="max-w-7xl mx-auto">
+        <div className="flex flex-col lg:flex-row h-full items-center">
+          {/* Left Side - Image */}
+          <div className="hidden h-full w-full lg:w-1/2 lg:flex items-center justify-center">
+            <div className="relative w-full h-full max-w-md">
+              <img 
+                src={mockgirl}
+                alt="Exam Illustration" 
+                className="w-full h-full object-contain rounded-lg shadow-xl"
+              />
+              <div className="absolute inset-0 bg-blue-500 opacity-10 rounded-lg"></div>
+            </div>
+          </div>
 
+          {/* Right Side - Form */}
+          <div className="w-full h-full lg:w-1/2">
+            <div className="bg-white/90 backdrop-blur-sm rounded-lg shadow-lg p-6">
+              {/* Header Section */}
+              <div className="text-center mb-8">
+              <div className="flex justify-center mb-4">
+            <Brain className="h-12 w-12 text-blue-600" />
+          </div>
+                <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+                  Practice Assessment
+                </h1>
+                <p className="text-lg text-gray-600">
+                  Test your knowledge with our comprehensive mock tests
+                </p>
+              </div>
+
+              <div className="space-y-6">
+                {/* Test Parameters Header */}
+                <div className="flex items-center gap-2 text-xl font-semibold text-gray-900 mb-6">
+                  <BookOpen className="h-5 w-5 text-blue-500" />
+                  <span>Select Your Test Parameters</span>
+                </div>
+
+               {/* Category Selection */}
+                <div className="space-y-2">
+                  <label className="block text-sm font-medium text-gray-700">
+                    Choose Category
+                  </label>
+                  <div className="relative">
+                    <select 
+                      className="w-full p-3 border border-gray-300 rounded-lg bg-white shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 appearance-none pr-10"
+                      onChange={(e) => {
+                        const category = categories.find(cat => cat._id === e.target.value);
+                        setSelectedCategory(category);
+                        setSelectedSubcategory(null); // Reset subcategory when category changes
+                      }}
+                      value={selectedCategory?._id || ""}
+                    >
+                      <option value="">Select a category</option>
+                      {categories.map(category => (
+                        <option key={category._id} value={category._id}>
+                          {category.title}
+                        </option>
+                      ))}
+                    </select>
+                    <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none h-5 w-5" />
+                  </div>
+                </div>
+
+                {/* Subcategory Selection */}
+                {selectedCategory && (
+                  <div className="space-y-2">
+                    <label className="block text-sm font-medium text-gray-700">
+                      Choose Subcategory
+                    </label>
+                    <div className="relative">
+                      <select 
+                        className="w-full p-3 border border-gray-300 rounded-lg bg-white shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 appearance-none pr-10"
+                        onChange={(e) => setSelectedSubcategory(e.target.value)}
+                        value={selectedSubcategory || ""}
+                      >
+                        <option value="">Select a subcategory</option>
+                        {selectedCategory.subcategories.map((sub, index) => (
+                          <option key={index} value={sub.title}>
+                            {sub.title}
+                          </option>
+                        ))}
+                      </select>
+                      <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none h-5 w-5" />
+                    </div>
+                  </div>
+                )}
+
+                {/* Start Button */}
+                {selectedSubcategory && (
+                  <button 
+                    className="w-full bg-gradient-to-r from-blue-500 to-indigo-500 text-white p-3 rounded-lg hover:from-blue-600 hover:to-indigo-600 transition-all shadow-md hover:shadow-lg transform hover:scale-105 flex items-center justify-center gap-2"
+                    onClick={handleStartTest}
+                  >
+                    Start Assessment
+                    <Brain className="h-5 w-5" />
+                  </button>
+                )}
+       
+                {/* Information Cards */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+                  <div className="bg-blue-50 p-4 rounded-lg">
+                    <h3 className="font-semibold text-blue-800 mb-2">Test Format</h3>
+                    <p className="text-sm text-blue-600">
+                      60 seconds • 15 questions • Instant results
+                    </p>
+                  </div>
+                  <div className="bg-green-50 p-4 rounded-lg">
+                    <h3 className="font-semibold text-green-800 mb-2">Success Rate</h3>
+                    <p className="text-sm text-green-600">
+                      90% of users improve their scores
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
         <Footer/>
        </>
     );

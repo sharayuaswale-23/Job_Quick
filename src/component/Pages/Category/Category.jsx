@@ -19,6 +19,8 @@ const Category = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [jobListings, setJobListings] = useState([]);
+  const [selectedCompany, setSelectedCompany] = useState("");
+  const [companyNames, setCompanyNames] = useState([])
   const [totalJobs, setTotalJobs] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const jobsPerPage = 5;
@@ -34,6 +36,7 @@ const Category = () => {
     jobType: "",
     workType: "",
     experience: "",
+    companyName :"",
     subcategories: "", // Subcategories filter
     limit: 100,
   });
@@ -41,6 +44,13 @@ const Category = () => {
   const [searchInput, setSearchInput] = useState(initialTitle);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSubcategory, setSelectedSubcategory] = useState("");
+
+
+    
+  const topCompanies = [
+    "TCS", "Infosys", "Wipro", 
+    "Google", "Microsoft", "Amazon","GrowthHub Inc." 
+  ];
 
   const JobToken = Cookies.get("userToken");
   const userId = Cookies.get("userNewId");
@@ -72,6 +82,7 @@ const Category = () => {
         
         const data = await response.json();
         setCategories(data.categories || data.data || []);
+        console.log(data);
       } catch (error) {
         console.error("Error fetching categories:", error);
         setError("Failed to load categories");
@@ -87,7 +98,7 @@ const Category = () => {
     if (isAuthenticated()) {
       fetchJobs();
     }
-  }, [filters]); // Fetch jobs whenever filters change
+  }, [filters]); 
 
   const fetchJobs = async () => {
     if (!isAuthenticated()) return;
@@ -135,6 +146,10 @@ const Category = () => {
     setSelectedSubcategory(subcategory);
     handleFilterChange("subcategories", subcategory); // Update subcategory filter
   };
+  const handleCompanyChange = (company) => {
+    setSelectedCompany(company);
+    setFilters((prev) => ({ ...prev, companyName: company }));
+  };
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -142,6 +157,9 @@ const Category = () => {
       ...prev,
       title: searchInput,
     }));
+
+
+ 
   };
 
   return (
@@ -155,20 +173,35 @@ const Category = () => {
           </div>
 
           <form className="w-full flex flex-col md:flex-row items-center gap-4" onSubmit={handleSearch}>
-            <input
-              type="text"
-              value={searchInput}
-              onChange={(e) => setSearchInput(e.target.value)}
-              placeholder="Job title"
-              className="flex-1 p-3 border border-blue-300 outline-none rounded-lg focus:ring-2 focus:ring-blue-500 w-full"
-            />
-            <button
-              type="submit"
-              className="bg-blue-700 text-white px-5 py-3 rounded-lg flex items-center gap-2 shadow-md hover:bg-blue-800"
-            >
-              <Search size={20} /> Search
-            </button>
-          </form>
+  <div className="w-full flex flex-col sm:flex-row gap-4 bg-white rounded-lg p-2">
+    <input
+      type="text"
+      value={searchInput}
+      onChange={(e) => setSearchInput(e.target.value)}
+      placeholder="Job title"
+      className="flex-1 p-3 border-r sm:border-r border-gray-200 outline-none w-full"
+    />
+    <select
+      className="p-3 border-none outline-none rounded-lg w-full sm:w-auto"
+      value={selectedCompany}
+      onChange={(e) => handleCompanyChange(e.target.value)}
+    >
+      <option value="">Select Company</option>
+      {topCompanies.map((company) => (
+        <option key={company} value={company}>{company}</option>
+      ))}
+      {companyNames.map((company) => (
+        <option key={company} value={company}>{company}</option>
+      ))}
+    </select>
+  </div>
+  <button 
+    type="submit" 
+    className="w-full md:w-auto bg-blue-700 text-white px-5 py-3 rounded-lg flex justify-center items-center gap-2 shadow-md hover:bg-blue-800 transition-colors"
+  >
+    <Search size={20} /> Search
+  </button>
+</form>
         </div>
 
         <div className="w-[35%] hidden md:flex justify-center p-2 rounded-lg">

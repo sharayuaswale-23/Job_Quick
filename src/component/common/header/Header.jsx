@@ -119,7 +119,7 @@ const Header = () => {
             <Link to="/">Home</Link>
           </li>
           <li className="cursor-pointer">
-            <Link to="/category">Category</Link>
+            <Link to="/category">Jobs</Link>
           </li>
           <li className="relative group cursor-pointer">
             <div
@@ -203,7 +203,7 @@ const Header = () => {
               <Link to="/">Home</Link>
             </li>
             <li className="cursor-pointer">
-              <Link to="/category">Category</Link>
+              <Link to="/category">Jobs</Link>
             </li>
             <li className="cursor-pointer">
               <div

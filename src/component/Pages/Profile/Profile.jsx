@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Header from "../../common/header/Header";
 import Footer from "../../common/Footer/Footer";
 import ProfileImg from "../../../assets/Images/profileimg.png";
-import {FaTimes, FaCheck } from "react-icons/fa";
+import {FaTimes, FaCheck, FaDownload, FaEdit, FaTrash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
@@ -263,168 +263,212 @@ const Profile = () => {
     <>
       <Header />
  
-      <div className="min-h-screen mt-16 bg-gradient-to-br from-blue-50 to-gray-100 py-12">
-  <div className="max-w-7xl mx-auto px-4 sm:px-4 lg:px-10" ref={resumeRef}>
-    <div className="bg-white rounded-3xl overflow-hidden shadow-xl py-6">
-      <h1 className="text-5xl text-center font-extrabold text-blue-900 mb-6">Profile</h1>
-      
-  
-      <div className="grid grid-cols-1 md:grid-cols-10 gap-12 px-4 py-8">
-        
-      
-        <div className="md:col-span-3 space-y-8 flex flex-col items-center p-4">
-       
-          <div className="flex flex-col items-center">
-            <img src={ProfileImg} alt="Profile" className="w-28 h-28 lg:w-32 lg:h-32 rounded-full shadow-md border-4 border-black" />
-            <div className="text-center mt-5">
-              <h1 className="text-3xl font-bold drop-shadow-md text-blue-900">{seeker.fullName || "Admin"}</h1>
-              <p className="font-medium text-gray-600 mt-2">{seeker.email || "N/A"}</p>
-             <div className="flex flex-col">
-             <Link to="/userdetails">
-                <button className="text-blue-700 hover:text-blue-900 font-semibold mt-3 underline transition-all duration-300">Edit Profile</button>
-              </Link>
-              <Link>
-                <button  onClick={() => setIsModalOpen(true)} className="text-red-700 hover:text-red-900 font-semibold mt-3 underline transition-all duration-300">Delete Account</button>
-              </Link>
-              <Link >
-                <button  onClick={downloadPDF} className="text-green-700 hover:text-green-900 font-semibold mt-3 underline transition-all duration-300">Download Resume</button>
-              </Link>
-              
-             </div>
-            </div>
+      <div className="min-h-screen mt-16 bg-gradient-to-br from-blue-50 to-indigo-100 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" ref={resumeRef}>
+        <div className="bg-white rounded-3xl overflow-hidden shadow-2xl transition-all duration-300 hover:shadow-3xl">
+          {/* Header Banner */}
+          <div className="bg-gradient-to-r from-blue-400 to-indigo-400 p-6 text-white">
+            <h1 className="text-4xl md:text-5xl text-center font-extrabold mb-2">Profile</h1>
+            <p className="text-center text-gray-100">Your Professional Journey</p>
           </div>
-          
-        
-          <section className="bg-white rounded-xl p-6 shadow-md w-full border border-gray-200">
-            <h2 className="text-xl lg:text-3xl font-bold text-blue-900 mb-4">Summary</h2>
-            <p className="text-gray-700 leading-relaxed">{seeker.summary || "N/A"}</p>
-          </section>
-          
-        
-          <section className="w-full">
-            <h2 className="text-3xl font-bold text-blue-900 mb-4">Skills</h2>
-            <div className="flex flex-wrap gap-3">
-              {seeker.skills?.map((skill, index) => (
-                <span key={index} className="px-5 py-2 bg-blue-200 text-blue-900 rounded-lg text-md font-medium shadow-sm">
-                  {skill}
-                </span>
-              )) || "N/A"}
-            </div>
-          </section>
-        </div>
 
-   
-        <div className="md:col-span-7 space-y-8">
-       
-          <div className="grid grid-cols-1 gap-8">
-
-        <section className="bg-white rounded-xl p-6 shadow-md border border-gray-200">
-          <h2 className="text-3xl font-bold text-blue-900 mb-4">Personal Details</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6">
-            {[
-              ["Gender", seeker.gender || "N/A"], 
-              ["Date of Birth", seeker.dateOfBirth || "N/A"], 
-              ["Phone", seeker.phoneNumber || "N/A"], 
-              ["Email", seeker.email || "N/A"], 
-              ["Project URL", seeker.projectUrl || "N/A"]
-            ].map(([label, value], index) => (
-              <p key={index} className="text-gray-700 mb-2"><strong>{label}:</strong> {value}</p>
-            ))}
-          </div>
-        </section>
-
-
-        <section className="bg-white rounded-xl p-6 shadow-md border border-gray-200">
-          <h2 className="text-3xl font-bold text-blue-900 mb-4">Educational Details</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6">
-            {[
-              ["Degree", seeker.eduDegree],
-              ["University", seeker.eduInstitution],
-              ["Specialisation", seeker.eduSpecialisation],
-              ["Start Year", seeker.eduStartYear],
-              ["End Year", seeker.eduEndYear],
-            ].map(([label, value], index) => (
-              <p key={index} className="text-gray-700 mb-2"><strong>{label}:</strong> {value}</p>
-            ))}
-          </div>
-        </section>
-      </div>
-
-
-      <section className="bg-white rounded-xl p-6 shadow-md border border-gray-200 mt-8">
-        <h2 className="text-3xl font-bold text-blue-900 mb-4">Experience</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6">
-          {[
-            ["Company Name", seeker.expCompany],
-            ["Position", seeker.expPosition],
-            ["Start Date", seeker.expStartYear],
-            ["End Date", seeker.expEndYear],
-          ].map(([label, value], index) => (
-            <p key={index} className="text-gray-700 mb-2"><strong>{label}:</strong> {value}</p>
-          ))}
-        </div>
-      </section>  
-          <section>
-            <h2 className="text-3xl font-bold text-blue-900 mb-6 text-center sm:text-left">Jobs You've Applied To</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
-              {displayedJobs.map((job) => (
-                <div key={job._id} className="border mb-2 p-6 rounded-2xl shadow-lg bg-white hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 flex flex-col justify-between">
-                  <h2 className="text-xl font-bold text-blue-900 mb-2">{job.title}</h2>
-                  <p className="text-gray-500 font-semibold mb-2">
-                    <span className="font-bold text-black">Company:</span> {job.companyName}
-                  </p>
-                  <p className="text-gray-500 font-semibold">
-                    <span className="font-bold text-black">Location:</span> {job.location}
-                  </p>
+          <div className="grid grid-cols-1 md:grid-cols-10 gap-8 p-6">
+            {/* Left Column */}
+            <div className="md:col-span-3 space-y-8">
+              {/* Profile Card */}
+              <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 transform transition-all duration-300 hover:shadow-xl">
+                <div className="flex flex-col items-center">
+                  <div className="relative">
+                    <img 
+                      src={ProfileImg} 
+                      alt="Profile" 
+                      className="w-32 h-32 rounded-full shadow-lg border-4 border-white ring-2 ring-blue-500 transform transition-all duration-300 hover:scale-105"
+                    />
+                  </div>
+                  <div className="text-center mt-6 space-y-2">
+                    <h1 className="text-2xl font-bold text-gray-800">{seeker.fullName || "Admin"}</h1>
+                    <p className="text-gray-600">{seeker.email || "N/A"}</p>
+                    
+                    <div className="flex flex-col gap-2 mt-4">
+                      <Link to="/userdetails">
+                        <button className="w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all duration-300 flex items-center justify-center gap-2">
+                          <FaEdit className="w-4 h-4" /> Edit Profile
+                        </button>
+                      </Link>
+                      <button 
+                        onClick={downloadPDF} 
+                        className="w-full px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-all duration-300 flex items-center justify-center gap-2"
+                      >
+                        <FaDownload className="w-4 h-4" /> Download Resume
+                      </button>
+                      <button 
+                        onClick={() => setIsModalOpen(true)} 
+                        className="w-full px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 flex items-center justify-center gap-2"
+                      >
+                        <FaTrash className="w-4 h-4" /> Delete Account
+                      </button>
+                     
+                    </div>
+                  </div>
                 </div>
-              ))}
-            </div>
-            {jobs.length > visibleJobs && (
-              <div className="flex justify-center mt-8">
-                <button
-                  onClick={handleSeeMoreJobs}
-                  className="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-800 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 text-lg transform hover:-translate-y-1">
-                  {showAllJobs ? "Show Less" : "See More Jobs"}
-                </button>
               </div>
-            )}
-          </section>
+
+              {/* Summary Section */}
+              <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
+                <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                  <span className="w-2 h-6 bg-blue-500 rounded-full"></span>
+                  Summary
+                </h2>
+                <p className="text-gray-600 leading-relaxed">{seeker.summary || "N/A"}</p>
+              </div>
+
+              {/* Skills Section */}
+              <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
+                <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                  <span className="w-2 h-6 bg-blue-500 rounded-full"></span>
+                  Skills
+                </h2>
+                <div className="flex flex-wrap gap-2">
+                  {seeker.skills?.map((skill, index) => (
+                    <span 
+                      key={index} 
+                      className="px-4 py-2 bg-blue-100 text-blue-800 rounded-lg text-sm font-medium transition-all duration-300 hover:bg-blue-200 hover:shadow-md"
+                    >
+                      {skill}
+                    </span>
+                  )) || "N/A"}
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column */}
+            <div className="md:col-span-7 space-y-8">
+              {/* Personal Details */}
+              <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
+                <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+                  <span className="w-2 h-6 bg-blue-500 rounded-full"></span>
+                  Personal Details
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {[
+                    ["Gender", seeker.gender || "N/A"],
+                    ["Date of Birth", seeker.dateOfBirth || "N/A"],
+                    ["Phone", seeker.phoneNumber || "N/A"],
+                    ["Email", seeker.email || "N/A"],
+                    ["Project URL", seeker.projectUrl || "N/A"]
+                  ].map(([label, value], index) => (
+                    <div key={index} className="bg-gray-50 p-4 rounded-lg">
+                      <p className="text-sm text-gray-500 mb-1">{label}</p>
+                      <p className="text-gray-800 font-medium">{value}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Education Details */}
+              <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
+                <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+                  <span className="w-2 h-6 bg-blue-500 rounded-full"></span>
+                  Educational Details
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {[
+                    ["Degree", seeker.eduDegree],
+                    ["University", seeker.eduInstitution],
+                    ["Specialisation", seeker.eduSpecialisation],
+                    ["Start Year", seeker.eduStartYear],
+                    ["End Year", seeker.eduEndYear],
+                  ].map(([label, value], index) => (
+                    <div key={index} className="bg-gray-50 p-4 rounded-lg">
+                      <p className="text-sm text-gray-500 mb-1">{label}</p>
+                      <p className="text-gray-800 font-medium">{value}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Experience Section */}
+              <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
+                <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+                  <span className="w-2 h-6 bg-blue-500 rounded-full"></span>
+                  Experience
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {[
+                    ["Company Name", seeker.expCompany],
+                    ["Position", seeker.expPosition],
+                    ["Start Date", seeker.expStartYear],
+                    ["End Date", seeker.expEndYear],
+                  ].map(([label, value], index) => (
+                    <div key={index} className="bg-gray-50 p-4 rounded-lg">
+                      <p className="text-sm text-gray-500 mb-1">{label}</p>
+                      <p className="text-gray-800 font-medium">{value}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Applied Jobs Section */}
+              <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
+                <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+                  <span className="w-2 h-6 bg-blue-500 rounded-full"></span>
+                  Applied Jobs
+                </h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {displayedJobs.map((job) => (
+                    <div key={job._id} className="bg-gray-50 p-4 rounded-lg transform transition-all duration-300 hover:shadow-md hover:scale-102">
+                      <h3 className="text-lg font-semibold text-gray-800 mb-2">{job.title}</h3>
+                      <p className="text-gray-600 text-sm mb-1">
+                        <span className="font-medium">Company:</span> {job.companyName}
+                      </p>
+                      <p className="text-gray-600 text-sm">
+                        <span className="font-medium">Location:</span> {job.location}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+                {jobs.length > visibleJobs && (
+                  <div className="flex justify-center mt-6">
+                    <button
+                      onClick={handleSeeMoreJobs}
+                      className="px-6 py-3 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 transition-all duration-300 flex items-center gap-2"
+                    >
+                      {showAllJobs ? "Show Less" : "See More Jobs"}
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
 
-  {isModalOpen && (
-          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
-          <div className="bg-white p-8 rounded-2xl shadow-xl max-w-sm w-full transform transition-all scale-100 hover:scale-105">
-            <h2 className="text-xl font-bold text-gray-800 mb-4">
-              Are you sure you want to delete your account?
-            </h2>
-            <p className="text-gray-500 text-sm mb-6">
-              This action cannot be undone and will permanently remove your profile.
+      {/* Delete Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm z-50">
+          <div className="bg-white p-8 rounded-2xl shadow-xl max-w-sm w-full m-4 transform transition-all duration-300 scale-100 hover:scale-105">
+            <h2 className="text-2xl font-bold text-gray-800 mb-4">Delete Account</h2>
+            <p className="text-gray-600 mb-6">
+              Are you sure you want to delete your account? This action cannot be undone.
             </p>
-            <div className="flex justify-between">
+            <div className="flex flex-col sm:flex-row gap-4">
               <button
                 onClick={handleDeleteProfile}
-                className="px-5 py-2 bg-red-500 text-white font-medium rounded-lg flex items-center gap-2 hover:bg-red-700 transition-all duration-200"
+                className="w-full sm:w-auto px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 flex items-center justify-center gap-2"
               >
-                <FaCheck className="w-5 h-5" /> Yes, Delete
+                <FaCheck className="w-4 h-4" /> Yes, Delete
               </button>
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="px-5 py-2 bg-gray-300 text-gray-700 font-medium rounded-lg flex items-center gap-2 hover:bg-gray-400 transition-all duration-200"
+                className="w-full sm:w-auto px-6 py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-all duration-300 flex items-center justify-center gap-2"
               >
-                <FaTimes className="w-5 h-5" /> Cancel
+                <FaTimes className="w-4 h-4" /> Cancel
               </button>
             </div>
           </div>
         </div>
-        
-        )}
-
-        
-</div>
-
+      )}
+    </div>
 <Footer/>
       
 </>

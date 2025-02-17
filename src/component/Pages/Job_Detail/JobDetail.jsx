@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import {
   BriefcaseBusiness,
   Clock,
@@ -16,7 +16,6 @@ import Header from "../../common/header/Header";
 import Footer from "../../common/Footer/Footer";
 import Cookies from "js-cookie";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import Logo from "../../../assets/Images/companylogo.jpg";
 
 const JobDetail = () => {
@@ -29,29 +28,20 @@ const JobDetail = () => {
   const [profile, setProfile] = useState(null);
   const [modalMessage, setModalMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  
 
   const jobToken = Cookies.get("userToken");
   const userId = Cookies.get("userNewId");
   const jobDetailsAPI = `https://jobquick.onrender.com/job/${id}`;
   const jobApplyAPI = `https://jobquick.onrender.com/applicants`;
   const userProfileApi = `https://jobquick.onrender.com/seekuser/${userId}`;
-  const checkApplicationAPI = `https://jobquick.onrender.com/applicants/check/${id}/${userId}`;
-
+  const checkApplicationAPI = `https://jobquick.onrender.com/applicants/check/<span class="math-inline">\{id\}/</span>{userId}`;
 
   const checkApplicationStatus = async () => {
     try {
       const response = await axios.get(checkApplicationAPI, {
-        headers: {
-          Authorization: `Bearer ${jobToken}`,
-        },
+        headers: { Authorization: `Bearer ${jobToken}` },
       });
-      
-      if (response.data && response.data.hasApplied) {
-        setHasApplied(true);
-        return true;
-      }
-      return false;
+      return !!(response.data && response.data.hasApplied);
     } catch (error) {
       console.error("Error checking application status:", error);
       return false;
@@ -62,19 +52,11 @@ const JobDetail = () => {
     const fetchAllData = async () => {
       setIsLoading(true);
       try {
-        // First check if user has already applied
         await checkApplicationStatus();
-
-        // Then fetch job details
         const response = await axios.get(jobDetailsAPI, {
-          headers: {
-            Authorization: `Bearer ${jobToken}`,
-          },
+          headers: { Authorization: `Bearer ${jobToken}` },
         });
-
-        if (response.data) {
-          setJobData(response.data);
-        }
+        setJobData(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
         setError("Failed to load job details.");
@@ -82,7 +64,6 @@ const JobDetail = () => {
         setIsLoading(false);
       }
     };
-
     fetchAllData();
   }, [id, jobToken]);
 
@@ -90,33 +71,23 @@ const JobDetail = () => {
     const fetchUserProfile = async () => {
       try {
         const response = await axios.get(userProfileApi, {
-          headers: {
-            Authorization: `Bearer ${jobToken}`,
-          },
+          headers: { Authorization: `Bearer ${jobToken}` },
         });
-
-        if (response.data) {
-          setProfile(response.data);
-        }
+        setProfile(response.data);
       } catch (error) {
         console.error("Error fetching profile:", error);
         setError("Failed to load seeker details.");
       }
     };
-
     fetchUserProfile();
   }, [userProfileApi, jobToken]);
 
   const isProfileComplete = () => {
     if (!profile) return false;
-    
     const requiredFields = ['fullName', 'city', 'phoneNumber', 'gender'];
     const missingFields = requiredFields.filter(field => !profile[field]);
-    
     if (missingFields.length > 0) {
-      const formattedFields = missingFields.map(field => 
-        field.replace(/([A-Z])/g, ' $1').toLowerCase()
-      ).join(', ');
+      const formattedFields = missingFields.map(field => field.replace(/([A-Z])/g, ' $1').toLowerCase()).join(', ');
       setModalMessage(`Please complete your profile. Missing fields: ${formattedFields}`);
       return false;
     }
@@ -128,29 +99,15 @@ const JobDetail = () => {
       setShowProfileModal(true);
       return;
     }
-  
+
+    setIsLoading(true);
     try {
-      setIsLoading(true);
-      const response = await axios.post(
-        jobApplyAPI,
-        {
-          jobId: id,
-          applicantId: userId,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${jobToken}`,
-          },
-        }
-      );
-  
-      if (response.data) {
-        setHasApplied(true);
-        setShowSuccessModal(true);
-        
-        // Store the application status in localStorage
-        localStorage.setItem(`job-${id}-applied`, 'true');
-      }
+      const response = await axios.post(jobApplyAPI, { jobId: id, applicantId: userId }, {
+        headers: { Authorization: `Bearer ${jobToken}` },
+      });
+      setHasApplied(true);
+      setShowSuccessModal(true);
+      localStorage.setItem(`job-${id}-applied`, 'true');
     } catch (error) {
       if (error.response?.status === 400) {
         setHasApplied(true);
@@ -164,34 +121,34 @@ const JobDetail = () => {
   };
 
   useEffect(() => {
-    const hasAppliedLocally = localStorage.getItem(`job-${id}-applied`) === 'true';
-    if (hasAppliedLocally) {
+    if (localStorage.getItem(`job-${id}-applied`) === 'true') {
       setHasApplied(true);
     }
   }, [id]);
 
+
   if (error) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-100">
-        <p className="text-red-600 text-lg">{error}</p>
-      </div>
-    );
+    return <div className="min-h-screen flex items-center justify-center bg-gray-100"><p className="text-red-600 text-lg">{error}</p></div>;
   }
 
   if (!jobData || isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-100">
-        <p className="text-gray-600 text-lg">Loading job details...</p>
-      </div>
-    );
+    return <div className="min-h-screen flex items-center justify-center bg-gray-100"><p className="text-gray-600 text-lg">Loading job details...</p></div>;
   }
+
+  const JobDetailSection = ({ title, children }) => (
+    <div className="bg-white rounded-lg shadow p-6 mb-6">
+      <h2 className="text-xl font-semibold text-gray-900 mb-4">{title}</h2>
+      {children}
+    </div>
+  );
+
   const KeyMetric = ({ icon: Icon, label, value }) => (
-    <div className="bg-gray-50 p-4 rounded-lg">
+    <div className="bg-gray-100 p-4 rounded-lg shadow">
       <div className="flex items-center gap-3">
-        <Icon className="w-5 h-5 text-blue-600" />
+        <Icon className="w-5 h-5 text-indigo-500" />
         <div>
           <p className="text-sm text-gray-500">{label}</p>
-          <p className="font-medium text-gray-900">{value}</p>
+          <p className="font-medium text-gray-900">{value || "Not specified"}</p>
         </div>
       </div>
     </div>
@@ -200,94 +157,59 @@ const JobDetail = () => {
   return (
     <>
       <Header />
-      <div className="min-h-screen mt-20 bg-gray-100 py-8 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-5xl mx-auto">
-       
-          <div className="bg-white rounded-xl shadow-md overflow-hidden mb-6 relative">
-            <div className="p-6 sm:p-8">
-        
-              <div className="absolute top-6 right-6 sm:top-8 sm:right-8">
-              {/* <button
-                      onClick={handleApplynow}
-                      disabled={hasApplied}
-                      className={`px-8 py-3 ${
-                        hasApplied
-                          ? "bg-gray-400 cursor-not-allowed"
-                          : "bg-gradient-to-r from-blue-400 to-blue-700 text-white hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
-                      } rounded-xl font-semibold shadow-lg`}
-                    >
-                      {hasApplied ? "Applied" : "Apply Now"}
-                    </button> */}
-                    <button
-                    onClick={handleApplynow}
-                    disabled={hasApplied || isLoading}
-                    className={`px-8 py-3 rounded-xl font-semibold shadow-lg ${
-                      hasApplied
-                        ? "bg-gray-400 cursor-not-allowed opacity-75"
-                        : isLoading
-                        ? "bg-gray-300 cursor-wait"
-                        : "bg-gradient-to-r from-pink-500 to-blue-500 hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 text-white"
-                    }`}
-                  >
-                    {hasApplied ? "Applied" : isLoading ? "Processing..." : "Apply Now"}
-                  </button>
+      <div className="min-h-screen bg-gradient-to-r bg-gray-200 py-8 px-4 sm:px-6 lg:px-8 mt-14">
+        <div className="max-w-7xl mx-auto">
+          <div className="bg-white rounded-3xl shadow-lg overflow-hidden mb-8">
+            <div className="px-6 py-8 sm:px-10 sm:py-12 flex flex-col md:flex-row items-center justify-between">
+            <div className="flex flex-col md:flex-row items-center md:items-start gap-4">
+                {/* Image Section */}
+                <img
+                  src={Logo} // Ensure jobData.imageUrl contains a valid image URL
+                  alt={Logo}
+                  className="w-16 h-16 md:w-20 md:h-20 object-cover rounded-lg"
+                />
+
+                {/* Text Section */}
+                <div>
+                  <h1 className="text-4xl font-bold text-gray-900 mb-2">{jobData.title}</h1>
+                  <p className="text-xl text-indigo-500 font-semibold">{jobData.companyName}</p>
+                </div>
               </div>
 
-              <div className="flex items-start gap-6">
-                <img
-                  src={Logo}
-                  alt={jobData?.companyName}
-                  className="w-24 h-24 rounded-lg object-cover bg-gray-100"
-                />
-                <div className="flex-1">
-                  <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                    {jobData?.title}
-                  </h1>
-                  <p className="text-xl text-blue-600 font-semibold mb-4">
-                    {jobData?.companyName}
-                  </p>
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                    <KeyMetric
-                      icon={Wallet}
-                      label="Salary Range"
-                      value={
-                        jobData?.minPackage
-                          ? `${jobData.minPackage} - ${jobData.maxPackage}`
-                          : "Not disclosed"
-                      }
-                    />
-                    <KeyMetric
-                      icon={MapPin}
-                      label="Location"
-                      value={jobData?.location || "Not specified"}
-                    />
-                    <KeyMetric
-                      icon={Clock}
-                      label="Job Type"
-                      value={jobData?.jobType || "Not specified"}
-                    />
-                  </div>
-                </div>
+              <div className="mt-4 md:mt-0">
+                <button
+                  onClick={handleApplynow}
+                  disabled={hasApplied || isLoading}
+                  className={`px-8 py-3 rounded-xl font-semibold shadow-lg ${
+                    hasApplied
+                      ? "bg-gray-400 cursor-not-allowed opacity-75"
+                      : isLoading
+                      ? "bg-gray-300 cursor-wait"
+                      : "bg-blue-600 text-white"
+                  }`}
+                >
+                  {hasApplied ? "Applied" : isLoading ? "Processing..." : "Apply Now"}
+                </button>
+              </div>
+            </div>
+            <div className="px-6 pb-8 sm:px-10 sm:pb-12">
+            <div className="grid grid-cols-1  md:grid-cols-3 gap-6">
+
+                <KeyMetric icon={Wallet} label="Salary" value={`${jobData.minPackage} - ${jobData.maxPackage}`} />
+                <KeyMetric icon={MapPin} label="Location" value={jobData.location} />
+                <KeyMetric icon={Clock} label="Job Type" value={jobData.jobType} />
               </div>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          
-            <div className="lg:col-span-2 space-y-6">
-       
-              <div className="bg-white rounded-xl shadow-md p-6">
-                <h2 className="text-xl font-semibold text-gray-900 mb-4">
-                  Job Description
-                </h2>
-                <p className="text-gray-600 whitespace-pre-line">
-                  {jobData?.jobDescription}
-                </p>
-              </div>
 
-         
-           
-              <div className="bg-white rounded-xl shadow-md p-6">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      
+            <div className="lg:col-span-2 space-y-8">
+       
+            
+  
+            <div className="bg-white rounded-xl shadow-md p-6">
                 <h2 className="text-xl font-semibold text-gray-900 mb-4">
                   Requirements
                 </h2>
@@ -327,6 +249,61 @@ const JobDetail = () => {
                   )}
                 </div>
               </div>
+ 
+              <div className="bg-white rounded-xl shadow-md p-6">
+                <h2 className="text-xl font-semibold text-gray-900 mb-4">
+                  Additional Details
+                </h2>
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3">
+                    <Calendar className="w-5 h-5 text-blue-600" />
+                    <div>
+                      <p className="text-sm text-gray-500">
+                        Application Deadline
+                      </p>
+                      <p className="font-medium text-gray-900">
+                        {jobData?.applicationDeadline || "Not specified"}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Users className="w-5 h-5 text-blue-600" />
+                    <div>
+                      <p className="text-sm text-gray-500">
+                        Number of Openings
+                      </p>
+                      <p className="font-medium text-gray-900">
+                        {jobData?.noOfOpeaning || "Not specified"}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <BriefcaseBusiness className="w-5 h-5 text-blue-600" />
+                    <div>
+                      <p className="text-sm text-gray-500">Work Type</p>
+                      <p className="font-medium text-gray-900">
+                        {jobData?.workType || "Not specified"}
+                      </p>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+
+
+         
+
+   
+          <div className="bg-white rounded-xl shadow-md p-6">
+                <h2 className="text-xl font-semibold text-gray-900 mb-4">
+                  Job Description
+                </h2>
+                <p className="text-gray-600 whitespace-pre-line">
+                  {jobData?.jobDescription}
+                </p>
+              </div>
+
+         
             </div>
 
             <div className="space-y-6">
@@ -380,48 +357,8 @@ const JobDetail = () => {
                 </div>
               </div>
 
-             
-              <div className="bg-white rounded-xl shadow-md p-6">
-                <h2 className="text-xl font-semibold text-gray-900 mb-4">
-                  Additional Details
-                </h2>
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3">
-                    <Calendar className="w-5 h-5 text-blue-600" />
-                    <div>
-                      <p className="text-sm text-gray-500">
-                        Application Deadline
-                      </p>
-                      <p className="font-medium text-gray-900">
-                        {jobData?.applicationDeadline || "Not specified"}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Users className="w-5 h-5 text-blue-600" />
-                    <div>
-                      <p className="text-sm text-gray-500">
-                        Number of Openings
-                      </p>
-                      <p className="font-medium text-gray-900">
-                        {jobData?.noOfOpeaning || "Not specified"}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <BriefcaseBusiness className="w-5 h-5 text-blue-600" />
-                    <div>
-                      <p className="text-sm text-gray-500">Work Type</p>
-                      <p className="font-medium text-gray-900">
-                        {jobData?.workType || "Not specified"}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="bg-white rounded-xl mt-4 shadow-md overflow-hidden mb-6 relative">
+
+              <div className="bg-white rounded-xl mt-4 shadow-md overflow-hidden mb-6 relative">
           <div className="bg-white rounded-xl shadow-md p-6">
           <h2 className="text-xl font-semibold text-gray-900 mb-4">
                   Company Description
@@ -431,6 +368,11 @@ const JobDetail = () => {
                 </p>
                 </div>
           </div>
+             
+             
+            </div>
+          </div>
+     
         </div>
       </div>
       {showProfileModal && (
