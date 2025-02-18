@@ -56,7 +56,7 @@ const TotalApplicant = () => {
             <div className="text-3xl font-bold text-gray-900">{totalApplicants.toLocaleString()}</div>
             <div className="text-gray-600">Applications</div>
           </div>
-          <div className="w-12 h-12 bg-green-50 rounded-full flex items-center justify-center text-green-600">
+          <div className=" bg-green-50 rounded-full flex items-center justify-center text-green-600">
             <Search />
           </div>
         </div>
@@ -66,7 +66,7 @@ const TotalApplicant = () => {
                             <div className="text-3xl font-bold text-gray-900">{totalJobs.toLocaleString()}</div>
                             <div className="text-gray-600">TotalJobs</div>
                           </div>
-                          <div className="w-12 h-12 bg-green-50 rounded-full flex items-center justify-center text-green-600">
+                          <div className="bg-green-50 rounded-full flex items-center justify-center text-green-600">
                             <User />
                           </div>
                         </div>
@@ -76,7 +76,7 @@ const TotalApplicant = () => {
                       <div className="text-3xl font-bold text-gray-900">{totalShortlisted.toLocaleString()}</div>
                       <div className="text-gray-600">Shortlisted</div>
                     </div>
-                    <div className="w-12 h-12 bg-green-50 rounded-full flex items-center justify-center text-green-600">
+                    <div className="bg-green-50 rounded-full flex items-center justify-center text-green-600">
                       <Bookmark />
                     </div>
                   </div>

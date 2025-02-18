@@ -56,21 +56,12 @@ const HosterDashboard = () => {
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
     {/* Sidebar - Hidden on mobile, visible on larger screens */}
-    <div className="hidden lg:block w-64 fixed inset-y-0 left-0 z-30 bg-white shadow-md transition-all duration-300">
+    <div className="w-1/4 h-screen fixed top-0 left-0">
       <HostSidebar />
-    </div>
-    
-    {/* Mobile Sidebar Toggle - Only visible on small screens */}
-    <div className="lg:hidden fixed top-4 left-4 z-40">
-      {/* Replace this with your sidebar toggle button */}
-      <button className="p-2 rounded-md bg-green-100 text-green-700">
-        <span className="sr-only">Toggle menu</span>
-        {/* Menu icon goes here */}
-      </button>
     </div>
   
     {/* Main Content */}
-    <div className="w-full lg:pl-64 transition-all duration-300">
+    <div className="w-full lg:pl-60 transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {/* Header */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8 pt-16 lg:pt-6">
@@ -89,7 +80,7 @@ const HosterDashboard = () => {
           {/* Left Column - Stats & Graph */}
           <div className="w-full lg:w-[55%] space-y-6">
             {/* Statistics Cards */}
-            <div className="">
+            <div>
               <TotalApplicant stats={stats} />
             </div>
             
