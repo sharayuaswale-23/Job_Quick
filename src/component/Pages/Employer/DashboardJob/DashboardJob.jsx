@@ -65,7 +65,7 @@ const Dashboardjob = () => {
   ) : (
     <div className="w-full max-w-lg">
     
-      <div className="h-56 overflow-y-auto scrollbar-hide">
+      <div className="h-72 md:h-56 overflow-y-auto scrollbar-hide">
         {jobs.map((job) => (
           <div
             key={job._id}

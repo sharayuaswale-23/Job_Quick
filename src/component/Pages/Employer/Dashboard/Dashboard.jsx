@@ -54,7 +54,7 @@ const HosterDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen flex flex-col lg:flex-row bg-gray-50">
     {/* Sidebar - Hidden on mobile, visible on larger screens */}
     <div className="w-1/4 h-screen fixed top-0 left-0">
       <HostSidebar />
@@ -64,7 +64,7 @@ const HosterDashboard = () => {
     <div className="w-full lg:pl-60 transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8 pt-16 lg:pt-6">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8 lg:mt-2 sm:mt-10">
           <h1 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-green-700">
             Dashboard
           </h1>

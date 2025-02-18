@@ -142,7 +142,9 @@ const Table = () => {
         .map((app, index) => (
         <tr key={index} className={`border-b border-green-100 ${index % 2 === 0 ? 'bg-white' : 'bg-green-50/20'} hover:bg-green-100/30`}>
           <td className="py-4 px-4 text-gray-700 font-medium">{(currentPage - 1) * 7 + index + 1}</td>
-          <td className="py-4 px-4 text-gray-700">{app.date || 'N/A'}</td>
+          <td className="py-4 px-4 text-gray-700">
+          {new Date(app.date).toLocaleDateString()}, {new Date(app.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+            </td>
           <td className="py-4 px-4">
             <div className="flex items-center gap-3">
               {/* <LogoIcon color={app.logo} /> */}
