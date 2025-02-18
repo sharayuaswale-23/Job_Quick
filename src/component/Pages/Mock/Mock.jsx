@@ -149,7 +149,7 @@ const AiMockTest = () => {
                   <div className="bg-blue-50 p-4 rounded-lg">
                     <h3 className="font-semibold text-blue-800 mb-2">Test Format</h3>
                     <p className="text-sm text-blue-600">
-                      60 seconds • 15 questions • Instant results
+                      02 minutes • 15 questions • Instant results
                     </p>
                   </div>
                   <div className="bg-green-50 p-4 rounded-lg">

@@ -132,7 +132,7 @@ const PieChart = ({ jobs }) => {
 
   return (
 
-    <div className="w-full bg-white rounded-xl lg:p-2 h-auto">
+    <div className="w-full bg-white rounded-xl lg:p-2">
       <div className="space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <h2 className="text-xl sm:text-lg font-semibold text-gray-800">

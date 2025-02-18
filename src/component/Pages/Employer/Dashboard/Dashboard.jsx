@@ -8,6 +8,7 @@ import { Plus, Loader2 } from "lucide-react";
 import Dashboardjob from "../DashboardJob/DashboardJob";
 import TotalApplicant from "../TotalApplicant/TotalApplicant";
 import PieChart from "../PieChart/PieChart";
+import Table from "../Table/Table";
 
 const HosterDashboard = () => {
   const [jobs, setJobs] = useState([]);
@@ -53,57 +54,72 @@ const HosterDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col lg:flex-row bg-gray-50">
-      {/* Sidebar */}
-      <div className="w-1/4 h-screen fixed top-0 left-0">
-        <HostSidebar />
-      </div>
-
-      {/* Main Content */}
-      <div className="p-2 w-full lg:w-[83%] lg:ml-64 sm:p-5">
-        <div className="w-full lg:max-w-7xl mx-auto space-y-6">
-          {/* Header */}
-          <div className="flex flex-col sm:flex-row mt-16 lg:mt-2 items-center justify-between gap-4 rounded-xl">
-            <h1 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-green-700 mb-6">
-              Dashboard
-            </h1>
-            <Link to="/jobposting">
-              <button className="bg-green-500 text-white rounded-lg font-semibold px-4 py-3 transition-all shadow-md">
-               Post Job
-              </button>
-            </Link>
-          </div>
-
-          {/* Main Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-            {/* Left Column - Stats & Graph */}
-            <div className="lg:col-span-3 space-y-6">
-              {/* Statistics Cards */}
-                <TotalApplicant stats={stats} />
-
-              {/* Line Chart */}
-              <div className="bg-white rounded-xl shadow-sm p-4">
-                <LineChart jobs={jobs} />
-              </div>
+    <div className="min-h-screen flex flex-col bg-gray-50">
+    {/* Sidebar - Hidden on mobile, visible on larger screens */}
+    <div className="hidden lg:block w-64 fixed inset-y-0 left-0 z-30 bg-white shadow-md transition-all duration-300">
+      <HostSidebar />
+    </div>
+    
+    {/* Mobile Sidebar Toggle - Only visible on small screens */}
+    <div className="lg:hidden fixed top-4 left-4 z-40">
+      {/* Replace this with your sidebar toggle button */}
+      <button className="p-2 rounded-md bg-green-100 text-green-700">
+        <span className="sr-only">Toggle menu</span>
+        {/* Menu icon goes here */}
+      </button>
+    </div>
+  
+    {/* Main Content */}
+    <div className="w-full lg:pl-64 transition-all duration-300">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        {/* Header */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8 pt-16 lg:pt-6">
+          <h1 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-green-700">
+            Dashboard
+          </h1>
+          <Link to="/jobposting">
+            <button className="bg-green-500 hover:bg-green-600 active:bg-green-700 text-white rounded-lg font-semibold px-4 py-3 transition-all shadow-md hover:shadow-lg">
+              Post Job
+            </button>
+          </Link>
+        </div>
+  
+        {/* Main Content Area */}
+        <div className="flex flex-col lg:flex-row gap-6 mb-8">
+          {/* Left Column - Stats & Graph */}
+          <div className="w-full lg:w-[55%] space-y-6">
+            {/* Statistics Cards */}
+            <div className="">
+              <TotalApplicant stats={stats} />
             </div>
-
-            {/* Right Column - Pie Chart & Jobs List */}
-            <div className="lg:col-span-2 space-y-6">
-              {/* Pie Chart */}
-              <div className="bg-white rounded-xl shadow-sm p-4">
+            
+            {/* Line Chart */}
+            <div>
+                <LineChart jobs={jobs} />
+            </div>
+          </div>
+  
+          {/* Right Column - Pie Chart & Jobs List */}
+          <div className="w-full lg:w-[45%] space-y-6">
+            {/* Pie Chart */}
+            <div className="overflow-x-scroll scrollbar-hide">          
                 <PieChart jobs={jobs} />
               </div>
-
-              {/* Jobs List */}
-              <div className="bg-white rounded-xl shadow-sm p-4">
-                <Dashboardjob />
-              </div>
-              
+  
+            {/* Jobs List */}
+            <div>
+              <Dashboardjob />
             </div>
           </div>
         </div>
+  
+        {/* Table Section */}
+        <div>
+            <Table />
+        </div>
       </div>
     </div>
+  </div>
   );
 };
 

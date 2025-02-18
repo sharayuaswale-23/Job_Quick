@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { useParams, useNavigate } from "react-router-dom";
-import { ArrowLeft, RefreshCcw, Clock, Trophy, Timer } from 'lucide-react';
+import { ArrowLeft, RefreshCcw, Clock, Trophy, Timer,Loader, Info  } from 'lucide-react';
 
 const QuestionComponent = () => {
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ const QuestionComponent = () => {
   const [score, setScore] = useState(null);
   const [showResults, setShowResults] = useState(false);
   const [error, setError] = useState(null);
-  const [timeLeft, setTimeLeft] = useState(60);
+  const [timeLeft, setTimeLeft] = useState(120);
   const [totalTimeTaken, setTotalTimeTaken] = useState(0);
   const [isTimerRunning, setIsTimerRunning] = useState(false);
   const [startTime, setStartTime] = useState(null);
@@ -180,25 +180,6 @@ const QuestionComponent = () => {
   
 
 
-  if (error) {
-    return (
-      <div className="min-h-screen flex items-center justify-center px-4">
-        <div className="bg-white shadow-xl rounded-lg p-6 w-full max-w-2xl">
-          <div className="text-red-500 text-center space-y-4">
-            <XCircle className="w-16 h-16 mx-auto" />
-            <p className="text-lg font-medium">{error}</p>
-            <button
-              onClick={handleGoBack}
-              className="px-6 py-2 bg-gray-500 text-white rounded-full hover:bg-gray-600 transition-colors"
-            >
-              Return to Tests
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   if (showResults) {
     return (
       <>
@@ -281,11 +262,11 @@ const QuestionComponent = () => {
             <div className="flex items-center gap-2">
               <Clock className="w-6 h-6 text-blue-500" />
               <span className="text-3xl font-bold text-blue-600 font-mono">
-                {formatTime(1800 - timeLeft)}
+                {formatTime(totalTimeTaken)}
               </span>
             </div>
             <span className="text-sm text-gray-500 mt-2">
-              of 60:00 seconds
+              of 02:00 minutes
             </span>
           </div>
         </div>
@@ -436,37 +417,37 @@ const QuestionComponent = () => {
               <div className="space-y-3">
                 {currentQuestion.options.map((option) => (
                   <label
-  key={option.letter}
-  className={`block relative p-2 sm:p-3 md:p-4 rounded-xl cursor-pointer transition-all duration-200
-    ${userAnswers[currentQuestionIndex] === option.letter
-      ? "bg-blue-50 border-2 border-blue-500 shadow-sm"
-      : "bg-gray-50 border border-gray-200 hover:bg-gray-100"
-    }`}
->
-  <div className="flex items-start sm:items-center">
-    <div className={`min-w-5 min-h-5 w-5 h-5 flex items-center justify-center rounded-full border-2 mr-2 sm:mr-3
-      ${userAnswers[currentQuestionIndex] === option.letter
-        ? "border-blue-500 bg-blue-500"
-        : "border-gray-400"
-      }`}
-    >
-      {userAnswers[currentQuestionIndex] === option.letter && (
-        <div className="w-2 h-2 rounded-full bg-white" />
-      )}
-    </div>
-    <input
-      type="radio"
-      name={`question-${currentQuestionIndex}`}
-      value={option.letter}
-      checked={userAnswers[currentQuestionIndex] === option.letter}
-      onChange={() => handleAnswerSelection(option.letter)}
-      className="sr-only"
-    />
-    <span className="text-sm sm:text-base md:text-lg text-gray-700">
-      {option.letter.toUpperCase()}) {option.text}
-    </span>
-  </div>
-</label>
+                      key={option.letter}
+                      className={`block relative p-2 sm:p-3 md:p-4 rounded-xl cursor-pointer transition-all duration-200
+                        ${userAnswers[currentQuestionIndex] === option.letter
+                          ? "bg-blue-50 border-2 border-blue-500 shadow-sm"
+                          : "bg-gray-50 border border-gray-200 hover:bg-gray-100"
+                        }`}
+                    >
+                      <div className="flex items-start sm:items-center">
+                        <div className={`min-w-5 min-h-5 w-5 h-5 flex items-center justify-center rounded-full border-2 mr-2 sm:mr-3
+                          ${userAnswers[currentQuestionIndex] === option.letter
+                            ? "border-blue-500 bg-blue-500"
+                            : "border-gray-400"
+                          }`}
+                        >
+                          {userAnswers[currentQuestionIndex] === option.letter && (
+                            <div className="w-2 h-2 rounded-full bg-white" />
+                          )}
+                        </div>
+                        <input
+                          type="radio"
+                          name={`question-${currentQuestionIndex}`}
+                          value={option.letter}
+                          checked={userAnswers[currentQuestionIndex] === option.letter}
+                          onChange={() => handleAnswerSelection(option.letter)}
+                          className="sr-only"
+                        />
+                        <span className="text-sm sm:text-base md:text-lg text-gray-700">
+                          {option.letter.toUpperCase()}) {option.text}
+                        </span>
+                      </div>
+                    </label>
                 ))}
               </div>
             </div>
@@ -505,12 +486,50 @@ const QuestionComponent = () => {
             </div>
           </div>
         ) : (
-          <div className="flex items-center justify-center h-64">
-            <div className="animate-pulse flex flex-col items-center gap-4">
-              <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
-              <p className="text-gray-600 font-medium">Loading questions...</p>
-            </div>
+          <div className="flex flex-col items-center justify-center min-h-screen h-screen bg-gradient-to-b from-white to-blue-50 p-4">
+      {/* Content container - maintains max width but takes available height */}
+      <div className="w-full h-full max-w-md mx-auto text-center flex flex-col justify-center">
+        {/* Main heading */}
+        <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-2">
+          Question Bank
+        </h1>
+        <p className="text-sm md:text-base text-gray-600 mb-6">
+          Your personalized learning experience is loading
+        </p>
+        
+        {/* Loading animation - responsive size based on screen */}
+        <div className="relative mx-auto mb-6">
+          <div className="w-16 h-16 md:w-20 md:h-20">
+            <Loader className="w-16 h-16 md:w-20 md:h-20 text-blue-500 animate-bounce" />
           </div>
+        </div>
+        
+        {/* Status message */}
+        <p className="text-gray-700 font-medium mb-6">
+          Preparing your questions...
+        </p>
+        
+        {/* Information box with icon */}
+        <div className="bg-white rounded-lg shadow-md p-4 flex items-start text-left mt-4">
+          <Info className="w-5 h-5 text-blue-500 mr-3 flex-shrink-0 mt-0.5" />
+          <div>
+            <h3 className="text-sm font-semibold text-gray-800 mb-1">
+              While you wait
+            </h3>
+            <p className="text-xs md:text-sm text-gray-600">
+              Our adaptive system is analyzing your previous responses to 
+              create a personalized set of questions that match your skill level.
+            </p>
+          </div>
+        </div>
+        
+        {/* Progress indicator */}
+        <div className="w-full bg-gray-200 rounded-full h-1.5 mt-8">
+          <div className="bg-blue-500 h-1.5 rounded-full w-3/4 animate-pulse"></div>
+        </div>
+        <p className="text-xs text-gray-500 mt-2">Almost there...</p>
+      </div>
+    </div>
         )}
       </div>
     </div>

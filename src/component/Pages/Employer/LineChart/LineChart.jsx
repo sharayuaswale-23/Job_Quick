@@ -216,7 +216,7 @@ const LineChart = ({ jobs }) => {
               </p>
             </div>
             <div className="p-4 bg-green-50 rounded-lg">
-              <p className="text-sm text-black">Average/Day</p>
+              <p className="text-sm text-black">Average/ Day</p>
               <p className="text-xl font-semibold text-black">
                 {(graphData.dataPoints.reduce((a, b) => a + b, 0) / 7).toFixed(1)}
               </p>

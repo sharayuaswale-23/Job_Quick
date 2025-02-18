@@ -57,7 +57,7 @@ const Dashboardjob = () => {
   };
   return (
 <>
-<div className="flex w-full flex-col items-center rounded-lg bg-white p-2">
+<div className="flex w-full flex-col items-center rounded-lg bg-white p-4">
   <h2 className="text-2xl font-bold text-green-700 p-2 mb-4">Posted Jobs</h2>
 
   { jobs.length === 0 ? (
@@ -65,7 +65,7 @@ const Dashboardjob = () => {
   ) : (
     <div className="w-full max-w-lg">
     
-      <div className="h-64 overflow-y-auto scrollbar-hide">
+      <div className="h-56 overflow-y-auto scrollbar-hide">
         {jobs.map((job) => (
           <div
             key={job._id}
