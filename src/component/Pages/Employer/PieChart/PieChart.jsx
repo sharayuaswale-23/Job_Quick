@@ -41,7 +41,7 @@ const PieChart = ({ jobs }) => {
   const fetchAllCompaniesData = async () => {
     setIsLoading(true);
     try {
-      const companyTotals = {};
+      const jobTotals = {};
       
       await Promise.all(
         jobs.map(async (job) => {
@@ -52,18 +52,18 @@ const PieChart = ({ jobs }) => {
           const applicants = result.data ? 
             result.data.reduce((sum, day) => sum + day.applicants, 0) : 0;
           
-          companyTotals[job.companyName] = (companyTotals[job.companyName] || 0) + applicants;
+          jobTotals[job.title] = (jobTotals[job.title] || 0) + applicants;
         })
       );
 
-      const data = Object.entries(companyTotals).map(([company, total]) => ({
-        name: company,
+      const data = Object.entries(jobTotals).map(([job, total]) => ({
+        name: job,
         applicants: total
       }));
 
       setChartData(data);
     } catch (error) {
-      console.error("Error fetching companies data:", error);
+      console.error("Error fetching jobs data:", error);
     } finally {
       setIsLoading(false);
     }
@@ -119,7 +119,6 @@ const PieChart = ({ jobs }) => {
             const value = context.raw;
             const total = context.dataset.data.reduce((a, b) => a + b, 0);
             const percentage = ((value / total) * 100).toFixed(1);
-            
             return viewMode === "all" 
               ? `${value} Applicants (${percentage}%)`
               : `${value} Units (${percentage}%)`;
@@ -132,11 +131,12 @@ const PieChart = ({ jobs }) => {
   const totalApplicants = chartData.reduce((sum, item) => sum + item.applicants, 0);
 
   return (
-    <div className="w-full bg-white rounded-xl lg:p-2 h-auto" style={{ scrollbarWidth: "none" }}>
+
+    <div className="w-full bg-white rounded-xl lg:p-2 h-auto">
       <div className="space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <h2 className="text-xl sm:text-lg font-semibold text-gray-800">
-            {viewMode === "all" ? "Company Applications" : "Distribution Overview"}
+            {viewMode === "all" ? "Job Applications" : "Distribution Overview"}
           </h2>
           
           <select
@@ -147,11 +147,11 @@ const PieChart = ({ jobs }) => {
                      focus:ring-blue-200 outline-none transition-colors duration-200"
           >
             <option value="default">Select View Option</option>
-            <option value="all">Show All Companies</option>
+            <option value="all">Show All Jobs</option>
           </select>
         </div>
 
-        <div className="w-full h-[300px] lg:relative">
+        <div className="w-full h-[280px]">
           {isLoading ? (
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="flex flex-col items-center space-y-2">
@@ -159,33 +159,22 @@ const PieChart = ({ jobs }) => {
                 <p className="text-sm text-gray-500">Loading chart data...</p>
               </div>
             </div>
-          ) : (<Pie data={pieChartData} options={options} />
-          
+          ) : (
+            <Pie data={pieChartData} options={options} />
           )}
         </div>
-
+ 
+ {/* Total Jobs  */}
         {viewMode === "all" && chartData.length > 0 && (
           <div className="grid grid-cols-2 sm:grid-cols-2 gap-4">
-            <div className="p-4 bg-blue-50 rounded-lg">
-              <p className="text-sm text-gray-600">Total Applicants</p>
-              <p className="text-xl font-semibold text-blue-600">
-                {totalApplicants}
-              </p>
-            </div>
-            <div className="p-4 bg-green-50 rounded-lg">
-              <p className="text-sm text-gray-600">Companies Shown</p>
-              <p className="text-xl font-semibold text-green-600">
-                {chartData.length}
-              </p>
-            </div>
             <div className="p-4 bg-purple-50 rounded-lg">
-              <p className="text-sm text-gray-600">Average/Company</p>
+              <p className="text-sm text-gray-600">Average/Job</p>
               <p className="text-xl font-semibold text-purple-600">
                 {(totalApplicants / chartData.length).toFixed(1)}
               </p>
             </div>
             <div className="p-4 bg-orange-50 rounded-lg">
-              <p className="text-sm text-gray-600">Top Company</p>
+              <p className="text-[12px] sm:text-sm text-gray-600">Top Applied Job</p>
               <p className="text-md font-semibold text-orange-600">
                 {chartData.length > 0 ? chartData.reduce((max, item) => 
                   item.applicants > max.applicants ? item : max
@@ -196,6 +185,7 @@ const PieChart = ({ jobs }) => {
         )}
       </div>
     </div>
+
   );
 };
 

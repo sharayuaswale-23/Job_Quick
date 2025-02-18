@@ -220,6 +220,9 @@ const Header = () => {
                   <li className="px-4 py-2">
                     <Link to="/atsscore">ATS Score</Link>
                   </li>
+                  <li className="px-4 py-2 hover:bg-gray-100">
+                  <Link to="/mocktest">Mock Questions</Link>
+                </li>
                 </ul>
               )}
             </li>

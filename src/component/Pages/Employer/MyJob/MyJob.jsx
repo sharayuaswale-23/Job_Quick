@@ -128,7 +128,7 @@ const MyJob = () => {
             </h2>
           </div>
 
-          <div className="p-6">
+          <div className="p-4 md:p-6">
             {jobs.length === 0 ? (
               <div className="text-center py-12 bg-gray-50 rounded-lg">
                 <p className="text-xl text-gray-500">No jobs found</p>
@@ -141,7 +141,7 @@ const MyJob = () => {
                   return (
                     <div
                       key={job?._id}
-                      className={`bg-white border border-gray-200 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 p-6 ${
+                      className={`bg-white border border-gray-200 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 p-4 md:p-6 ${
                         isExpanded ? "h-auto" : "h-fit"
                       }`}
                     >
