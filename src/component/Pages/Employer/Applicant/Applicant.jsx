@@ -110,11 +110,11 @@ const Applicant = () => {
   return (
   <>
   <Hostersidebar/>
-  <div className="min-h-screen pt-6 lg:ml-64 bg-gray-50 py-12 px-0 sm:px-0 lg:px-8">
-  <div className="md:max-w-7xl mx-auto">
+  <div className="min-h-screen pt-20 lg:pt-6 lg:ml-64 bg-gray-50 py-12 px-2 sm:px-4 lg:px-8">
+  <div className="max-w-7xl mx-auto">
     <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
     
-      <div className="bg-gradient-to-r from-green-600 to-green-800 px-0 md:px-6 py-5 w-full flex flex-col sm:flex-row justify-between items-center text-center sm:text-left">
+      <div className="bg-gradient-to-r from-green-600 to-green-800 px-4 md:px-6 py-5 w-full flex flex-col sm:flex-row justify-between items-center text-center sm:text-left">
   <div>
     <h2 className="text-3xl mb-4 font-bold text-white">Applicant Details</h2>
     <p
@@ -136,8 +136,8 @@ const Applicant = () => {
     {application.shortListed ? "Shortlisted" : "Shortlist"}
   </button>
 </div>
-      <div className="p-1 md:p-6">
-        <div className="md:p-6">
+      <div className="p-2 md:p-6">
+        <div className="p-2 md:p-6">
          
           <div className="mb-8 bg-gray-50 p-6 rounded-xl">
             <h3 className="text-2xl font-bold text-green-800 mb-4">Applied Job Details</h3>

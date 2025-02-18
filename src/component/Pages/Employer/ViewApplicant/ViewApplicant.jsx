@@ -91,8 +91,8 @@ const ViewApplicant = () => {
         <Hostersidebar />
       </div>
 
-      <div className="ml-62 pt-32 lg:pt-20 lg:ml-64 flex-1 min-h-screen bg-gray-100 p-6 lg:p-8">
-  <div className="max-w-6xl mx-auto bg-white rounded-xl shadow-lg p-6">
+      <div className="ml-62 pt-20 lg:pt-20 lg:ml-64 flex-1 min-h-screen bg-gray-100 p-4 lg:p-8">
+  <div className="max-w-6xl mx-auto bg-white rounded-xl shadow-lg p-4 lg:p-6">
     
 
     <div className="flex flex-col sm:flex-row items-center justify-between pb-5 border-b">
@@ -144,7 +144,7 @@ const ViewApplicant = () => {
           {applicants.map((application) => (
             <div
               key={application._id}
-              className="bg-gray-50 border rounded-lg p-6 shadow-md hover:shadow-lg transition"
+              className="bg-gray-50 border rounded-lg p-4 lg:p-6 shadow-md hover:shadow-lg transition"
             >
               <div className="flex flex-wrap items-center justify-between gap-4">
              

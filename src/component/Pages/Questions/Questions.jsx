@@ -436,37 +436,37 @@ const QuestionComponent = () => {
               <div className="space-y-3">
                 {currentQuestion.options.map((option) => (
                   <label
-                    key={option.letter}
-                    className={`block relative p-4 rounded-xl cursor-pointer transition-all duration-200
-                      ${userAnswers[currentQuestionIndex] === option.letter
-                        ? "bg-blue-50 border-2 border-blue-500 shadow-sm"
-                        : "bg-gray-50 border border-gray-200 hover:bg-gray-100"
-                      }`}
-                  >
-                    <div className="flex items-center">
-                      <div className={`w-5 h-5 flex items-center justify-center rounded-full border-2 mr-3
-                        ${userAnswers[currentQuestionIndex] === option.letter
-                          ? "border-blue-500 bg-blue-500"
-                          : "border-gray-400"
-                        }`}
-                      >
-                        {userAnswers[currentQuestionIndex] === option.letter && (
-                          <div className="w-2 h-2 rounded-full bg-white" />
-                        )}
-                      </div>
-                      <input
-                        type="radio"
-                        name={`question-${currentQuestionIndex}`}
-                        value={option.letter}
-                        checked={userAnswers[currentQuestionIndex] === option.letter}
-                        onChange={() => handleAnswerSelection(option.letter)}
-                        className="sr-only"
-                      />
-                      <span className="text-base sm:text-lg text-gray-700">
-                        {option.letter.toUpperCase()}) {option.text}
-                      </span>
-                    </div>
-                  </label>
+  key={option.letter}
+  className={`block relative p-2 sm:p-3 md:p-4 rounded-xl cursor-pointer transition-all duration-200
+    ${userAnswers[currentQuestionIndex] === option.letter
+      ? "bg-blue-50 border-2 border-blue-500 shadow-sm"
+      : "bg-gray-50 border border-gray-200 hover:bg-gray-100"
+    }`}
+>
+  <div className="flex items-start sm:items-center">
+    <div className={`min-w-5 min-h-5 w-5 h-5 flex items-center justify-center rounded-full border-2 mr-2 sm:mr-3
+      ${userAnswers[currentQuestionIndex] === option.letter
+        ? "border-blue-500 bg-blue-500"
+        : "border-gray-400"
+      }`}
+    >
+      {userAnswers[currentQuestionIndex] === option.letter && (
+        <div className="w-2 h-2 rounded-full bg-white" />
+      )}
+    </div>
+    <input
+      type="radio"
+      name={`question-${currentQuestionIndex}`}
+      value={option.letter}
+      checked={userAnswers[currentQuestionIndex] === option.letter}
+      onChange={() => handleAnswerSelection(option.letter)}
+      className="sr-only"
+    />
+    <span className="text-sm sm:text-base md:text-lg text-gray-700">
+      {option.letter.toUpperCase()}) {option.text}
+    </span>
+  </div>
+</label>
                 ))}
               </div>
             </div>

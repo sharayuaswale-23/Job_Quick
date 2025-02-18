@@ -117,7 +117,7 @@ const MyJob = () => {
       <Hostersidebar />
 
     
-    <div className="min-h-screen pt-20 lg:pt-4 lg:ml-64 bg-gradient-to-br from-green-50 to-blue-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen pt-20 lg:pt-4 lg:ml-64 bg-gradient-to-br from-green-50 to-blue-50 py-12 px-2 sm:px-6 lg:px-8">
     
       <div className="max-w-6xl mx-auto">
         <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
