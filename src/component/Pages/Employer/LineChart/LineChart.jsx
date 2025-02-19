@@ -188,7 +188,7 @@ const LineChart = ({ jobs }) => {
           </div>
         </div>
 
-        <div className="lg:relative w-full h-[300px] sm:h-[350px] bg-white rounded-lg">
+        <div className="lg:relative w-full h-[350px] sm:h-[450px] bg-white rounded-lg">
           {isLoading ? (
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="flex flex-col items-center space-y-2">
@@ -202,7 +202,7 @@ const LineChart = ({ jobs }) => {
         </div>
 
         {selectedJob && graphData && (
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-2 gap-4">
             <div className="p-4 bg-orange-50 rounded-lg">
               <p className="text-sm text-black">Total Applicants</p>
               <p className="text-xl font-semibold text-black">

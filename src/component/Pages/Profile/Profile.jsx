@@ -9,6 +9,7 @@ import {FaTimes, FaCheck, FaDownload, FaEdit, FaTrash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
+import ShowJobs from "./showjobs";
 
 
 const Profile = () => {
@@ -409,35 +410,8 @@ const Profile = () => {
               </div>
 
               {/* Applied Jobs Section */}
-              <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
-                <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
-                  <span className="w-2 h-6 bg-blue-500 rounded-full"></span>
-                  Applied Jobs
-                </h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {displayedJobs.map((job) => (
-                    <div key={job._id} className="bg-gray-50 p-4 rounded-lg transform transition-all duration-300 hover:shadow-md hover:scale-102">
-                      <h3 className="text-lg font-semibold text-gray-800 mb-2">{job.title}</h3>
-                      <p className="text-gray-600 text-sm mb-1">
-                        <span className="font-medium">Company:</span> {job.companyName}
-                      </p>
-                      <p className="text-gray-600 text-sm">
-                        <span className="font-medium">Location:</span> {job.location}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-                {jobs.length > visibleJobs && (
-                  <div className="flex justify-center mt-6">
-                    <button
-                      onClick={handleSeeMoreJobs}
-                      className="px-6 py-3 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 transition-all duration-300 flex items-center gap-2"
-                    >
-                      {showAllJobs ? "Show Less" : "See More Jobs"}
-                    </button>
-                  </div>
-                )}
-              </div>
+           
+              <ShowJobs/>
             </div>
           </div>
         </div>

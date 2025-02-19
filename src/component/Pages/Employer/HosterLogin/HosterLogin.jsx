@@ -62,8 +62,8 @@ const HosterLogin = () => {
 
     <div className="flex h-screen items-center justify-center bg-gray-100 p-4 relative overflow-hidden">
 
-    <div className="hidden md:block absolute top-0 right-0 w-40 h-40 bg-red-400 rounded-bl-full opacity-40 md:opacity-100"></div>
-    <div className="hidden md:block absolute bottom-0 left-0 w-40 h-40 bg-yellow-400 rounded-tr-full opacity-40 md:opacity-100"></div>
+    {/* <div className="hidden md:block absolute top-0 right-0 w-40 h-40 bg-red-400 rounded-bl-full opacity-40 md:opacity-100"></div>
+    <div className="hidden md:block absolute bottom-0 left-0 w-40 h-40 bg-yellow-400 rounded-tr-full opacity-40 md:opacity-100"></div> */}
 
     <div className="flex w-full max-w-4xl overflow-hidden rounded-2xl bg-white shadow-lg md:flex-row flex-col">
      

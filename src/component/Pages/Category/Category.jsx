@@ -32,11 +32,10 @@ const Category = () => {
 
   const [filters, setFilters] = useState({
     categories: initialCategory,
-    title: initialTitle,
+    search: initialTitle,
     jobType: "",
     workType: "",
     experience: "",
-    companyName :"",
     subcategories: "", // Subcategories filter
     limit: 100,
   });
@@ -45,12 +44,6 @@ const Category = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSubcategory, setSelectedSubcategory] = useState("");
 
-
-    
-  const topCompanies = [
-    "TCS", "Infosys", "Wipro", 
-    "Google", "Microsoft", "Amazon","GrowthHub Inc." 
-  ];
 
   const JobToken = Cookies.get("userToken");
   const userId = Cookies.get("userNewId");
@@ -155,7 +148,7 @@ const Category = () => {
     e.preventDefault();
     setFilters((prev) => ({
       ...prev,
-      title: searchInput,
+      search: searchInput,
     }));
 
 
@@ -173,27 +166,14 @@ const Category = () => {
           </div>
 
           <form className="w-full flex flex-col md:flex-row items-center gap-4" onSubmit={handleSearch}>
-  <div className="w-full flex flex-col sm:flex-row gap-4 bg-white rounded-lg p-2">
+  <div className="w-96 flex flex-col sm:flex-row gap-4 bg-white rounded-lg p-2">
     <input
       type="text"
       value={searchInput}
       onChange={(e) => setSearchInput(e.target.value)}
-      placeholder="Job title"
-      className="flex-1 p-3 border-r sm:border-r border-gray-200 outline-none w-full"
+      placeholder="Job title, Company Name..."
+      className="flex-1 p-1 outline-none w-54"
     />
-    <select
-      className="p-3 border-none outline-none rounded-lg w-full sm:w-auto"
-      value={selectedCompany}
-      onChange={(e) => handleCompanyChange(e.target.value)}
-    >
-      <option value="">Select Company</option>
-      {topCompanies.map((company) => (
-        <option key={company} value={company}>{company}</option>
-      ))}
-      {companyNames.map((company) => (
-        <option key={company} value={company}>{company}</option>
-      ))}
-    </select>
   </div>
   <button 
     type="submit" 

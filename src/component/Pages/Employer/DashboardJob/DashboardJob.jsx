@@ -63,13 +63,13 @@ const Dashboardjob = () => {
   { jobs.length === 0 ? (
     <p>No jobs found.</p>
   ) : (
-    <div className="w-full max-w-lg">
+    <div className="w-full  lg:max-w-lg">
     
-      <div className="h-72 md:h-56 overflow-y-auto scrollbar-hide">
+      <div className="h-96 lg:h-48 w-full overflow-y-auto scrollbar-hide">
         {jobs.map((job) => (
           <div
             key={job._id}
-            className="bg-gray-50 p-2 py-4 rounded-lg flex justify-between shadow-md mb-4"
+            className="bg-gray-50 w-full p-2 py-4 rounded-lg flex justify-between shadow-md mb-4"
           >
             <div className="flex">
               <div className="w-12 h-12 bg-gray-300 text-gray-700 font-semibold flex items-center justify-center rounded-lg text-xl uppercase">

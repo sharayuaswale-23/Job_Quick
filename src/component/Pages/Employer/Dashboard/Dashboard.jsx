@@ -74,15 +74,17 @@ const HosterDashboard = () => {
             </button>
           </Link>
         </div>
+
+        <div>
+              <TotalApplicant stats={stats} />
+            </div>
   
         {/* Main Content Area */}
         <div className="flex flex-col lg:flex-row gap-6 mb-8">
+         {/* Statistics Cards */}
+        
           {/* Left Column - Stats & Graph */}
           <div className="w-full lg:w-[55%] space-y-6">
-            {/* Statistics Cards */}
-            <div>
-              <TotalApplicant stats={stats} />
-            </div>
             
             {/* Line Chart */}
             <div>
@@ -92,15 +94,14 @@ const HosterDashboard = () => {
   
           {/* Right Column - Pie Chart & Jobs List */}
           <div className="w-full lg:w-[45%] space-y-6">
+           {/* Jobs List */}
+           <div>
+              <Dashboardjob />
+            </div>
             {/* Pie Chart */}
             <div className="overflow-x-scroll scrollbar-hide">          
                 <PieChart jobs={jobs} />
               </div>
-  
-            {/* Jobs List */}
-            <div>
-              <Dashboardjob />
-            </div>
           </div>
         </div>
   

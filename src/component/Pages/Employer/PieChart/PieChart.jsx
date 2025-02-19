@@ -11,14 +11,14 @@ import Cookies from 'js-cookie';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const PieChart = ({ jobs }) => {
-  const [viewMode, setViewMode] = useState("default");
   const [chartData, setChartData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [hasJobs, setHasJobs] = useState(false);
 
   const defaultPieData = {
-    labels: ['Category A', 'Category B', 'Category C', 'Category D'],
+    labels: ['Software Development', 'Data Science', 'Product Management', 'Design'],
     datasets: [{
-      data: [30, 25, 20, 25],
+      data: [40, 25, 20, 15],
       backgroundColor: [
         'hsla(210, 70%, 50%, 0.8)',
         'hsla(280, 70%, 50%, 0.8)',
@@ -31,12 +31,14 @@ const PieChart = ({ jobs }) => {
   };
 
   useEffect(() => {
-    if (viewMode === "all") {
+    if (jobs && jobs.length > 0) {
+      setHasJobs(true);
       fetchAllCompaniesData();
     } else {
+      setHasJobs(false);
       setChartData([]);
     }
-  }, [viewMode]);
+  }, [jobs]);
 
   const fetchAllCompaniesData = async () => {
     setIsLoading(true);
@@ -78,7 +80,7 @@ const PieChart = ({ jobs }) => {
     return colors;
   };
 
-  const pieChartData = viewMode === "all" ? {
+  const pieChartData = hasJobs ? {
     labels: chartData.map(item => item.name),
     datasets: [
       {
@@ -95,6 +97,7 @@ const PieChart = ({ jobs }) => {
     maintainAspectRatio: false,
     plugins: {
       legend: {
+        display: false, 
         position: 'bottom',
         labels: {
           padding: 20,
@@ -105,7 +108,7 @@ const PieChart = ({ jobs }) => {
         },
       },
       tooltip: {
-        backgroundColor: 'rgba(17, 24, 39, 0.8)',
+        backgroundColor: 'rgba(17, 24, 39, 0.9)',
         padding: 12,
         titleFont: {
           size: 14,
@@ -114,14 +117,15 @@ const PieChart = ({ jobs }) => {
         bodyFont: {
           size: 13,
         },
+        cornerRadius: 8,
         callbacks: {
           label: function(context) {
             const value = context.raw;
             const total = context.dataset.data.reduce((a, b) => a + b, 0);
             const percentage = ((value / total) * 100).toFixed(1);
-            return viewMode === "all" 
+            return hasJobs 
               ? `${value} Applicants (${percentage}%)`
-              : `${value} Units (${percentage}%)`;
+              : `${value} Sample Units (${percentage}%)`;
           }
         }
       },
@@ -132,60 +136,70 @@ const PieChart = ({ jobs }) => {
 
   return (
 
-    <div className="w-full bg-white rounded-xl lg:p-2">
-      <div className="space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <h2 className="text-xl sm:text-lg font-semibold text-gray-800">
-            {viewMode === "all" ? "Job Applications" : "Distribution Overview"}
-          </h2>
-          
-          <select
-            value={viewMode}
-            onChange={(e) => setViewMode(e.target.value)}
-            className="px-4 py-2 bg-white border border-gray-200 rounded-lg 
-                     text-sm text-gray-700 focus:border-blue-500 focus:ring-2 
-                     focus:ring-blue-200 outline-none transition-colors duration-200"
-          >
-            <option value="default">Select View Option</option>
-            <option value="all">Show All Jobs</option>
-          </select>
-        </div>
 
-        <div className="w-full h-[280px]">
-          {isLoading ? (
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="flex flex-col items-center space-y-2">
-                <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
-                <p className="text-sm text-gray-500">Loading chart data...</p>
+    <div className="w-full bg-white rounded-xl shadow-lg p-3 sm:p-4 lg:p-6 transition-all duration-300 hover:shadow-xl">
+      <h2 className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-800 mb-2 sm:mb-4 md:mb-6 text-center sm:text-left">
+        {hasJobs ? "Job Applications Distribution" : "Sample Distribution Overview"}
+      </h2>
+  
+        <div className="flex flex-col lg:flex-row gap-4">
+
+          <div className="w-full lg:w-1/2 flex justify-center items-center mb-4 lg:mb-0">
+            <div className="relative w-full h-48 sm:h-56 md:h-64">
+              {isLoading ? (
+                <div className="absolute inset-0 flex items-center justify-center">              
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
+                </div>
+              ) : (
+                <Pie data={pieChartData} options={options} />
+              )}
+            </div>
+          </div>
+
+          <div className="w-full lg:w-1/2 flex flex-col px-2 sm:px-4">
+          <div className="h-auto sm:h-[200px] overflow-y-scroll -ms-overflow-style-none" style={{ scrollbarWidth: 'none' }}>
+             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-1 sm:gap-2 lg:mt-8">
+                {pieChartData.labels.map((label, index) => (
+                  <div key={label} className="flex items-center p-1 sm:p-2 rounded-lg hover:bg-gray-50 transition-colors">
+                    <div 
+                      className="w-2 h-2 sm:w-3 sm:h-3 rounded-full mr-1 sm:mr-2 flex-shrink-0" 
+                      style={{ backgroundColor: pieChartData.datasets[0].backgroundColor[index] }}
+                    />
+                    <span className="text-xs md:text-sm text-gray-700 truncate">{label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+        </div>
+        
+        <div className="mt-4 sm:mt-6">
+          {hasJobs && chartData.length > 0 ? (
+            <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-2 sm:gap-3 md:gap-4">
+              
+              <div className="p-2 sm:p-3 md:p-4 bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1">
+                <p className="text-xs sm:text-sm text-purple-700 font-medium">Average/Job</p>
+                <p className="text-base sm:text-lg md:text-2xl font-bold text-purple-600">
+                  {(totalApplicants / chartData.length).toFixed(1)}
+                </p>
+              </div>
+              <div className="p-2 sm:p-3 md:p-4 bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1">
+                <p className="text-xs sm:text-sm text-orange-700 font-medium">Most Applied</p>
+                <p className="text-xs sm:text-sm md:text-base font-bold text-orange-600 truncate">
+                  {chartData.reduce((max, item) => 
+                    item.applicants > max.applicants ? item : max
+                  ).name}
+                </p>
               </div>
             </div>
           ) : (
-            <Pie data={pieChartData} options={options} />
+            <div className="flex justify-center p-3 sm:p-4 bg-gray-50 rounded-lg">
+              <p className="text-gray-500 italic text-xs sm:text-sm">No job data available</p>
+            </div>
           )}
         </div>
- 
- {/* Total Jobs  */}
-        {viewMode === "all" && chartData.length > 0 && (
-          <div className="grid grid-cols-2 sm:grid-cols-2 gap-4">
-            <div className="p-4 bg-purple-50 rounded-lg">
-              <p className="text-sm text-gray-600">Average/Job</p>
-              <p className="text-xl font-semibold text-purple-600">
-                {(totalApplicants / chartData.length).toFixed(1)}
-              </p>
-            </div>
-            <div className="p-4 bg-orange-50 rounded-lg">
-              <p className="text-[12px] sm:text-sm text-gray-600">Top Applied Job</p>
-              <p className="text-md font-semibold text-orange-600">
-                {chartData.length > 0 ? chartData.reduce((max, item) => 
-                  item.applicants > max.applicants ? item : max
-                ).name : 'N/A'}
-              </p>
-            </div>
-          </div>
-        )}
-      </div>
     </div>
-
   );
 };
 

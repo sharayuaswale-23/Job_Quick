@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { jsPDF } from "jspdf";
 import Header from "../../../common/header/Header";
 import Footer from "../../../common/Footer/Footer";
+import { FileText, User, BookOpen, Briefcase, ChevronLeft, ChevronRight, Download, NotepadText } from 'lucide-react';
 
 const ResumeBuilder = () => {
   const [personalInfo, setPersonalInfo] = useState({
@@ -204,30 +205,83 @@ const ResumeBuilder = () => {
     <>
     <Header/>
  
-      <div className="bg-gray-50 min-h-screen">
-  <div className="max-w-4xl mx-auto py-10 px-6">
-    <h1 className="text-3xl md:text-4xl font-extrabold text-center text-gray-800 mb-8">Resume Builder</h1>
-
-   
-    <div className="flex justify-between mb-8">
-      {[1, 2, 3, 4].map((step) => (
-        <div
-          key={step}
-          className={`flex-1 text-center py-2 rounded-full text-sm font-semibold ${
-            currentStep === step ? "bg-blue-500 text-white" : "bg-gray-300 text-gray-600"
-          } transition duration-300`}
-        >
-          Step {step}
-        </div>
-      ))}
+    <div className="min-h-screen bg-gradient-to-br mt-20 from-blue-50 to-gray-100">
+  <div className="container mx-auto px-4 py-8">
+    <div className="text-center mb-12">
+      <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 mb-4">
+        Professional Resume Builder
+      </h1>
+      <p className="text-gray-600 text-lg md:text-xl max-w-2xl mx-auto">
+        Create a stunning resume in minutes with our easy-to-use builder
+      </p>
     </div>
 
-    <div className="bg-white shadow-lg rounded-lg p-8 space-y-8">
- 
-      {currentStep === 1 && (
-        <div>
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6">Personal Information</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-6">
+    <div className="flex flex-col md:flex-row gap-8 max-w-7xl mx-auto">
+      {/* Left Side Description */}
+      <div className="hidden md:block lg:w-1/4 space-y-6">
+        <div className="bg-white rounded-xl shadow-md p-6">
+          <h3 className="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
+            <FileText className="w-5 h-5 text-blue-500" />
+            Step-by-Step Guide
+          </h3>
+          <div className="space-y-4">
+            <div className={`p-4 rounded-lg transition-all ${currentStep === 1 ? 'bg-blue-50 border-l-4 border-blue-500' : 'bg-gray-50'}`}>
+              <div className="flex items-center gap-2">
+                <User className="w-4 h-4 text-blue-500" />
+                <span className="font-medium">Personal Information</span>
+              </div>
+            </div>
+            <div className={`p-4 rounded-lg transition-all ${currentStep === 2 ? 'bg-blue-50 border-l-4 border-blue-500' : 'bg-gray-50'}`}>
+              <div className="flex items-center gap-2">
+                <BookOpen className="w-4 h-4 text-blue-500" />
+                <span className="font-medium">Education Details</span>
+              </div>
+            </div>
+            <div className={`p-4 rounded-lg transition-all ${currentStep === 3 ? 'bg-blue-50 border-l-4 border-blue-500' : 'bg-gray-50'}`}>
+              <div className="flex items-center gap-2">
+                <Briefcase className="w-4 h-4 text-blue-500" />
+                <span className="font-medium">Work Experience</span>
+              </div>
+            </div>
+            <div className={`p-4 rounded-lg transition-all ${currentStep === 4 ? 'bg-blue-50 border-l-4 border-blue-500' : 'bg-gray-50'}`}>
+              <div className="flex items-center gap-2">
+                <NotepadText className="w-4 h-4 text-blue-500" />
+                <span className="font-medium">Skills & Expertise</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Right Side Form */}
+      <div className="lg:w-3/4">
+        <div className="bg-white rounded-xl shadow-lg p-6 md:p-8">
+          <div className="md:hidden grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+            {[1, 2, 3, 4].map((step) => (
+              <div
+                key={step}
+                className={`flex-1 mx-2 text-center mb-2 py-2 px-4 rounded-full text-sm font-semibold ${
+                  currentStep === step ? "bg-blue-500 text-white" : "bg-gray-100 text-gray-600"
+                } transition duration-300 flex items-center justify-center gap-2`}
+              >
+                {step === 1 && <User className="w-4 h-4" />}
+                {step === 2 && <BookOpen className="w-4 h-4" />}
+                {step === 3 && <Briefcase className="w-4 h-4" />}
+                {step === 4 && <NotepadText className="w-4 h-4" />}
+                Step {step}
+              </div>
+            ))}
+          </div>
+
+          <div className="space-y-8">
+            {/* Keep all the existing form content here, just updating the styling classes */}
+            {currentStep === 1 && (
+              <div className="animate-fadeIn">
+                <h2 className="text-2xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
+                  <User className="w-6 h-6 text-blue-500" />
+                  Personal Information
+                </h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-6">
             <div>
               <label className="block text-sm font-medium text-gray-700">Full Name</label>
               <input
@@ -279,13 +333,16 @@ const ResumeBuilder = () => {
               ></textarea>
             </div>
           </div>
-        </div>
-      )}
+              </div>
+            )}
 
-      {currentStep === 2 && (
-        <div>
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6">Education</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-6">
+            {currentStep === 2 && (
+              <div className="animate-fadeIn">
+                <h2 className="text-2xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
+                  <BookOpen className="w-6 h-6 text-blue-500" />
+                  Education
+                </h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-6">
             <div>
               <label className="block text-sm font-medium text-gray-700">College</label>
               <input
@@ -335,7 +392,7 @@ const ResumeBuilder = () => {
                 Add Education
               </button>
             </div>
-          </div>
+            </div>
           {education.length > 0 && (
               <div className="mt-4">
                 <h3 className="font-bold">Added Education:</h3>
@@ -346,16 +403,16 @@ const ResumeBuilder = () => {
                 ))}
               </div>
             )}
-        </div>
-      
+              </div>
+            )}
 
-      )}
-
-     
-      {currentStep === 3 && (
-        <div>
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6">Work Experience</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-6">
+            {currentStep === 3 && (
+              <div className="animate-fadeIn">
+                <h2 className="text-2xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
+                  <Briefcase className="w-6 h-6 text-blue-500" />
+                  Work Experience
+                </h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-6">
             <div>
               <label className="block text-sm font-medium text-gray-700">Company Name</label>
               <input
@@ -426,13 +483,16 @@ const ResumeBuilder = () => {
                 ))}
               </div>
             )}
-        </div>
-      )}
+              </div>
+            )}
 
-      {currentStep === 4 && (
-        <div>
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6">Work Experience</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-6">
+            {currentStep === 4 && (
+              <div className="animate-fadeIn">
+                <h2 className="text-2xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
+                  <NotepadText className="w-6 h-6 text-blue-500" />
+                  Skills
+                </h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-6">
             <div>
               <label className="block text-sm font-medium text-gray-700">Skills</label>
               <input
@@ -466,45 +526,46 @@ const ResumeBuilder = () => {
                 </div>
               </div>
             )}
-        </div>
-      )}
-      
+              </div>
+            )}
 
- 
-      <div className="flex justify-between gap-4 mt-8">
-        {currentStep > 1 && (
-          <button
-            onClick={prevStep}
-            className="bg-gray-500 text-white px-6 py-2 rounded-md shadow-md hover:bg-gray-600 focus:outline-none"
-          >
-            Previous
-          </button>
-        )}
-        {currentStep < 4 ? (
-          <button
-            onClick={nextStep}
-            className="bg-blue-500 text-white px-6 py-2 rounded-md shadow-md hover:bg-blue-600 focus:outline-none"
-          >
-            Next
-          </button>
-        ) : (
-          <button
-            onClick={generatePDF}
-            className="bg-blue-500 text-white px-6 py-2 rounded-md shadow-md hover:bg-blue-600 focus:outline-none"
-          >
-            Generate PDF
-          </button>
-        )}
+            <div className="flex justify-between gap-4 mt-8 pt-4 border-t">
+              {currentStep > 1 && (
+                <button
+                  onClick={prevStep}
+                  className="flex items-center gap-2 bg-gray-500 text-white px-6 py-2 rounded-md shadow-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-all"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                  Previous
+                </button>
+              )}
+              {currentStep < 4 ? (
+                <button
+                  onClick={nextStep}
+                  className="flex items-center gap-2 bg-blue-500 text-white px-6 py-2 rounded-md shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ml-auto"
+                >
+                  Next
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              ) : (
+                <button
+                  onClick={generatePDF}
+                  className="flex items-center gap-2 bg-blue-500 text-white px-6 py-2 rounded-md shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ml-auto"
+                >
+                  Generate PDF
+                  <Download className="w-4 h-4" />
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-
       <Footer/>
-    </>
+  </>
   );
-};
-
+}
 export default ResumeBuilder;
-

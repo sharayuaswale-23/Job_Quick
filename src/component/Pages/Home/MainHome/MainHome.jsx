@@ -32,7 +32,7 @@ const MainHome = () => {
           <div className="flex w-full max-w-lg border border-gray-200 rounded-full overflow-hidden shadow-xl bg-white animate-fadeInUp delay-2s">
             <input
                type="text"
-              placeholder="Search for designation..."
+              placeholder="Search for designation and company..."
               onChange={(e) => setSearchInput(e.target.value)}
               className="w-full p-4 outline-none text-gray-700 placeholder-gray-400"
             />
