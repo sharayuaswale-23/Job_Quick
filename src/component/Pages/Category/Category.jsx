@@ -166,15 +166,16 @@ const Category = () => {
           </div>
 
           <form className="w-full flex flex-col md:flex-row items-center gap-4" onSubmit={handleSearch}>
-  <div className="w-96 flex flex-col sm:flex-row gap-4 bg-white rounded-lg p-2">
-    <input
-      type="text"
-      value={searchInput}
-      onChange={(e) => setSearchInput(e.target.value)}
-      placeholder="Job title, Company Name..."
-      className="flex-1 p-1 outline-none w-54"
-    />
-  </div>
+          <div className="w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl xl:max-w-3xl flex flex-col sm:flex-row gap-4 bg-white rounded-lg p-2">
+            <input
+              type="text"
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
+              placeholder="Job title, Company Name..."
+              className="flex-1 p-2 outline-none w-full text-sm sm:text-base focus:outline-blue-400 rounded-md"
+            />
+          </div>
+
   <button 
     type="submit" 
     className="w-full md:w-auto bg-blue-700 text-white px-5 py-3 rounded-lg flex justify-center items-center gap-2 shadow-md hover:bg-blue-800 transition-colors"

@@ -171,8 +171,8 @@ const JobDetail = () => {
 
                 {/* Text Section */}
                 <div>
-                  <h1 className="text-4xl font-bold text-gray-900 mb-2">{jobData.title}</h1>
-                  <p className="text-xl text-indigo-500 text-center font-semibold">{jobData.companyName}</p>
+                  <h1 className="text-4xl font-bold text-gray-900 mb-2 text-center md:text-left">{jobData.title}</h1>
+                  <p className="text-xl text-indigo-500 text-center md:text-left font-semibold">{jobData.companyName}</p>
                 </div>
               </div>
 
