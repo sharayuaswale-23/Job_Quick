@@ -150,7 +150,7 @@ const Table = () => {
     switch (status) {
       case "Shortlisted":
         return "bg-emerald-100 text-emerald-700 border border-emerald-200";
-      case "Under Review":
+      case "Pending":
         return "bg-amber-100 text-amber-700 border border-amber-200";
       default:
         return "bg-gray-100 text-gray-600 border border-gray-200";

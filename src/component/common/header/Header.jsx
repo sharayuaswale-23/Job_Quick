@@ -139,6 +139,9 @@ const Header = () => {
                 <li className="px-4 py-2 hover:bg-gray-100">
                   <Link to="/mocktest">Mock Questions</Link>
                 </li>
+                <li className="px-4 py-2 hover:bg-gray-100">
+                  <Link to="/interviewapp">Interview Questions</Link>
+                </li>
               </ul>
             )}
           </li>
@@ -222,6 +225,9 @@ const Header = () => {
                   </li>
                   <li className="px-4 py-2 hover:bg-gray-100">
                   <Link to="/mocktest">Mock Questions</Link>
+                </li>
+                <li className="px-4 py-2 hover:bg-gray-100">
+                  <Link to="/interviewapp">Interview Questions</Link>
                 </li>
                 </ul>
               )}

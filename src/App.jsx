@@ -26,6 +26,7 @@ import ViewApplicant from "./component/Pages/Employer/ViewApplicant/ViewApplican
 import Applicant from "./component/Pages/Employer/Applicant/Applicant";
 import AiMockTest from "./component/Pages/Mock/Mock";
 import QuestionComponent from "./component/Pages/Questions/Questions";
+import InterviewApp from "./component/Pages/InterviewApp/InterviewApp";
 
 
 export const AuthContext = createContext();
@@ -132,6 +133,14 @@ const App = () => {
           element={
             <RequireAuth>
               <ResumeBuilder />
+            </RequireAuth>
+          }
+        />
+         <Route
+          path="/interviewapp"
+          element={
+            <RequireAuth>
+              <InterviewApp />
             </RequireAuth>
           }
         />
