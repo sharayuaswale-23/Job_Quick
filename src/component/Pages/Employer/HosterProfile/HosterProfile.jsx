@@ -102,12 +102,12 @@ const HosterProfile = () => {
         </div>
 
     
-        <div className="flex-1 mt-8 lg:mt-1 p-4 md:p-10 lg:ml-64 bg-gradient-to-br from-green-50 to-blue-50 min-h-screen">
+        <div className="flex-1 mt-8 lg:mt-1 p-2 md:p-8 lg:ml-64 bg-gradient-to-br from-green-50 to-blue-50 min-h-screen">
   <h1 className="text-5xl text-center font-extrabold bg-gradient-to-r from-green-600 to-green-900 text-black bg-clip-text text-transparent mb-8">
     Profile
   </h1>
 
-  <div className="max-w-5xl mx-auto w-full bg-white shadow-xl rounded-3xl p-8 border border-gray-200">
+  <div className="max-w-5xl mx-auto w-full bg-white shadow-xl rounded-3xl pb-4 p-2 md:p-8 border border-gray-200">
     <div className="h-auto w-full sm:h-48 lg:h-40 text-green-900 flex flex-col sm:flex-row items-center justify-between py-4 sm:py-0">
       <div className="flex flex-col sm:flex-row items-center w-full space-y-4 sm:space-y-0">
         <img src={Profile} alt="Profile" className="w-28 h-16 sm:w-32 sm:h-24 lg:w-44 lg:h-28 rounded-full" />
@@ -133,7 +133,7 @@ const HosterProfile = () => {
       </div>
     </div>
 
-    <div className="bg-gray-50 p-6 rounded-lg shadow-md border mt-8">
+    <div className="bg-gray-50 p-4 md:p-6 rounded-lg shadow-md border mt-8">
       <h2 className="text-xl font-extrabold text-gray-800 mb-3">Additional Information</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         {[{ label: "Gender", value: hoster.gender || "N/A" },
@@ -149,7 +149,7 @@ const HosterProfile = () => {
       </div>
     </div>
 
-    <div className="bg-gray-50 p-6 rounded-lg shadow-md border mt-8">
+    <div className="bg-gray-50 p-4 md:p-6 rounded-lg shadow-md border mt-8">
       <h2 className="text-xl font-extrabold text-gray-800 mb-3">Location Details</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         {[{ label: "City", value: hoster.city || "N/A" },

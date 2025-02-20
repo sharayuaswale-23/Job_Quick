@@ -75,7 +75,7 @@ const ShowJobs = () => {
   return (
     <>
       
-      <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
+      <div className="bg-white rounded-2xl p-2 md:p-6 shadow-lg border border-gray-100">
         <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
           <span className="w-2 h-6 bg-blue-500 rounded-full"></span>
           Jobs you've applied to

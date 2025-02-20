@@ -176,7 +176,7 @@ const PieChart = ({ jobs }) => {
         
         <div className="mt-4 sm:mt-6">
           {hasJobs && chartData.length > 0 ? (
-            <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-2 sm:gap-3 md:gap-4">
+            <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4">
               
               <div className="p-2 sm:p-3 md:p-4 bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1">
                 <p className="text-xs sm:text-sm text-purple-700 font-medium">Average/Job</p>

@@ -139,7 +139,7 @@ const Applicant = () => {
       <div className="p-2 md:p-6">
         <div className="p-2 md:p-6">
          
-          <div className="mb-8 bg-gray-50 p-6 rounded-xl">
+          <div className="mb-8 bg-gray-100 p-2 md:p-6 rounded-xl">
             <h3 className="text-2xl font-bold text-green-800 mb-4">Applied Job Details</h3>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div>
@@ -165,14 +165,14 @@ const Applicant = () => {
           <div className="grid grid-cols-1 lg:grid-cols-3 mb-4 gap-6">
         
             <div className="lg:col-span-1 space-y-6">
-              <div className="bg-gray-50 p-6 rounded-xl">
+              <div className="bg-gray-100 p-2 md:p-6 rounded-xl">
                 <h3 className="text-2xl font-bold text-green-800 mb-4">Personal Information</h3>
                 <p className="font-semibold">{applicant.fullName || "N/A"}</p>
                 <p className="text-gray-700">{applicant.email || "N/A"}</p>
                 <p className="text-gray-700">{applicant.phoneNumber || "N/A"}</p>
                 <p className="text-gray-700">{applicant.gender || "N/A"}</p>
               </div>
-              <div className="bg-gray-50 p-6 rounded-xl">
+              <div className="bg-gray-100 p-2 md:p-6 rounded-xl">
                 <h3 className="text-2xl font-bold text-green-800 mb-4">Address</h3>
                 <p className="font-semibold">{applicant.address || "N/A"}</p>
                 <p className="font-semibold">{applicant.city || "N/A"}</p>
@@ -183,16 +183,16 @@ const Applicant = () => {
 
    
             <div className="lg:col-span-2 space-y-6">
-              <div className="bg-gray-50 p-6 rounded-xl">
+              <div className="bg-gray-100 p-2 md:p-6 rounded-xl">
                 <h3 className="text-2xl font-bold text-green-800 mb-4">Summary</h3>
                 <p className="text-gray-700">{applicant.summary || "No summary provided"}</p>
               </div>
-              <div className="bg-gray-50 p-6 rounded-xl">
+              <div className="bg-gray-100 p-2 md:p-6 rounded-xl">
                 <h3 className="text-2xl font-bold text-green-800 mb-4">Education</h3>
                 <p className="font-semibold">{applicant.eduDegree || "N/A"}</p>
                 <p className="text-gray-700">{applicant.eduInstitution || "N/A"}</p>
               </div>
-              <div className="bg-gray-50 p-6 rounded-xl">
+              <div className="bg-gray-100 p-2 md:p-6 rounded-xl">
                 <h3 className="text-2xl font-bold text-green-800 mb-4">Experience</h3>
                 <p className="font-semibold">{applicant.expPosition || "N/A"}</p>
                 <p className="text-gray-700">{applicant.expCompany || "N/A"}</p>
@@ -200,8 +200,8 @@ const Applicant = () => {
             </div>
           </div>
 
-          <div className="mb-8 p-6 grid md:grid-cols-2 gap-6">
-                <div className="bg-gray-50 p-6 rounded-xl">
+          <div className="mb-8 p-2 md:p-6 grid md:grid-cols-2 gap-6">
+                <div className="bg-gray-100 p-2 md:p-6 rounded-xl">
                   <h3 className="text-2xl font-bold text-green-800 mb-4">Skills</h3>
                   <div className="flex flex-wrap gap-2">
                     {Array.isArray(applicant.skills) && applicant.skills.length > 0 ? (
@@ -215,7 +215,7 @@ const Applicant = () => {
                     )}
                   </div>
                 </div>
-                <div className="bg-gray-50 p-6 rounded-xl">
+                <div className="bg-gray-100 p-2 md:p-6 rounded-xl">
                   <h3 className="text-2xl font-bold text-green-800 mb-4">Links</h3>
                   {applicant.projectUrl ? (
                     <a href={applicant.projectUrl} target="_blank" rel="noopener noreferrer" className="text-black-600 hover:underline">

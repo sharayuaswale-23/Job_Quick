@@ -265,7 +265,7 @@ const Profile = () => {
       <Header />
  
       <div className="min-h-screen mt-16 bg-gradient-to-br from-blue-50 to-indigo-100 py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" ref={resumeRef}>
+      <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8" ref={resumeRef}>
         <div className="bg-white rounded-3xl overflow-hidden shadow-2xl transition-all duration-300 hover:shadow-3xl">
           {/* Header Banner */}
           <div className="bg-gradient-to-r from-blue-400 to-indigo-400 p-6 text-white">
@@ -273,11 +273,11 @@ const Profile = () => {
             <p className="text-center text-gray-100">Your Professional Journey</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-10 gap-8 p-6">
+          <div className="grid grid-cols-1 md:grid-cols-10 gap-8 p-4 md:p-6">
             {/* Left Column */}
             <div className="md:col-span-3 space-y-8">
               {/* Profile Card */}
-              <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 transform transition-all duration-300 hover:shadow-xl">
+              <div className="bg-white rounded-2xl p-2 md:p-6 shadow-lg border border-gray-100 transform transition-all duration-300 hover:shadow-xl">
                 <div className="flex flex-col items-center">
                   <div className="relative">
                     <img 
@@ -315,7 +315,7 @@ const Profile = () => {
               </div>
 
               {/* Summary Section */}
-              <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
+              <div className="bg-white rounded-2xl p-2 md:p-6 shadow-lg border border-gray-100">
                 <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
                   <span className="w-2 h-6 bg-blue-500 rounded-full"></span>
                   Summary
@@ -324,7 +324,7 @@ const Profile = () => {
               </div>
 
               {/* Skills Section */}
-              <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
+              <div className="bg-white rounded-2xl p-2 md:p-6 shadow-lg border border-gray-100">
                 <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
                   <span className="w-2 h-6 bg-blue-500 rounded-full"></span>
                   Skills
@@ -345,7 +345,7 @@ const Profile = () => {
             {/* Right Column */}
             <div className="md:col-span-7 space-y-8">
               {/* Personal Details */}
-              <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
+              <div className="bg-white rounded-2xl p-2 md:p-6 shadow-lg border border-gray-100">
                 <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
                   <span className="w-2 h-6 bg-blue-500 rounded-full"></span>
                   Personal Details
@@ -367,7 +367,7 @@ const Profile = () => {
               </div>
 
               {/* Education Details */}
-              <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
+              <div className="bg-white rounded-2xl p-2 md:p-6 shadow-lg border border-gray-100">
                 <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
                   <span className="w-2 h-6 bg-blue-500 rounded-full"></span>
                   Educational Details
@@ -389,7 +389,7 @@ const Profile = () => {
               </div>
 
               {/* Experience Section */}
-              <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
+              <div className="bg-white rounded-2xl p-2 md:p-6 shadow-lg border border-gray-100">
                 <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
                   <span className="w-2 h-6 bg-blue-500 rounded-full"></span>
                   Experience

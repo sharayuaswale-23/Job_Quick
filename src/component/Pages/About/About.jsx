@@ -134,7 +134,7 @@ const About = () => {
         
         {/* Main Image */}
         <div className="relative w-full max-w-sm">
-          <div className="w-96 h-96 sm:w-80 sm:h-80 overflow-hidden rounded-2xl shadow-2xl transform rotate-2 transition-all duration-500 hover:rotate-0 hover:scale-105">
+          <div className="w-96 h-96 sm:w-80 sm:h-80 overflow-hidden rounded-2xl shadow-2xl transform transition-all duration-500">
             <img
               src={images[currentImage]}
               alt="Freelancer"
@@ -210,19 +210,29 @@ const About = () => {
           ))}
         </div>
         
-        {/* CTA Button */}
         <button 
-          onClick={handleEmployerClick} 
-          className="mt-4 group relative inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-indigo-600 to-blue-700 text-white font-semibold text-lg rounded-xl shadow-lg hover:shadow-indigo-200 transition-all duration-300 overflow-hidden w-full sm:w-auto"
-        >
-          <span className="absolute w-0 h-0 transition-all duration-500 ease-out bg-white rounded-full group-hover:w-56 group-hover:h-56 opacity-10"></span>
-          <span className="relative flex items-center">
-            See More
-            <svg className="ml-2 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-            </svg>
-          </span>
-        </button>
+            onClick={handleEmployerClick} 
+            className="mt-3 group relative inline-flex items-center justify-center 
+                      px-3 sm:px-5 md:px-6 py-2 sm:py-3 md:py-4 
+                      bg-gradient-to-r from-indigo-600 to-blue-700 
+                      text-white font-semibold text-xs sm:text-sm md:text-lg 
+                      rounded-lg sm:rounded-xl shadow-lg 
+                      hover:shadow-indigo-200 transition-all duration-300 
+                      overflow-hidden w-full max-w-[250px] sm:max-w-none mx-auto"
+          >
+            <span className="absolute w-0 h-0 transition-all duration-500 ease-out bg-white rounded-full 
+                            group-hover:w-24 group-hover:h-24 sm:group-hover:w-40 sm:group-hover:h-40 opacity-10">
+            </span>
+            <span className="relative flex items-center">
+              See More
+              <svg className="ml-2 w-3 sm:w-5 h-3 sm:h-5 transition-transform duration-300 group-hover:translate-x-1" 
+                  fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+              </svg>
+            </span>
+          </button>
+
+
         
         {/* Trust Badges */}
         <div className="mt-8 flex flex-wrap justify-start gap-4">
