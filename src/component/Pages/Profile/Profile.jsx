@@ -374,11 +374,11 @@ const Profile = () => {
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {[
-                    ["Degree", seeker.eduDegree],
-                    ["University", seeker.eduInstitution],
-                    ["Specialisation", seeker.eduSpecialisation],
-                    ["Start Year", seeker.eduStartYear],
-                    ["End Year", seeker.eduEndYear],
+                    ["Degree", seeker.eduDegree || "N/A"],
+                    ["University", seeker.eduInstitution || "N/A"],
+                    ["Specialisation", seeker.eduSpecialisation || "N/A"],
+                    ["Start Year", seeker.eduStartYear || "N/A"],
+                    ["End Year", seeker.eduEndYear || "N/A"],
                   ].map(([label, value], index) => (
                     <div key={index} className="bg-gray-50 p-4 rounded-lg">
                       <p className="text-sm text-gray-500 mb-1">{label}</p>
@@ -396,10 +396,10 @@ const Profile = () => {
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {[
-                    ["Company Name", seeker.expCompany],
-                    ["Position", seeker.expPosition],
-                    ["Start Date", seeker.expStartYear],
-                    ["End Date", seeker.expEndYear],
+                    ["Company Name", seeker.expCompany || "N/A"],
+                    ["Position", seeker.expPosition || "N/A"],
+                    ["Start Date", seeker.expStartYear || "N/A"],
+                    ["End Date", seeker.expEndYear || "N/A"],
                   ].map(([label, value], index) => (
                     <div key={index} className="bg-gray-50 p-4 rounded-lg">
                       <p className="text-sm text-gray-500 mb-1">{label}</p>

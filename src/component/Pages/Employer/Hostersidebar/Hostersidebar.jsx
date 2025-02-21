@@ -99,7 +99,7 @@ function Hostersidebar() {
               className="w-full h-full object-cover"
             />
           </div>
-          <h1 className="text-xl font-semibold text-gray-900 mt-4">{hoster.fullName}</h1>
+          <h1 className="text-xl font-semibold text-gray-900 mt-4">{hoster.fullName || "Admin"}</h1>
           <p className="text-sm text-gray-500 mt-1">{hoster.phoneNumber}</p>
           <a href="" className="text-sm text-gray-500 mt-1">{hoster.email}</a>
         </div>
