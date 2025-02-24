@@ -69,8 +69,8 @@ const HosterSignup = () => {
        
       <div className="flex h-screen items-center justify-center bg-gray-100 p-4 relative overflow-hidden">
     
-      <div className="absolute top-0 right-0 w-40 h-40 bg-red-400 rounded-bl-full opacity-40 md:opacity-100"></div>
-      <div className="absolute bottom-0 left-0 w-40 h-40 bg-yellow-400 rounded-tr-full opacity-40 md:opacity-100"></div>
+      {/* <div className="absolute top-0 right-0 w-40 h-40 bg-red-400 rounded-bl-full opacity-40 md:opacity-100"></div>
+      <div className="absolute bottom-0 left-0 w-40 h-40 bg-yellow-400 rounded-tr-full opacity-40 md:opacity-100"></div> */}
     
       <div className="flex w-full mt-6 max-w-4xl overflow-hidden rounded-2xl bg-white shadow-lg md:flex-row flex-col-reverse">
       
@@ -93,7 +93,7 @@ const HosterSignup = () => {
                   type={showPassword ? "text" : "password"}
                   id="password"
                   value={password}
-                  placeholder="Enter your password"
+                  placeholder="Enter your password (min. 6 char)"
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />

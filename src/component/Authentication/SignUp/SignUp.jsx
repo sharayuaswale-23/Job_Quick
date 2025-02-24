@@ -115,7 +115,7 @@ const Signup = () => {
             <div className="relative w-full">
                   <input
                     type={showPassword ? "text" : "password"}
-                    placeholder="Password"
+                    placeholder="Password (min. 6 char)"
                     onChange={(e) => setPassword(e.target.value)}
                     required
                     className="w-full pr-10 focus:outline-none bg-transparent placeholder-gray-500 text-gray-800 focus:border-b-2 focus:border-blue-500"
