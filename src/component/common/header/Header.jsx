@@ -139,9 +139,6 @@ const Header = () => {
                 <li className="px-4 py-2 hover:bg-gray-100">
                   <Link to="/mocktest">Mock Questions</Link>
                 </li>
-                {/* <li className="px-4 py-2 hover:bg-gray-100">
-                  <Link to="/interviewapp">Interview Questions</Link>
-                </li> */}
               </ul>
             )}
           </li>
@@ -149,10 +146,10 @@ const Header = () => {
             <Link to="/salary">Salary</Link>
           </li>
           <li className="cursor-pointer">
-            <Link to="/contact">Contact Us</Link>
+            <Link to="/about">About</Link>
           </li>
           <li className="cursor-pointer">
-            <Link to="/about">About Us</Link>
+            <Link to="/contact">Contact Us</Link>
           </li>
         </ul>
 
@@ -226,9 +223,6 @@ const Header = () => {
                   <li className="px-4 py-2 hover:bg-gray-100">
                   <Link to="/mocktest">Mock Questions</Link>
                 </li>
-                {/* <li className="px-4 py-2 hover:bg-gray-100">
-                  <Link to="/interviewapp">Interview Questions</Link>
-                </li> */}
                 </ul>
               )}
             </li>
@@ -236,11 +230,11 @@ const Header = () => {
               <Link to="/salary">Salary</Link>
             </li>
             <li className="cursor-pointer">
+            <Link to="/about">About</Link>
+          </li>
+            <li className="cursor-pointer">
               <Link to="/contact">Contact Us</Link>
             </li>
-            <li className="cursor-pointer">
-            <Link to="/about">About Us</Link>
-          </li>
             {!isAuthenticated ? (
             <>
               <div className="flex flex-col items-center gap-4">

@@ -130,7 +130,7 @@ const ShowJobs = () => {
               <span className="relative z-10 inline-block transition-transform duration-300">
                 {isLoading ? "Loading..." : "Load More Jobs"}
               </span>
-              <div className="absolute inset-0 bg-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+   
             </button>
           </div>
         )}

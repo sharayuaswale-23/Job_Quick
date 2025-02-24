@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import userimg from "../../../assets/Images/userdetailimg.webp";
+import Footer from "../../common/Footer/Footer";
 
 const UserDetails = () => {
   const [step, setStep] = useState(1);
@@ -80,14 +81,6 @@ const UserDetails = () => {
     };
     fetchUserDetails();
   }, [SeekId, SeekToken, userDetailApi]);
-
-  if (loading) {
-    return (
-      <p className="text-center mt-5 text-5xl text-blue-500 font-semibold">
-        Loading...
-      </p>
-    );
-  }
 
   const handleSeekData = (e) => {
     e.preventDefault();
@@ -605,26 +598,68 @@ const UserDetails = () => {
   return (
     <>
       <Header />
-      <div className="flex flex-col mt-10 md:flex-row justify-center items-center min-h-screen bg-gray-100 px-4 sm:px-6 lg:px-16 py-10">
-     
-         <div className="hidden md:block w-full  lg:w-1/2 justify-center lg:justify-end mb-6 lg:mb-0">
-          <img
-            src={userimg} 
-            alt="Profile Preview"
-            className="w-50 h-50 md:w-full md:h-full object-cover"
-          />
-        </div> 
+      {loading ? (<>
+        <p className="text-center w-full min-h-screen flex justify-center items-center mt-5 text-5xl text-blue-500 font-semibold">
+        Loading...
+      </p>
+      </>):
+      (<>
+        <div className="min-h-screen bg-gradient-to-br mt-16 from-blue-50 to-indigo-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
+          {/* Left side - Image */}
+          <div className="hidden lg:block w-full lg:w-1/2 animate-fade-in">
+            <div className="relative">
+              <img
+                src={userimg}
+                alt="Profile Preview"
+                className="relative w-full h-auto transform hover:scale-105 transition-transform duration-300"
+              />
+            </div>
+          </div>
 
-        <div className="w-full lg:w-1/2 bg-white shadow-lg rounded-lg max-w-lg sm:p-6 p-4">
-        <form onSubmit={handleSeekData}>
-              {step === 1 && renderuserDetailForm()}
-              {step === 2 && renderuserAboutForm()}
-              {step === 3 && renderuserAddressForm()}
-              {step === 4 && renderuserEducationForm()}
-              {step === 5 && renderuserExperienceForm()}
-            </form>
+          {/* Right side - Form */}
+          <div className="w-full min-h-screen px-2 xs:px-3 sm:px-4 md:px-6 lg:w-1/2 max-w-xl mx-auto">
+      <div className="bg-white rounded-lg sm:rounded-xl md:rounded-2xl shadow-lg sm:shadow-xl p-3 xs:p-4 sm:p-6 md:p-8">
+
+        {/* Form container with improved tiny screen spacing */}
+        <div className="transition-all duration-300 transform">
+          <form onSubmit={handleSeekData} className="space-y-3 xs:space-y-4 sm:space-y-6">
+            {step === 1 && (
+              <div className="animate-fade-in">
+                {renderuserDetailForm()}
+              </div>
+            )}
+            {step === 2 && (
+              <div className="animate-fade-in">
+                {renderuserAboutForm()}
+              </div>
+            )}
+            {step === 3 && (
+              <div className="animate-fade-in">
+                {renderuserAddressForm()}
+              </div>
+            )}
+            {step === 4 && (
+              <div className="animate-fade-in">
+                {renderuserEducationForm()}
+              </div>
+            )}
+            {step === 5 && (
+              <div className="animate-fade-in">
+                {renderuserExperienceForm()}
+              </div>
+            )}
+          </form>
         </div>
       </div>
+    </div>
+        </div>
+      </div>
+    </div>
+      </>)}
+     
+      <Footer/>
     </>
   );
 };
