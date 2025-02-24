@@ -61,21 +61,17 @@ const HosterLogin = () => {
 
 
     <div className="flex h-screen items-center justify-center bg-gray-100 p-4 relative overflow-hidden">
-
-    {/* <div className="hidden md:block absolute top-0 right-0 w-40 h-40 bg-red-400 rounded-bl-full opacity-40 md:opacity-100"></div>
-    <div className="hidden md:block absolute bottom-0 left-0 w-40 h-40 bg-yellow-400 rounded-tr-full opacity-40 md:opacity-100"></div> */}
-
     <div className="flex w-full max-w-4xl overflow-hidden rounded-2xl bg-white shadow-lg md:flex-row flex-col">
-     
-      <div className="flex w-full py-15 md:py-20 md:w-1/2 flex-col items-center justify-center bg-gradient-to-r from-green-400 to-teal-500 p-8 text-white relative">
+      {/* Left section - hidden on mobile */}
+      <div className="hidden md:flex w-full md:w-1/2 flex-col items-center justify-center bg-gradient-to-r from-green-400 to-teal-500 p-8 text-white relative">
         <h2 className="text-3xl font-bold">Join us Today!</h2>
         <p className="mt-2 text-center">Unlock endless possibilities! Create your account to get started.</p>
         <Link to="/hostersignup" className="mt-6 rounded-full border-2 border-white px-6 py-2 font-semibold hover:bg-white hover:text-teal-500 transition-all">
-         SIGN UP
+          SIGN UP
         </Link>
       </div>
 
-   
+      {/* Right section */}
       <div className="w-full py-15 md:py-20 md:w-1/2 p-8 relative">
         <h2 className="text-3xl font-bold text-teal-500 text-center">Log in to your Account</h2>
         <p className="mt-4 text-center text-gray-500">Use your email for login:</p>
@@ -83,11 +79,11 @@ const HosterLogin = () => {
           <input
             className="w-full rounded-lg border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-teal-500"
             type="email"
-             id="email"
-             value={email}
-             placeholder="Enter your mail address"
-             onChange={(e) => setEmail(e.target.value)}
-             required
+            id="email"
+            value={email}
+            placeholder="Enter your mail address"
+            onChange={(e) => setEmail(e.target.value)}
+            required
           />
           <div className="relative w-full">
             <input
@@ -108,11 +104,18 @@ const HosterLogin = () => {
             </button>
           </div>
           <button type="submit" className="w-full rounded-lg bg-teal-500 p-3 text-white font-semibold hover:bg-teal-600 transition-all">
-         LOGIN
+            LOGIN
           </button>
         </form>
         {error && <div className="text-red-500 text-sm mt-2 md:mt-6">{error}</div>}
         
+        {/* Mobile-only signup link */}
+        <div className="md:hidden text-center mt-6">
+          <p className="text-gray-600 mb-2">Don't have an account?</p>
+          <Link to="/hostersignup" className="text-teal-500 font-semibold hover:text-teal-600">
+            Sign up here
+          </Link>
+        </div>
       </div>
     </div>
   </div>

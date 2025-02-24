@@ -68,12 +68,8 @@ const HosterSignup = () => {
     return (
        
       <div className="flex h-screen items-center justify-center bg-gray-100 p-4 relative overflow-hidden">
-    
-      {/* <div className="absolute top-0 right-0 w-40 h-40 bg-red-400 rounded-bl-full opacity-40 md:opacity-100"></div>
-      <div className="absolute bottom-0 left-0 w-40 h-40 bg-yellow-400 rounded-tr-full opacity-40 md:opacity-100"></div> */}
-    
-      <div className="flex w-full mt-6 max-w-4xl overflow-hidden rounded-2xl bg-white shadow-lg md:flex-row flex-col-reverse">
-      
+      <div className="flex w-full mt-6 max-w-4xl overflow-hidden rounded-2xl bg-white shadow-lg md:flex-row flex-col">
+        {/* Left section - signup form */}
         <div className="w-full py-15 md:py-20 md:w-1/2 p-8 relative">
           <h2 className="text-3xl font-bold text-teal-500 text-center">Create Account</h2>
           <p className="mt-4 text-center text-gray-500">Use your email for registration:</p>
@@ -88,23 +84,23 @@ const HosterSignup = () => {
               required
             />
             <div className="relative w-full">
-                <input
-                  className="w-full rounded-lg border border-gray-300 p-3 pr-10 focus:outline-none focus:ring-2 focus:ring-teal-500"
-                  type={showPassword ? "text" : "password"}
-                  id="password"
-                  value={password}
-                  placeholder="Enter your password (min. 6 char)"
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-600 hover:text-gray-800"
-                >
-                  {showPassword ? <EyeOff size={22} /> : <Eye size={22} />}
-                </button>
-              </div>
+              <input
+                className="w-full rounded-lg border border-gray-300 p-3 pr-10 focus:outline-none focus:ring-2 focus:ring-teal-500"
+                type={showPassword ? "text" : "password"}
+                id="password"
+                value={password}
+                placeholder="Enter your password (min. 6 char)"
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-600 hover:text-gray-800"
+              >
+                {showPassword ? <EyeOff size={22} /> : <Eye size={22} />}
+              </button>
+            </div>
             <button className="w-full rounded-lg bg-teal-500 p-3 text-white font-semibold hover:bg-teal-600 transition-all">
               SIGN UP
             </button>
@@ -119,10 +115,18 @@ const HosterSignup = () => {
               {success}
             </div>
           )}
+
+          {/* Mobile-only login link */}
+          <div className="md:hidden text-center mt-6">
+            <p className="text-gray-600 mb-2">Already have an account?</p>
+            <Link to="/hosterlogin" className="text-teal-500 font-semibold hover:text-teal-600">
+              Log in here
+            </Link>
+          </div>
         </div>
-    
- 
-        <div className="flex w-full py-15 md:py-20 md:w-1/2 flex-col items-center justify-center bg-gradient-to-r from-green-400 to-teal-500 p-8 text-white relative">
+
+        {/* Right section - hidden on mobile */}
+        <div className="hidden md:flex w-full md:w-1/2 flex-col items-center justify-center bg-gradient-to-r from-green-400 to-teal-500 p-8 text-white relative">
           <h2 className="text-3xl font-bold">Welcome Back!</h2>
           <p className="mt-2 text-center">To keep connected with us please login with your info</p>
           <Link to="/hosterlogin" className="mt-6 rounded-full border-2 border-white px-6 py-2 font-semibold hover:bg-white hover:text-teal-500 transition-all">
