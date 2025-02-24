@@ -101,8 +101,18 @@ const HosterProfile = () => {
           <Hostersidebar />
         </div>
 
-    
-        <div className="flex-1 mt-8 lg:mt-1 p-2 md:p-8 lg:ml-64 bg-gradient-to-br from-green-50 to-blue-50 min-h-screen">
+           {!hoster ? (
+            <>
+            <div className="min-h-screen flex items-center justify-center bg-gray-50">
+              <div className="text-center">
+                <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full text-white" />
+              </div>
+            </div>
+            </>
+
+           ):(
+            <>
+            <div className="flex-1 mt-8 lg:mt-1 p-2 md:p-8 lg:ml-64 bg-gradient-to-br from-green-50 to-blue-50 min-h-screen">
   <h1 className="text-5xl text-center font-extrabold bg-gradient-to-r from-green-600 to-green-900 text-black bg-clip-text text-transparent mb-8">
     Profile
   </h1>
@@ -183,6 +193,11 @@ const HosterProfile = () => {
     </div>
   )}
        </div>
+            </>
+
+           )}
+    
+      
 
 
       </div>

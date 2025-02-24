@@ -45,7 +45,7 @@ const AiMockTest = () => {
        <>
          <Header/>
 
-    <div className="min-h-screen mt-20 p-4 sm:p-6 md:p-8">
+    <div className="min-h-screen mt-20 p-4 sm:p-6 md:p-8 bg-gray-50">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col lg:flex-row h-full items-center">
           {/* Left Side - Image */}
@@ -62,7 +62,7 @@ const AiMockTest = () => {
 
           {/* Right Side - Form */}
           <div className="w-full h-full lg:w-1/2">
-            <div className="bg-white/90 backdrop-blur-sm rounded-lg shadow-lg p-6">
+            <div className="bg-white/90 rounded-lg shadow-lg p-6">
               {/* Header Section */}
               <div className="text-center mb-8">
               <div className="flex justify-center mb-4">

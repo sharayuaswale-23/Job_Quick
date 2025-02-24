@@ -53,6 +53,33 @@ const HosterDashboard = () => {
     }
   };
 
+  
+  if (loading) {
+    return (
+      <div className="min-h-screen flex flex-col lg:flex-row bg-gray-50">
+        <div className="w-1/4 h-screen fixed top-0 left-0">
+          <HostSidebar />
+        </div>
+        <div className="w-full lg:pl-60 transition-all duration-300 flex items-center justify-center">
+          <Loader2 className="w-8 h-8 text-green-600 animate-spin" />
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex flex-col lg:flex-row bg-gray-50">
+        <div className="w-1/4 h-screen fixed top-0 left-0">
+          <HostSidebar />
+        </div>
+        <div className="w-full lg:pl-60 transition-all duration-300 flex items-center justify-center">
+          <p className="text-red-500">{error}</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen flex flex-col lg:flex-row bg-gray-50">
     {/* Sidebar - Hidden on mobile, visible on larger screens */}

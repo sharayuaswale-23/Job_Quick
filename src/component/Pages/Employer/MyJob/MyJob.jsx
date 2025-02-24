@@ -100,17 +100,12 @@ const MyJob = () => {
 
   if (error) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen p-6 text-center">
-        <h1 className="text-red-500 text-lg font-semibold">Error: {error}</h1>
-        <button
-          onClick={() => window.location.reload()}
-          className="bg-red-500 text-white px-6 py-2 rounded mt-4 hover:bg-red-600 transition shadow-md"
-        >
-          Retry
-        </button>
+      <div className="min-h-screen flex items-center justify-center bg-gray-500">
+        <p className="text-red-600 text-5xl">{error}</p>
       </div>
     );
   }
+
 
   return (
     <>

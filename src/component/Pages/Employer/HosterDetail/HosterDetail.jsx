@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import girl1 from "../../../../assets/Images/girl1.jpg";
 import girl2 from "../../../../assets/Images/girl2.jpg";
 import girl3 from "../../../../assets/Images/girl3.avif";
+import { Camera } from 'lucide-react';
 
 const HosterDetail = () => {
 
@@ -136,116 +137,156 @@ const HosterDetail = () => {
 
   return (
 
-<div className="flex min-h-screen p-4 lg:p-16 rounded-lg bg-white w-full flex-col md:flex-row">
-
-<div className="flex-1 flex rounded-l-lg bg-gray-100 justify-center items-center p-2 lg:p-4 w-full">
-  <div className="h-full flex my-6 items-center justify-center">
-    <div className="mx-auto py-10 p-2 md:p-4 rounded-lg w-full md:max-w-4xl h-full flex flex-col justify-center">
-      <h2 className="text-3xl font-bold text-black text-center text-transparent bg-green-600 hover:bg-green-800 bg-clip-text">
-        Hoster Details
-      </h2>
-      <form className="space-y-4 flex flex-col justify-center h-full" onSubmit={handleSubmit}>
-       
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Upload Profile Image</label>
-          <input type="file"
-            name="image"
-            accept="image/*"
-            onChange={handleChange}
-            className="block w-full border border-gray-300 rounded-lg shadow-sm py-1 px-2 focus:ring-blue-500 focus:border-blue-500 text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:font-semibold file:bg-green-600 file:text-white hover:file:opacity-90" />
-        </div>
-
-     
-        <div>
-          <label htmlFor="fullName" className="block text-sm font-medium text-gray-700">Full Name</label>
-          <input type="text" id="fullName" value={formData.fullName} onChange={handleChange} name="fullName" className="block w-full border border-gray-300 rounded-lg shadow-sm py-2 px-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm" placeholder="Enter your full name" />
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label className="">Gender</label>
-            <select
-              name="gender"
-              value={formData.gender}
-              onChange={handleChange}
-              className="block w-full border border-gray-300 rounded-lg shadow-sm py-2 px-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-            >
-              <option value="" disabled>Select your gender</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-              <option value="Other">Other</option>
-            </select>
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 p-4 lg:p-8">
+    <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-8 rounded-2xl overflow-hidden bg-white shadow-xl">
+      
+      {/* Form Section */}
+      <div className="flex-1 p-6 lg:p-8">
+        <div className="max-w-2xl mx-auto">
+          <div className="text-center mb-8 space-y-2">
+            <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
+              Hoster Details
+            </h1>
+            <p className="text-gray-500">Please fill in your information below</p>
           </div>
 
-          <div>
-            <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700">
-              Phone Number
-            </label>
-            <input
-              type="number"
+          <form className="space-y-6" onSubmit={handleSubmit}>
+            {/* Profile Image Upload */}
+            <div className="flex justify-center">
+              <div className="relative group">
+                <div className="w-32 h-32 rounded-full bg-gray-100 flex items-center justify-center border-2 border-dashed border-gray-300 group-hover:border-green-500 transition-colors">
+                  <Camera className="w-8 h-8 text-gray-400 group-hover:text-green-500 transition-colors" />
+                </div>
+                <input 
+                  type="file" 
+                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                  accept="image/*"
+                />
+                {/* <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 text-sm text-gray-500">
+                  Upload Photo
+                </div> */}
+              </div>
+            </div>
+
+            {/* Personal Information */}
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                <input 
+                 type="text" id="fullName" value={formData.fullName} onChange={handleChange} name="fullName"
+                  className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all"
+                  placeholder="Enter your full name"
+                />
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1"  name="gender"
+              value={formData.gender}
+              onChange={handleChange}>Gender</label>
+                  <select className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all bg-white">
+                    <option value="" disabled>Select gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                  <input 
+                 type="number"
               id="phoneNumber"
               name="phoneNumber"
               value={formData.phoneNumber}
               onChange={handleChange}
-              placeholder="Enter your phone number"
-              className="block w-full border border-gray-300 rounded-lg shadow-sm py-2 px-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-            />
-          </div>
-        </div>
+                    className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all"
+                    placeholder="Enter phone number"
+                  />
+                </div>
+              </div>
 
-      
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-          <div>
-            <label htmlFor="companyURL" className="block text-sm font-medium text-gray-700">Company URL</label>
-            <input type="url"
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Company URL</label>
+                  <input 
+                   type="url"
               id="companyURL"
               name="companyURL"
               value={formData.companyURL}
-              onChange={handleChange} className="block w-full border border-gray-300 rounded-lg shadow-sm py-2 px-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm" placeholder="Enter your company URL" />
-          </div>
-          <div>
-            <label htmlFor="city" className="block text-sm font-medium text-gray-700">City</label>
-            <input type="text" value={formData.city}
-              onChange={handleChange} id="city" name="city" className="block w-full border border-gray-300 rounded-lg shadow-sm py-2 px-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm" placeholder="Enter your city" />
-          </div>
-        </div>
+              onChange={handleChange} 
+                    className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all"
+                    placeholder="Enter company URL"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">City</label>
+                  <input 
+                    type="text" value={formData.city}
+                    onChange={handleChange} id="city" name="city" 
+                    className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all"
+                    placeholder="Enter city"
+                  />
+                </div>
+              </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label htmlFor="address" className="block text-sm font-medium text-gray-700">Address</label>
-            <input type="text" value={formData.address}
-              onChange={handleChange} id="address" name="address" className="block w-full border border-gray-300 rounded-lg shadow-sm py-2 px-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm" placeholder="Enter your address" />
-          </div>
-          <div>
-            <label htmlFor="state" className="block text-sm font-medium text-gray-700">State</label>
-            <input type="text" value={formData.state}
-              onChange={handleChange} id="state" name="state" className="block w-full border border-gray-300 rounded-lg shadow-sm py-2 px-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm" placeholder="Enter your state" />
-          </div>
-        </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Address</label>
+                <input 
+                 type="text" value={formData.address}
+              onChange={handleChange} id="address" name="address"
+                  className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all"
+                  placeholder="Enter address"
+                />
+              </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label htmlFor="pincode" className="block text-sm font-medium text-gray-700">PinCode</label>
-            <input type="number" value={formData.pincode}
-              onChange={handleChange} id="pincode" name="pincode" className="block w-full border border-gray-300 rounded-lg shadow-sm py-2 px-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm" placeholder="Enter your pincode" />
-          </div>
-          <div>
-            <label htmlFor="country" className="block text-sm font-medium text-gray-700">Country</label>
-            <input type="text" value={formData.country}
-              onChange={handleChange} id="country" name="country" className="block w-full border border-gray-300 rounded-lg shadow-sm py-2 px-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm" placeholder="Enter your country" />
-          </div>
-        </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">State</label>
+                  <input 
+                 type="text" value={formData.state}
+              onChange={handleChange} id="state" name="state"
+                    className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all"
+                    placeholder="Enter state"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Pincode</label>
+                  <input 
+                    type="number" value={formData.pincode}
+              onChange={handleChange} id="pincode" name="pincode"
+                    className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all"
+                    placeholder="Enter pincode"
+                  />
+                </div>
+              </div>
 
-        <button type="submit" className="w-full font-semibold bg-green-600 hover:bg-green-800 text-lg text-white rounded-md  focus:outline-none focus:ring-2 py-1 focus:ring-indigo-500 focus:ring-offset-2">Submit</button>
-      </form>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Country</label>
+                <input 
+                  type="text" value={formData.country}
+              onChange={handleChange} id="country" name="country"
+                  className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all"
+                  placeholder="Enter country"
+                />
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              className="w-full bg-gradient-to-r from-green-600 to-blue-600 text-white py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+            >
+              Submit Details
+            </button>
+          </form>
+        </div>
+      </div>
+
+      {/* Image Section */}
+      <div className="hidden lg:block w-1/2 bg-cover bg-center" style={{
+  backgroundImage: `url(${images[currentImageIndex]})`,
+}} />
     </div>
   </div>
-</div>
-
-
-<div className="hidden md:block w-1/2 bg-cover bg-center rounded-r-lg transition-all duration-1000" style={{
-  backgroundImage: `url(${images[currentImageIndex]})`,
-}}></div>
-</div>
 
 
 

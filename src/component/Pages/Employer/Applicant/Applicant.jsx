@@ -109,7 +109,9 @@ const Applicant = () => {
 
   return (
   <>
-  <Hostersidebar/>
+ <Hostersidebar/>
+  
+  
   <div className="min-h-screen pt-20 lg:pt-6 lg:ml-64 bg-gray-50 py-12 px-2 sm:px-4 lg:px-8">
   <div className="max-w-7xl mx-auto">
     <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">

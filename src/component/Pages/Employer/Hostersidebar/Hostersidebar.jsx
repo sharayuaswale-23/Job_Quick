@@ -78,7 +78,7 @@ function Hostersidebar() {
     <div>
    
     <button
-      className="lg:hidden fixed top-4 left-4 bg-green-600 text-white p-3 rounded-md shadow-lg z-50"
+      className="lg:hidden fixed top-4 left-4 bg-green-500 text-white p-2 rounded-md shadow-lg z-50"
       onClick={() => setIsOpen(!isOpen)}
     >
       <Menu className="w-6 h-6" />
