@@ -6,6 +6,7 @@ import Career from "./Career/Career";
 import TestimonialMarque from "../../Animation/TestimonialMarque/TestimonialMarque";
 import Header from "../../common/header/Header";
 import Footer from "../../common/Footer/Footer";
+import TopCompany from "./TopCompany/Topcompany";
 
 
 const Home = ()=> {
@@ -17,6 +18,7 @@ const Home = ()=> {
    <RecentJobs/>
    <Career/>
    <Categories/>
+   <TopCompany/>
    <Rules/>
    <TestimonialMarque/>
    <Footer/>

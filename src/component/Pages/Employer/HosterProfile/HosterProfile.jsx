@@ -182,7 +182,7 @@ const HosterProfile = () => {
       </div>
     </div>
   )}
-</div>
+       </div>
 
 
       </div>

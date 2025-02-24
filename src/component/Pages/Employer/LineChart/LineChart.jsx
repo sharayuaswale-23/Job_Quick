@@ -43,10 +43,17 @@ const LineChart = ({ jobs }) => {
   };
 
   useEffect(() => {
-    if (selectedJob) {
-      fetchGraphData(selectedJob);
+    if (jobs.length > 0) {
+      if (!selectedJob) {
+        setSelectedJob(jobs[0]._id);
+      } else {
+        fetchGraphData(selectedJob);
+      }
+    } else {
+      setSelectedJob("");
+      setGraphData({ labels: [], dataPoints: [] });
     }
-  }, [selectedJob]);
+  }, [jobs, selectedJob]);
 
   const fetchGraphData = async (jobId) => {
     setIsLoading(true);
@@ -178,7 +185,6 @@ const LineChart = ({ jobs }) => {
                          text-sm text-gray-700 focus:border-green-500 focus:ring-2 
                          focus:ring-green-200 outline-none transition-colors duration-200"
             >
-              <option value="">Select a job</option>
               {jobs.map((job) => (
                 <option key={job._id} value={job._id}>
                   {job.title}
@@ -188,7 +194,7 @@ const LineChart = ({ jobs }) => {
           </div>
         </div>
 
-        <div className="lg:relative w-full h-[350px] sm:h-[450px] bg-white rounded-lg">
+        <div className="lg:relative w-full h-[350px] sm:h-[420px] bg-white rounded-lg">
           {isLoading ? (
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="flex flex-col items-center space-y-2">

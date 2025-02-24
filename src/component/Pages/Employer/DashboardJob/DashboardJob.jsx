@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { AiOutlineUser } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import { XCircle } from 'lucide-react';
+import { BriefcaseIcon, PlusCircle } from 'lucide-react';
+import { Link } from "react-router-dom";
 
 const Dashboardjob = () => {
   const [jobs, setJobs] = useState([]);
@@ -62,23 +63,33 @@ const Dashboardjob = () => {
   <h2 className="text-2xl font-bold text-green-700 p-2 mb-4">Posted Jobs</h2>
 
   { jobs.length === 0 ? (
-    <div className="col-span-full flex flex-col items-center justify-center py-10 bg-gray-50 rounded-lg">
-      <svg 
-        xmlns="http://www.w3.org/2000/svg" 
-        className="h-12 w-12 text-gray-400 mb-4" 
-        fill="none" 
-        viewBox="0 0 24 24" 
-        stroke="currentColor"
-      >
-        <path 
-          strokeLinecap="round" 
-          strokeLinejoin="round" 
-          strokeWidth={1.5} 
-          d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" 
-        />
-      </svg>
-      <h3 className="text-lg font-medium text-gray-700 mb-1">No Jobs Posted Yet</h3>
-      <p className="text-gray-500 text-center">You haven't posted any job listings yet. Create your first job posting to start attracting qualified candidates.</p>
+    <div className="col-span-full h-48 w-full">
+      <div className="h-full w-full flex flex-col items-center justify-center gap-2 lg:gap-6 p-2 md:p-4">
+        {/* Icon and Title Section */}
+        <div className="flex items-center gap-3">
+          <div className="p-2 bg-green-100 rounded-full">
+            <BriefcaseIcon className="w-6 h-6 text-green-600" />
+          </div>
+          <h3 className="text-lg font-semibold text-gray-800">
+            No Jobs Posted Yet
+          </h3>
+        </div>
+
+        {/* Description and CTA Section */}
+        <div className="flex flex-col items-center gap-4">
+          <p className="text-gray-600 text-center text-sm lg:max-w-md">
+            Create your first job posting to start attracting qualified candidates
+          </p>
+          
+          <Link 
+            to="/jobposting" 
+            className="inline-flex items-center gap-2 bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors duration-200 whitespace-nowrap"
+          >
+            <PlusCircle className="w-4 h-4" />
+            Post Job
+          </Link>
+        </div>
+      </div>
     </div>
   ) : (
     <div className="w-full  lg:max-w-lg">

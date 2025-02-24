@@ -25,51 +25,31 @@ const Table = () => {
         year: "numeric",
         month: "short",
         day: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
+       
       }),
-      company: "TechCorp",
-      position: "Frontend Developer",
-      type: "Full-time",
-      contact: "+1 (555) 000-0000",
-      status: "Shortlisted",
-      applicantName: "John Smith",
-      logo: "blue",
+      company: "---",
+      position: "---",
+      type: "---",
+      contact: "---",
+      status: "---",
+      applicantName: "---",
     },
     {
       date: new Date().toLocaleDateString("en-US", {
         year: "numeric",
         month: "short",
         day: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
+       
       }),
-      company: "DataSystems",
-      position: "Data Analyst",
-      type: "Remote",
-      contact: "+1 (555) 000-0001",
-      status: "Under Review",
-      applicantName: "Emma Wilson",
-      logo: "purple",
+      company: "---",
+      position: "---",
+      type: "---",
+      contact: "---",
+      status: "---",
+      applicantName: "---",
     },
-    {
-      date: new Date().toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-      }),
-      company: "DesignHub",
-      position: "UI/UX Designer",
-      type: "Part-time",
-      contact: "+1 (555) 000-0002",
-      status: "Shortlisted",
-      applicantName: "Michael Brown",
-      logo: "emerald",
-    },
+   
   ];
-
   const fetchApplications = async (page = 1) => {
     setLoading(true);
     try {
