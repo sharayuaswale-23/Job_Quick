@@ -1,53 +1,65 @@
 import React from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import logo from "../../../../assets/Images/companylogo.jpg";
 
-const RecentJobs = () => {
+const RecentJobs = (job) => {
+
+  const [searchInput, setSearchInput] = useState("");
+  const navigate = useNavigate();
+
+  const handleSearch = (jobTitle) => {
+    setSearchInput(jobTitle); // Update the search input state
+    navigate(`/category?title=${encodeURIComponent(jobTitle)}`);
+  };
+
+
   const jobs = [
     {
-      title: "FRONT END DEVELOPER",
-      company: "TCS",
-      location: "NAGPUR",
+      title: "DEVOPS ENGINEER",
+      company: "DevOps Edge Solutions",
+      location: "Seattle, USA",
       proposals: "Apply",
       posted: "2 days ago",
       logo: logo,
     },
     {
-      title: "Backend Developer",
-      company: "AnkHub Technology",
-      location: "Nagpur",
+      title: "DATA SCIENTIST",
+      company: "Microsoft",
+      location: "Redmond, WA, USA",
       proposals: "Apply",
       posted: "5 days ago",
       logo: logo,
     },
     {
-      title: "SALES",
-      company: "MICROSOFT",
-      location: "MUMBAI",
+      title: "CLOUD SOLUTIONS ARCHITECT",
+      company: "Meta",
+      location: "Menlo Park, CA, USA",
       proposals: "Apply",
       posted: "1 week ago",
       logo: logo,
     },
     {
-      title: "Front End Developer",
-      company: "FLIPkART",
-      location: "Nagpur",
+      title: "CYBERSECURITY ENGINEER",
+      company: "Amazon",
+      location: "Seattle, WA, USA",
       proposals: "Apply",
       posted: "3 days ago",
       logo: logo,
     },
     {
-      title: "AI & Research",
-      company: "GOOGLE",
-      location: "NOIDA",
+      title: "CLOUD ENGINEER",
+      company: "TCS",
+      location: "Mumbai",
       proposals: "Apply",
       posted: "4 days ago",
       logo: logo,
     },
     {
-      title: "Sales Executive",
-      company: "Infinix Mobility",
-      location: "Mumbai",
+      title: "TAX ANALYST",
+      company: "TaxMaster Consultants",
+      location: "New Delhi",
       proposals: "Apply",
       posted: "2 weeks ago",
       logo: logo,
@@ -85,7 +97,7 @@ const RecentJobs = () => {
               <div className="flex justify-between items-center mt-4">
                 <span className="text-sm text-gray-500">{job.posted}</span>
                 <span className="text-sm bg-green-100 text-green-600 px-4 py-2 rounded-full">
-                 <Link to="/category"> {job.proposals}</Link>
+                 <button onClick={() => handleSearch(job.company)}>{job.proposals}</button>
                 </span>
               </div>
             </div>

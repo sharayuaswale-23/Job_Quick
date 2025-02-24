@@ -39,8 +39,8 @@ const Login = () => {
       }
 
       if (data.token && data.userId) {
-        Cookies.set("userToken", data.token, { expires: 8 });
-        Cookies.set("userNewId", data.userId, { expires: 8 });
+        Cookies.set("userToken", data.token, { expires: 1 });
+        Cookies.set("userNewId", data.userId, { expires: 1 });
         setIsAuthorized(true);
         setSuccess("Login successful!");
         navigate("/");
