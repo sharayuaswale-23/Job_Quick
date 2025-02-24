@@ -1,9 +1,14 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Navigation, Pagination } from "swiper/modules";
+import {  Navigation } from "swiper/modules";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { Search, MapPin, Clock } from 'lucide-react';
+import amazon from "../../../../assets/Images/amazon.webp";
+import AMD from "../../../../assets/Images/AMD.webp";
+import Flipkart from "../../../../assets/Images/Flipkart.avif";
+import Zomato from "../../../../assets/Images/zomato.png";
+import Infosys from "../../../../assets/Images/Infosys.png";
+import TCS from "../../../../assets/Images/TCS.webp";
 import { Briefcase, ChevronLeft, ChevronRight } from 'lucide-react';
 
 import "swiper/css";
@@ -16,33 +21,27 @@ const TopCompany = () => {
   
   const jobs = [
     {
-      image:
-        "https://media.wired.com/photos/5926aae5f3e2356fd800a0e8/master/pass/amazon-logo.jpg",
+      image:amazon,
       title: "Amazon",
     },
     {
-      image:
-        "https://imageio.forbes.com/specials-images/imageserve/657299f9c6898fd9524d546c/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds",
+      image:AMD,
       title: "AMD",
     },
     {
-      image:
-        "https://images.yourstory.com/cs/2/220356402d6d11e9aa979329348d4c3e/Flipkart-1582211499554.jpg?mode=crop&crop=faces&ar=2%3A1&format=auto&w=1920&q=75",
+      image:Flipkart,
       title: "Flipkart",
     },
     {
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBIoIr2Y33v0IdprP2CEPnEU07j1IPUUyjnw&s",
+      image:Zomato,
       title: "Zomato",
     },
     {
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSG-mTOvpR2vZqrFGr65sUgVRPJhX5F7VBIBg&s",
+      image:Infosys,
       title: "Infosys",
     },
     {
-      image:
-        "https://worktheater.com/wp-content/uploads/2023/04/tcs-business-model.png.webp",
+      image:TCS,
       title: "TCS",
     },
   ];
@@ -63,7 +62,7 @@ const TopCompany = () => {
 
     <>
 
-<div className="min-h-screen bg-gradient-to-b from-gray-50 to-white p-6">
+<div className="min-h-screen bg-gray-50 p-6">
       {/* Hero Section */}
       <div className="relative max-w-7xl mx-auto text-center">          
       <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-50 mb-8">             
@@ -96,7 +95,7 @@ const TopCompany = () => {
           {jobs.map((job, index) => (
             <SwiperSlide key={index}>
               <div 
-                className="group relative overflow-hidden rounded-xl bg-white shadow-lg transition-all duration-300 hover:shadow-xl"
+                className="group relative overflow-hidden rounded-xl border-gray-50 bg-white shadow-lg transition-all duration-300 hover:shadow-xl"
                 onClick={() => handleTitleClick(job.title)}
               >
                 {/* Image Container */}
