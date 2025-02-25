@@ -60,7 +60,7 @@ const HosterLogin = () => {
   return (
 
 
-    <div className="flex h-screen items-center justify-center bg-gray-100 p-4 relative overflow-hidden">
+    <div className="flex h-screen items-center justify-center bg-gray-100  p-4 relative overflow-hidden">
     <div className="flex w-full max-w-4xl overflow-hidden rounded-2xl bg-white shadow-lg md:flex-row flex-col">
       {/* Left section - hidden on mobile */}
       <div className="hidden md:flex w-full md:w-1/2 flex-col items-center justify-center bg-gradient-to-r from-green-400 to-teal-500 p-8 text-white relative">

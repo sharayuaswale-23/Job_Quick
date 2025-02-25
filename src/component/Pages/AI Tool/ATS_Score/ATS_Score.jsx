@@ -188,21 +188,27 @@ const ATS_Score = () => {
                   <h3 className="text-lg font-bold text-yellow-700">Suggestions for Improvement</h3>
                 </div>
                 <div className="mt-3 overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-yellow-300 scrollbar-track-transparent scrollbar-hide scrollbar-rounded flex-1 max-h-64">
-                  {result.feedback.map((suggestion, index) => {
-                    const formattedSuggestion = suggestion
-                      .replace(/(?:\*\*)(.*?)(?:\*\*)/g, "<strong class='text-yellow-900'>$1</strong>")
-                      .replace(/\*/g, "");
+                {result.feedback.map((suggestion, index) => {
+                  const formattedSuggestion = suggestion
+  .replace(/(?:\*\*)(.*?)(?:\*\*)/g, "<strong class='text-yellow-900'>$1</strong>")
+  .replace(/\*/g, "")
+  // Add a new line before any bold header text that will have a bullet
+  .replace(/<strong class='text-yellow-900'>(.*?)<\/strong>/g, "<br/><br/><strong class='text-yellow-900'>$1</strong>")
+  // Format bullet points with bold headers (now already on new lines)
+  .replace(/•\s*(.*?):/g, "• <strong>$1:</strong>")
+  // Format numerical subpoints with bold headers but without displaying the numbers
+  .replace(/(\d+)\.\s*(.*?):/g, "<br/><br/><strong>$2:</strong>")
 
-                    return (
-                      <div 
-                        key={index} 
-                        className="text-md text-yellow-800 mb-4 pb-3 border-b border-yellow-200 last:border-0 hover:bg-yellow-100/50 p-2 rounded-lg transition-colors"
-                      >
-                        <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-yellow-300 text-yellow-800 font-bold text-sm mr-3 shadow-sm">{index + 1}</span>
-                        <span dangerouslySetInnerHTML={{ __html: formattedSuggestion }}></span>
-                      </div>
-                    );
-                  })}
+  return (
+    <div
+      key={index}
+      className="text-md text-yellow-800 mb-4 pb-3 border-b border-yellow-200 last:border-0 hover:bg-yellow-100/50 p-2 rounded-lg transition-colors"
+    >
+      {/* <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-yellow-300 text-yellow-800 font-bold text-sm mr-3 shadow-sm">{index + 1}</span> */}
+      <span dangerouslySetInnerHTML={{ __html: formattedSuggestion }}></span>
+    </div>
+  );
+})}
                 </div>
               </div>
             )}

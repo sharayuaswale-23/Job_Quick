@@ -34,29 +34,32 @@ const JobDetail = () => {
   const jobDetailsAPI = `https://jobquick.onrender.com/job/${id}`;
   const jobApplyAPI = `https://jobquick.onrender.com/applicants`;
   const userProfileApi = `https://jobquick.onrender.com/seekuser/${userId}`;
-  const checkApplicationAPI = `https://jobquick.onrender.com/applicants/check/<span class="math-inline">\{id\}/</span>{userId}`;
-
-  const checkApplicationStatus = async () => {
-    try {
-      const response = await axios.get(checkApplicationAPI, {
-        headers: { Authorization: `Bearer ${jobToken}` },
-      });
-      return !!(response.data && response.data.hasApplied);
-    } catch (error) {
-      console.error("Error checking application status:", error);
-      return false;
-    }
-  };
+  const checkApplyApi = `https://jobquick.onrender.com/applicants/check?jobId=${id}&applicantId=${userId}`;
 
   useEffect(() => {
     const fetchAllData = async () => {
       setIsLoading(true);
       try {
-        await checkApplicationStatus();
-        const response = await axios.get(jobDetailsAPI, {
-          headers: { Authorization: `Bearer ${jobToken}` },
+        // Check if user has already applied
+        const appliedResponse = await axios.get(checkApplyApi, {
+          headers: {
+            Authorization: `Bearer ${jobToken}`,
+          },
         });
-        setJobData(response.data);
+        
+        if (appliedResponse.data && appliedResponse.data.applied) {
+          setHasApplied(true);
+        }
+        
+        const response = await axios.get(jobDetailsAPI, {
+          headers: {
+            Authorization: `Bearer ${jobToken}`,
+          },
+        });
+
+        if (response.data) {
+          setJobData(response.data);
+        }
       } catch (error) {
         console.error("Error fetching data:", error);
         setError("Failed to load job details.");
@@ -64,31 +67,44 @@ const JobDetail = () => {
         setIsLoading(false);
       }
     };
+
     fetchAllData();
-  }, [id, jobToken]);
+  }, [id, jobToken, checkApplyApi]);
 
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
         const response = await axios.get(userProfileApi, {
-          headers: { Authorization: `Bearer ${jobToken}` },
+          headers: {
+            Authorization: `Bearer ${jobToken}`,
+          },
         });
-        setProfile(response.data);
+
+        if (response.data) {
+          setProfile(response.data);
+        }
       } catch (error) {
         console.error("Error fetching profile:", error);
         setError("Failed to load seeker details.");
       }
     };
+
     fetchUserProfile();
   }, [userProfileApi, jobToken]);
 
   const isProfileComplete = () => {
     if (!profile) return false;
-    const requiredFields = ['fullName', 'city', 'phoneNumber', 'gender'];
-    const missingFields = requiredFields.filter(field => !profile[field]);
+
+    const requiredFields = ["fullName", "city", "phoneNumber", "gender"];
+    const missingFields = requiredFields.filter((field) => !profile[field]);
+
     if (missingFields.length > 0) {
-      const formattedFields = missingFields.map(field => field.replace(/([A-Z])/g, ' $1').toLowerCase()).join(', ');
-      setModalMessage(`Please complete your profile. Missing fields: ${formattedFields}`);
+      const formattedFields = missingFields
+        .map((field) => field.replace(/([A-Z])/g, " $1").toLowerCase())
+        .join(", ");
+      setModalMessage(
+        `Please complete your profile. Missing fields: ${formattedFields}`
+      );
       return false;
     }
     return true;
@@ -100,18 +116,28 @@ const JobDetail = () => {
       return;
     }
 
-    setIsLoading(true);
     try {
-      const response = await axios.post(jobApplyAPI, { jobId: id, applicantId: userId }, {
-        headers: { Authorization: `Bearer ${jobToken}` },
-      });
-      setHasApplied(true);
-      setShowSuccessModal(true);
-      localStorage.setItem(`job-${id}-applied`, 'true');
+      setIsLoading(true);
+      const response = await axios.post(
+        jobApplyAPI,
+        {
+          jobId: id,
+          applicantId: userId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${jobToken}`,
+          },
+        }
+      );
+
+      if (response.data) {
+        setHasApplied(true);
+        setShowSuccessModal(true);
+      }
     } catch (error) {
       if (error.response?.status === 400) {
         setHasApplied(true);
-        localStorage.setItem(`job-${id}-applied`, 'true');
       } else {
         console.error("Error applying for job:", error);
       }
@@ -120,27 +146,14 @@ const JobDetail = () => {
     }
   };
 
-  useEffect(() => {
-    if (localStorage.getItem(`job-${id}-applied`) === 'true') {
-      setHasApplied(true);
-    }
-  }, [id]);
-
-
   if (error) {
-    return <div className="min-h-screen flex items-center justify-center bg-gray-100"><p className="text-red-600 text-lg">{error}</p></div>;
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-100">
+        <p className="text-red-600 text-lg">{error}</p>
+      </div>
+    );
   }
 
-  if (!jobData || isLoading) {
-    return <div className="min-h-screen flex items-center justify-center bg-gray-100"><p className="text-gray-600 text-lg">Loading job details...</p></div>;
-  }
-
-  const JobDetailSection = ({ title, children }) => (
-    <div className="bg-white rounded-lg shadow p-6 mb-6">
-      <h2 className="text-xl font-semibold text-gray-900 mb-4">{title}</h2>
-      {children}
-    </div>
-  );
 
   const KeyMetric = ({ icon: Icon, label, value }) => (
     <div className="bg-gray-100 p-4 rounded-lg shadow">
@@ -157,7 +170,13 @@ const JobDetail = () => {
   return (
     <>
       <Header />
-      <div className="min-h-screen bg-gradient-to-r bg-gray-200 py-8 px-4 sm:px-6 lg:px-8 mt-14">
+      {!jobData || isLoading ? (
+        <div className="min-h-screen flex items-center justify-center bg-gray-100">
+          <p className="text-gray-800 text-1xl">Loading job details...</p>
+        </div>
+      ) :(
+        <>
+         <div className="min-h-screen bg-gradient-to-r bg-gray-200 py-8 px-4 sm:px-6 lg:px-8 mt-14">
         <div className="max-w-7xl mx-auto">
           <div className="bg-white rounded-3xl shadow-lg overflow-hidden mb-8">
             <div className="px-6 py-8 sm:px-10 sm:py-12 flex flex-col md:flex-row items-center justify-between">
@@ -171,7 +190,7 @@ const JobDetail = () => {
 
                 {/* Text Section */}
                 <div>
-                  <h1 className="text-4xl font-bold text-gray-900 mb-2 text-center md:text-left">{jobData.title}</h1>
+                  <h1 className="text-4xl font-bold text-gray-900 mb-2 text-center md:text-left"> {jobData.title}</h1>
                   <p className="text-xl text-indigo-500 text-center md:text-left font-semibold">{jobData.companyName}</p>
                 </div>
               </div>
@@ -411,6 +430,10 @@ const JobDetail = () => {
           </div>
         </div>
       )}
+      </>
+      )
+      }
+     
       <Footer />
     </>
   );
